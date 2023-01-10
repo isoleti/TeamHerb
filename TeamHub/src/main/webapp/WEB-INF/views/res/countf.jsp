@@ -57,7 +57,7 @@
             <h2>결제가 정상적으로 완료되었습니다.</h2>
             <p>상담 예약일시는 입니다. 예약 날짜에 유의하세요</p>
             <p>결제 금액 원</p>
-            <button class="btn btn-outline-success" onclick="location.href='href=<%=request.getContextPath()%>/'">홈으로 돌아가기</button>
+            <button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/'">홈으로 돌아가기</button>
         </div>
     </main>
     <footer> <!-- footer -->
