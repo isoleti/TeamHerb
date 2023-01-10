@@ -133,23 +133,23 @@
                     </tr>
                     <tr>
                         <td>15~18시</td>
-                        <td><a href=""></a></td>
-                        <td><a href=""></a></td>
-                        <td><a href=""></a></td>
-                        <td><a href=""></a></td>
-                        <td><a href=""></a></td>                        
-                        <td><a href=""></a></td>
-                        <td><a href=""></a></td>
+                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
+                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
+                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
+                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
+                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>                        
+                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
+                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
                     </tr>
                     <tr>
                         <td>18~21시</td>
-                        <td><a href=""></a></td>
-                        <td><a href=""></a></td>
-                        <td><a href=""></a></td>
-                        <td><a href=""></a></td>
-                        <td><a href=""></a></td>                        
-                        <td><a href=""></a></td>
-                        <td><a href=""></a></td>
+                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
+                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
+                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
+                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
+                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>                        
+                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
+                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
                     </tr>
                 </table>
             </div><!-- fin 상담사 일정-->
