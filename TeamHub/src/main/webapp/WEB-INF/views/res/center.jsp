@@ -274,7 +274,7 @@
               </div>           
         </div>
         <h2>오시는 길</h2>
-       <div id="map" style="width:500px;height:400px;"></div>	
+       <div id="map" style="width:550px;height:400px;"></div>	
        		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=387e40e57d47d09b22e39f6b21c6fd82"></script>		
 			<script>
 				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
