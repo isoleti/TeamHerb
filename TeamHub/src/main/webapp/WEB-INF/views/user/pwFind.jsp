@@ -119,8 +119,8 @@
 			</div><!--logo-->
 			<form id="frm">
 				<ul>
-					<li><p id="idcheck"><a href="<%=request.getContextPath() %>/user/idFind.do">아이디찾기</a></p></li>
-					<li><p id="pwcheck"><a href="<%=request.getContextPath() %>/user/pwFind.do">비밀번호 찾기</a></p></li>
+					<li><a href="<%=request.getContextPath() %>/user/idFind.do"><p id="idcheck">아이디찾기</p></a></li>
+					<li><a href="<%=request.getContextPath() %>/user/pwFind.do"><p id="pwcheck">비밀번호 찾기</p></a></li>
 				</ul>
 				<input type="text" id="id" name="id" autocomplete="off" required placeholder="아이디를 입력해주세요." >
 				<br>
