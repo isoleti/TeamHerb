@@ -40,7 +40,7 @@
         main #faq{width:50%; margin-left:13%; margin-bottom:5%;}
         main #faq .faqmenu{width:15%; height:40px;display:inline-block; margin:0; margin-left:-3px; margin-right:-3px; border:1px solid #000; text-align:center;}
         main #faq .accordion  .accordion-button{width:100%;}
-        main #map{width:50%; margin-left:13%; }
+        main #map{margin-left:25%; }
         main .cal .table-striped{width:80%; height:100px; margin:auto;}
         main .cal .table-striped tr{margin-top:3%;  margin-bottom:3%;}
     </style>
@@ -274,10 +274,17 @@
               </div>           
         </div>
         <h2>오시는 길</h2>
-        <div id="map">
-            <p>주소 내용</p>
-            카카오지도 들어갈 예정
-        </div>
+       <div id="map" style="width:500px;height:400px;"></div>	
+       		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=387e40e57d47d09b22e39f6b21c6fd82"></script>		
+			<script>
+				var container = document.getElementById('map');
+				var options = {
+					center: new kakao.maps.LatLng(33.450701, 126.570667),
+					level: 3
+				};
+		
+				var map = new kakao.maps.Map(container, options);
+			</script>           	
     </main>
     <footer> <!-- footer -->
         <div id="bottom">   

@@ -71,7 +71,16 @@
         <input class="btn btn-outline-success" type="button" value="검색">
         </form>
         <div id="map" style="width:950px;height:400px;"></div>
-        
+        	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=387e40e57d47d09b22e39f6b21c6fd82"></script>		
+			<script>
+				var container = document.getElementById('map');
+				var options = {
+					center: new kakao.maps.LatLng(33.450701, 126.570667),
+					level: 3
+				};
+		
+				var map = new kakao.maps.Map(container, options);
+			</script>    
         <div class="center" onclick="location.href='<%=request.getContextPath()%>/res/center.do'">
             <p>상담사 : </p>
             <p>상담사 등급 : </p>
