@@ -155,7 +155,7 @@
             <div id="res"> <!--상담예약-->
                 <h2>상담 예약</h2>
                 <div>
-                    <p><a href="">상담 예약하기</a></p>   
+                    <p><a href="<%=request.getContextPath()%>/res/findcenter.do">상담 예약하기</a></p>   
                     <p>예약순서</p>                 
                     <p>1.상담 선택</p>                 
                     <p>2.상담사 선택</p>                 
