@@ -5,6 +5,7 @@
 
 	<typeAliases>
 		<typeAlias type="project.healingcamp.vo.ReserveVO" alias="ReserveVO"/>
+		<typeAlias type="project.healingcamp.vo.UserVo" alias="UserVo"/>
 	</typeAliases>
 
 
