@@ -29,7 +29,7 @@ public class UserController {
 		System.out.println("vo : " + vo.toString());
 		
 		UserVo loginVo = userService.login(vo);
-		System.out.println("loginVo"+loginVo.toString());
+		
 			if(loginVo ==null) {
 				return "user/login";
 			} else{
@@ -46,15 +46,19 @@ public class UserController {
 	}
 	
 	
-	
 	@RequestMapping(value="/joinCounselor.do", method=RequestMethod.GET)
 	public String joinCounselor() {
 	      
 	  return "user/joinCounselor";
 	}
 	
-	@RequestMapping(value="/idpwFind.do", method=RequestMethod.GET)
+	@RequestMapping(value="/idFind.do", method=RequestMethod.GET)
 	public String idpwFind() {
-		return "user/idpwFind";
+		return "user/idFind";
+	}
+	
+	@RequestMapping(value="/pwFind.do", method=RequestMethod.GET)
+	public String pwFind() {
+		return "user/pwFind";
 	}
 }
