@@ -70,7 +70,7 @@
         <input type="text">
         <input class="btn btn-outline-success" type="button"  value="검색">
         </form>
-        <div id="map" style="width:950px;height:400px;"></div>
+        <div id="map" style="width:550px;height:400px;"></div>
         	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=387e40e57d47d09b22e39f6b21c6fd82"></script>		
 			<script>
 				var container = document.getElementById('map');
