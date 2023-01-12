@@ -7,8 +7,8 @@ public class Community_BoardVO {
 	private String content;
 	private String wdate;
 	private String id;
-	private int hid;
-	private int like;
+	private int hit;
+	private int likes;
 	private String delyn;
 	private String category;
 	private String filename;
@@ -46,17 +46,17 @@ public class Community_BoardVO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public int getHid() {
-		return hid;
+	public int getHit() {
+		return hit;
 	}
-	public void setHid(int hid) {
-		this.hid = hid;
+	public void setHit(int hit) {
+		this.hit = hit;
 	}
-	public int getLike() {
-		return like;
+	public int getLikes() {
+		return likes;
 	}
-	public void setLike(int like) {
-		this.like = like;
+	public void setLikes(int likes) {
+		this.likes = likes;
 	}
 	public String getDelyn() {
 		return delyn;
@@ -98,7 +98,7 @@ public class Community_BoardVO {
 	@Override
 	public String toString() {
 		return "Community_BoardVO [bidx=" + bidx + ", title=" + title + ", content=" + content + ", wdate=" + wdate
-				+ ", id=" + id + ", hid=" + hid + ", like=" + like + ", delyn=" + delyn + ", category=" + category
+				+ ", id=" + id + ", hit=" + hit + ", likes=" + likes + ", delyn=" + delyn + ", category=" + category
 				+ ", filename=" + filename + ", report=" + report + ", ip=" + ip + ", boardtype=" + boardtype + "]";
 	}
 	

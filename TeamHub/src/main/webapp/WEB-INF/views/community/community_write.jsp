@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -78,7 +79,12 @@
 </head>
 <body>
     <header>        
-        <div><p><a href="">로그인</a></p><p><a href="">회원가입</a></p><p><a href="">고객센터</a></p></div>
+        <c:if test="${login == null }">
+	        <div><p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p><p><a href="">회원가입</a></p><p><a href="">고객센터</a></p></div>
+    	</c:if>
+    	<c:if test="${login != null }">
+	        <div><p><a href="<%=request.getContextPath() %>/user/logout.do">로그아웃</a></p><p><a href="">마이페이지</a></p><p><a href="">고객센터</a></p></div>
+    	</c:if>
         <nav class="navbar" style="background-color: #dff6e1;">
             <h1><a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/upload/힐링캠프 logo.png"  alt="홈버튼"></a></h1>
             <a href="<%=request.getContextPath()%>/program.do">치료프로그램</a>
@@ -91,36 +97,36 @@
     </header>
     <main>
         <div id="form_wrapper">
-            <form id="select_form">
+            <form id="select_form" action="community_write.do" method="post">
                 <div id="category_wrapper">
-                    <select id="category_type">
-                        <option>육아</option>
-                        <option>취업/진로</option>
-                        <option>연애</option>
-                        <option>대인관계</option>
-                        <option>가족</option>
-                        <option>학업</option>
-                        <option>중독</option>
-                        <option selected>자유</option>
-                        <option>이별/이혼</option>
-                        <option>따돌림</option>
-                        <option>정신건강</option>
-                        <option>투병</option>
-                        <option>신체</option>
-                        <option>LGBT</option>
-                        <option>직장</option>
+                    <select id="category_type" name="categotyType">
+                        <option value="parenting">육아</option>
+                        <option value="employment">취업/진로</option>
+                        <option value="involvement">연애</option>
+                        <option value="realation">대인관계</option>
+                        <option value="family">가족</option>
+                        <option value="study">학업</option>
+                        <option value="poisoning">중독</option>
+                        <option value="free" selected>자유</option>
+                        <option value="parting">이별/이혼</option>
+                        <option value="outcast">따돌림</option>
+                        <option value="mentalHealth">정신건강</option>
+                        <option value="struggle">투병</option>
+                        <option value="physical">신체</option>
+                        <option value="LGBT">LGBT</option>
+                        <option value="work">직장</option>
                     </select><!--e:#category_type-->
                 </div><!--e:#category_wrapper-->
                 <div id="checkbox_wrapeer">
-                    <input type="checkbox" name="hide_name"><label>익명작성여부</label>
+                    <input type="checkbox" name="id" value="익명"><label>익명작성여부</label>
                 </div><!--e:#check_box-->
             </form>
         </div><!--e:#form_wrapper-->
 
         <div id="write_form_wrapper">
-            <form id="write_form">
+            <form id="write_form" action="community_write.do" method="post">
                 <div id="title_wrapper">
-                    <input id="title" type="text" placeholder="제목을 입력하세요.">
+                    <input id="title" type="text" name="title" placeholder="제목을 입력하세요.">
                 </div><!--e:#title_wrapper-->
                 <div id="content_wrapper">
                     <textarea id="content" name="content"></textarea>
