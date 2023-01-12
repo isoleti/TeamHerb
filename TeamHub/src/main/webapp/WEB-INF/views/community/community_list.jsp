@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="java.util.*" %>
+<%@ page import="project.healingcamp.vo.Community_BoardVO" %>
+<% List<Community_BoardVO> list = (List<Community_BoardVO>)request.getAttribute("datalist"); %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -187,12 +192,13 @@
 
         <div id="search">
             <div id="search_wrapper">
-                <form>
+                <form action="community_list.do" method="get">
                     <select name="searchType" id="searchType">
-                        <option>제목</option>
-                        <option>작성자</option>
+                        <option value="title" <c:if test="${param.searchType eq 'title'}" >selected</c:if>>제목</option>
+                        <option value="content" <c:if test="${param.searchType eq 'content'}" >selected</c:if>>내용</option>
+                        <option value="id" <c:if test="${param.searchType eq 'id'}">selected</c:if>>작성자</option>
                     </select>
-                    <input type="text" name="searchVal" id="searchVal">
+                    <input type="text" name="searchVal" id="searchVal" value="${param.searchVal}">
                     <button id="search_btn">검색</button>
                     <button id="write_btn" type="button" onclick="location.href='<%=request.getContextPath()%>/community/community_write.do'">작성하기</button>
                 </form>
@@ -206,93 +212,30 @@
             </div><!--e:#filter-->
         </div><!--e:#search-->
         <div class="community_wrapper">
+            <c:forEach items="${datalist}" var="vo">
             <div class="community">
                 <div class="story">
-                    <div class="category_name">고민유형</div>
-                    <div class="write_day">2023-01-02</div>
+                    <div class="category_name">${vo.category}</div>
+                    <c:set var="wdate" value="${vo.wdate }"/><!-- 년월일시만 노출하기 위해 wdate 변수설정 -->
+                    <div class="write_day">${fn:substring(wdate,0,11)}</div>
                 </div><!--e:.story-->
                 <div class="main">
-                    <div class="title"><a href="">제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목</a></div>
-                    <div class="content"><a href="">내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</a></div>
+                    <div class="title"><a href="community_view.do?bidx=${vo.bidx}">${vo.title}</a></div>
+                    <div class="content"><a href="community_view.do?bidx=${vo.bidx}">${vo.content}</a></div>
                 </div><!--e:.main-->
                 <div class="footer">
                     <div class="reaction">
                         <div class="empathy_wrapper">
                             <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감">
                         </div><!--e:#empathy_wrapper-->
-                        <div class="like">n명이 공감</div>
+                        <div class="like">${vo.hit }명이 공감</div>
                         <div class="reply">댓글 n개</div>
-                        <div class="hit">조회수 n</div>
+                        <div class="hit">조회수 ${vo.likes }</div>
                     </div><!--e:.reaction-->
-                    <div class="user_id">작성자</div>
+                    <div class="user_id">${vo.id }</div>
                 </div><!--e:.footer-->
             </div><!--e:.community-->
-    
-            <div class="community">
-                <div class="story">
-                    <div class="category_name">고민유형</div>
-                    <div class="write_day">2023-01-02</div>
-                </div><!--e:.story-->
-                <div class="main">
-                    <div class="title"><a href="">제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목</a></div>
-                    <div class="content"><a href="">내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</a></div>
-                </div><!--e:.main-->
-                <div class="footer">
-                    <div class="reaction">
-                        <div class="empathy_wrapper">
-                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감">
-                        </div><!--e:.empathy_wrapper-->
-                        <div class="like">n명이 공감</div>
-                        <div class="reply">댓글 n개</div>
-                        <div class="hit">조회수 n</div>
-                    </div><!--e:.reaction-->
-                    <div class="user_id">작성자</div>
-                </div><!--e:.footer-->
-            </div><!--e:.community-->
-
-            <div class="community">
-                <div class="story">
-                    <div class="category_name">고민유형</div>
-                    <div class="write_day">2023-01-02</div>
-                </div><!--e:.story-->
-                <div class="main">
-                    <div class="title"><a href="">제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목</a></div>
-                    <div class="content"><a href="">내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</a></div>
-                </div><!--e:.main-->
-                <div class="footer">
-                    <div class="reaction">
-                        <div class="empathy_wrapper">
-                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감">
-                        </div><!--e:#empathy_wrapper-->
-                        <div class="like">n명이 공감</div>
-                        <div class="reply">댓글 n개</div>
-                        <div class="hit">조회수 n</div>
-                    </div><!--e:.reaction-->
-                    <div class="user_id">작성자</div>
-                </div><!--e:.footer-->
-            </div><!--e:.community-->
-    
-            <div class="community">
-                <div class="story">
-                    <div class="category_name">고민유형</div>
-                    <div class="write_day">2023-01-02</div>
-                </div><!--e:.story-->
-                <div class="main">
-                    <div class="title"><a href="">제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목</a></div>
-                    <div class="content"><a href="">내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</a></div>
-                </div><!--e:.main-->
-                <div class="footer">
-                    <div class="reaction">
-                        <div class="empathy_wrapper">
-                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감">
-                        </div><!--e:.empathy_wrapper-->
-                        <div class="like">n명이 공감</div>
-                        <div class="reply">댓글 n개</div>
-                        <div class="hit">조회수 n</div>
-                    </div><!--e:.reaction-->
-                    <div class="user_id">작성자</div>
-                </div><!--e:.footer-->
-            </div><!--e:.community-->
+            </c:forEach>
         </div><!--e:.community_wrapper-->
 
         <!--부트스트랩 페이지네이션-->

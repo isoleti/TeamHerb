@@ -53,6 +53,7 @@
         #write_info_wrapper #write_info li{
         padding:0 7px;
         font-size: 14px;;
+        list-style:none;
         }
         #write_info_wrapper #write_info li:nth-child(2){
         border-left:2px solid silver;
@@ -75,6 +76,7 @@
         .reply_info_wrapper .reply_info li{
         padding:0 7px;
         font-size:13px;
+        list-style:none;
         }
         .reply_info_wrapper .reply_info li:not(:last-of-type){
         border-right:2px solid silver;
@@ -131,22 +133,22 @@
     </header>
     <main>
         <div id="write_wrapper">
-            <button id="write_btn">목록가기</button>
+            <button id="write_btn" onclick="location.href='counseller_board_list.do'">목록가기</button>
         </div><!--e:#write_wrapper-->
 
         <div id="view_wrapper">
             <div id="title_wrapper">
-                <div id="title">제목제목</div>
+                <div id="title">${vo.title }</div>
                 <div id="write_info_wrapper">
                     <ul id="write_info">
-                        <li class="id">작성자</li>
-                        <li class="wdate">2023-01-03 12:42</li>
+                        <li class="id">${vo.id }</li>
+                        <li class="wdate">${vo.wdate }</li>
                     </ul><!--e:#write_info-->
                 </div><!--e:#write_info_wrapper-->
             </div><!--e:#title_wrapper-->
 
             <div id="content_wrapper">
-                <div id="content">내용내용내용</div>
+                <div id="content">${vo.content }</div>
                     <div class="postbtn">
                         <div class="likebtn">
                             <i class="xi-heart-o xi-x"></i>

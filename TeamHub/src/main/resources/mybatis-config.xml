@@ -6,6 +6,8 @@
 	<typeAliases>
 		<typeAlias type="project.healingcamp.vo.ReserveVO" alias="ReserveVO"/>
 		<typeAlias type="project.healingcamp.vo.UserVo" alias="UserVo"/>
+		<typeAlias type="project.healingcamp.vo.Community_BoardVO" alias="cboardVO"/>
+		<typeAlias type="project.healingcamp.vo.SearchVO" alias="searchVO"/>
 	</typeAliases>
 
 

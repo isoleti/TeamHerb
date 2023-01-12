@@ -129,6 +129,7 @@
             </form><!--e:#write_form-->
         </div><!--e:#write_form_wrapper-->
         <script>
+        //에디터 설정
         	let oEditors = []
         	
         	smartEitor = function(){
@@ -155,20 +156,21 @@
         		smartEitor()
         	})
 
+        	//에디터 입력창에 입력 후 버튼 클릭
         	submitPost = function(){
         		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD",[])
-        		let content = document.getElementById("content").value
+        		let content = document.getElementById("content").value 
         		let title = document.getElementById("title").value
         		
         		if(title == ""){
         			alert("제목을 입력해주세요.")
         			return
-        		}else if(content == "<p>&nbsp;</p>"){
+        		}else if(content == "<p>&nbsp;</p>"){ 
         			alert("내용을 입력해주세요.")
         			oEditors.getById["content"].exec("FOCUS")
         			return
         		}else{
-        			console.log(content)
+        			console.log(content) //콘솔창에 입력값 확인
         		}
         	}
         

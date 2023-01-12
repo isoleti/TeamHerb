@@ -1,7 +1,7 @@
 package project.healingcamp.vo;
 
 public class SearchVO {
-	
+
 	private String searchType;
 	private String searchVal;
 	

@@ -186,7 +186,7 @@
 					<div id="checking">
 						<input type="checkbox" id="check" value="로그인유지">
 						<span>로그인 유지</span>
-						<span><a href="<%=request.getContextPath() %>/user/idFind.do">아이디/비밀번호 찾기</a></span>
+						<span><a href="<%=request.getContextPath() %>/user/idpwFind.do">아이디/비밀번호 찾기</a></span>
 						<span><a href="<%=request.getContextPath() %>/user/join.do">회원가입</a></span>
 					</div><!---->
 				</form>
