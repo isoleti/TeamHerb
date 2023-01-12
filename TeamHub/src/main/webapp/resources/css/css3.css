@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+button{ 
+	border:none;
+	outline:none;
+	color: none;
+}
+* a{text-decoration-line:none; color: inherit;}
+header{margin-bottom:30px;}
+header div p{display: inline-block; margin-left:5%;}
+header div{margin-left:80%; margin-top:1%;}
+
+header nav p{margin-left:1%; font-size:20px;}
+header nav h1{margin-left:10%;}
+header nav section{margin-left:17.5%;}
+
+main{margin-bottom:0;}
+
+
+footer{margin:0 auto;}
+#bottom{background: #f7f7f7; height:230px;  text-align: center;}
+#bottom p{margin:0;}
