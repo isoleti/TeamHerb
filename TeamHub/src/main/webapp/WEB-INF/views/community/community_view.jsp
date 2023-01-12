@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -53,6 +54,7 @@
         #write_info_wrapper #write_info li{
         padding:0 7px;
         font-size: 14px;;
+        list-style:none;
         }
         #write_info_wrapper #write_info li:nth-child(2){
         border-left:2px solid silver;
@@ -75,6 +77,7 @@
         .reply_info_wrapper .reply_info li{
         padding:0 7px;
         font-size:13px;
+        list-style:none;
         }
         .reply_info_wrapper .reply_info li:not(:last-of-type){
         border-right:2px solid silver;
@@ -125,7 +128,12 @@
 </head>
 <body>
     <header>        
-        <div><p><a href="">로그인</a></p><p><a href="">회원가입</a></p><p><a href="">고객센터</a></p></div>
+        <c:if test="${login == null }">
+	        <div><p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p><p><a href="">회원가입</a></p><p><a href="">고객센터</a></p></div>
+    	</c:if>
+    	<c:if test="${login != null }">
+	        <div><p><a href="<%=request.getContextPath() %>/user/logout.do">로그아웃</a></p><p><a href="">마이페이지</a></p><p><a href="">고객센터</a></p></div>
+    	</c:if>
         <nav class="navbar" style="background-color: #dff6e1;">
             <h1><a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/upload/힐링캠프 logo.png"  alt="홈버튼"></a></h1>
             <a href="<%=request.getContextPath()%>/program.do">치료프로그램</a>
@@ -138,23 +146,23 @@
     </header>
     <main>
         <div id="write_wrapper">
-            <button id="write_btn">목록가기</button>
+            <button id="write_btn" onclick="location.href='community_list.do'">목록가기</button>
         </div><!--e:#write_wrapper-->
 
         <div id="view_wrapper">
             <div id="title_wrapper">
-                <div id="title">제목제목</div>
+                <div id="title">${vo.title}</div>
                 <div id="write_info_wrapper">
                     <ul id="write_info">
-                        <li id="category">카테고리</li>
-                        <li class="id">작성자</li>
-                        <li class="wdate">2023-01-03 12:42</li>
+                        <li id="category">${vo.category}</li>
+                        <li class="id">${vo.id}</li>
+                        <li class="wdate">${vo.wdate}</li>
                     </ul><!--e:#write_info-->
                 </div><!--e:#write_info_wrapper-->
             </div><!--e:#title_wrapper-->
 
             <div id="content_wrapper">
-                <div id="content">내용내용내용</div>
+                <div id="content">${vo.content}</div>
                     <div class="postbtn">
                         <div class="likebtn">
                             <i class="xi-heart-o xi-x"></i>

@@ -173,7 +173,7 @@
 		<div class="login_area">
 			<div class="login_box">
 				<div class="logo">
-					<a href="<%=request.getContextPath()%>/views/home.jsp/"><img src="<%=request.getContextPath() %>/resources/images/힐링캠프 logo2.png"></a>
+					<a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath() %>/resources/images/힐링캠프 logo2.png"></a>
 				</div><!--logo-->
 				<form action="login.do" method="post" id="frm">
 					<input type="text" id="id" name="id" autocomplete="off" required placeholder="아이디">
