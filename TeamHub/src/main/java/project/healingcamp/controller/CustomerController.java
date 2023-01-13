@@ -15,4 +15,16 @@ public class CustomerController {
 	public String customerFAQ() {
 		return "customerService/customerFAQ";
 	}
+	@RequestMapping(value="/customerFAQ_counselling.do")
+	public String counselling() {
+		return "customerService/customerFAQ_counselling";
+	}
+	@RequestMapping(value="/customerFaqReservation.do")
+	public String FaqReservation() {
+		return "customerService/customerFaqReservation";
+	}
+	@RequestMapping(value="/customerFaqGita.do")
+	public String FaqGita() {
+		return "customerService/customerFaqGita";
+	}
 }
