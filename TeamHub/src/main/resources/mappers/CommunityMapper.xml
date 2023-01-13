@@ -52,8 +52,61 @@
   			  ,id
   			  ,wdate
   			  ,content
+  			  ,hide_id
+  			  ,hit
   		 FROM boardtable
   		WHERE bidx=#{bidx}
   	</select>
+  
+<!--   게시글 작성 -->
+  <insert id="insert" parameterType="cboardVO">
+  	INSERT INTO boardtable(
+  			 BIDX
+  			,TITLE
+  			,CONTENT
+  			,WDATE
+  			,ID
+  			,HIT
+  			,LIKES
+  			,DELYN
+  			,CATEGORY
+  			,IP
+  			,UIDX
+  			,BOARD_TYPE
+  			 <if test="hide_id !=null"><!-- hide_id가 null인 경우 데이터 삽입 -->
+  			,HIDE_ID
+  			</if>
+  			)
+		VALUES(
+		     bidx_seq.nextval
+		     ,#{title}
+		     ,#{content}
+		     ,sysdate
+			 ,#{id}		     
+		     ,0
+		     ,0
+		     ,'N'
+		     ,#{category}
+		     ,#{ip}
+		     ,#{uidx}
+		     ,#{board_type}
+		     <if test="hide_id !=null"><!-- hide_id가 null인 경우 데이터 삽입 -->
+		     ,#{hide_id}
+		     </if>
+		     )
+  </insert>
+  
+<!--   최신글 -->
+  <select id="maxBidx" resultType="int">
+  	SELECT max(bidx)
+  	  FROM boardtable
+  </select>
+  
+<!--   조회수 -->
+	<update id="hitCount" parameterType="int">
+		UPDATE boardtable
+		   SET hit = hit+1
+		 WHERE bidx=#{bidx}
+	</update>
   
   </mapper>

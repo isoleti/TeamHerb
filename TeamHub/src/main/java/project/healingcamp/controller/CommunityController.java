@@ -2,6 +2,9 @@ package project.healingcamp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +15,7 @@ import project.healingcamp.service.Community_BoardService;
 import project.healingcamp.vo.Community_BoardVO;
 import project.healingcamp.vo.PageVO;
 import project.healingcamp.vo.SearchVO;
+import project.healingcamp.vo.UserVo;
 
 @RequestMapping(value="/community")
 @Controller
@@ -44,9 +48,13 @@ public class CommunityController {
 		
 		//호출된 결과를 vo에 담음
 		Community_BoardVO vo = cboardService.selectByBidx(bidx);
+		//조회수 증가
+		cboardService.hitCount(bidx);
 		
 		//model에 vo를 담아 화면에 넘김
 		model.addAttribute("vo",vo);
+		
+		System.out.println("bidx?"+bidx);
 		
 		return "community/community_view";
 	}
@@ -56,5 +64,48 @@ public class CommunityController {
 	public String community_write() {
 		return "community/community_write";
 	}
+	
+	@RequestMapping(value="/community_write.do",method=RequestMethod.POST)
+	public String community_write(Community_BoardVO cboardVO,HttpSession session,HttpServletRequest request) {
+		
+		UserVo login = (UserVo)session.getAttribute("login");
+		
+		cboardVO.setId(login.getId());			
+		cboardVO.setUidx(login.getUidx());
+		cboardVO.setIp(request.getRemoteAddr());
+		
+		cboardService.insert(cboardVO);
+		int bidx = cboardService.maxBidx();
+		
+		return "redirect:community_view.do?bidx="+bidx;
+	}
+	
+	@RequestMapping(value="/community_modify.do",method=RequestMethod.GET)
+	public String community_modify(int bidx,Model model) {
+		
+		Community_BoardVO vo = cboardService.selectByBidx(bidx);
+		System.out.println("bidx?"+bidx);
+		model.addAttribute("vo",vo);
+		
+		return "community/community_modify";
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

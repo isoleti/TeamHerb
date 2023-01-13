@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -68,7 +69,7 @@
         }
         #content_wrapper #content{
         padding:10px;
-        height:450px;
+        min-height:450px;
         }
         .reply_info_wrapper .reply_info{
         display: flex;
@@ -147,7 +148,7 @@
                 <div id="title">${vo.title }</div>
                 <div id="write_info_wrapper">
                     <ul id="write_info">
-                        <li class="id">${vo.id }</li>
+	                    <li class="id">${vo.id }</li>
                         <li class="wdate">${vo.wdate }</li>
                     </ul><!--e:#write_info-->
                 </div><!--e:#write_info_wrapper-->

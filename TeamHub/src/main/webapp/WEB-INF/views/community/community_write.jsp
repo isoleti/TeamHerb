@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -97,85 +98,87 @@
     </header>
     <main>
         <div id="form_wrapper">
-            <form id="select_form" action="community_write.do" method="post">
+            <form id="select_form" action="community_write.do" method="post" onsubmit="return submitPost()">
+            <input type="hidden" name="board_type" value="0">
                 <div id="category_wrapper">
-                    <select id="category_type" name="categotyType">
-                        <option value="parenting">육아</option>
-                        <option value="employment">취업/진로</option>
-                        <option value="involvement">연애</option>
-                        <option value="realation">대인관계</option>
-                        <option value="family">가족</option>
-                        <option value="study">학업</option>
-                        <option value="poisoning">중독</option>
-                        <option value="free" selected>자유</option>
-                        <option value="parting">이별/이혼</option>
-                        <option value="outcast">따돌림</option>
-                        <option value="mentalHealth">정신건강</option>
-                        <option value="struggle">투병</option>
-                        <option value="physical">신체</option>
+                    <select id="category_type" name="category">
+                        <option value="육아">육아</option>
+                        <option value="취업/진로">취업/진로</option>
+                        <option value="연애">연애</option>
+                        <option value="대인관계">대인관계</option>
+                        <option value="가족">가족</option>
+                        <option value="학업">학업</option>
+                        <option value="중독">중독</option>
+                        <option value="자유" selected>자유</option>
+                        <option value="이별/이혼">이별/이혼</option>
+                        <option value="따돌림">따돌림</option>
+                        <option value="정신건강">정신건강</option>
+                        <option value="투병">투병</option>
+                        <option value="신체">신체</option>
                         <option value="LGBT">LGBT</option>
-                        <option value="work">직장</option>
+                        <option value="직장">직장</option>
                     </select><!--e:#category_type-->
                 </div><!--e:#category_wrapper-->
                 <div id="checkbox_wrapeer">
-                    <input type="checkbox" name="id" value="익명"><label>익명작성여부</label>
+                    <input type="checkbox" name="hide_id" value="익명"><label>익명작성여부</label>
                 </div><!--e:#check_box-->
-            </form>
+
+
         </div><!--e:#form_wrapper-->
 
         <div id="write_form_wrapper">
-            <form id="write_form" action="community_write.do" method="post">
+            
                 <div id="title_wrapper">
                     <input id="title" type="text" name="title" placeholder="제목을 입력하세요.">
                 </div><!--e:#title_wrapper-->
                 <div id="content_wrapper">
                     <textarea id="content" name="content"></textarea>
                 </div><!--e:#content_wrapper-->
-                <button id="writeAction_btn" type="button" onclick="submitPost()">등록하기</button>
+                <input type="submit" value="등록하기" id="writeAction_btn" >
             </form><!--e:#write_form-->
         </div><!--e:#write_form_wrapper-->
         <script>
         	let oEditors = []
         	
         	smartEitor = function(){
-	     	   console.log("smarteditor!!");
+	     		console.log("smarteditor!!");
         		
-        	nhn.husky.EZCreator.createInIFrame({
-        	   oAppRef: oEditors,
-        	   elPlaceHolder: "content",
-        	   sSkinURI: "<%=request.getContextPath()%>/resources/smarteditor/SmartEditor2Skin.html",
-        	   fCreator: "createSEditor2",
-        	      htParams : {
-        	         // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-        	         bUseToolbar : true,
-        	         // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-        	         bUseVerticalResizer : false,
-        	         // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-        	         bUseModeChanger : true, 
-        	      }
-        		
-        		})
-        	}
+	        	nhn.husky.EZCreator.createInIFrame({
+	        	   oAppRef: oEditors,
+	        	   elPlaceHolder: "content",
+	        	   sSkinURI: "<%=request.getContextPath()%>/resources/smarteditor/SmartEditor2Skin.html",
+	        	   fCreator: "createSEditor2",
+	        	      htParams : {
+	        	         // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+	        	         bUseToolbar : true,
+	        	         // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+	        	         bUseVerticalResizer : false,
+	        	         // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+	        	         bUseModeChanger : true, 
+	        	      }
+	        		
+	        		});
+        	};
         	
         	$(document).ready(function(){
-        		smartEitor()
-        	})
+        		smartEitor();
+        	});
 
-        	submitPost = function(){
-        		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD",[])
-        		let content = document.getElementById("content").value
-        		let title = document.getElementById("title").value
+        	function submitPost()
+        	{
+        		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD",[]);
+        		let content = document.getElementById("content").value ;
+        		let title = $("#title").val();
         		
         		if(title == ""){
-        			alert("제목을 입력해주세요.")
-        			return
-        		}else if(content == "<p>&nbsp;</p>"){
-        			alert("내용을 입력해주세요.")
-        			oEditors.getById["content"].exec("FOCUS")
-        			return
-        		}else{
-        			console.log(content)
+        			alert("제목을 입력해주세요.");
+        			return false;
+        		}else if(content == "<p>&nbsp;</p>"){ 
+        			alert("내용을 입력해주세요.");
+        			oEditors.getById["content"].exec("FOCUS");
+        			return false;
         		}
+        		return true;
         	}
         
 

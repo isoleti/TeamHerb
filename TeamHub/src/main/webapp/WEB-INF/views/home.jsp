@@ -81,27 +81,31 @@
 <body>
     <header>    <!--header-->
         <div> <!--로그인 관련-->
-       <%--<%if(uidx == null || uidx == 0) {%>--%> <!--  -->
+             
+          <c:if test = "${login == null}">   
             <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
             <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
             <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
-       <%-- <%}else if(usertype.equals("admin") ){ %>--%>
-           <!--  
-            <p><a href="">로그아웃</a></p>
-            <p><a href="">관리자 페이지</a></p>
-            <p><a href="">고객센터</a></p>
-        <%--<%}else if(usertype.equals("coun")){ %>--%>
-        	<p><a href="">로그아웃</a></p>
-            <p><a href="">상담사 페이지</a></p>
-            <p><a href="">고객센터</a></p>
-        <%--<%}else {%>--%>
-         	<p><a href="">로그아웃</a></p>
-            <p><a href="">마이 페이지</a></p>
-            <p><a href="">고객센터</a></p>
-         <%--<%} %> --%>   
-            -->
-          
-        </div> <!-- fin 로그인 관련 -->
+         </c:if><!-- 로그아웃 or 로그인x -->
+         
+        <c:if test = "${login != null}">
+            
+               <p><a href="">로그아웃</a></p>
+               <c:if test = "${login.usertype eq 'a'}">
+               <p><a href="">관리자 페이지</a></p>
+               </c:if>
+               <c:if test = "${login.usertype eq 'u'}">
+               <p><a href="">마이 페이지</a></p>
+               </c:if>
+               <c:if test = "${login.usertype eq 'c'}">
+               <p><a href="">상담사 페이지</a></p>
+               </c:if>
+               <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
+      </c:if>
+      </div>
+   
+         
+         <!-- fin 로그인 관련 -->
         <nav class="navbar" style="background-color: #dff6e1;"> <!-- 상단 네비게이션 -->
             <h1><a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
            <a href="<%=request.getContextPath()%>/program.do">치료프로그램</a>
@@ -139,11 +143,11 @@
         <div id="test"> <!--심리 테스트-->
             <h2>심리 테스트</h2><br>
             <div>
-	            <div><a href="https://testharo.com/16personalities/ko" target="_blank">MBTI 테스트</a></div>
-	            <div><a href="https://testharo.com/depression/ko" target="_blank">우울증 테스트</a></div>
-	            <div><a href="https://testharo.com/burnout/ko" target="_blank">번아웃 증후군 테스트</a></div>
-	            <div><a href="https://testharo.com/16personalities/ko" target="_blank">성격유형 테스트</a></div>
-	            <div><a href="https://testharo.com/depression/ko" target="_blank">ADHD 테스트</a></div>     
+               <div><a href="https://testharo.com/16personalities/ko" target="_blank">MBTI 테스트</a></div>
+               <div><a href="https://testharo.com/depression/ko" target="_blank">우울증 테스트</a></div>
+               <div><a href="https://testharo.com/burnout/ko" target="_blank">번아웃 증후군 테스트</a></div>
+               <div><a href="https://testharo.com/16personalities/ko" target="_blank">성격유형 테스트</a></div>
+               <div><a href="https://testharo.com/depression/ko" target="_blank">ADHD 테스트</a></div>     
             </div>       
         </div> <!--fin 심리 테스트-->
         <div id="program"> <!-- 치료 프로그램-->

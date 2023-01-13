@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -68,7 +69,7 @@
         }
         #content_wrapper #content{
         padding:10px;
-        height:450px;
+        min-height:450px;
         }
         .reply_info_wrapper .reply_info{
         display: flex;
@@ -147,6 +148,7 @@
     <main>
         <div id="write_wrapper">
             <button id="write_btn" onclick="location.href='community_list.do'">목록가기</button>
+            <button onclick="location.href='community_modify.do?bidx=${vo.bidx}'">수정하기</button>
         </div><!--e:#write_wrapper-->
 
         <div id="view_wrapper">
@@ -155,8 +157,18 @@
                 <div id="write_info_wrapper">
                     <ul id="write_info">
                         <li id="category">${vo.category}</li>
-                        <li class="id">${vo.id}</li>
+                        
+                        <c:choose>
+                    	<c:when test="${vo.hide_id eq '익명' }">
+                    		<li class="id">${vo.hide_id }</li>
+                    	</c:when>
+                    	<c:otherwise>
+	                        <li class="id">${vo.id }</li>
+                    	</c:otherwise>
+                    </c:choose>
+                    
                         <li class="wdate">${vo.wdate}</li>
+                        <li class="hit">조회수 ${vo.hit}</li>
                     </ul><!--e:#write_info-->
                 </div><!--e:#write_info_wrapper-->
             </div><!--e:#title_wrapper-->

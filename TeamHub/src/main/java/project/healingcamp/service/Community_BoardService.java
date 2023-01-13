@@ -11,6 +11,9 @@ public interface Community_BoardService {
 	List<Community_BoardVO> list(SearchVO searchVO);
 	Community_BoardVO selectByBidx(int bidx);
 	int total(SearchVO searchVO);
+	int insert(Community_BoardVO cboardVO);
+	int maxBidx();
+	int hitCount(int bidx);
 	
 	
 	//상담사게시판

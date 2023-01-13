@@ -114,6 +114,7 @@
     .community .main{
     margin-top:8px;
     padding:5px;
+    min-height: 125px;
     }
     .community .main .title{
     margin-bottom:8px;
@@ -134,8 +135,10 @@
     overflow: hidden;
     display: -webkit-box;
     }
-    .community .main .content a{
+    .community .main .content a  *{
+    font-weight:normal;
     font-size:15px;
+    font-weight:normal;
     color:rgb(102, 102, 102);
     text-decoration:none;
     }
@@ -154,6 +157,26 @@
     width:24px;
     height:24px;
     }
+    .page-link {
+	 color: #000; 
+	 background-color: #fff;
+	 border: 1px solid #ccc; 
+	}
+	
+	.page-item.active .page-link {
+	 z-index: 1;
+	 color: #555;
+	 font-weight:bold;
+	 background-color: #f1f1f1;
+	 border-color: #ccc;
+	 
+	}
+	
+	.page-link:focus, .page-link:hover {
+	  color: #000;
+	  background-color: #fafafa; 
+	  border-color: #ccc;
+	}
     </style>
 </head>
 <body>
@@ -234,14 +257,23 @@
                 </div><!--e:.main-->
                 <div class="footer">
                     <div class="reaction">
-                        <div class="empathy_wrapper">
+                        <div class="empathy_wrapper">`
                             <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감">
                         </div><!--e:#empathy_wrapper-->
-                        <div class="like">${vo.hit }명이 공감</div>
+                        <div class="like">${vo.likes }명이 공감</div>
                         <div class="reply">댓글 n개</div>
-                        <div class="hit">조회수 ${vo.likes }</div>
+                        <div class="hit">조회수 ${vo.hit}</div>
                     </div><!--e:.reaction-->
-                    <div class="user_id">${vo.id }</div>
+                    
+                    <c:choose>
+                    	<c:when test="${vo.hide_id  eq '익명'}">
+                    		<div class="user_id">${vo.hide_id }</div>
+                    	</c:when>
+                    	<c:otherwise>
+		                    <div class="user_id">${vo.id }</div>
+                    	</c:otherwise>
+                    </c:choose>
+                    
                 </div><!--e:.footer-->
             </div><!--e:.community-->
             </c:forEach>
@@ -262,7 +294,7 @@
 	            
 	            <!-- 페이지번호 -->
 	            <c:forEach var="num" begin="${pageVO.startPage }" end="${pageVO.endPage }">
-	              <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/community/community_list.do?pageNum=${num}&amount=${pageVO.amount}&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}">${num}</a></li>
+	              <li class="page-item"><a class="page-link ${pageVO.pageNum == num ? "active":"" }" href="<%=request.getContextPath() %>/community/community_list.do?pageNum=${num}&amount=${pageVO.amount}&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}">${num}</a></li>
 	            </c:forEach>
 	
 				<!-- 다음버튼 활성화 -->

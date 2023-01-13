@@ -33,8 +33,29 @@ public class Community_BoardServiceImpl implements Community_BoardService{
 
 	@Override
 	public int total(SearchVO searchVO) {
+		
 		return cboardDAO.total(searchVO);
 	}
+	
+	@Override
+	public int insert(Community_BoardVO cboardVO) {
+
+		return cboardDAO.insert(cboardVO);
+	}
+	
+	@Override
+	public int maxBidx() {
+		
+		return cboardDAO.maxBidx();
+	}
+	
+	@Override
+	public int hitCount(int bidx) {
+
+		return cboardDAO.hitCount(bidx);
+	}
+	
+	
 	
 	//상담사게시판
 	@Override
@@ -57,6 +78,12 @@ public class Community_BoardServiceImpl implements Community_BoardService{
 
 		return cboardDAO.counseller_board_total(searchVO);
 	}
+
+	
+
+	
+
+	
 
 	
 

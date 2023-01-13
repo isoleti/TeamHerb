@@ -29,6 +29,17 @@ public class Community_BoardDAO {
 		return sqlSession.selectOne("project.healingcamp.mapper.communityMapper.total",searchVO);
 	}
 	
+	public int insert(Community_BoardVO cboardVO) {
+		return sqlSession.insert("project.healingcamp.mapper.communityMapper.insert",cboardVO);
+	}
+	
+	public int maxBidx() {
+		return sqlSession.selectOne("project.healingcamp.mapper.communityMapper.maxBidx");
+	}
+	
+	public int hitCount(int bidx) {
+		return sqlSession.update("project.healingcamp.mapper.communityMapper.hitCount", bidx);
+	}
 	
 	
 	//상담사게시판

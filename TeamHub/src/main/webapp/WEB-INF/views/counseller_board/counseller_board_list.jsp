@@ -80,7 +80,7 @@
     .community{
     padding:15px;
     width:50%;
-}
+	}
     .community:nth-child(2n-1){
     border-bottom:1px solid silver;
     border-right:1px solid silver;    
@@ -95,6 +95,7 @@
     .community .main{
     margin-top:8px;
     padding:5px;
+    min-height: 125px;
     }
     .community .main .title{
     margin-bottom:8px;
@@ -135,9 +136,29 @@
     width:24px;
     height:24px;
     }
-        .community .story{
-            justify-content: flex-end;
-        }
+    .community .story{
+    justify-content: flex-end;
+    }
+    .page-link {
+    color: #000; 
+    background-color: #fff;
+    border: 1px solid #ccc; 
+	}
+	
+	.page-item.active .page-link {
+	 z-index: 1;
+	 color: #555;
+	 font-weight:bold;
+	 background-color: #f1f1f1;
+	 border-color: #ccc;
+	 
+	}
+	
+	.page-link:focus, .page-link:hover {
+	  color: #000;
+	  background-color: #fafafa; 
+	  border-color: #ccc;
+	}
     </style>
 </head>
 <body>
@@ -222,7 +243,7 @@
 	            
 	            <!-- 페이지번호 -->
 	            <c:forEach var="num" begin="${pageVO.startPage }" end="${pageVO.endPage }">
-	              <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/counseller_board/counseller_board_list.do?pageNum=${num}&amount=${pageVO.amount}&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}">${num}</a></li>
+	              <li class="page-item"><a class="page-link ${pageVO.pageNum == num ? "active":"" }" href="<%=request.getContextPath() %>/counseller_board/counseller_board_list.do?pageNum=${num}&amount=${pageVO.amount}&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}">${num}</a></li>
 	            </c:forEach>
 	
 				<!-- 다음버튼 활성화 -->

@@ -14,8 +14,24 @@ public class Community_BoardVO {
 	private String filename;
 	private String report;
 	private String ip;
-	private String boardtype;
+	private String board_type;
+	private int uidx;
+	private String hide_id;
 	
+	
+	
+	public String getHide_id() {
+		return hide_id;
+	}
+	public void setHide_id(String hide_id) {
+		this.hide_id = hide_id;
+	}
+	public int getUidx() {
+		return uidx;
+	}
+	public void setUidx(int uidx) {
+		this.uidx = uidx;
+	}
 	public int getBidx() {
 		return bidx;
 	}
@@ -88,18 +104,18 @@ public class Community_BoardVO {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-	public String getBoardtype() {
-		return boardtype;
+	public String getBoard_type() {
+		return board_type;
 	}
-	public void setBoardtype(String boardtype) {
-		this.boardtype = boardtype;
+	public void setBoard_type(String board_type) {
+		this.board_type = board_type;
 	}
 	
 	@Override
 	public String toString() {
 		return "Community_BoardVO [bidx=" + bidx + ", title=" + title + ", content=" + content + ", wdate=" + wdate
 				+ ", id=" + id + ", hit=" + hit + ", likes=" + likes + ", delyn=" + delyn + ", category=" + category
-				+ ", filename=" + filename + ", report=" + report + ", ip=" + ip + ", boardtype=" + boardtype + "]";
+				+ ", filename=" + filename + ", report=" + report + ", ip=" + ip + ", board_type=" + board_type + "]";
 	}
 	
 	
