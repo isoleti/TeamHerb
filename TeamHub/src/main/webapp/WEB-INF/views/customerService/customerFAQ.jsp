@@ -200,7 +200,7 @@
             <p><a href="">고객센터</a></p>
         </div> <!-- fin 로그인 관련 -->
         <nav class="navbar" style="background-color: #dff6e1;"> <!-- 상단 네비게이션 -->
-            <h1><a href=""><img src="images/힐링캠프 logo.png" alt="홈버튼"></a></h1>
+            <h1><a href=""><img src="<%=request.getContextPath() %>/resources/images/힐링캠프 logo.png" alt="홈버튼"></a></h1>
             <a href="">치료프로그램</a>
             <a href="">심리테스트</a>
             <a href="">커뮤니티</a>  
