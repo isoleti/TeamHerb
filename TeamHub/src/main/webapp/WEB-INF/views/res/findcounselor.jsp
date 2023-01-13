@@ -88,7 +88,9 @@
 			        <div id="pagination"></div>
 			    </div>
 		</div>
-        	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=387e40e57d47d09b22e39f6b21c6fd82&libraries=services"></script>		>
+        	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=387e40e57d47d09b22e39f6b21c6fd82&libraries=services"></script>
+        	
+        			>
 				<script>
 					// 마커를 담을 배열입니다
 					var markers = [];
