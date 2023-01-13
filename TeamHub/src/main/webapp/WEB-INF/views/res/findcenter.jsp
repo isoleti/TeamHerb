@@ -18,32 +18,7 @@
         main div p{margin-left:15%; margin-top:1%;}
         .form-select{width:30%; display:inline-block;}
         button{margin-left:10%;}
-    </style>
-    <script>
-	    let search = document.getElementById("search");
-	    let open_search = document.querySelector(".open_search");
-	    let close_search = document.querySelector(".close_search");
-	
-	    //search.setAttribute("class","abc"); 
-	        
-	        open_search.addEventListener("click",function(){
-	        search.classList.add("show");}); //클래스 추가 부여
-	        close_search.addEventListener("click",function(){
-	            search.classList.remove("show");
-	        });
-	
-	    //esc키를 눌렀을 때 적용
-	    //document.documentElement == 문서의 루트요소<html>
-	    document.documentElement.addEventListener("keydown",function(e){
-	        var state = search.classList.contains("show");
-	        //var esc = e.keyCode; //웹표준에는 맞지  않음
-	        var keyName = e.key; //Escape
-	        //console.log("키보드코드:"+esc+",키보드키:"+keyName+",검색영역표시:"+state);
-	        if(state && (keyName=="Escape")){
-	            search.classList.remove("show");
-	        }
-	    });
-    </script>
+    </style>   
 </head>
 <body>
     <header>    <!--header-->
@@ -98,14 +73,34 @@
         <div id="map" style="width:550px;height:400px;"></div>
         	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=387e40e57d47d09b22e39f6b21c6fd82"></script>		
 			<script>
-				var container = document.getElementById('map');
-				var options = {
-					center: new kakao.maps.LatLng(33.450701, 126.570667),
-					level: 3
-				};
+				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			    mapOption = { 
+			        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			        level: 3 // 지도의 확대 레벨
+			    };
+	
+				var map = new kakao.maps.Map(mapContainer, mapOption);
 		
-				var map = new kakao.maps.Map(container, options);
-			</script>            
+				// 마커가 표시될 위치입니다 
+				var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
+		
+				// 마커를 생성합니다
+				var marker = new kakao.maps.Marker({
+				    position: markerPosition
+				});
+		
+				// 마커가 지도 위에 표시되도록 설정합니다
+				marker.setMap(map);
+		
+				var iwContent = '<div style="padding:5px;">Hello World! <br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+				    iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
+		
+				// 인포윈도우를 생성합니다
+				var infowindow = new kakao.maps.InfoWindow({
+				    position : iwPosition, 
+				    content : iwContent 
+				});
+			</script>         
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=LIBRARY"></script>
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services"></script>
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>

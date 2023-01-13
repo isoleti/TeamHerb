@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="project.healingcamp.mapper.counseller_BoardMapper">
+  	
+  	<select id="counseller_board_list" resultType="cboardVO" parameterType="searchVO">
+  		<![CDATA[
+        SELECT * 
+        FROM(SELECT ROWNUM AS rnum,A.* 
+           FROM(SELECT * FROM boardtable WHERE delyn='N' AND board_type='1'
+        ]]>
+            
+         <if test="searchType == 'title'">
+            AND title like '%'||#{searchVal}||'%'
+         </if>
+         <if test="searchType == 'id'">
+            AND id like '%'||#{searchVal}||'%'
+         </if>
+         <if test="searchType == 'content'">
+            AND content like '%'||#{searchVal}||'%'
+         </if>
+      
+      <![CDATA[      
+         ORDER BY BIDX DESC)A)
+      	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
+        ]]>
+  	</select>
+  	
+<!--   	게시글 총 합 -->
+  	<select id="counseller_board_total" resultType="int" parameterType="searchVO">
+  		SELECT COUNT(bidx) as total
+  		  FROM boardtable
+  		 WHERE board_type = '1'
+  		 <if test="searchType == 'title'">
+            AND title like '%'||#{searchVal}||'%'
+         </if>
+         <if test="searchType == 'id'">
+            AND id like '%'||#{searchVal}||'%'
+         </if>
+         <if test="searchType == 'content'">
+            AND content like '%'||#{searchVal}||'%'
+         </if>
+  	</select>
+  	
+  	
+<!--   	한개의 게시글 조회 -->
+  	<select id="counseller_selectByBidx" parameterType="int" resultType="cboardVO">
+  		SELECT title
+  			  ,id
+  			  ,wdate
+  			  ,content
+  		 FROM boardtable
+  		WHERE bidx=#{bidx}
+  	</select>
+  
+  </mapper>
