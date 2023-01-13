@@ -178,7 +178,7 @@
 					<div class="inner">
 						<h3>고객센터</h3>
 						<div class="option">
-							<button id="notice">공지사항</button>
+							<a href="<%=request.getContextPath()%>/customerService/customerNotice.do"><button id="notice">공지사항</button></a>
 							<a href="<%=request.getContextPath()%>/customerService/customerFAQ.do"><button id="FAQ">FAQ</button></a>
 						</div><!--option-->
 					</div><!--inner-->

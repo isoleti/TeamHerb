@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>힐링캠프 고객센터 FAQ</title>
 	<!--부트스트랩, header footer css 연결-->
-     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css3.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -157,7 +157,7 @@
 		}
 		
 	
-		#counselling, #reservation, #gita{
+		#all, #reservation, #gita{
 			border:1px solid rgba(128, 128, 128, 0.787);
 			border-top:none;
 			border-left:none;
@@ -165,7 +165,7 @@
 			background-color: #f2f2f2;
 
 		}
-		#all{
+		#counselling{
 			border:1px solid black;
 			border-bottom:none;
 			z-index:100;
@@ -235,18 +235,7 @@
 						<div class="content">
 							<p>심리상담 심리심리.</p>
 						</div><!--content-->
-						<input type="checkbox" id="answer02">
-						<label for="answer02">예약결제<em><i class="xi-check xi-2x"></i></em></label>
-						<div class="content">
-							<p>예약결제 몰라몰라</p>
-						</div><!--content-->
-						<input type="checkbox" id="answer03">
-						<label for="answer03">기타내용<em><i class="xi-check xi-2x"></i></em></label>
-						<div class="content">
-							<p>기타내용은 기타기타.</p>
-						</div><!--content-->
-						
-						
+					
 					</div><!--notice_place-->
 				</div><!--notice_area-->
 
