@@ -60,7 +60,6 @@
             <dl><a href="<%=request.getContextPath()%>/res/findcenter.do">센터 찾기</a></dl>
             <dl><a href="<%=request.getContextPath()%>/res/findcounselor.do">상담사 찾기</a></dl>
         </dt>
-        <button class="btn btn-outline-success">위치</button>
         <form>
         <select class="form-select" aria-label="Default select example">
             <option selected>선택</option>
@@ -72,14 +71,14 @@
         <input class="btn btn-outline-success" type="button" value="검색">
         </form>
         <div class="map_wrap">
-		    <div id="map" style="width:60%;height:100%;position:relative;overflow:hidden;"></div>
+		    <div id="map" style="width:45%;height:100%;position:relative;overflow:hidden;"></div>
 		
 			    <div id="menu_wrap" class="bg_white">
 			        <div class="option">
 			            <div>
 			                <form onsubmit="searchPlaces(); return false;">
 			                    키워드 : <input type="text" value="심리상담" id="keyword" size="15"> 
-			                    <button type="submit">검색하기</button> 
+			                    <button class="btn btn-outline-success" type="submit">검색하기</button> 
 			                </form>
 			            </div>
 			        </div>
@@ -89,8 +88,6 @@
 			    </div>
 		</div>
         	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=387e40e57d47d09b22e39f6b21c6fd82&libraries=services"></script>
-        	
-        			>
 				<script>
 					// 마커를 담을 배열입니다
 					var markers = [];
