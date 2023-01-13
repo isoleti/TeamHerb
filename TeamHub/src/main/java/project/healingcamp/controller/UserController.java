@@ -29,13 +29,13 @@ public class UserController {
 	public String login(UserVo vo, HttpSession session) {
 		System.out.println("vo : " + vo.toString());
 		
-		UserVo loginVo = userService.login(vo);
+		UserVo login = userService.login(vo);
 			
-			if(loginVo ==null) {
+			if(login ==null) {
 				return "user/login";
 			} else{
-				session.setAttribute("login", loginVo);
-				System.out.println(loginVo.toString());
+				session.setAttribute("login", login);
+				System.out.println(login.toString());
 				return "redirect:/";
 			}
 		
