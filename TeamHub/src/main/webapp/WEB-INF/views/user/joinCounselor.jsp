@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
-<link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
+<title>Insert title here</title>
 
+<link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
 
 <script>/*아이디 중복체크 */
@@ -47,7 +45,11 @@ function checkId() {
 
 $(function(){ //회원가입페이지가 로드됐을때 function실행 
 	$("form").submit(function(){ //event가 일어났을 때 실행 (이때는 onblur가 실행할때 일어남 )
-		if(!checkIdFlag){
+		if($("#name").val() == ""){
+			alert("이름을 입력하세요.");
+			return false;
+		}
+		else if(!checkIdFlag){
 			alert("아이디 중복확인을 하세요.");
 			return false; //false를 return하면 submit을 취소함 
 		}
@@ -203,18 +205,14 @@ $(function(){
 		});
 </script>
 
-
- <style>
- 	
- 		header a:hover{color: inherit;}
-        main{margin:0 auto;  width:1160px; }
-        main h2{font-size:20px; margin:20px 250px; font-weight:bold;}
-       
+<style>
+		
+     main{margin:0 auto;  width:1160px; }
+        main h2{font-size:20px; margin:20px 250px; }
         input::placeholder {color:#7777; font-size:15px;}
         #frm {width:800px;margin-left:300px; }
         
-        
-        .t input{width:350px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px; padding-left:5px;}
+        .t input{width:350px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px;  padding-left:5px;}
         span{color:red;}
         .btn{width:100px; height:35px; border-radius:5px; border: none; background:#70ad47; color:white; 
                 font-weight:bold; margin-left:40px; cursor: pointer;}
@@ -222,7 +220,8 @@ $(function(){
         .b input:nth-child(1){width:100px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px;}
         .b input:nth-child(2){width:40px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px;}
         .b input:nth-child(3){width:40px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px;}
-        #agree input{margin-bottom:20px;}
+        
+         #agree input{margin-bottom:20px;}
         #agree h2{position:relative; left:-300px;}
         #agree button{ font-size:15px;}
         #agree a{display:inline-block; border-bottom:1px solid black; margin-left:10px; cursor: pointer;}
@@ -244,13 +243,13 @@ $(function(){
 		  line-height:23px; cursor:pointer;
 		
 		}
- </style>
+</style>
 </head>
 <body>
-  <header>       
+	 <header>       
         <div >
-        <p><a href="">로그아웃</a></p>
-        <p><a href="<%= request.getContextPath() %>/page/mypageRes.do">마이페이지</a></p>
+        <p><a href="">로그인</a></p>
+        <p><a href="">회원가입</a></p>
         <p><a href="">고객센터</a></p>
         </div><!-- 로그인 및 고객센터 관련 버튼--> 
         <nav class="navbar" > <!-- 네비게이션 -->
@@ -260,27 +259,30 @@ $(function(){
         </nav>
     </header> 
 
+
     <main>
         <h2>회원가입</h2>
-        <form id="frm" action="join.do" method="post">
-        
+        <form id="frm" action="joinCounselor.do" method="post">
             <div class="t">
-            <input type="hidden" name="usertype" value="u" id="usertype"> 
+             <input type="hidden" name="usertype" id="usertype" value="c" > 
+            <a>이름 <span>*</span><br> <input type="text" name="name" id="name" placeholder=" 이름" ></a><br> 
             <a>아이디  <span>*</span><br> <input type="text" name="id" id="id" onblur="blurId(this)" placeholder=" 아이디"  ></a><button class="btn" type="button" onclick="checkId()">중복확인</button>
             <br>
             <a>이메일 주소  <span>*</span><br> <input type="email" name="mail" id="mail" onblur="blurMail(this)" placeholder=" abc@naver.com"></a><button class="btn" type="button" onclick="checkMail()">중복확인</button> <br>
             <a>연락처  <span>*</span><br> <input type="number" name="phone" id="phone" placeholder=" 010-0000-0000"></a><button class="btn" type="button" onclick="requestCert()">인증요청</button><br>
-            <a>인증번호  <span>*</span><br><input type="number" name="number" id="number" placeholder=" 인증번호"></a><button class="btn" type="button" onclick="checkCert()">인증하기</button><br>
+            <a>인증번호  <span>*</span><br><input type="text" name="number" id="number" placeholder=" 인증번호"></a><button class="btn" type="button" onclick="checkCert()">인증하기</button><br>
             <a>비밀번호  <span>*</span><br> <input type="password" name="pw" id="pw" placeholder=" 비밀번호"></a><br>
             <a>비밀번호 확인  <span>*</span><br> <input type="password" name="pw2" id="pw2" placeholder=" 비밀번호 확인"></a><br>
             </div>
            
             <br><br>
             </div> 
-  
+           
+        
+        
+
         <div id="agree">
-        <h2 >이용약관 동의</h2>
-        <input type="checkbox" id="agree_all" value="agree_all"> 전체 동의 <br>
+      <input type="checkbox" id="agree_all" value="agree_all"> 전체 동의 <br>
         <input type="checkbox" name="agree" id="agree1" value="1">  <span>*</span> 이용약관 동의 
         <button type="button" id="button1">상세보기</button>
 
@@ -367,8 +369,8 @@ $(function(){
     	</div>
     	</div>
         <button class="btn2">가입완료</button>
-       
-        </form>
+       </form>
+    </div>
     </main>
     <footer>
         <div id="bottom">   

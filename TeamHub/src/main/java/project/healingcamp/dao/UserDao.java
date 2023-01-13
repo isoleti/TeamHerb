@@ -14,13 +14,22 @@ public class UserDao {
 	
 	public UserVo login(UserVo vo) {
 		System.out.println(vo.toString());
-		return sqlSession.selectOne("project.hilingcamp.mappers.userMapper.login", vo);
+		return sqlSession.selectOne("project.hilingcamp.mapper.userMapper.login", vo);
 	}
-	public int selectById(String Id) {
-		return sqlSession.selectOne("project.hilingcamp.mappers.userMapper.selectById", Id);
+	public int join(UserVo vo) {
 		
+		return sqlSession.insert("project.hilingcamp.mapper.userMapper.join", vo);
 	}
-	
+	public int joinCoun(UserVo vo) {
+		
+		return sqlSession.insert("project.hilingcamp.mapper.userMapper.joinCoun", vo);
+	}
+	public int selectById(String id) {
+		return sqlSession.selectOne("project.hilingcamp.mapper.userMapper.selectById",id);
+	}
+	public int selectByMail(String mail) {
+		return sqlSession.selectOne("project.hilingcamp.mapper.userMapper.selectByMail",mail);
+	}
 	
 	
 }

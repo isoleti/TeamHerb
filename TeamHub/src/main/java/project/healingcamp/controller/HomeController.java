@@ -34,6 +34,12 @@ public class HomeController {
 		
 		return "psychologicaltest";
 	}
+	@RequestMapping(value = "/joinMain.do", method = RequestMethod.GET) //링크는 무조건 get방식 
+	public String joinMain() {
+		
+		return "/user/joinMain";
+		
+}
 	
 }
 

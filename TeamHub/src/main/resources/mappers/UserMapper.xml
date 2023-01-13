@@ -2,7 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="project.hilingcamp.mappers.userMapper">
+<mapper namespace="project.hilingcamp.mapper.userMapper">
+
 	<select id="login" parameterType="userVo" resultType="userVo">
 		select uidx
 			 , id
@@ -11,26 +12,72 @@
 			 where id = #{id}
 			 and pw = #{pw} 
 	</select>	
+	
 	<select id="selectById" parameterType="String" resultType="int">
 		select count(*)
 		 from usertable
 		 where id= #{id}
 	</select>
-	<insert id="join" parameterType="userVo">
+	
+	<select id="selectByMail" parameterType="String" resultType="int"> 
+	select count(*)
+		from usertable
+		where mail = #{mail}
+	</select>	
+	
+	<insert id="join" parameterType="userVo" >
 	<![CDATA[
 		insert into usertable(
 			uidx
 		   ,id
-		   ,addr
-		   ,phone
 		   ,pw
+		   ,mail
+		   ,phone
+		   ,usertype
+		   ,edate
+		  
 		)values(
-			uidx_seq.nextval
-			, #{id}
-			, #{addr}
-			, #{phone}
-			, #{pw}
-		)
-	]]>
+			  uidx_seq.nextval 
+			  , #{id}
+			  , #{pw}
+			  , #{mail}
+			  , #{phone}  
+			  , #{usertype}
+			  , sysdate
+				)
+				
+				
+		]]>
+	
 	</insert>
+	<insert id="joinCoun" parameterType="userVo" >
+	<![CDATA[
+		insert into usertable(
+			uidx
+		   ,name
+		   ,id
+		   ,pw
+		   ,mail
+		   ,phone
+		   ,usertype
+		   ,edate
+		   
+		   
+		   
+		)values(
+			  uidx_seq.nextval 
+			  , #{name}
+			  , #{id}
+			  , #{pw}
+			  , #{mail}
+			  , #{phone}  
+			  , #{usertype}
+			  , sysdate
+				)
+				
+				
+		]]>
+	
+	</insert>
+
 </mapper>

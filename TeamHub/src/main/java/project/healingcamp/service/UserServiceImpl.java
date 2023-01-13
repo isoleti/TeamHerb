@@ -19,9 +19,29 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int selectById(String Id) {
-		return userDao.selectById(Id);
+	public int join(UserVo vo) {
+	
+		return userDao.join(vo);
 	}
+
+	@Override
+	public int joinCoun(UserVo vo) {
+		
+		return userDao.joinCoun(vo);
+	}
+	
+	@Override
+	public int selectById(String id) {
+		
+		return userDao.selectById(id);
+	}
+
+	@Override
+	public int selectByMail(String mail) {
+		
+		return userDao.selectByMail(mail);
+	}
+
 	
 
 	
