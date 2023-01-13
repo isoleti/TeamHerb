@@ -83,8 +83,8 @@
         <div> <!--로그인 관련-->
        <%--<%if(uidx == null || uidx == 0) {%>--%> <!--  -->
             <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
-            <p><a href="<%= request.getContextPath() %>/joinMain.do"">회원가입</a></p>
-            <p><a href="">고객센터</a></p>
+            <p><a href="">회원가입</a></p>
+            <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
        <%-- <%}else if(usertype.equals("admin") ){ %>--%>
            <!--  
             <p><a href="">로그아웃</a></p>
