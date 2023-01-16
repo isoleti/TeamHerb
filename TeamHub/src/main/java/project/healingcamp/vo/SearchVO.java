@@ -1,6 +1,6 @@
 package project.healingcamp.vo;
 
-public class SearchVO {
+public class SearchVO extends Community_BoardVO{
 
 	private String searchType;
 	private String searchVal;

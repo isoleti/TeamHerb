@@ -98,42 +98,50 @@
     </header>
     <main>
         <div id="form_wrapper">
-            <form id="select_form">
+            <form id="select_form" action="community_modify.do" method="post" onsubmit="return submitPost()">
+            <input type="hidden" name="bidx" value="${vo.bidx }">
                 <div id="category_wrapper">
-                    <select id="category_type">
-                        <option>육아</option>
-                        <option>취업/진로</option>
-                        <option>연애</option>
-                        <option>대인관계</option>
-                        <option>가족</option>
-                        <option>학업</option>
-                        <option>중독</option>
-                        <option selected>자유</option>
-                        <option>이별/이혼</option>
-                        <option>따돌림</option>
-                        <option>정신건강</option>
-                        <option>투병</option>
-                        <option>신체</option>
-                        <option>LGBT</option>
-                        <option>직장</option>
+                    <select id="category_type" name="category">
+                    <c:forEach items="categoryList" var="categoryList ">
+<!--                    해당하는 카테고리 선택됨 -->
+                    	<option value="${vo.category}" <c:if test="${categoryList == vo.category}">selected</c:if>>${vo.category}</option>
+                    </c:forEach>
+                        <option value="육아">육아</option>
+                        <option value="취업/진로">취업/진로</option>
+                        <option value="연애">연애</option>
+                        <option value="대인관계">대인관계</option>
+                        <option value="가족">가족</option>
+                        <option value="학업">학업</option>
+                        <option value="중독">중독</option>
+                        <option value="자유" selected>자유</option>
+                        <option value="이별/이혼">이별/이혼</option>
+                        <option value="따돌림">따돌림</option>
+                        <option value="정신건강">정신건강</option>
+                        <option value="투병">투병</option>
+                        <option value="신체">신체</option>
+                        <option value="LGBT">LGBT</option>
+                        <option value="직장">직장</option>
                     </select><!--e:#category_type-->
                 </div><!--e:#category_wrapper-->
                 <div id="checkbox_wrapeer">
-                    <input type="checkbox" name="hide_name"><label>익명작성여부</label>
+                	<c:if test="${vo.hide_id != null }">
+                    <input type="checkbox" name="hide_id" checked><label>익명작성여부</label>
+                	</c:if>
+                	<c:if test="${vo.hide_id == null }">
+                    <input type="checkbox" name="hide_id" value="익명"><label>익명작성여부</label>
+                	</c:if>
                 </div><!--e:#check_box-->
-            </form>
         </div><!--e:#form_wrapper-->
 
         <div id="write_form_wrapper">
-            <form id="write_form">
                 <div id="title_wrapper">
-                    <input id="title" type="text" placeholder="제목을 입력하세요." value="${vo.title }">
+                    <input id="title" name="title" type="text" placeholder="제목을 입력하세요." value="${vo.title }">
                 </div><!--e:#title_wrapper-->
                 <div id="content_wrapper">
-                    <textarea id="content">${vo.content }</textarea>
+                    <textarea id="content" name="content">${vo.content }</textarea>
                 </div><!--e:#content_wrapper-->
                 <button id="writeAction_btn">수정하기</button>
-            </form><!--e:#write_form-->
+            </form>
         </div><!--e:#write_form_wrapper-->
         
         <script>

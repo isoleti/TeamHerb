@@ -41,6 +41,19 @@ public class Community_BoardDAO {
 		return sqlSession.update("project.healingcamp.mapper.communityMapper.hitCount", bidx);
 	}
 	
+	public int deleteByBidx(int bidx) {
+		return sqlSession.update("project.healingcamp.mapper.communityMapper.deleteByBidx", bidx);
+	}
+	
+	public List<Community_BoardVO> selectByCategory() {
+		return sqlSession.selectList("project.healingcamp.mapper.communityMapper.selectByCategory");
+	}
+	
+	public int modifyByBidx(Community_BoardVO cboardVO) {
+		return sqlSession.update("project.healingcamp.mapper.communityMapper.modifyByBidx", cboardVO);
+	}
+	
+	
 	
 	//상담사게시판
 	public List<Community_BoardVO> counseller_board_list(SearchVO searchVO){

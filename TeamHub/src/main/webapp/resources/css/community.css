@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+
+#btn {
+  --bs-btn-padding-x: 0;
+  --bs-btn-padding-y:0;}
+  
+.btn-secondary {
+  --bs-btn-color: ;
+  --bs-btn-bg: ;
+  --bs-btn-border-color: ;
+  --bs-btn-hover-color:;
+  --bs-btn-hover-bg: ;
+  --bs-btn-hover-border-color:;
+  --bs-btn-focus-shadow-rgb:;
+  --bs-btn-active-color:;
+  --bs-btn-active-bg:;
+  --bs-btn-active-border-color:;
+  --bs-btn-active-shadow:;
+  --bs-btn-disabled-color: ;
+  --bs-btn-disabled-bg:;
+  --bs-btn-disabled-border-color:;
+  border-style:none;
+}
+
+.dropdown-menu {
+	    --bs-dropdown-min-width: 7rem;
+	    font-size:13px;
+        }
+        
+

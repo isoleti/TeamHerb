@@ -83,14 +83,30 @@ public class CommunityController {
 	@RequestMapping(value="/community_modify.do",method=RequestMethod.GET)
 	public String community_modify(int bidx,Model model) {
 		
+		//작성된 게시글의 카테고리를 리스트에 담음
+		List<Community_BoardVO> categoryList = cboardService.categoryList();
 		Community_BoardVO vo = cboardService.selectByBidx(bidx);
-		System.out.println("bidx?"+bidx);
-		model.addAttribute("vo",vo);
 		
+		model.addAttribute("vo",vo);
+		model.addAttribute("categoryList",categoryList);
 		return "community/community_modify";
 	}
-
 	
+	@RequestMapping(value="/community_modify.do",method=RequestMethod.POST)
+	public String community_modify(Community_BoardVO cboardVO) {
+		
+		int result = cboardService.modifyByBidx(cboardVO);
+		
+		return "redirect:community_view.do?bidx="+cboardVO.getBidx();
+	}
+
+	@RequestMapping(value="/community_delete.do",method=RequestMethod.POST)
+	public String delete(int bidx) {
+		
+		cboardService.deleteByBidx(bidx);
+		
+		return "redirect:community_list.do";
+	}
 	
 	
 	

@@ -15,11 +15,12 @@
     <title>힐링캠프</title>
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
+    <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
     <style>
 	main{
 	    width:1024px;
 	    margin:0 auto;
-	    }
+	}
 	main #menu{
 	    display: flex;
 	    margin-top:30px;
@@ -28,7 +29,7 @@
 	    display:flex;
 	    flex-wrap: wrap;
 	    justify-content: center;
-	    }
+	}
     #menu #category li{
     padding:5px 11px 7px;
     margin:0px 16px 16px 0px;
@@ -99,7 +100,7 @@
     .community{
     padding:15px;
     width:50%;
-}
+	}
     .community:nth-child(2n-1){
     border-bottom:1px solid silver;
     border-right:1px solid silver;    
@@ -178,6 +179,15 @@
 	  border-color: #ccc;
 	}
     </style>
+	<script>
+	
+		function offHover(){
+			$(".empathy").attr('src','./../resources/upload/like.jpg');
+		}
+		function onHover(){
+			$(".empathy").attr('src','./../resources/upload/like_color_change.jpg');
+		}
+	</script>
 </head>
 <body>
     <header>        
@@ -200,22 +210,22 @@
     <main>
         <div id="menu">
             <ul id="category">
-                <li>전체보기</li>
+                <li><a href="<%=request.getContextPath()%>/community/community_list.do">전체보기</a></li>
                 <li>육아</li>
-                <li>취업/진로</li>
-                <li>연애</li>
-                <li>대인관계</li>
-                <li>가족</li>
-                <li>학업</li>
-                <li>중독</li>
-                <li>자유</li>
-                <li>이별/이혼</li>
-                <li>따돌림</li>
-                <li>정신건강</li>
-                <li>투병</li>
-                <li>신체</li>
-                <li>LGBT</li>
-                <li>직장</li>
+                <li><a href="<%=request.getContextPath()%>/community/community_list.do">취업/진로</a></li>
+                <li><a href="<%=request.getContextPath()%>/community/community_list.do">연애</a></li>
+                <li><a href="<%=request.getContextPath()%>/community/community_list.do">대인관계</a></li>
+                <li><a href="<%=request.getContextPath()%>/community/community_list.do">가족</a></li>
+                <li><a href="<%=request.getContextPath()%>/community/community_list.do">학업</a></li>
+                <li><a href="<%=request.getContextPath()%>/community/community_list.do">중독</a></li>
+                <li><a href="<%=request.getContextPath()%>/community/community_list.do">자유</a></li>
+                <li><a href="<%=request.getContextPath()%>/community/community_list.do">이별/이혼</a></li>
+                <li><a href="<%=request.getContextPath()%>/community/community_list.do">따돌림</a></li>
+                <li><a href="<%=request.getContextPath()%>/community/community_list.do">정신건강</a></li>
+                <li><a href="<%=request.getContextPath()%>/community/community_list.do">투병</a></li>
+                <li><a href="<%=request.getContextPath()%>/community/community_list.do">신체</a></li>
+                <li><a href="<%=request.getContextPath()%>/community/community_list.do">LGBT</a></li>
+                <li><a href="<%=request.getContextPath()%>/community/community_list.do">직장</a></li>
             </ul><!--e:#category-->
         </div><!--e:#menu-->
 
@@ -257,9 +267,11 @@
                 </div><!--e:.main-->
                 <div class="footer">
                     <div class="reaction">
-                        <div class="empathy_wrapper">`
-                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감">
+                    
+                        <div class="empathy_wrapper">
+                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감" onmouseover="onHover();" onmouseout="offHover();">
                         </div><!--e:#empathy_wrapper-->
+                        
                         <div class="like">${vo.likes }명이 공감</div>
                         <div class="reply">댓글 n개</div>
                         <div class="hit">조회수 ${vo.hit}</div>
