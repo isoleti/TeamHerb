@@ -12,6 +12,7 @@
      <link href="<%=request.getContextPath()%>/resources/css/map.css" rel="stylesheet">
     <style>
         main #map{margin-left:20%; margin-bottom:5%;}
+        main .map_wrap{margin-bottom:3%;}
         main .center{width:60%; border:3px solid #dff6e1; border-radius:2ch; margin-left:20%;}
         main dt{width:20%; margin-left:75%; margin-bottom:0.75%;}
         main dt dl{display:inline-block; margin-right:5%;}

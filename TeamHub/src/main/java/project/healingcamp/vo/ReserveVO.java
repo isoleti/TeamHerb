@@ -9,6 +9,9 @@ public class ReserveVO {
 	private String rescount;
 	private String resc;
 	private int uidx;
+	private int clidx;
+	private int likecheck;
+	
 	
 	public int getResidx() {
 		return residx;
@@ -53,10 +56,25 @@ public class ReserveVO {
 		this.uidx = uidx;
 	}
 	
+		
+	public int getClidx() {
+		return clidx;
+	}
+	public void setClidx(int clidx) {
+		this.clidx = clidx;
+	}
+	public int getLikecheck() {
+		return likecheck;
+	}
+	public void setLikecheck(int likecheck) {
+		this.likecheck = likecheck;
+	}
 	@Override
 	public String toString() {
 		return "ReserveVO [residx=" + residx + ", center=" + center + ", coun=" + coun + ", resdate=" + resdate
-				+ ", rescount=" + rescount + ", resc=" + resc + ", uidx=" + uidx + "]";
+				+ ", rescount=" + rescount + ", resc=" + resc + ", uidx=" + uidx + ", clidx=" + clidx + ", likecheck="
+				+ likecheck + "]";
 	}
+	
 	
 }
