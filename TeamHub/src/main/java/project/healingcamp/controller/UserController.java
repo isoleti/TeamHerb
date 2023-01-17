@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,6 +33,7 @@ public class UserController {
 		UserVo login = userService.login(vo);
 			
 			if(login ==null) {
+				
 				return "user/login";
 			} else{
 				session.setAttribute("login", login);
@@ -39,6 +41,21 @@ public class UserController {
 				return "redirect:/";
 			}
 		
+	}
+	@ResponseBody
+	@RequestMapping(value="/loginCheck.do", method=RequestMethod.POST)
+	public String loginCheck(UserVo vo, HttpSession session) {
+		System.out.println("id"+vo.getId());
+		System.out.println("pw"+vo.getPw());
+		
+	String name = userService.loginCheck(vo, session);		
+	if (name == null) {
+		name = "no";
+	}
+	
+	String value = "{\"name\": \""+name+"\" }";
+	
+	return value;
 	}
 	
 	@RequestMapping(value="/idFind.do", method=RequestMethod.GET)

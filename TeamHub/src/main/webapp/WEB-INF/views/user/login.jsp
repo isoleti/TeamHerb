@@ -7,6 +7,54 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>힐링캠프 로그인</title>
+	<script src = "<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
+	<script>
+			
+			var isRun = false;
+			function loginCheck(){
+				
+				if(isRun ==true){
+					return;
+				}
+				
+				isRun = true;
+				
+				var idval = $("#id").val();
+				var pwval = $("#pw").val();
+				
+				alert("ㅇ아아아아아아아아아아아아아ㅏ앙아아아");
+				alert(idval);
+				alert(pwval);
+				
+				$.ajax({
+					url : "<%=request.getContextPath()%>/user/loginCheck.do",
+					type : "post",
+					data : {"id":idval, "pw":pwval},
+					dataType : "json",
+					success:function(data){
+						alert("되라라라라라라");
+						isRun = false;
+						if(data.name == "no"){
+							alert("없는 아이디 ");
+							
+						}					
+				},
+		  		error: 
+		  			function(request,status,error){
+		  		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		  		}
+		  		
+					
+					
+				});
+				
+				
+				
+				
+			
+	}
+		
+	</script>
 	<style>
 		*{
 			margin:0;
@@ -181,11 +229,11 @@
 					<input type="password" id="pw" name="pw" autocomplete="off" required placeholder="비밀번호">
 					<br>
 					<!-- <input type="button" value="로그인" id="btn" > -->
-					<button>로그인</button>
+					<button type="button" class="Login_btn" onclick="loginCheck()">로그인</button>
 					<br>
 					<div id="checking">
-						<input type="checkbox" id="check" value="로그인유지">
-						<span>로그인 유지</span>
+						<input type="checkbox" id="check" value="아이디유지">
+						<span>아이디 저장</span>
 						<span><a href="<%=request.getContextPath() %>/user/idFind.do">아이디/비밀번호 찾기</a></span>
 						<span><a href="<%=request.getContextPath() %>/user/join.do">회원가입</a></span>
 					</div><!---->

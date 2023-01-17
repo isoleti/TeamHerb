@@ -21,6 +21,8 @@
 		 where id= #{id}
 	</select>
 	
+	
+	
 	<select id="selectByMail" parameterType="String" resultType="int"> 
 	select count(*)
 		from usertable
@@ -81,5 +83,13 @@
 		]]>
 	
 	</insert>
+	
+	
+	<select id="loginCheck" resultType="string">
+		select name
+			from usertable
+			where id = #{id} and pw = #{pw}
+	</select>
+	
 
 </mapper>

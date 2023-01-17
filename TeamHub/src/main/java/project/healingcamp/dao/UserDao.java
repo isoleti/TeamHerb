@@ -31,5 +31,9 @@ public class UserDao {
 		return sqlSession.selectOne("project.hilingcamp.mapper.userMapper.selectByMail",mail);
 	}
 	
+	public String loginCheck(UserVo vo) {	
+		return sqlSession.selectOne("project.hilingcamp.mapper.userMapper.loginCheck",vo);
+	
+	}
 	
 }
