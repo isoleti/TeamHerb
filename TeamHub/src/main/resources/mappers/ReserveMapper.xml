@@ -5,7 +5,7 @@
   
   <mapper namespace="project.healingcamp.mapper.resMapper">
   	
-  	<select id="reserveVO" resultType="int" parameterType="HashMap">
+  	<select id="countbyLike" resultType="int" parameterType="HashMap">
    SELECT COUNT(clidx) as cnt
    FROM centerliketable
    WHERE center=#{center} AND uidx=#{uidx}

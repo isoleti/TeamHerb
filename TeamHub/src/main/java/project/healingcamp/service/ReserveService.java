@@ -9,7 +9,7 @@ public interface ReserveService {
 	  //좋아요 기능
 	
 	  /* 게시판의 좋아요 번호가 있는지 카운트 */
-	  public int countLike(HashMap hashMap);
+	  public int countbyLike(HashMap hashMap);
 	  
 	  /* 좋아요 번호 등록 */
 	  public int createlike(HashMap hashMap);
