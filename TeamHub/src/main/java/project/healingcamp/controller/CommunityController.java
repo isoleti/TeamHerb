@@ -30,11 +30,10 @@ public class CommunityController {
 
 		//페이지네이션(검색어포함)
 		PageVO pageVO = new PageVO(searchVO,cboardService.total(searchVO));
+		System.out.println("pageVO:"+pageVO);
 
 		//전체게시글 데이터 요청
 		List<Community_BoardVO> list = cboardService.list(searchVO);
-		System.out.println(searchVO.getSearchType());
-		System.out.println(searchVO.getSearchVal());
 		
 		//데이터를 모델에 담아 화면에 넘김
 		model.addAttribute("pageVO",pageVO);//페이지네이션 전달

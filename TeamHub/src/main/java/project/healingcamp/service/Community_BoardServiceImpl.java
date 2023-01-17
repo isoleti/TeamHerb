@@ -98,6 +98,12 @@ public class Community_BoardServiceImpl implements Community_BoardService{
 		return cboardDAO.counseller_board_total(searchVO);
 	}
 
+	@Override
+	public int counseller_board_hitCount(int bidx) {
+
+		return cboardDAO.counseller_board_hitCount(bidx);
+	}
+
 	
 
 	

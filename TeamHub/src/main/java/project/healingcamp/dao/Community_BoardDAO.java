@@ -67,5 +67,9 @@ public class Community_BoardDAO {
 	public int counseller_board_total(SearchVO searchVO) {
 		return sqlSession.selectOne("project.healingcamp.mapper.counseller_BoardMapper.counseller_board_total",searchVO);
 	}
+	
+	public int counseller_board_hitCount(int bidx) {
+		return sqlSession.update("project.healingcamp.mapper.counseller_BoardMapper.counseller_board_hitCount", bidx);
+	}
 
 }

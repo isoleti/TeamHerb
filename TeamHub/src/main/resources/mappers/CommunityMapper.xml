@@ -12,9 +12,7 @@
            FROM(SELECT * FROM boardtable WHERE delyn='N' AND board_type='0'
         ]]>
             
-         <if test="category !=null">
-         	AND category=#{category}
-         </if>
+         
          <if test="searchType == 'title'">
             AND title like '%'||#{searchVal}||'%'
          </if>
@@ -24,9 +22,29 @@
          <if test="searchType == 'content'">
             AND content like '%'||#{searchVal}||'%'
          </if>
-      
+         
+         <if test="category != null">
+         	AND category=#{category}
+         </if>
+         
+         <choose>
+         	<when test="sort == 'wdate'">
+         		ORDER BY wdate DESC)A)
+         	</when>
+         	<when test="sort == 'hit'">
+         		ORDER BY hit DESC)A)
+         	</when>
+         	<when test="sort == 'likes'">
+         		ORDER BY likes DESC)A)
+         	</when>
+         	<otherwise>
+         		ORDER BY BIDX DESC)A)
+         	</otherwise>
+         </choose>
+         
+         
+             
       <![CDATA[      
-         ORDER BY BIDX DESC)A)
       	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
         ]]>
   	</select>
@@ -45,6 +63,10 @@
          <if test="searchType == 'content'">
             AND content like '%'||#{searchVal}||'%'
          </if>
+         <if test="category != null">
+         	AND category = #{category}
+         </if>
+         
   	</select>
   	
   	
@@ -142,10 +164,5 @@
 		 WHERE bidx=#{bidx}
 	</update>
 	
-<!-- 	카테고리별 게시글 조회 -->
-	<select id="selectByCategoryDetail" parameterType="String" resultType="cboardVO">
 
-
-	</select>
-  
   </mapper>
