@@ -12,43 +12,65 @@
     <title>힐링캠프</title>
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
-    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
-    <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
     <style>
+       
         main{
             width:1024px;
             margin:0 auto;
-            }
-            #write_form_wrapper{
+        }
+        main #left_nav{
+            background-color: rgb(183,214,163);
+            border-radius: 10px;
+            padding:20px;
+            display: inline-flex;
+            flex-direction: column;
+            float:left;
+            margin-right:30px;
+        }
+        main #left_nav h3{
+            font-weight: bold;
+        }
+        main #left_nav ul{
+            margin-bottom:0rem;
+        }
+        main #left_nav li{
+            padding:10px 0;
+            font-size: 17px;
+        }
+        #write_form_wrapper{
+            display: flex;
             margin-top:10px;
-            }
-            #title_wrapper{
+        }
+        #write_form_wrapper form{
+            width:100%;
+        }
+        #title_wrapper{
             border-top:2px solid rgb(112,173,71);
             border-bottom:2px solid rgb(112,173,71);
-            }
-            #title_wrapper #title{
+        }
+        #title_wrapper #title{
             width:100%;
             height:70px;
             border-style:none;
             font-size: 20px;
-            }
-            #title_wrapper #title:focus{
+        }
+        #title_wrapper #title:focus{
             outline:none;
-            }
-            #content_wrapper{
+        }
+        #content_wrapper{
             border-bottom:2px solid rgb(112,173,71);
             margin-bottom:20px;
-            }
-            #content_wrapper #content{
+        }
+        #content_wrapper #content{
             width:100%;
             height:500px;
             border-style:none;
             resize: none;
-            }
-            #content_wrapper #content:focus{
+        }
+        #content_wrapper #content:focus{
             outline:none;
-            }
-            #write_form_wrapper #writeAction_btn{
+        }
+        #write_form_wrapper #writeAction_btn{
             border-style: none;
             background-color: rgb(183,214,163);
             border-radius: 5px;
@@ -56,7 +78,8 @@
             font-weight: bold;
             height:32px;
             float:right;    
-            }
+        }
+      
     </style>
     
 </head>
@@ -98,65 +121,32 @@
             <section></section>
         </nav> <!-- fin 상단 네비게이션 -->
     </header> <!--fin header-->
+    
     <main>
-        <div id="write_form_wrapper">
-            <form id="write_form" action="counseller_board_write.do" method="post">
-            <input type="hidden" name="board_type" value="1">
-                <div id="title_wrapper">
-                    <input id="title" type="text" name="title" placeholder="제목을 입력하세요.">
-                </div><!--e:#title_wrapper-->
-                <div id="content_wrapper">
-                    <textarea id="content" name="content"></textarea>
-                </div><!--e:#content_wrapper-->
-                <input type="submit" value="등록하기" id="writeAction_btn" onclick="submitPost()">
-            </form><!--e:#write_form-->
-        </div><!--e:#write_form_wrapper-->
-        <script>
-        	let oEditors = []
-        	
-        	smartEitor = function(){
-	     	   console.log("smarteditor!!");
-        		
-        	nhn.husky.EZCreator.createInIFrame({
-        	   oAppRef: oEditors,
-        	   elPlaceHolder: "content",
-        	   sSkinURI: "<%=request.getContextPath()%>/resources/smarteditor/SmartEditor2Skin.html",
-        	   fCreator: "createSEditor2",
-        	      htParams : {
-        	         // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-        	         bUseToolbar : true,
-        	         // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-        	         bUseVerticalResizer : false,
-        	         // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-        	         bUseModeChanger : true, 
-        	      }
-        		
-        		})
-        	}
-        	
-        	$(document).ready(function(){
-        		smartEitor()
-        	})
-
-        	submitPost = function(){
-        		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD",[])
-        		let content = document.getElementById("content").value 
-        		let title = document.getElementById("title").value
-        		
-        		if(title == ""){
-        			alert("제목을 입력해주세요.")
-        			return
-        		}else if(content == "<p>&nbsp;</p>"){ 
-        			alert("내용을 입력해주세요.")
-        			oEditors.getById["content"].exec("FOCUS")
-        			return
-        		}else{
-        			console.log(content)
-        		}
-        	}
-        
-
-        </script>
+       <div id="left_nav">
+            <h3>관리자 페이지</h3>
+            <ul>
+                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">회원관리</a></li>
+                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_List.do">상담사관리</a></li>
+                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Community_List.do">커뮤니티관리</a></li>
+                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_Board_List.do">상담사 게시판 관리</a></li>
+                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Notice_List.do">공지사항 관리</a></li>
+                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Faq_List.do">FAQ 관리</a></li>
+                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Report_List.do">신고내역관리</a></li>
+            </ul>
+       </div><!--e:#left_nav-->
+            
+       <div id="write_form_wrapper">
+        <form id="write_form">
+            <div id="title_wrapper">
+                <input id="title" type="text" placeholder="제목을 입력하세요.">
+            </div><!--e:#title_wrapper-->
+            <div id="content_wrapper">
+                <textarea id="content"></textarea>
+            </div><!--e:#content_wrapper-->
+            <button id="writeAction_btn">등록하기</button>
+        </form><!--e:#write_form-->
+    </div><!--e:#write_form_wrapper-->
     </main>
     <footer>
         <div id="bottom">   

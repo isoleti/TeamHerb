@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.hilingcamp.mapper.adminMapper">
+
+<!-- 일반회원 리스트 -->
+	<select id="member_List" resultType="userVo" parameterType="searchVO">
+	<![CDATA[
+		SELECT * FROM(
+		SELECT ROWNUM AS rnum,A.*
+  			FROM (SELECT id
+  						,mail
+  						,edate
+  						,uidx
+  				FROM USERTABLE
+  				 WHERE usertype='u'
+	]]>
+  				 <if test="searchType == 'id'">
+  				 	AND id like '%'||#{searchVal}||'%'
+  				 </if>
+  				 <if test="searchType == 'mail'">
+  				 	AND mail like '%'||#{searchVal}||'%'
+  				 </if>			
+  				 
+  				 <choose>
+	         	<when test="sort == 'edate'">
+	         		ORDER BY edate DESC)A)
+	         	</when>
+	         	<when test="sort == 'id'">
+	         		ORDER BY id DESC)A)
+	         	</when>
+	         	<otherwise>
+	         		ORDER BY UIDX DESC)A)
+	         	</otherwise>
+	         </choose>	 
+	<![CDATA[
+  				 	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
+	]]>
+  				 
+	</select>
+	
+<!-- 	일반회원 리스트 총합 -->
+	<select id="total" resultType="int" parameterType="searchVO">
+		SELECT COUNT(uidx) AS total
+		  FROM USERTABLE 
+		 WHERE usertype='u'
+		 
+		   <if test="searchType == 'id'">
+			   AND id LIKE '%'||#{searchVal}||'%'
+		   </if>
+		   <if test="searchType == 'mail'">
+  				 	AND mail like '%'||#{searchVal}||'%'
+  		   </if>
+	</select>
+	
+<!-- 	회원탈퇴 -->
+	<delete id="delete_member" parameterType="int">
+		DELETE 
+  		  FROM USERTABLE
+	     WHERE uidx = #{uidx}
+	</delete>
+
+</mapper>

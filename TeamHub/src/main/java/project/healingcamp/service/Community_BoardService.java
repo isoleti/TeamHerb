@@ -22,6 +22,10 @@ public interface Community_BoardService {
 	List<Community_BoardVO> counseller_board_list(SearchVO searchVO);
 	Community_BoardVO counseller_selectByBidx(int bidx);
 	int counseller_board_total(SearchVO searchVO);
+	int counseller_board_insert(Community_BoardVO cboardVO);
+	int counseller_board_maxBidx();
 	int counseller_board_hitCount(int bidx);
+	int counseller_board_deleteByBidx(int bidx);
+	int counseller_board_modifyByBidx(Community_BoardVO cboardVO);
 
 }

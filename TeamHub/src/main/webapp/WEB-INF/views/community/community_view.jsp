@@ -167,7 +167,7 @@
             
                <p><a href="">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
-               <p><a href="">관리자 페이지</a></p>
+               <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
                </c:if>
                <c:if test = "${login.usertype eq 'u'}">
                <p><a href="">마이 페이지</a></p>
@@ -238,7 +238,7 @@
 							  <ul class="dropdown-menu">
 							  <c:if test="${login.id == vo.id}"><!-- 게시글을 작성한 작성자만 수정,삭제 가능 -->
 							    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/community/community_modify.do?bidx=${vo.bidx}">수정</a></li>
-							    <li><button class="dropdown-item" onclick="document.delfrm.submit()">삭제</button></li>
+							    <li><button id="deleteBtn" class="dropdown-item" onclick="document.delfrm.submit()">삭제</button></li>
 							    <form name="delfrm" action="community_delete.do" method="post">
 							    	<input type="hidden" name="bidx" value="${vo.bidx }">
 							    </form>
@@ -275,6 +275,16 @@
             </form>
         </div><!--e:#reply_input-->
     </main>
+    <script>
+    	$("#deleteBtn").on("click",function(){
+    		if(confirm("정말 삭제하시겠습니까?") == true){
+    		alert("게시물이 삭제되었습니다.");   		
+    		return;
+    		}else{
+    			location.href="<%=request.getContextPath()%>/community/community_view.do?bidx="+${vo.bidx};
+    		}
+    	});
+    </script>
     <footer>
         <div id="bottom">   
             <br> 

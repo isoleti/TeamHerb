@@ -12,8 +12,11 @@
     <title>힐링캠프</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xpressengine/xeicon@2.3.1/xeicon.min.css">
     <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
+    <script src="<%=request.getContextPath()%>/resources/js/bootstrap.bundle.js"></script>
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/resources/css/community.css" rel="stylesheet">
+    <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
     <style>
     main{
         width:1024px;
@@ -112,11 +115,19 @@
         display: inline-flex;
         padding:0 5px;
         float:right;
+        align-items: center;
        }
        .postbtn div{
-        padding:3px;
+        padding:2px;
        }
-       
+       .likebtn img{
+	   width:24px;
+       height:24px;
+       cursor:pointer;
+	   }
+	   .clip img{
+	   cursor:pointer;
+	   }
 
     </style>
     
@@ -135,7 +146,7 @@
             
                <p><a href="">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
-               <p><a href="">관리자 페이지</a></p>
+               <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
                </c:if>
                <c:if test = "${login.usertype eq 'u'}">
                <p><a href="">마이 페이지</a></p>
@@ -179,15 +190,33 @@
             <div id="content_wrapper">
                 <div id="content">${vo.content }</div>
                     <div class="postbtn">
-                        <div class="likebtn">
-                            <i class="xi-heart-o xi-x"></i>
-                            <span>공감</span>
+                         <div class="likebtn">
+                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감" onclick="likecount();" onmouseover="onHover();" onmouseout="offHover();">
+                            <span style="font-size:13px;">${vo.likes}공감</span>
                         </div><!--e:.likebtn-->
                         <div class="clip">
-                            <i class="xi-star-o xi-x"></i>
+                            <img class="bookmark" src="<%=request.getContextPath()%>/resources/upload/bookmark.jpg" alt="북마크" onclick="bookmark();" onmouseover="onHover2();" onmouseout="offHover2();">
                         </div><!--e:.clip-->
                         <div class="other">
-                            <i class="xi-ellipsis-h xi-x"></i>
+                        	<!-- Split dropup button -->
+							<div class="btn-group dropup">
+							 <button type="button" id="btn" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            	<i style="color:rgb(187,187,187);" class="xi-ellipsis-h xi-x">
+                            	</i>
+							 </button>						 
+							  <ul class="dropdown-menu">
+							  <c:if test="${login.usertype eq 'c'}"><!-- 게시글을 작성한 작성자만 수정,삭제 가능 -->
+							    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/counseller_board/counseller_board_modify.do?bidx=${vo.bidx}">수정</a></li>
+							    <li><button id="deleteBtn" class="dropdown-item" onclick="document.delfrm.submit()">삭제</button></li>
+							    <form name="delfrm" action="counseller_board_delete.do" method="post">
+							    	<input type="hidden" name="bidx" value="${vo.bidx }">
+							    </form>
+							  </c:if>
+							  <c:if test="${login.usertype eq 'u'}">
+							    <li><a class="dropdown-item" href="#">신고하기</a></li>
+							  </c:if>
+							  </ul>
+							</div>
                         </div><!--e:.other-->
                     </div><!--e:.postbtn-->
                 </div><!--e:#content_wrapper-->
@@ -213,6 +242,16 @@
             </form>
         </div><!--e:#reply_input-->
     </main>
+    <script>
+    	$("#deleteBtn").on("click",function(){
+    		if(confirm("정말 삭제하시겠습니까?") == true){
+    		alert("게시물이 삭제되었습니다.");   		
+    		return;
+    		}else{
+    			location.href="<%=request.getContextPath()%>/counseller_board/counseller_board_view.do?bidx="+${vo.bidx};
+    		}
+    	});
+    </script>
     <footer>
         <div id="bottom">   
             <br> 

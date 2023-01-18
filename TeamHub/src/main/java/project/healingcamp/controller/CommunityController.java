@@ -79,6 +79,7 @@ public class CommunityController {
 		return "redirect:community_view.do?bidx="+bidx;
 	}
 	
+	//게시글 수정페이지 이동
 	@RequestMapping(value="/community_modify.do",method=RequestMethod.GET)
 	public String community_modify(int bidx,Model model) {
 		
@@ -99,6 +100,7 @@ public class CommunityController {
 		return "redirect:community_view.do?bidx="+cboardVO.getBidx();
 	}
 
+	//게시글 삭제
 	@RequestMapping(value="/community_delete.do",method=RequestMethod.POST)
 	public String delete(int bidx) {
 		

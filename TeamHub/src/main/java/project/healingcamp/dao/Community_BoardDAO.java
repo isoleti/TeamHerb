@@ -68,8 +68,23 @@ public class Community_BoardDAO {
 		return sqlSession.selectOne("project.healingcamp.mapper.counseller_BoardMapper.counseller_board_total",searchVO);
 	}
 	
+	public int counseller_board_insert(Community_BoardVO cboardVO) {
+		return sqlSession.insert("project.healingcamp.mapper.counseller_BoardMapper.counseller_board_insert",cboardVO);
+	}
+	
+	public int counseller_board_maxBidx() {
+		return sqlSession.selectOne("project.healingcamp.mapper.counseller_BoardMapper.counseller_board_maxBidx");
+	}
+	
 	public int counseller_board_hitCount(int bidx) {
 		return sqlSession.update("project.healingcamp.mapper.counseller_BoardMapper.counseller_board_hitCount", bidx);
 	}
 
+	public int counseller_board_deleteByBidx(int bidx) {
+		return sqlSession.update("project.healingcamp.mapper.counseller_BoardMapper.counseller_board_deleteByBidx", bidx);
+	}
+	
+	public int counseller_board_modifyByBidx(Community_BoardVO cboardVO) {
+		return sqlSession.update("project.healingcamp.mapper.counseller_BoardMapper.counseller_board_modifyByBidx", cboardVO);
+	}
 }

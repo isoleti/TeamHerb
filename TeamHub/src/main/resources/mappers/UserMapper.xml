@@ -9,6 +9,7 @@
 			 , id
 			 , name
 			 , usertype
+			 ,pw
 			 from usertable
 			 where id = #{id}
 			 and pw = #{pw}
