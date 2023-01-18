@@ -42,21 +42,35 @@ public class UserController {
 			}
 		
 	}
+
 	@ResponseBody
 	@RequestMapping(value="/loginCheck.do", method=RequestMethod.POST)
 	public String loginCheck(UserVo vo, HttpSession session) {
-		System.out.println("id"+vo.getId());
+		System.out.println("id"+vo.getId()); 
 		System.out.println("pw"+vo.getPw());
+		String id = userService.loginCheck(vo, session);
+		String pw = userService.loginCheck(vo, session);
+		String value = "";
+		if( (id != null)&&(pw !=null)   )
+		{	
+			
+			System.out.println("id : " + id );
+			System.out.println("pw : " + pw);
+			session.setAttribute("id", id);
+			session.setAttribute("pw" , pw);
+			System.out.println(id);
+			System.out.println(pw);
+			value = "{\"id\": \" "+id+ "\", \"pw\": \" "+pw+"\" }";;
 		
-	String name = userService.loginCheck(vo, session);		
-	if (name == null) {
-		name = "no";
+		}else
+		{
+			System.out.println("id : null");
+			System.out.println("pw : null");
+			value = "{\"id\": \"no\", \"pw\": \"no2\"}";
+		}
+		return value;
 	}
 	
-	String value = "{\"name\": \""+name+"\" }";
-	
-	return value;
-	}
 	
 	@RequestMapping(value="/idFind.do", method=RequestMethod.GET)
 	public String idpwFind() {

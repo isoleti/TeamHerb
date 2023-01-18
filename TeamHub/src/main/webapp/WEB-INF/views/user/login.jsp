@@ -10,33 +10,49 @@
 	<script src = "<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
 	<script>
 			
-			var isRun = false;
+		var isRun = false;
 			function loginCheck(){
 				
-				if(isRun ==true){
-					return;
-				}
 				
-				isRun = true;
 				
+
+				var fm = document.frm;
 				var idval = $("#id").val();
 				var pwval = $("#pw").val();
 				
-				alert("ㅇ아아아아아아아아아아아아아ㅏ앙아아아");
-				alert(idval);
-				alert(pwval);
+				if(fm.id.value == ""){
+					alert("아이디를 입력해주세요.");
+					fm.id.focus();
+					return;
+				} else if(fm.pw.value == ""){
+					alert("비밀번호를 입력해주세요.");
+					fm.pw.focus();
+					return;
+				}
+				
+				
 				
 				$.ajax({
 					url : "<%=request.getContextPath()%>/user/loginCheck.do",
 					type : "post",
 					data : {"id":idval, "pw":pwval},
 					dataType : "json",
-					success:function(data){
-						alert("되라라라라라라");
-						isRun = false;
-						if(data.name == "no"){
-							alert("없는 아이디 ");
+					success:function(data){	
+					
+						 if((data.id == "no") && (data.pw =="no2"))
+						{
+							alert("아이디나 비밀번호가 일치하지 않습니다.");
+							idval = "";
+							pwval = "";
+							return;
+						}
+						else if((data.id != "no") && (data.pw !="no2"))
+						{
+							alert("넘어옴");
+							idval;
+							pwval;	
 							
+						
 						}					
 				},
 		  		error: 
@@ -49,10 +65,12 @@
 				});
 				
 				
-				
+				fm.action ="<%=request.getContextPath() %>/user/login.do";
+				fm.method="post"; //감춰져서 넘기는 방식 Post
+				fm.submit();
 				
 			
-	}
+	} 
 		
 	</script>
 	<style>
@@ -223,13 +241,13 @@
 				<div class="logo">
 					<a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath() %>/resources/images/힐링캠프 logo2.png"></a>
 				</div><!--logo-->
-				<form action="login.do" method="post" id="frm">
+				<form name="frm" id="frm">
 					<input type="text" id="id" name="id" autocomplete="off" required placeholder="아이디">
 					<br>
 					<input type="password" id="pw" name="pw" autocomplete="off" required placeholder="비밀번호">
 					<br>
 					<!-- <input type="button" value="로그인" id="btn" > -->
-					<button type="button" class="Login_btn" onclick="loginCheck()">로그인</button>
+					<button type="button" class="Login_btn" onclick="loginCheck()">  로그인</button>
 					<br>
 					<div id="checking">
 						<input type="checkbox" id="check" value="아이디유지">

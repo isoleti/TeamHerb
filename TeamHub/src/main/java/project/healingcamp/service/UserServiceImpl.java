@@ -44,10 +44,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.selectByMail(mail);
 	}
 
+
 	@Override
 	public String loginCheck(UserVo vo, HttpSession session) {
-		
-		return userDao.loginCheck(vo) ;
+	
+		return userDao.loginCheck(vo);
 	}
 
 

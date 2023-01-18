@@ -7,7 +7,6 @@
 	<select id="login" parameterType="userVo" resultType="userVo">
 		select uidx
 			 , id
-			 , name
 			 , usertype
 			 from usertable
 			 where id = #{id}
@@ -86,7 +85,7 @@
 	
 	
 	<select id="loginCheck" resultType="string">
-		select name
+		select id,pw 
 			from usertable
 			where id = #{id} and pw = #{pw}
 	</select>
