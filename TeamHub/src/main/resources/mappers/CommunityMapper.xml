@@ -12,6 +12,7 @@
            FROM(SELECT * FROM boardtable WHERE delyn='N' AND board_type='0'
         ]]>
             
+         
          <if test="searchType == 'title'">
             AND title like '%'||#{searchVal}||'%'
          </if>
@@ -21,9 +22,29 @@
          <if test="searchType == 'content'">
             AND content like '%'||#{searchVal}||'%'
          </if>
-      
+         
+         <if test="category != null">
+         	AND category=#{category}
+         </if>
+         
+         <choose>
+         	<when test="sort == 'wdate'">
+         		ORDER BY wdate DESC)A)
+         	</when>
+         	<when test="sort == 'hit'">
+         		ORDER BY hit DESC)A)
+         	</when>
+         	<when test="sort == 'likes'">
+         		ORDER BY likes DESC)A)
+         	</when>
+         	<otherwise>
+         		ORDER BY BIDX DESC)A)
+         	</otherwise>
+         </choose>
+         
+         
+             
       <![CDATA[      
-         ORDER BY BIDX DESC)A)
       	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
         ]]>
   	</select>
@@ -42,6 +63,10 @@
          <if test="searchType == 'content'">
             AND content like '%'||#{searchVal}||'%'
          </if>
+         <if test="category != null">
+         	AND category = #{category}
+         </if>
+         
   	</select>
   	
   	
@@ -54,6 +79,8 @@
   			  ,content
   			  ,hide_id
   			  ,hit
+  			  ,bidx
+  			  ,hide_id
   		 FROM boardtable
   		WHERE bidx=#{bidx}
   	</select>
@@ -108,5 +135,34 @@
 		   SET hit = hit+1
 		 WHERE bidx=#{bidx}
 	</update>
-  
+	
+<!-- 	삭제된 게시글 삭제여부 업데이트 -->
+	<update id="deleteByBidx" parameterType="int">
+		UPDATE boardtable
+		   SET delyn = 'Y'
+		 WHERE bidx=#{bidx}
+	</update>
+	
+<!-- 	카테고리 조회 -->
+	<select id="selectByCategory" resultType="String">
+		SELECT category
+		  FROM boardtable
+	</select>
+	
+<!-- 	게시글 수정 -->
+	<update id="modifyByBidx" parameterType="cboardVO">
+		UPDATE boardtable
+		   SET category=#{category}
+		   <if test="hide_id != null">
+		      ,hide_id=#{hide_id}
+		   </if>
+		   <if test="hide_id == null">
+		      ,hide_id=null
+		   </if>
+		      ,title=#{title}
+		      ,content=#{content}
+		 WHERE bidx=#{bidx}
+	</update>
+	
+
   </mapper>

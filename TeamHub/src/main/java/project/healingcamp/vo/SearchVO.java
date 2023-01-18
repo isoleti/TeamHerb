@@ -1,14 +1,20 @@
 package project.healingcamp.vo;
 
-public class SearchVO {
+public class SearchVO extends Community_BoardVO{
 
 	private String searchType;
 	private String searchVal;
 	private int pageNum;
 	private int amount;
+	private String sort;
 	
 	
-	
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
 	public SearchVO() {
 		this(1,10);
 	}

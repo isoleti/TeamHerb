@@ -14,12 +14,14 @@ public interface Community_BoardService {
 	int insert(Community_BoardVO cboardVO);
 	int maxBidx();
 	int hitCount(int bidx);
-	
+	int deleteByBidx(int bidx);
+	List<Community_BoardVO> categoryList();
+	int modifyByBidx(Community_BoardVO cboardVO);
 	
 	//상담사게시판
 	List<Community_BoardVO> counseller_board_list(SearchVO searchVO);
 	Community_BoardVO counseller_selectByBidx(int bidx);
 	int counseller_board_total(SearchVO searchVO);
-
+	int counseller_board_hitCount(int bidx);
 
 }

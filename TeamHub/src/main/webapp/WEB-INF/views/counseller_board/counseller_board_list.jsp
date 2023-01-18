@@ -68,7 +68,10 @@
     border-left:1px solid gray;
     border-right:1px solid gray;
     }
-
+	#filter_option button{
+	border-style:none;
+	background:none;
+	}
 
     .community_wrapper{
     width:100%;
@@ -162,23 +165,43 @@
     </style>
 </head>
 <body>
-    <header>        
-        <c:if test="${login == null }">
-	        <div><p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p><p><a href="">회원가입</a></p><p><a href="">고객센터</a></p></div>
-    	</c:if>
-    	<c:if test="${login != null }">
-	        <div><p><a href="<%=request.getContextPath() %>/user/logout.do">로그아웃</a></p><p><a href="">마이페이지</a></p><p><a href="">고객센터</a></p></div>
-    	</c:if>
-        <nav class="navbar" style="background-color: #dff6e1;">
-            <h1><a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/upload/힐링캠프 logo.png"  alt="홈버튼"></a></h1>
-            <a href="<%=request.getContextPath()%>/program.do">치료프로그램</a>
+     <header>    <!--header-->
+        <div> <!--로그인 관련-->
+             
+          <c:if test = "${login == null}">   
+            <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
+            <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
+            <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
+         </c:if><!-- 로그아웃 or 로그인x -->
+         
+        <c:if test = "${login != null}">
+            
+               <p><a href="">로그아웃</a></p>
+               <c:if test = "${login.usertype eq 'a'}">
+               <p><a href="">관리자 페이지</a></p>
+               </c:if>
+               <c:if test = "${login.usertype eq 'u'}">
+               <p><a href="">마이 페이지</a></p>
+               </c:if>
+               <c:if test = "${login.usertype eq 'c'}">
+               <p><a href="">상담사 페이지</a></p>
+               </c:if>
+               <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
+      </c:if>
+      </div>
+   
+         
+         <!-- fin 로그인 관련 -->
+        <nav class="navbar" style="background-color: #dff6e1;"> <!-- 상단 네비게이션 -->
+            <h1><a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
+           <a href="<%=request.getContextPath()%>/program.do">치료프로그램</a>
             <a href="<%=request.getContextPath()%>/test.do">심리테스트</a>
             <a href="<%=request.getContextPath()%>/community/community_list.do">커뮤니티</a>
             <a href="<%=request.getContextPath()%>/res/findcenter.do">상담 예약</a>
             <a href="<%=request.getContextPath()%>/counseller_board/counseller_board_list.do">상담사 게시판</a>
             <section></section>
-        </nav>
-    </header>
+        </nav> <!-- fin 상단 네비게이션 -->
+    </header> <!--fin header-->
     <main>
         <div id="search">
             <div id="search_wrapper">
@@ -190,16 +213,28 @@
                     </select>
                     <input type="text" name="searchVal" id="searchVal">
                     <button id="search_btn">검색</button>
-                    <c:if test="${login != null }">
+                    <c:if test="${login.usertype eq 'c'}">
 	                    <button id="write_btn" type="button" onclick="location.href='<%=request.getContextPath()%>/counseller_board/counseller_board_write.do'">작성하기</button>
                     </c:if>
                 </form>
             </div><!--e:#seasrch_wrapper-->
             <div id="filter">
                <ul id="filter_option">
-                    <li>최신순</li>
-                    <li>조회순</li>
-                    <li>공감순</li>
+                     <li>
+                    <button type="button" onclick="location.href='<%=request.getContextPath()%>/counseller_board/counseller_board_list.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=wdate'">
+                    	최신순
+                    </button>
+                    </li>
+                    <li>
+                    <button type="button" onclick="location.href='<%=request.getContextPath()%>/counseller_board/counseller_board_list.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=hit'">
+                    	조회순
+                    </button>
+                    </li>
+                    <li>
+                    <button type="button" onclick="location.href='<%=request.getContextPath()%>/counseller_board/counseller_board_list.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=likes'">
+                    	공감순
+                    </button>
+                    </li>
                </ul><!--e:#filter_option-->
             </div><!--e:#filter-->
         </div><!--e:#search-->
@@ -235,7 +270,7 @@
               <!-- 이전버튼 활성화 -->
 	            <c:if test="${pageVO.prev }">
 	              <li class="page-item">
-	                <a class="page-link" href="<%=request.getContextPath() %>/counseller_board/counseller_board_list.do?pageNum=${pageVO.startPage-1}&amount=${pageVO.amount}" aria-label="Previous">
+	                <a class="page-link" href="<%=request.getContextPath() %>/counseller_board/counseller_board_list.do?pageNum=${pageVO.startPage-1}&amount=${pageVO.amount}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>" aria-label="Previous">
 	                  <span aria-hidden="true">&laquo;</span>
 	                </a>
 	              </li>
@@ -243,13 +278,13 @@
 	            
 	            <!-- 페이지번호 -->
 	            <c:forEach var="num" begin="${pageVO.startPage }" end="${pageVO.endPage }">
-	              <li class="page-item"><a class="page-link ${pageVO.pageNum == num ? "active":"" }" href="<%=request.getContextPath() %>/counseller_board/counseller_board_list.do?pageNum=${num}&amount=${pageVO.amount}&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}">${num}</a></li>
+	              <li class="page-item"><a class="page-link ${pageVO.pageNum == num ? "active":"" }" href="<%=request.getContextPath() %>/counseller_board/counseller_board_list.do?pageNum=${num}&amount=${pageVO.amount}&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>">${num}</a></li>
 	            </c:forEach>
 	
 				<!-- 다음버튼 활성화 -->
 				<c:if test="${pageVO.next }">
 	              <li class="page-item">
-	                <a class="page-link" href="<%=request.getContextPath() %>/counseller_board/counseller_board_list.do?pageNum=${pageVO.endPage+1}&amount=${pageVO.amount}" aria-label="Next">
+	                <a class="page-link" href="<%=request.getContextPath() %>/counseller_board/counseller_board_list.do?pageNum=${pageVO.endPage+1}&amount=${pageVO.amount}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>" aria-label="Next">
 	                  <span aria-hidden="true">&raquo;</span>
 	                </a>
 	              </li>

@@ -55,6 +55,25 @@ public class Community_BoardServiceImpl implements Community_BoardService{
 		return cboardDAO.hitCount(bidx);
 	}
 	
+	@Override
+	public int deleteByBidx(int bidx) {
+
+		return cboardDAO.deleteByBidx(bidx);
+	}
+	
+	@Override
+	public List<Community_BoardVO> categoryList() {
+
+		List<Community_BoardVO> categoryList = cboardDAO.selectByCategory();
+		
+		return categoryList;
+	}
+	
+	@Override
+	public int modifyByBidx(Community_BoardVO cboardVO) {
+
+		return cboardDAO.modifyByBidx(cboardVO);
+	}
 	
 	
 	//상담사게시판
@@ -78,6 +97,18 @@ public class Community_BoardServiceImpl implements Community_BoardService{
 
 		return cboardDAO.counseller_board_total(searchVO);
 	}
+
+	@Override
+	public int counseller_board_hitCount(int bidx) {
+
+		return cboardDAO.counseller_board_hitCount(bidx);
+	}
+
+	
+
+	
+
+	
 
 	
 

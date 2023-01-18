@@ -4,5 +4,45 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="project.healingcamp.mapper.resMapper">
-  
+  	
+  	<select id="countbyLike" resultType="int" parameterType="HashMap">
+   SELECT COUNT(clidx) as cnt
+   FROM centerliketable
+   WHERE center=#{center} AND uidx=#{uidx}
+  </select>
+
+	  <insert id="create" parameterType="HashMap">
+	    INSERT INTO centerliketable(clidx, center, uidx, like_check) 
+	    VALUES ((SELECT NVL(MAX(clidx), 0) + 1 as clidx FROM centerliketable),
+	                 #{center}, #{uidx}, 0)
+	  </insert>
+	    
+	  <update id="like_check" parameterType="HashMap">
+	    UPDATE centerliketable
+	    SET like_check = like_check + 1 
+	    WHERE uidx=#{uidx} AND center=#{center}
+	  </update>
+	  
+	  <update id="like_check_cancel" parameterType="HashMap">
+	    UPDATE centerliketable
+	    SET like_check = 0
+	    WHERE uidx=#{uidx} AND center=#{center}
+	  </update>
+	  
+	  <select id="read" resultType="reserveVO" parameterType="HashMap">
+	    SELECT clidx, center, uidx, like_check 
+	    FROM centerliketable
+	    WHERE center=#{center} AND uidx=#{uidx}
+	  </select>
+	  
+	  <delete id="deletebycenter" parameterType="int">
+	    DELETE FROM centerliketable
+	    WHERE center=#{center}
+	  </delete>
+	  
+	  <delete id="deletebyuidx" parameterType="int">
+	    DELETE FROM centerliketable
+	    WHERE uidx=#{uidx}
+	  </delete>
+  	
   </mapper>

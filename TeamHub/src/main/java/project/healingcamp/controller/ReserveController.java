@@ -37,4 +37,6 @@ public class ReserveController {
 		
 		return "res/resf";
 	}
+	
+	
 }

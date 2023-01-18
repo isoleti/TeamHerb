@@ -41,6 +41,7 @@ public class CounsellerController {
 	@RequestMapping(value="/counseller_board_view.do",method=RequestMethod.GET)
 	public String counseller_board_view(int bidx,Model model) {
 		
+		cboardService.counseller_board_hitCount(bidx);
 		Community_BoardVO vo = cboardService.counseller_selectByBidx(bidx);
 		model.addAttribute("vo", vo);
 		
