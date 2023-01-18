@@ -86,7 +86,7 @@
 </head>
 <body>
     <header>    <!--header-->
-       <div> <!--로그인 관련-->
+      <div> <!--로그인 관련-->
              
           <c:if test = "${login == null}">   
             <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
@@ -130,10 +130,23 @@
             <img src="" alt="">
             <img src="" alt="">
         </div>
-        <div id="res"><!-- 예약 및 일정-->                    
-            <p id="res1"><i class="xi-heart"></i>좋아요</p>
+        <div id="res"><!-- 예약 및 일정-->   
+	        <c:choose>
+			    <c:when test="${mno ne null}">
+			     <p id="res1">
+			     	<a href='javascript: like_func();'>
+			     		<img width="20px" height="20px" src="<%=request.getContextPath()%>/resources/upload/like2	.png" alt = "좋아요 표시">
+			     	</a>
+			     </p>
+			    </c:when>
+			    <c:otherwise>
+			     <a href='javascript: login_need();'></a>
+			    </c:otherwise>
+			</c:choose>
+		    <a href='#'><img width="20px" height="20px" src="<%=request.getContextPath()%>/resources/upload/dislike.png" alt = "좋아요 표시"></a>［<span id='reply_cnt'></span>］명이 좋아합니다
+		    <span id='like_cnt' style='margin-left: 5px;'></span>          
             <p id="res2"><i class="xi-share-alt"></i>공유하기</p><br>
-            <p>명이 좋아합니다</p><br>   
+            <p></p><br>   
             <p>기관설명 기관명</p><br>
             <p>주요 상담분야</p><br>
             <p>주소 :</p><br>
