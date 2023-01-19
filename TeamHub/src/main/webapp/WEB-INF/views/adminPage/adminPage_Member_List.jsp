@@ -82,10 +82,12 @@
         #filter_option button{
 		border-style:none;
 		background:none;
-	}
+		}
         #list{
         display:flex;
         margin-top:15px;
+        flex-wrap:wrap;
+        justify-content:center;
         }
         #list table{
         text-align: center;
@@ -117,18 +119,7 @@
         margin-left:10px;
         }
     </style>
-    <script>
-    //전체선택
-    	$(function(){
-    		$("#check_all").click(function(){ //전체 체크 클릭시
-				if($("#check_all").prop("checked")){ //체크된 경우
-					$("input[name=checkbox]").prop("checked",true); //전체 선택
-				}else{
-					$("input[name=checkbox]").prop("checked",false); //전체 해제
-				}
-    		});
-    	});
-    </script>
+    
 </head>
 <body>
      <header>    <!--header-->
@@ -217,10 +208,11 @@
                     <th style="width:10%;">신고</th>
                 </tr>
      <form action="member_delete.do" method="post">
+     <input type="hidden" name="usertype" value="u">
                 <c:forEach items="${memberList}" var="vo" varStatus="status">
                 <tr id="memberList_wrapper">
                     <td>${pageVO.total-(pageVO.total-((pageVO.pageNum-1)*10+status.index)-1) }</td>
-                    <td><input id="checkbox" type="checkbox" name="uidx" value="${vo.uidx }"></td>
+                    <td><input class="checkbox" type="checkbox" name="uidx" value="${vo.uidx }"></td>
                     <td>${vo.id }</td>
                     <td>${vo.mail }</td>
                     <td>${vo.edate }</td>
@@ -229,64 +221,46 @@
                 </c:forEach>
             </table>
         </div><!--e:#list-->
-        <div id="delete_btn_wrapper">
-            <button type="submit" id="deleteBtn" class="btn">탈퇴</button>
-      </form>
-            <button class="btn">정지</button>
-        </div>
-       
+        
+	        <div id="delete_btn_wrapper">
+	            <button type="submit" id="deleteBtn" class="btn">탈퇴</button>
+	      </form>
+	            <button onclick="banPopup()" id="banBtn" class="btn">정지</button>
+	        </div>
 
-        <!--부트스트랩 페이지네이션-->
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-            
-<!--          이전버튼 활성화 -->
-              <c:if test="${pageVO.prev }">
-	              <li class="page-item">
-	                <a class="page-link" href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do?pageNum=${pageVO.startPage-1}&amount=${pageVO.amount}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>" aria-label="Previous">
-	                  <span aria-hidden="true">&laquo;</span>
-	                </a>
-	              </li>
-	            </c:if>
-              
-<!--          페이지 번호 -->
-              <c:forEach var="num" begin="${pageVO.startPage }" end="${pageVO.endPage }">
-	              <li class="page-item">
-	              <a class="page-link ${pageVO.pageNum == num ? "active":"" }" href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do?pageNum=${num}&amount=${pageVO.amount}&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>">${num}
-	              </a>
-	              </li>
-	            </c:forEach>
-              
-<!--          다음버튼 활성화 -->
-              <c:if test="${pageVO.next }">
-	              <li class="page-item">
-	                <a class="page-link" href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do?pageNum=${pageVO.endPage+1}&amount=${pageVO.amount}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>" aria-label="Next">
-	                  <span aria-hidden="true">&raquo;</span>
-	                </a>
-	              </li>
-				</c:if>			
-            </ul>
-          </nav>
+	        <!--부트스트랩 페이지네이션-->
+	        <nav aria-label="Page navigation example">
+	            <ul style="margin-left:251px;" class="pagination justify-content-center">
+	            
+	<!--          이전버튼 활성화 -->
+	              <c:if test="${pageVO.prev }">
+		              <li class="page-item">
+		                <a class="page-link" href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do?pageNum=${pageVO.startPage-1}&amount=${pageVO.amount}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>" aria-label="Previous">
+		                  <span aria-hidden="true">&laquo;</span>
+		                </a>
+		              </li>
+		            </c:if>
+	              
+	<!--          페이지 번호 -->
+	              <c:forEach var="num" begin="${pageVO.startPage }" end="${pageVO.endPage }">
+		              <li class="page-item">
+		              <a class="page-link ${pageVO.pageNum == num ? "active":"" }" href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do?pageNum=${num}&amount=${pageVO.amount}&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>">${num}
+		              </a>
+		              </li>
+		            </c:forEach>
+	              
+	<!--          다음버튼 활성화 -->
+	              <c:if test="${pageVO.next }">
+		              <li class="page-item">
+		                <a class="page-link" href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do?pageNum=${pageVO.endPage+1}&amount=${pageVO.amount}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>" aria-label="Next">
+		                  <span aria-hidden="true">&raquo;</span>
+		                </a>
+		              </li>
+					</c:if>			
+	            </ul>
+	          </nav>
+        
     </main>
-     <script>
-     	const checkPart = document.querySelector("#memberList_wrapper");
-     	const checkboxes = checkPart.querySelectorAll("input");
-    	$("#deleteBtn").on("click",function(){
-    		for(let i = 0; i < checkboxes.length; i++){
-    			if(checkboxes[i].checked == false){
-	    			alert("탈퇴시킬 회원을 선택해주세요.");
-	    			return false;
-    			}
-    		}    		
-    		if(prompt("관리자 비밀번호를 입력해주세요.") == ${login.pw}){
-    		alert("회원 탈퇴가 완료되었습니다.");   		
-    		return;
-    		}else{
-    			alert("비밀번호가 일치하지않습니다.");
-    			return false;	
-    		}
-    	});
-    </script>
     
     <footer>
         <div id="bottom">   
@@ -301,4 +275,79 @@
         </div>
     </footer>
 </body>
+
+<script>
+	 	$(function(){	 		
+		   //전체선택
+	 		$("#check_all").click(function(){ //전체 체크 클릭시
+					if($("#check_all").prop("checked")){ //체크된 경우
+						$("input[name=uidx]").prop("checked",true); //전체 선택
+					}else{
+						$("input[name=uidx]").prop("checked",false); //전체 해제
+					}
+	 		});
+	 		
+	 	});
+	 	
+	 	$(function(){
+		   //회원탈퇴
+	     	var checkboxes = document.querySelectorAll(".checkbox");
+	    	$("#deleteBtn").click(function(){
+	    		var flag = false;
+	    		for(var i = 0; i < checkboxes.length; i++)
+	    		{
+	    			if(checkboxes[i].checked == true) //체크박스에 체크된 경우
+	    			{
+	    				flag = true; //flag true
+	    			}
+	    		}    
+	    		if( flag == false ) //flag false 일경우
+	    		{
+	    			alert("탈퇴시킬 회원을 선택해주세요.");
+	    			return false;
+	    		}
+	    		
+	    		pw = prompt("관리자 비밀번호를 입력해주세요.");
+	    		if(pw == ""){
+	    			alert("비밀번호를 입력해주세요.");
+	    			return false;
+	    		}else if(pw != '${login.pw}'){
+	    			alert("비밀번호가 일치하지 않습니다.");
+	    			return false;
+	    		}else{
+		   			alert("회원 탈퇴가 완료되었습니다.");   		
+		    		return true;
+	    		}
+	    	});
+	 	});
+     	
+		$(function(){
+	    	//회원정지팝업
+	    	var checkboxes = document.querySelectorAll(".checkbox");
+	    	$("#banBtn").click(function(){
+	    		var flag = false;
+	    		for(var i = 0; i < checkboxes.length; i++)
+	    		{
+	    			if(checkboxes[i].checked == true) //체크박스에 체크된 경우
+	    			{
+	    				flag = true; //flag true
+	    			}
+	    		}    
+	    		if( flag == false ) //flag false 일경우
+	    		{
+	    			alert("정지시킬 회원을 선택해주세요.");
+	    			return false;
+	    		}else{
+		    		let popOption = "width = 568px, height=402px, scrollbars=no";
+		    		let openUrl = "<%=request.getContextPath()%>/adminPage/adminPage_Shutdown_Period_Popup.do";
+		    		window.open(openUrl,"",popOption);
+	    		}
+	    	});
+	    	
+		});   
+	    	
+	   
+	  
+    </script>
+
 </html>

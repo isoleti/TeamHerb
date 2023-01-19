@@ -244,7 +244,7 @@
 							    </form>
 							  </c:if>
 							  <c:if test="${login.id != vo.id}">
-							    <li><a class="dropdown-item" href="#">신고하기</a></li>
+							    <li><a class="dropdown-item" id="reportBtn" href="#">신고하기</a></li>
 							  </c:if>
 							  </ul>
 							</div>
@@ -276,6 +276,8 @@
         </div><!--e:#reply_input-->
     </main>
     <script>
+    	
+    	//게시글 삭제여부
     	$("#deleteBtn").on("click",function(){
     		if(confirm("정말 삭제하시겠습니까?") == true){
     		alert("게시물이 삭제되었습니다.");   		
@@ -284,6 +286,19 @@
     			location.href="<%=request.getContextPath()%>/community/community_view.do?bidx="+${vo.bidx};
     		}
     	});
+    	
+    	//신고팝업창 띄우기
+    	$(function(){	
+	    	let popuptestbtn = document.querySelector("#reportBtn");
+	    	popuptestbtn.onclick = function(){
+	    		let popOption = "width = 568px, height=558px, scrollbars=no";
+	    		let openUrl = "<%=request.getContextPath()%>/community/popup.do";
+	    		window.open(openUrl,"",popOption);
+	    	}
+    		
+    	});
+    	
+    	
     </script>
     <footer>
         <div id="bottom">   

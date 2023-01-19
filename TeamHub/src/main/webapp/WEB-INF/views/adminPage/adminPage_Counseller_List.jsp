@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="project.healingcamp.vo.UserVo" %>
 <%@ page session="true" %>
+<%List<UserVo> counseller_List = (List<UserVo>)request.getAttribute("counseller_List");%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,6 +14,7 @@
     <title>힐링캠프</title>
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
+    <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
     <style>
         main{
             width:1024px;
@@ -75,6 +78,10 @@
         border-left:1px solid gray;
         border-right:1px solid gray;
         }
+        #filter_option button{
+		border-style:none;
+		background:none;
+		}
         #list{
         display:flex;
         margin-top:15px;
@@ -164,21 +171,33 @@
             </ul>
        </div><!--e:#left_nav-->
             <div id="search_wrapper">
-                <form>
+                <form action="adminPage_Counseller_List.do" method="get">
                     <select name="searchType" id="searchType">
-                        <option>아이디</option>
-                        <option>이름</option>
-                        <option>이메일</option>
+                        <option value="id" <c:if test="${param.searchType eq 'id' }">selected</c:if>>아이디</option>
+                        <option value="name" <c:if test="${param.searchType eq 'name' }">selected</c:if>>이름</option>
+                        <option value="mail" <c:if test="${param.searchType eq 'mail' }">selected</c:if>>이메일</option>
                     </select>
-                    <input type="text" name="searchVal" id="searchVal">
+                    <input type="text" name="searchVal" id="searchVal" value="${param.searchVal }">
                     <button id="search_btn">검색</button>
                 </form>
             </div><!--e:#seasrch_wrapper-->
         <div id="filter">
            <ul id="filter_option">
-                <li>최신가입일순</li>
-                <li>아이디 오름차순</li>
-                <li>이름 오름차순</li>
+                <li>
+                <button type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Counseller_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=edate'">
+                 	최신가입일순
+                </button>
+                </li>
+                <li>
+                <button type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Counseller_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=id'">
+                 	아이디오름차순
+                </button>
+                </li>
+                <li>
+       			<button type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Counseller_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=name'">
+                 	이름오름차순
+                </button>	         
+                </li>
            </ul><!--e:#filter_option-->
         </div><!--e:#filter-->
 
@@ -186,46 +205,64 @@
             <table style="width: 100%;">
                 <tr>
                     <th style="width:5%;">NO</th>
-                    <th style="width:5%;"><input type="checkbox"></th>
+                    <th style="width:5%;"><input type="checkbox" id="check_all" name="check_all" value="check_all"></th>
                     <th>아이디</th>
                     <th>이름</th>
                     <th>이메일</th>
                     <th>가입일</th>
                     <th style="width:10%;">승인</th>
                 </tr>
+	<form action="member_delete.do" method="post">
+	<input type="hidden" name="usertype" value="c">
+				<c:forEach items="${counseller_List }" var="vo" varStatus="status">
                 <tr>
-                    <td>1</td>
-                    <td><input type="checkbox"></td>
-                    <td>tester</td>
-                    <td>김춘향</td>
-                    <td>tester@naver.com</td>
-                    <td>2023-01-03</td>
+                    <td>${pageVO.total-(pageVO.total-((pageVO.pageNum-1)*10+status.index)-1) }</td>
+                    <td><input class="checkbox" type="checkbox" type="checkbox" name="uidx" value="${vo.uidx }"></td>
+                    <td>${vo.id }</td>
+                    <td>${vo.name }</td>
+                    <td>${vo.mail }</td>
+                    <td>${vo.edate }</td>
                     <td>승인</td>
                 </tr>
+				</c:forEach>
             </table>
         </div><!--e:#list-->
         <div id="delete_btn_wrapper">
-            <button class="btn">탈퇴</button>
-            <button class="btn">승인</button>
+            <button type="submit" id="deleteBtn2"  class="btn">탈퇴</button>
+    </form>
+            <button onclick="banPopup()" id="banBtn" class="btn">승인</button>
         </div>
        
 
-        <!--부트스트랩 페이지네이션-->
+         <!--부트스트랩 페이지네이션-->
         <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
+            <ul style="margin-left:251px;" class="pagination justify-content-center">
+            
+<!--          이전버튼 활성화 -->
+              <c:if test="${pageVO.prev }">
+	              <li class="page-item">
+	                <a class="page-link" href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_List.do?pageNum=${pageVO.startPage-1}&amount=${pageVO.amount}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>" aria-label="Previous">
+	                  <span aria-hidden="true">&laquo;</span>
+	                </a>
+	              </li>
+	            </c:if>
+              
+<!--          페이지 번호 -->
+              <c:forEach var="num" begin="${pageVO.startPage }" end="${pageVO.endPage }">
+	              <li class="page-item">
+	              <a class="page-link ${pageVO.pageNum == num ? "active":"" }" href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_List.do?pageNum=${num}&amount=${pageVO.amount}&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>">${num}
+	              </a>
+	              </li>
+	            </c:forEach>
+              
+<!--          다음버튼 활성화 -->
+              <c:if test="${pageVO.next }">
+	              <li class="page-item">
+	                <a class="page-link" href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_List.do?pageNum=${pageVO.endPage+1}&amount=${pageVO.amount}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>" aria-label="Next">
+	                  <span aria-hidden="true">&raquo;</span>
+	                </a>
+	              </li>
+				</c:if>			
             </ul>
           </nav>
     </main>
@@ -242,4 +279,75 @@
         </div>
     </footer>
 </body>
+
+<script>
+	 	$(function(){	 		
+		   //전체선택
+	 		$("#check_all").click(function(){ //전체 체크 클릭시
+					if($("#check_all").prop("checked")){ //체크된 경우
+						$("input[name=uidx]").prop("checked",true); //전체 선택
+					}else{
+						$("input[name=uidx]").prop("checked",false); //전체 해제
+					}
+	 		});
+	 		
+	 	});
+	 	
+	 	$(function(){
+		   //회원탈퇴
+	     	var checkboxes = document.querySelectorAll(".checkbox");
+	    	$("#deleteBtn2").click(function(){
+	    		var flag = false;
+	    		for(var i = 0; i < checkboxes.length; i++)
+	    		{
+	    			if(checkboxes[i].checked == true) //체크박스에 체크된 경우
+	    			{
+	    				flag = true; //flag true
+	    			}
+	    		}    
+	    		if( flag == false ) //flag false 일경우
+	    		{
+	    			alert("탈퇴시킬 회원을 선택해주세요.");
+	    			return false;
+	    		}
+	    		
+	    		pw = prompt("관리자 비밀번호를 입력해주세요.");
+	    		if(pw == ""){
+	    			alert("비밀번호를 입력해주세요.");
+	    			return false;
+	    		}else if(pw != '${login.pw}'){
+	    			alert("비밀번호가 일치하지 않습니다.");
+	    			return false;
+	    		}else{
+		   			alert("회원 탈퇴가 완료되었습니다.");   		
+		   			return true;
+	    		}
+	    	});
+	 	});
+     	
+		$(function(){
+	    	//회원정지팝업
+	    	var checkboxes = document.querySelectorAll(".checkbox");
+	    	$("#banBtn").click(function(){
+	    		var flag = false;
+	    		for(var i = 0; i < checkboxes.length; i++)
+	    		{
+	    			if(checkboxes[i].checked == true) //체크박스에 체크된 경우
+	    			{
+	    				flag = true; //flag true
+	    			}
+	    		}    
+	    		if( flag == false ) //flag false 일경우
+	    		{
+	    			alert("승인할 회원을 선택해주세요.");
+	    			return false;
+	    		}
+	    	});
+	    	
+		});   
+	    	
+	   
+	  
+    </script>
+
 </html>

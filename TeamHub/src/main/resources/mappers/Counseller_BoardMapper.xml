@@ -46,7 +46,7 @@
   	<select id="counseller_board_total" resultType="int" parameterType="searchVO">
   		SELECT COUNT(bidx) as total
   		  FROM boardtable
-  		 WHERE board_type = '1'
+  		 WHERE board_type = '1'AND delyn='N'
   		 <if test="searchType == 'title'">
             AND title like '%'||#{searchVal}||'%'
          </if>

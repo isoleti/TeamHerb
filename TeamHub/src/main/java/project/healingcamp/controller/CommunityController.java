@@ -109,6 +109,12 @@ public class CommunityController {
 		return "redirect:community_list.do";
 	}
 	
+	//게시글 신고팝업
+	@RequestMapping(value="/popup.do",method=RequestMethod.GET)
+	public String popup() {
+		return "community/popup";
+	}
+	
 	
 	
 	

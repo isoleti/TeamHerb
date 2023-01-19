@@ -12,6 +12,7 @@
         body{
             width:550px;
             height:569px;
+            overflow:hidden;
         }
         #period_form .pop_title{
             padding:15px 0 15px 13px;
@@ -31,7 +32,7 @@
         .period_type{
             border:1px solid silver;
             padding:20px;
-            height:80px;
+            height:122px;
         }
         .period_type h3{
             margin-bottom:20px;
@@ -41,14 +42,14 @@
             padding-bottom:10px;
             width:50%;
             float:left;
+            list-style:none;
         }
         .period_type li label{
             font-size:13px;
         }
         .pop_footer{
             background-color: #EEE;
-            height:40px;
-            padding: 10px 0 0 40px;
+            padding: 20px 0;
             text-align: center;
         }
     </style>
@@ -82,8 +83,14 @@
         </div><!--e:.pop_content-->
         <div class="pop_footer">
             <button>등록</button>
-            <button>취소</button>
+            <button onclick="closePopup();">취소</button>
         </div><!--e:.pop_footer-->
     </form><!--e:#report_form-->
 </body>
+
+	<script>
+    	function closePopup(){
+    		window.close();
+    	}
+	</script>
 </html>
