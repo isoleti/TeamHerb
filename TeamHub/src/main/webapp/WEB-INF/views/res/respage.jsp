@@ -28,19 +28,33 @@
         main div h2{margin-left:15%; margin-bottom:2%;}
         main #step1 table{width:50%; height:60%; margin-left:13%; text-align:center;}
         main #step2 table{width:50%; height:60%; margin-left:13%; text-align:center;}
-        main #step3 div{width:50%; height:60%; margin-left:13%; text-align:center;}
+        main #step3 #calendar{width:45%; margin-left:13%; text-align:center;}        
         
         main #res{width:30%; height:100%; display:inline-block; background-color: azure; position:absolute; top:0; right:5%;}
         main #res h2{margin-top:10%; margin-bottom:5%;}
         main #res p{margin-left:7.5%; margin-bottom:5%;}
         main #res .btn-outline-success{margin-left:25%;}
-        main #res .btn-dark{margin-left:4%;}
+        main #res .btn-dark{margin-left:4%;}       
         
         main input {border:none; background:#f0ffff;}
     </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
-	
+	<script src="<%=request.getContextPath()%>/resources/js/index.global.js"></script>
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+    	  
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        });
+        
+        calendar.render();
+        
+      });
+
+    </script>
 </head>
 <body>
    <header>    <!--header-->
@@ -105,17 +119,15 @@
 	    </div>
         <div id="step3">
             <h2>3. 예약 일시</h2>
-            <div>
-                <p>구글 캘린더 넣기</p>
-            </div>
+            <div id='calendar'></div>
         </div>
         <div id="res">
             <h2>예약상세</h2>
             <form method="post">
-	            <p>상담/검사 :<input type="hidden" name="counseling" id="counseling"> </p>
-	            <p>담당상담사 :<input type="hidden" name="couns" id="couns"> </p>
-	            <p>예약일시 :<input type="hidden" name="resdate" id="resdate"> </p>
-	            <p>상담비용 :<input type="hidden" name="rescount" id="rescount"> </p>
+	            <p>상담/검사 :<input type="text" name="counseling" id="counseling" value=""> </p>
+	            <p>담당상담사 :<input type="text" name="couns" id="couns" value=""> </p>
+	            <p>예약일시 :<input type="text" name="resdate" id="resdate" value=""> </p>
+	            <p>상담비용 :<input type="text" name="rescount" id="rescount" value=""> </p>
 	            <button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/resf.do'">현장결제</button><!-- post양식으로 onclick으로 만들기 -->
 	            <button class="btn btn-dark">지금결제</button> <!-- 결제 페이지 열기 --><!-- post양식으로 onclick으로 만들기 -->
             </form>

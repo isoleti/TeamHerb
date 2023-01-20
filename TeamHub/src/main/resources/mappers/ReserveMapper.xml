@@ -34,7 +34,13 @@
 		    FROM centerliketable
 		    WHERE center=#{center} AND uidx=#{uidx}
 		</select>		
-				
+		 <!-- 
+		 <select id="read" resultType="reserveVO" parameterType="int">
+		   SELECT clidx, uidx, cnt, like_cnt
+		   FROM centerliketable
+		   WHERE center=#{center}
+	 	 </select>
+	 	 --> 		
 		<delete id="deletebycenter" parameterType="int">
 		    DELETE FROM centerliketable
 		    WHERE center=#{center}
