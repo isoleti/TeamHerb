@@ -205,7 +205,7 @@
             <table style="width: 100%;">
                 <tr>
                     <th style="width:5%;">NO</th>
-                    <th style="width:5%;"><input type="checkbox" id="check_all" name="check_all" value="check_all"></th>
+                    <th style="width:5%;"><input type="checkbox" id="check_all" name="check_all"></th>
                     <th>아이디</th>
                     <th>이름</th>
                     <th>이메일</th>

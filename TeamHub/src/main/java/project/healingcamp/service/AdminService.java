@@ -22,10 +22,23 @@ public interface AdminService {
 	//커뮤니티
 	List<Community_BoardVO> community_List(SearchVO searchVO);
 	int community_Total(SearchVO searchVO);
-	int community_DeleteByBidx(int bidx);
+	
+	//게시글삭제
+	int community_DeleteByBidx(Community_BoardVO cboardVO);
 	
 	//상담사게시판
 	List<Community_BoardVO> counseller_board_list(SearchVO searchVO);
 	int counseller_board_total(SearchVO searchVO);
+	
+	//공지사항.FAQ작성
+	int admin_Insert(Community_BoardVO cboardVO);
+	
+	//공지사항
+	List<Community_BoardVO> notice_List(SearchVO searchVO);
+	int notice_Total(SearchVO searchVO);
+	
+	//FAQ
+	List<Community_BoardVO> faq_List(SearchVO searchVO);
+	int faq_Total(SearchVO searchVO);
 	
 }

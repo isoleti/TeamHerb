@@ -158,7 +158,11 @@
                 <input type="submit" value="등록하기" id="writeAction_btn" >
             </form><!--e:#write_form-->
         </div><!--e:#write_form_wrapper-->
+    </main>
+</body>
         <script>
+        
+      		//스마트 에디터
         	let oEditors = []
         	
         	smartEitor = function(){
@@ -204,6 +208,4 @@
         
 
         </script>
-    </main>
-</body>
 </html>

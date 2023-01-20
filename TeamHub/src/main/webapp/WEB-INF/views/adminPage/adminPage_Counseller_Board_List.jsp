@@ -15,7 +15,7 @@
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
     <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
-   <style>
+  	<style>
        
         main{
             width:1024px;
@@ -202,7 +202,7 @@
             <table style="width: 100%;">
                 <tr>
                     <th style="width:5%;">NO</th>
-                    <th style="width:5%;"><input type="checkbox" id="check_all" name="check_all" value="check_all"></th>
+                    <th style="width:5%;"><input type="checkbox" id="check_all" name="check_all"></th>
                     <th style="width:50%;">제목</th>
                     <th>아이디</th>
                     <th>작성일</th>
@@ -210,11 +210,12 @@
                 </tr>
                 
          <form action="community_delete.do" method="post">
+         <input type="hidden" name="board_type" value="1">
                 <c:forEach items="${counseller_board_list}" var="vo" varStatus="status">
 	                <tr>
 	                    <td>${pageVO.total-(pageVO.total-((pageVO.pageNum-1)*10+status.index)-1) }</td>
 	                    <td><input type="checkbox" class="checkbox" name="bidx" value="${vo.bidx }"></td>
-	                    <td>${vo.title }</td>
+	                    <td><a href="<%=request.getContextPath()%>/counseller_board/counseller_board_view.do?bidx=${vo.bidx}">${vo.title }</a></td>
 	                    <td>${vo.id }</td>
 	                    <td>${vo.wdate }</td>
 	                    <td>0</td>
@@ -280,12 +281,11 @@
 		   //전체선택
 	 		$("#check_all").click(function(){ //전체 체크 클릭시
 					if($("#check_all").prop("checked")){ //체크된 경우
-						$("input[name=uidx]").prop("checked",true); //전체 선택
+						$("input[name=bidx]").prop("checked",true); //전체 선택
 					}else{
-						$("input[name=uidx]").prop("checked",false); //전체 해제
+						$("input[name=bidx]").prop("checked",false); //전체 해제
 					}
 	 		});
-	 		
 	 	});
 	 	
 	 	$(function(){

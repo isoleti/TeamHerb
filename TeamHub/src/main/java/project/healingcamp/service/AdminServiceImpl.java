@@ -63,9 +63,10 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.community_Total(searchVO);
 	}
 
+	//게시글삭제
 	@Override
-	public int community_DeleteByBidx(int bidx) {
-		return adminDAO.community_DeleteByBidx(bidx);
+	public int community_DeleteByBidx(Community_BoardVO cboardVO) {
+		return adminDAO.community_DeleteByBidx(cboardVO);
 	}
 
 	//상담사게시판
@@ -78,5 +79,37 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int counseller_board_total(SearchVO searchVO) {
 		return adminDAO.counseller_board_total(searchVO);
+	}
+
+	//공지사항/FAQ작성
+	@Override
+	public int admin_Insert(Community_BoardVO cboardVO) {
+		return adminDAO.admin_Insert(cboardVO);
+	}
+
+	//공지사항 
+	@Override
+	public List<Community_BoardVO> notice_List(SearchVO searchVO) {
+		
+		List<Community_BoardVO> notice_List = adminDAO.notice_List(searchVO);
+		
+		return notice_List;
+	}
+
+	@Override
+	public int notice_Total(SearchVO searchVO) {
+		return adminDAO.notice_Total(searchVO);
+	}
+
+	//FAQ
+	@Override
+	public List<Community_BoardVO> faq_List(SearchVO searchVO) {
+		List<Community_BoardVO> faq_List = adminDAO.faq_List(searchVO);
+		return faq_List;
+	}
+
+	@Override
+	public int faq_Total(SearchVO searchVO) {
+		return adminDAO.faq_Total(searchVO);
 	}
 }
