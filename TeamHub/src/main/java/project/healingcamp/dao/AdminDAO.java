@@ -53,8 +53,9 @@ public class AdminDAO {
 		return sqlSession.selectOne("project.healingcamp.mapper.adminMapper.community_Total",searchVO);
 	}
 	
-	public int community_DeleteByBidx(int bidx) {
-		return sqlSession.update("project.healingcamp.mapper.adminMapper.community_DeleteByBidx", bidx);
+	//게시글삭제
+	public int community_DeleteByBidx(Community_BoardVO cboardVO) {
+		return sqlSession.update("project.healingcamp.mapper.adminMapper.community_DeleteByBidx", cboardVO);
 	}
 	
 	//상담사게시판
@@ -65,5 +66,29 @@ public class AdminDAO {
 	public int counseller_board_total(SearchVO searchVO) {
 		return sqlSession.selectOne("project.healingcamp.mapper.adminMapper.counseller_board_total",searchVO);
 	}
+	
+	//공지사항/FAQ작성
+	public int admin_Insert(Community_BoardVO cboardVO) {
+		return sqlSession.insert("project.healingcamp.mapper.adminMapper.admin_Insert", cboardVO);
+	}
+	
+	//공지사항 
+	public List<Community_BoardVO> notice_List(SearchVO searchVO){
+		return sqlSession.selectList("project.healingcamp.mapper.adminMapper.notice_List",searchVO);
+	}
+	
+	public int notice_Total(SearchVO searchVO) {
+		return sqlSession.selectOne("project.healingcamp.mapper.adminMapper.notice_Total",searchVO);
+	}
+	
+	//FAQ
+	public List<Community_BoardVO> faq_List(SearchVO searchVO){
+		return sqlSession.selectList("project.healingcamp.mapper.adminMapper.faq_List",searchVO);
+	}
+	
+	public int faq_Total(SearchVO searchVO) {
+		return sqlSession.selectOne("project.healingcamp.mapper.adminMapper.faq_Total",searchVO);
+	}
+	
 	
 }

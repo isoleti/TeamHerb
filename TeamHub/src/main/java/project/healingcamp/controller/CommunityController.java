@@ -73,7 +73,9 @@ public class CommunityController {
 		cboardVO.setUidx(login.getUidx());
 		cboardVO.setIp(request.getRemoteAddr());
 		
+		//게시글 작성
 		cboardService.insert(cboardVO);
+		//최근작성한 게시글의 bidx
 		int bidx = cboardService.maxBidx();
 		
 		return "redirect:community_view.do?bidx="+bidx;

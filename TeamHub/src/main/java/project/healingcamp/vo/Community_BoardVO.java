@@ -14,7 +14,7 @@ public class Community_BoardVO {
 	private String filename;
 	private String report;
 	private String ip;
-	private String board_type;
+	private int board_type;
 	private int uidx;
 	private String hide_id;
 	
@@ -104,10 +104,10 @@ public class Community_BoardVO {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-	public String getBoard_type() {
+	public int getBoard_type() {
 		return board_type;
 	}
-	public void setBoard_type(String board_type) {
+	public void setBoard_type(int board_type) {
 		this.board_type = board_type;
 	}
 	

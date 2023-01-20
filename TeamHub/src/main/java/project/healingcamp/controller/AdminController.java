@@ -2,6 +2,9 @@ package project.healingcamp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -86,10 +89,22 @@ public class AdminController {
 		return "adminPage/adminPage_Community_List";
 	}
 	
+	//게시글 삭제
 	@RequestMapping(value="/community_delete.do",method=RequestMethod.POST)
-	public String community_delete(int bidx) {
-		adminService.community_DeleteByBidx(bidx);
-		return "redirect:adminPage_Community_List.do";
+	public String community_delete(Community_BoardVO cboardVO) {
+		adminService.community_DeleteByBidx(cboardVO);
+		
+		int bType =cboardVO.getBoard_type();
+		
+		if(bType == 0) {
+			return "redirect:adminPage_Community_List.do";			
+		}else if(bType == 1) {
+			return "redirect:adminPage_Counseller_Board_List.do";			
+		}else if(bType == 2){
+			return "redirect:adminPage_Notice_List.do";
+		}else {
+			return "redirect:adminPage_Faq_List.do";
+		}
 	}
 	
 	//상담사 게시판 이동
@@ -111,19 +126,75 @@ public class AdminController {
 	
 	//공지사항페이지 이동
 	@RequestMapping(value="/adminPage_Notice_List.do",method=RequestMethod.GET)
-	public String adminPage_Notice_List() {
+	public String adminPage_Notice_List(Model model,SearchVO searchVO) {
+		
+		//페이지네이션(검색어포함)
+		PageVO pageVO = new PageVO(searchVO , adminService.notice_Total(searchVO)); 
+		
+		//전체게시글 데이터 요청
+		List<Community_BoardVO> notice_List = adminService.notice_List(searchVO);
+		
+		//데이터를 모델에 담아 화면에 넘김
+		model.addAttribute("pageVO",pageVO);//페이지네이션 전달
+		model.addAttribute("notice_List",notice_List);//글목록 전달
 		
 		return "adminPage/adminPage_Notice_List";
+	}
+	
+	//공지사항 작성하기페이지 이동
+	@RequestMapping(value="adminPage_Notice_Write.do",method=RequestMethod.GET)
+	public String adminPage_Notice_write() {
+		return "adminPage/adminPage_Notice_Write";
+	}
+	
+	//공지사항 작성 데이터삽입
+	@RequestMapping(value="adminPage_Notice_Write.do",method=RequestMethod.POST)
+	public String adminPage_Notice_write(Community_BoardVO cboardVO,HttpSession session,HttpServletRequest request) {
+		
+		UserVo login = (UserVo)session.getAttribute("login");
+		
+		cboardVO.setId(login.getId());			
+		cboardVO.setUidx(login.getUidx());
+		cboardVO.setIp(request.getRemoteAddr());
+		int bType = cboardVO.getBoard_type();
+		System.out.println("bType:"+bType);
+		
+		//게시글 작성
+		int result = adminService.admin_Insert(cboardVO);
+		System.out.println("result:"+result);
+		
+		if(bType == 2) {
+			return "redirect:adminPage_Notice_List.do";
+		}else {
+			return "redirect:adminPage_Faq_List.do";
+		}
+		
 	}
 		
 	//FAQ페이지 이동
 	@RequestMapping(value="/adminPage_Faq_List.do",method=RequestMethod.GET)
-	public String adminPage_Faq_List() {
+	public String adminPage_Faq_List(Model model,SearchVO searchVO) {
+		
+		//페이지네이션(검색어포함)
+		PageVO pageVO = new PageVO(searchVO , adminService.faq_Total(searchVO)); 
+		
+		//전체게시글 데이터 요청
+		List<Community_BoardVO> faq_List = adminService.faq_List(searchVO);
+		
+		//데이터를 모델에 담아 화면에 넘김
+		model.addAttribute("pageVO",pageVO);//페이지네이션 전달
+		model.addAttribute("faq_List",faq_List);//글목록 전달
 		
 		return "adminPage/adminPage_Faq_List";
 	}
 	
-	//FAQ페이지 이동
+	//FAQ작성 페이지 이동
+	@RequestMapping(value="/adminPage_Faq_Write.do",method=RequestMethod.GET)
+	public String adminPage_Faq_Write() {
+		return "adminPage/adminPage_Faq_Write";
+	}
+	
+	//신고페이지 이동
 	@RequestMapping(value="/adminPage_Report_List.do",method=RequestMethod.GET)
 	public String adminPage_Report_List() {
 		
