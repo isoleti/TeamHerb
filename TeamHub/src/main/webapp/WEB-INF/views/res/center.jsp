@@ -44,8 +44,7 @@
         main #faq .faqmenu{width:15%; height:40px;display:inline-block; margin:0; margin-left:-3px; margin-right:-3px; border:1px solid #000; text-align:center;}
         main #faq .accordion  .accordion-button{width:100%;}
         main #map{margin-left:25%; }
-        main .cal .table-striped{width:80%; height:100px; margin:auto;}
-        main .cal .table-striped tr{margin-top:3%;  margin-bottom:3%;}
+        main .cal #calendar{}
     </style>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
      <script>
@@ -83,6 +82,27 @@
 		  });
 		}
      </script>
+     <script src="<%=request.getContextPath()%>/resources/js/index.global.js"></script>
+	 <script>
+	
+	      document.addEventListener('DOMContentLoaded', function() {
+	    	  
+	        var calendarEl = document.getElementById('calendar');
+	        var calendar = new FullCalendar.Calendar(calendarEl, {
+	            initialView: 'timeGridWeek',
+	           
+	       headerToolbar: {
+	                right: ' timeGridWeek',
+	                center: 'prev title next',
+	                left: 'today',
+	              },     
+	          });
+	        
+	        calendar.render();
+	        
+	      });
+	
+	 </script>
 </head>
 <body>
     <header>    <!--header-->
@@ -155,58 +175,7 @@
             <button class="btn btn-dark">문의하기</button>
             <div class="cal"> <!--상담사 상담 일정-->
                 <p>상담사 : </p>
-                <table class="table table-striped">
-                    <tr>
-                        <th></th>
-                        <th>월</th>
-                        <th>화</th>
-                        <th>수</th>
-                        <th>목</th>
-                        <th>금</th>
-                        <th>토</th>
-                        <th>일</th>
-                    </tr>
-                    <tr>
-                        <td>9~12시</td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>                        
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                    </tr>
-                    <tr>
-                        <td>12~15시</td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>                        
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                    </tr>
-                    <tr>
-                        <td>15~18시</td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>                        
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                    </tr>
-                    <tr>
-                        <td>18~21시</td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>                        
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                        <td><a onclick="location.href='<%=request.getContextPath()%>/res/respage.do'"></a></td>
-                    </tr>
-                </table>
+                <div id='calendar'></div>
             </div><!-- fin 상담사 일정-->
             <div id="test"> <!--상담 및 검사 안내-->
                 <table class="table table-striped">
