@@ -73,12 +73,15 @@ public class CommunityController {
 		cboardVO.setUidx(login.getUidx());
 		cboardVO.setIp(request.getRemoteAddr());
 		
+		//게시글 작성
 		cboardService.insert(cboardVO);
+		//최근작성한 게시글의 bidx
 		int bidx = cboardService.maxBidx();
 		
 		return "redirect:community_view.do?bidx="+bidx;
 	}
 	
+	//게시글 수정페이지 이동
 	@RequestMapping(value="/community_modify.do",method=RequestMethod.GET)
 	public String community_modify(int bidx,Model model) {
 		
@@ -99,12 +102,19 @@ public class CommunityController {
 		return "redirect:community_view.do?bidx="+cboardVO.getBidx();
 	}
 
+	//게시글 삭제
 	@RequestMapping(value="/community_delete.do",method=RequestMethod.POST)
 	public String delete(int bidx) {
 		
 		cboardService.deleteByBidx(bidx);
 		
 		return "redirect:community_list.do";
+	}
+	
+	//게시글 신고팝업
+	@RequestMapping(value="/popup.do",method=RequestMethod.GET)
+	public String popup() {
+		return "community/popup";
 	}
 	
 	

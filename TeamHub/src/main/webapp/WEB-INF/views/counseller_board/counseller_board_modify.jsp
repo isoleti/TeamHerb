@@ -12,6 +12,8 @@
     <title>힐링캠프</title>
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>   
     <style>
         main{
             width:1024px;
@@ -72,7 +74,7 @@
             
                <p><a href="">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
-               <p><a href="">관리자 페이지</a></p>
+               <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
                </c:if>
                <c:if test = "${login.usertype eq 'u'}">
                <p><a href="">마이 페이지</a></p>
@@ -98,16 +100,66 @@
     </header> <!--fin header-->
     <main>
         <div id="write_form_wrapper">
-            <form id="write_form">
+            <form id="write_form" action="counseller_board_modify.do" method="post" onsubmit="return submitPost();">
+            <input type="hidden" name="bidx" value="${vo.bidx }">
                 <div id="title_wrapper">
-                    <input id="title" type="text" placeholder="제목을 입력하세요.">
+                    <input id="title" type="text" name="title" placeholder="제목을 입력하세요." value=${vo.title }>
                 </div><!--e:#title_wrapper-->
                 <div id="content_wrapper">
-                    <textarea id="content"></textarea>
+                    <textarea id="content" name="content">${vo.content }</textarea>
                 </div><!--e:#content_wrapper-->
-                <button id="writeAction_btn">수정하기</button>
+                <input type="submit" value="수정하기" id="writeAction_btn">
             </form><!--e:#write_form-->
         </div><!--e:#write_form_wrapper-->
+        
+        <script>
+        	let oEditors = []
+        	
+        	smartEitor = function(){
+	     		console.log("smarteditor!!");
+        		
+	        	nhn.husky.EZCreator.createInIFrame({
+	        	   oAppRef: oEditors,
+	        	   elPlaceHolder: "content",
+	        	   sSkinURI: "<%=request.getContextPath()%>/resources/smarteditor/SmartEditor2Skin.html",
+	        	   fCreator: "createSEditor2",
+	        	      htParams : {
+	        	         // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+	        	         bUseToolbar : true,
+	        	         // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+	        	         bUseVerticalResizer : false,
+	        	         // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+	        	         bUseModeChanger : true, 
+	        	      }
+	        		
+	        		});
+        	};
+        	
+        	$(document).ready(function(){
+        		smartEitor();
+        	});
+
+        	function submitPost()
+        	{ 
+        		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD",[]);
+        		let content = document.getElementById("content").value ;
+        		let title = $("#title").val();
+        		
+        		if(title == ""){
+        			alert("제목을 입력해주세요.");
+        			return false;
+        		}else if(content == "<p>&nbsp;</p>"){ 
+        			alert("내용을 입력해주세요.");
+        			oEditors.getById["content"].exec("FOCUS");
+        			return false;
+        		}
+        		return true;
+        	}
+        
+
+        </script>
+        
+        
     </main>
     <footer>
         <div id="bottom">   

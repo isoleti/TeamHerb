@@ -12,6 +12,7 @@
         body{
             width:550px;
             height:569px;
+            overflow:hidden
         }
         #report_form .pop_title{
             padding:15px 0 15px 13px;
@@ -36,6 +37,9 @@
             margin-bottom:20px;
             font-size:14px;
         }
+        .report_type ul{
+        	padding-left:0;
+        }
         .report_type li{
             padding-bottom:10px;
             width:50%;
@@ -56,8 +60,7 @@
         }
         .pop_footer{
             background-color: #EEE;
-            height:40px;
-            padding: 10px 0 0 40px;
+            padding: 20px 0;
             text-align: center;
         }
     </style>

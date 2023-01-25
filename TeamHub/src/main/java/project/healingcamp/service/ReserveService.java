@@ -12,8 +12,9 @@ public interface ReserveService {
 	  public int countbyLike(HashMap hashMap);
 	  
 	  /* 좋아요 번호 등록 */
-	  public int createlike(HashMap hashMap);
-	  
+	  public int create(HashMap hashMap); 	  
+	 
+	  /* 좋아요 */
 	  public int like_check(HashMap hashMap);
 	  
 	  /*좋아요 취소*/
@@ -23,9 +24,15 @@ public interface ReserveService {
 	  public ReserveVO read(HashMap hashMap);
 	  
 	  /* 게시판의 좋아요 삭제 */
-	  public int deleteby(int clidx);
+	  public int deletebycenter(String center);
 	  
 	  /* 회원의 좋아요 삭제 */
-	  public int deletebyMno(String center);
-	
+	  public int deletebyuidx(int uidx);
+	 
+	  /* 좋아요 1증가 */
+	  public int like_cnt_up(String center);
+	  
+	  /* 좋아요 1감소 */
+	  public int like_cnt_down(String center);
+	  
 }

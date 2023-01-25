@@ -74,7 +74,7 @@
             
                <p><a href="">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
-               <p><a href="">관리자 페이지</a></p>
+               <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
                </c:if>
                <c:if test = "${login.usertype eq 'u'}">
                <p><a href="">마이 페이지</a></p>
@@ -100,14 +100,15 @@
     </header> <!--fin header-->
     <main>
         <div id="write_form_wrapper">
-            <form id="write_form">
+            <form id="write_form" action="counseller_board_write.do" method="post">
+            <input type="hidden" name="board_type" value="1">
                 <div id="title_wrapper">
-                    <input id="title" type="text" placeholder="제목을 입력하세요.">
+                    <input id="title" type="text" name="title" placeholder="제목을 입력하세요.">
                 </div><!--e:#title_wrapper-->
                 <div id="content_wrapper">
-                    <textarea id="content"></textarea>
+                    <textarea id="content" name="content"></textarea>
                 </div><!--e:#content_wrapper-->
-                <button id="writeAction_btn" onclick="submitPost()">등록하기</button>
+                <input type="submit" value="등록하기" id="writeAction_btn" onclick="submitPost()">
             </form><!--e:#write_form-->
         </div><!--e:#write_form_wrapper-->
         <script>

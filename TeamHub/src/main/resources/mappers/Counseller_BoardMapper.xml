@@ -46,7 +46,7 @@
   	<select id="counseller_board_total" resultType="int" parameterType="searchVO">
   		SELECT COUNT(bidx) as total
   		  FROM boardtable
-  		 WHERE board_type = '1'
+  		 WHERE board_type = '1'AND delyn='N'
   		 <if test="searchType == 'title'">
             AND title like '%'||#{searchVal}||'%'
          </if>
@@ -66,14 +66,67 @@
   			  ,wdate
   			  ,content
   			  ,hit
+  			  ,bidx
   		 FROM boardtable
   		WHERE bidx=#{bidx}
   	</select>
+  	
+  	<!--   게시글 작성 -->
+	  <insert id="counseller_board_insert" parameterType="cboardVO">
+	  	INSERT INTO boardtable(
+	  			 BIDX
+	  			,TITLE
+	  			,CONTENT
+	  			,WDATE
+	  			,ID
+	  			,HIT
+	  			,LIKES
+	  			,DELYN
+	  			,IP
+	  			,UIDX
+	  			,BOARD_TYPE
+	  			)
+			VALUES(
+			     bidx_seq.nextval
+			     ,#{title}
+			     ,#{content}
+			     ,sysdate
+				 ,#{id}		     
+			     ,0
+			     ,0
+			     ,'N'
+			     ,#{ip}
+			     ,#{uidx}
+			     ,1
+			     )
+	  </insert>
+	  
+	  <!--   최신글 -->
+	  <select id="counseller_board_maxBidx" resultType="int">
+	  	SELECT max(bidx)
+	  	  FROM boardtable
+	  	 WHERE board_type='1'
+	  </select>
   	
   	<!--   조회수 -->
 	<update id="counseller_board_hitCount" parameterType="int">
 		UPDATE boardtable
 		   SET hit = hit+1
+		 WHERE bidx=#{bidx}
+	</update>
+	
+	<!-- 	삭제된 게시글 삭제여부 업데이트 -->
+	<update id="counseller_board_deleteByBidx" parameterType="int">
+		UPDATE boardtable
+		   SET delyn = 'Y'
+		 WHERE bidx=#{bidx}
+	</update>
+	
+	<!-- 	게시글 수정 -->
+	<update id="counseller_board_modifyByBidx" parameterType="cboardVO">
+		UPDATE boardtable
+		   SET title=#{title}
+		      ,content=#{content}
 		 WHERE bidx=#{bidx}
 	</update>
   

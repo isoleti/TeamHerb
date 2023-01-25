@@ -174,28 +174,26 @@
 	}
 	
 	.page-item.active .page-link {
-	 z-index: 1;
-	 color: #555;
-	 font-weight:bold;
-	 background-color: #f1f1f1;
-	 border-color: #ccc;
-	 
+	z-index: 1;
+	color: #555;
+	font-weight:bold;
+	background-color: #f1f1f1;
+	border-color: #ccc;
 	}
 	
 	.page-link:focus, .page-link:hover {
-	  color: #000;
-	  background-color: #fafafa; 
-	  border-color: #ccc;
+	color: #000;
+	background-color: #fafafa; 
+	border-color: #ccc;
 	}
+
     </style>
 	<script>
 	
-		function offHover(){
-			$(".empathy").attr('src','./../resources/upload/like.jpg');
-		}
-		function onHover(){
+		function changeImage(obj){
 			$(".empathy").attr('src','./../resources/upload/like_color_change.jpg');
 		}
+		
 		
 	</script>
 </head>
@@ -213,7 +211,7 @@
             
                <p><a href="">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
-               <p><a href="">관리자 페이지</a></p>
+               <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
                </c:if>
                <c:if test = "${login.usertype eq 'u'}">
                <p><a href="">마이 페이지</a></p>
@@ -311,7 +309,7 @@
                     <div class="reaction">
                     
                         <div class="empathy_wrapper">
-                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감" onmouseover="onHover();" onmouseout="offHover();">
+                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감" onclick="changeImage(this);">
                         </div><!--e:#empathy_wrapper-->
                         
                         <div class="like">${vo.likes }명이 공감</div>

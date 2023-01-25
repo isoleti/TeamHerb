@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.healingcamp.mapper.adminMapper">
+
+<!-- 일반회원 리스트 -->
+	<select id="member_List" resultType="userVo" parameterType="searchVO">
+	<![CDATA[
+		SELECT * FROM(
+		SELECT ROWNUM AS rnum,A.*
+  			FROM (SELECT id
+  						,mail
+  						,edate
+  						,uidx
+  				FROM USERTABLE
+  			   WHERE usertype='u'
+	]]>
+  				 <if test="searchType == 'id'">
+  				 	AND id like '%'||#{searchVal}||'%'
+  				 </if>
+  				 <if test="searchType == 'mail'">
+  				 	AND mail like '%'||#{searchVal}||'%'
+  				 </if>			
+  				 
+  				 <choose>
+	         	<when test="sort == 'edate'">
+	         		ORDER BY edate DESC)A)
+	         	</when>
+	         	<when test="sort == 'id'">
+	         		ORDER BY id DESC)A)
+	         	</when>
+	         	<otherwise>
+	         		ORDER BY UIDX DESC)A)
+	         	</otherwise>
+	         </choose>	 
+	<![CDATA[
+  				 	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
+	]]>
+  				 
+	</select>
+	
+<!-- 	일반회원 리스트 총합 -->
+	<select id="total" resultType="int" parameterType="searchVO">
+		SELECT COUNT(uidx) AS total
+		  FROM USERTABLE 
+		 WHERE usertype='u'
+		 
+		   <if test="searchType == 'id'">
+			   AND id LIKE '%'||#{searchVal}||'%'
+		   </if>
+		   <if test="searchType == 'mail'">
+  				 	AND mail like '%'||#{searchVal}||'%'
+  		   </if>
+	</select>
+	
+<!-- 	회원탈퇴 -->
+	<delete id="delete_member" parameterType="userVo">
+		DELETE 
+  		  FROM USERTABLE
+	     WHERE uidx = #{uidx}
+	       AND usertype = #{usertype}
+	</delete>
+	
+	
+	<!-- 상담사 리스트 -->
+	<select id="counseller_List" resultType="userVo" parameterType="searchVO">
+	<![CDATA[
+		SELECT * FROM(
+		SELECT ROWNUM AS rnum,A.*
+  			FROM (SELECT id
+  						,mail
+  						,edate
+  						,uidx
+  						,name
+  				FROM USERTABLE
+  			   WHERE usertype='c'
+	]]>
+  				 <if test="searchType == 'id'">
+  				 	AND id like '%'||#{searchVal}||'%'
+  				 </if>
+  				 <if test="searchType == 'mail'">
+  				 	AND mail like '%'||#{searchVal}||'%'
+  				 </if>
+  				 <if test="searchType == 'name'">
+  				 	AND name like '%'||#{searchVal}||'%'
+  				 </if>				
+  				 
+  				 <choose>
+	         	<when test="sort == 'edate'">
+	         		ORDER BY edate DESC)A)
+	         	</when>
+	         	<when test="sort == 'id'">
+	         		ORDER BY id DESC)A)
+	         	</when>
+	         	<otherwise>
+	         		ORDER BY UIDX DESC)A)
+	         	</otherwise>
+	         </choose>	 
+	<![CDATA[
+  				 	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
+	]]>
+  				 
+	</select>
+	
+<!-- 	상담사 리스트 총합 -->
+	<select id="counseller_total" resultType="int" parameterType="searchVO">
+		SELECT COUNT(uidx) AS total
+		  FROM USERTABLE 
+		 WHERE usertype='c'
+		 
+		   <if test="searchType == 'id'">
+			   AND id LIKE '%'||#{searchVal}||'%'
+		   </if>
+		   <if test="searchType == 'mail'">
+			 	AND mail like '%'||#{searchVal}||'%'
+  		   </if>
+  		   <if test="searchType == 'name'">
+			 	AND name like '%'||#{searchVal}||'%'
+  		   </if>
+	</select>
+	
+	
+<!-- 	커뮤니티 리스트 -->
+	<select id="community_List" resultType="cboardVO" parameterType="searchVO">
+  		<![CDATA[
+        SELECT * 
+        FROM(SELECT ROWNUM AS rnum,A.* 
+           FROM(SELECT * FROM boardtable WHERE delyn='N' AND board_type='0'
+        ]]>
+            
+         
+         <if test="searchType == 'title'">
+            AND title like '%'||#{searchVal}||'%'
+         </if>
+         <if test="searchType == 'id'">
+            AND id like '%'||#{searchVal}||'%'
+         </if>
+        
+         <choose>
+         	<when test="sort == 'wdate'">
+         		ORDER BY wdate DESC)A)
+         	</when>
+         	<when test="sort == 'id'">
+         		ORDER BY id DESC)A)
+         	</when>
+         	<when test="sort == 'title'">
+         		ORDER BY title DESC)A)
+         	</when>
+         	<otherwise>
+         		ORDER BY BIDX DESC)A)
+         	</otherwise>
+         </choose>
+         
+         
+             
+      <![CDATA[      
+      	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
+        ]]>
+  	</select>
+  	
+<!--   	커뮤니티 게시글 총 합 -->
+  	<select id="community_Total" resultType="int" parameterType="searchVO">
+  		SELECT COUNT(bidx) as total
+  		  FROM boardtable
+  		 WHERE board_type = '0' AND delyn='N'
+  		 <if test="searchType == 'title'">
+            AND title like '%'||#{searchVal}||'%'
+         </if>
+         <if test="searchType == 'id'">
+            AND id like '%'||#{searchVal}||'%'
+         </if>
+         <if test="category != null">
+         	AND category = #{category}
+         </if>
+         
+  	</select>
+
+<!-- 	삭제된 게시글 삭제여부 업데이트 -->
+	<update id="community_DeleteByBidx" parameterType="cboardVO">
+		UPDATE boardtable
+		   SET delyn = 'Y'
+		 WHERE bidx=#{bidx}
+		   AND board_type=#{board_type}
+	</update>
+	
+<!-- 	상담사게시판 리스트 -->
+	<select id="counseller_board_list" resultType="cboardVO" parameterType="searchVO">
+  		<![CDATA[
+        SELECT * 
+        FROM(SELECT ROWNUM AS rnum,A.* 
+           FROM(SELECT * FROM boardtable WHERE delyn='N' AND board_type='1'
+        ]]>
+            
+         <if test="searchType == 'title'">
+            AND title like '%'||#{searchVal}||'%'
+         </if>
+         <if test="searchType == 'id'">
+            AND id like '%'||#{searchVal}||'%'
+         </if>
+
+         
+         <choose>
+         	<when test="sort == 'wdate'">
+         		ORDER BY wdate DESC)A)
+         	</when>
+         	<when test="sort == 'id'">
+         		ORDER BY id DESC)A)
+         	</when>
+         	<when test="sort == 'title'">
+         		ORDER BY title DESC)A)
+         	</when>
+         	<otherwise>
+         		ORDER BY BIDX DESC)A)
+         	</otherwise>
+         </choose>
+      
+      <![CDATA[      
+      	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
+        ]]>
+  	</select>
+  	
+<!--  상담사게시판  게시글 총 합 -->
+  	<select id="counseller_board_total" resultType="int" parameterType="searchVO">
+  		SELECT COUNT(bidx) as total
+  		  FROM boardtable
+  		 WHERE board_type = '1'AND delyn='N'
+  		 <if test="searchType == 'title'">
+            AND title like '%'||#{searchVal}||'%'
+         </if>
+         <if test="searchType == 'id'">
+            AND id like '%'||#{searchVal}||'%'
+         </if>
+
+  	</select>
+  
+<!--   공지사항 리스트	 -->
+  <select id="notice_List" resultType="cboardVO" parameterType="searchVO">
+  		<![CDATA[
+        SELECT * 
+        FROM(SELECT ROWNUM AS rnum,A.* 
+           FROM(SELECT * FROM boardtable WHERE delyn='N' AND board_type='2'
+        ]]>
+            
+         
+         <if test="searchType == 'title'">
+            AND title like '%'||#{searchVal}||'%'
+         </if>
+         <if test="searchType == 'id'">
+            AND id like '%'||#{searchVal}||'%'
+         </if>
+         	ORDER BY BIDX DESC)A)
+      <![CDATA[      
+      	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
+        ]]>
+  	</select>
+  	
+<!--   공지사항 게시글 총 합 -->
+  	<select id="notice_Total" resultType="int" parameterType="searchVO">
+  		SELECT COUNT(bidx) as total
+  		  FROM boardtable
+  		 WHERE board_type = '2' AND delyn='N'
+  		 <if test="searchType == 'title'">
+            AND title like '%'||#{searchVal}||'%'
+         </if>
+         <if test="searchType == 'id'">
+            AND id like '%'||#{searchVal}||'%'
+         </if>
+  	</select>	
+  	
+  <!--   공지사항/FAQ 작성 -->
+  <insert id="admin_Insert" parameterType="cboardVO">
+  	INSERT INTO boardtable(
+  			 BIDX
+  			,TITLE
+  			,CONTENT
+  			,WDATE
+  			,ID
+  			,HIT
+  			,LIKES
+  			,DELYN
+  			,IP
+  			,UIDX
+  			,BOARD_TYPE
+  			<if test="category != null">
+  			,CATEGORY
+  			</if>
+  			)
+		VALUES(
+		     bidx_seq.nextval
+		     ,#{title}
+		     ,#{content}
+		     ,sysdate
+			 ,#{id}		     
+		     ,0
+		     ,0
+		     ,'N'
+		     ,#{ip}
+		     ,#{uidx}
+		     ,#{board_type}
+		     <if test="category != null">
+		     ,#{category}
+		     </if>
+		     )
+  </insert>
+  
+  <!--  공지사항 최신글 -->
+  <select id="maxBidx" resultType="int">
+  	SELECT max(bidx)
+  	  FROM boardtable
+  	 WHERE board_type='2'
+  </select>
+  
+<!--   FAQ리스트 -->
+  <select id="faq_List" resultType="cboardVO" parameterType="searchVO">
+  		<![CDATA[
+        SELECT * 
+        FROM(SELECT ROWNUM AS rnum,A.* 
+           FROM(SELECT * FROM boardtable WHERE delyn='N' AND board_type='3'
+        ]]>
+            
+         <if test="searchType == 'title'">
+            AND title like '%'||#{searchVal}||'%'
+         </if>
+         <if test="searchType == 'id'">
+            AND id like '%'||#{searchVal}||'%'
+         </if>
+         <if test="category != null">
+         	AND category=#{category}
+         </if>
+         	ORDER BY BIDX DESC)A)
+      <![CDATA[      
+      	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
+        ]]>
+  	</select>
+  	
+<!--   	FAQ게시글 총 합 -->
+  	<select id="faq_Total" resultType="int" parameterType="searchVO">
+  		SELECT COUNT(bidx) as total
+  		  FROM boardtable
+  		 WHERE board_type = '3' AND delyn='N'
+  		 <if test="searchType == 'title'">
+            AND title like '%'||#{searchVal}||'%'
+         </if>
+         <if test="searchType == 'id'">
+            AND id like '%'||#{searchVal}||'%'
+         </if>
+         <if test="category != null">
+         	AND category = #{category}
+         </if>
+         
+  	</select>
+</mapper>

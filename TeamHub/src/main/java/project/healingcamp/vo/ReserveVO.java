@@ -54,8 +54,7 @@ public class ReserveVO {
 	}
 	public void setUidx(int uidx) {
 		this.uidx = uidx;
-	}
-	
+	}	
 		
 	public int getClidx() {
 		return clidx;

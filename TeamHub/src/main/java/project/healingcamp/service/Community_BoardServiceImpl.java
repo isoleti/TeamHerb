@@ -99,10 +99,35 @@ public class Community_BoardServiceImpl implements Community_BoardService{
 	}
 
 	@Override
+	public int counseller_board_insert(Community_BoardVO cboardVO) {
+
+		return cboardDAO.counseller_board_insert(cboardVO);
+	}
+	
+	@Override
+	public int counseller_board_maxBidx() {
+		return cboardDAO.counseller_board_maxBidx();
+	}
+	
+	@Override
 	public int counseller_board_hitCount(int bidx) {
 
 		return cboardDAO.counseller_board_hitCount(bidx);
 	}
+
+	@Override
+	public int counseller_board_deleteByBidx(int bidx) {
+
+		return cboardDAO.counseller_board_deleteByBidx(bidx);
+	}
+
+	@Override
+	public int counseller_board_modifyByBidx(Community_BoardVO cboardVO) {
+
+		return cboardDAO.counseller_board_modifyByBidx(cboardVO);
+	}
+
+
 
 	
 

@@ -2,6 +2,9 @@ package project.healingcamp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +15,7 @@ import project.healingcamp.service.Community_BoardService;
 import project.healingcamp.vo.Community_BoardVO;
 import project.healingcamp.vo.PageVO;
 import project.healingcamp.vo.SearchVO;
+import project.healingcamp.vo.UserVo;
 
 @RequestMapping(value="/counseller_board")
 @Controller
@@ -48,9 +52,68 @@ public class CounsellerController {
 		return "counseller_board/counseller_board_view";
 	}
 	
-	//상담사 게시판 게시글 작성
+	//상담사 게시판 게시글 작성페이지 이동
 	@RequestMapping(value="/counseller_board_write.do",method=RequestMethod.GET)
 	public String counseller_board_write() {
 		return "counseller_board/counseller_board_write";
 	}
+	
+	@RequestMapping(value="/counseller_board_write.do",method=RequestMethod.POST)
+	public String counseller_board_write(Community_BoardVO cboardVO,HttpSession session,HttpServletRequest request) {
+		
+		UserVo login = (UserVo)session.getAttribute("login");
+		cboardVO.setId(login.getId());
+		cboardVO.setUidx(login.getUidx());
+		cboardVO.setIp(request.getRemoteAddr());
+		
+		int result = cboardService.counseller_board_insert(cboardVO);
+		int bidx = cboardService.counseller_board_maxBidx();
+
+		return "redirect:counseller_board_view.do?bidx="+bidx;
+	}
+	
+	//게시글 수정페이지 이동
+	@RequestMapping(value="/counseller_board_modify.do",method=RequestMethod.GET)
+	public String counseller_board_modify(int bidx,Model model) {
+		
+		Community_BoardVO vo = cboardService.counseller_selectByBidx(bidx);
+		model.addAttribute("vo", vo);
+		
+		return  "counseller_board/counseller_board_modify";
+	}
+	
+	@RequestMapping(value="/counseller_board_modify.do",method=RequestMethod.POST)
+	public String counseller_board_modify(Community_BoardVO cboardVO) {
+		
+		int result = cboardService.counseller_board_modifyByBidx(cboardVO);
+		
+		return "redirect:counseller_board_view.do?bidx="+cboardVO.getBidx();
+	} 
+	
+	//게시글 삭제
+	@RequestMapping(value="/counseller_board_delete.do",method=RequestMethod.POST)
+	public String counseller_board_delete(int bidx) {
+		
+		cboardService.counseller_board_deleteByBidx(bidx);
+		
+		return "redirect:counseller_board_list.do";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
