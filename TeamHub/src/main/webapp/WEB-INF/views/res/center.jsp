@@ -44,7 +44,7 @@
         main #faq .faqmenu{width:15%; height:40px;display:inline-block; margin:0; margin-left:-3px; margin-right:-3px; border:1px solid #000; text-align:center;}
         main #faq .accordion  .accordion-button{width:100%;}
         main #map{margin-left:25%; }
-        main .cal #calendar{}
+        main .cal #calendar tr{height:45px;}
     </style>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
      <script>
@@ -82,7 +82,7 @@
 		  });
 		}
      </script>
-     <script src="<%=request.getContextPath()%>/resources/js/index.global.js"></script>
+     <script src="<%=request.getContextPath()%>/resources/js/index.global.js"></script> 
 	 <script>
 	
 	      document.addEventListener('DOMContentLoaded', function() {
@@ -90,12 +90,26 @@
 	        var calendarEl = document.getElementById('calendar');
 	        var calendar = new FullCalendar.Calendar(calendarEl, {
 	            initialView: 'timeGridWeek',
-	           
-	       headerToolbar: {
-	                right: ' timeGridWeek',
-	                center: 'prev title next',
-	                left: 'today',
-	              },     
+	            slotDuration: '03:00:00',	
+	            headerToolbar: {
+	                start: "",
+	                center: "title",
+	                end: "timeGridWeek dayGridDay",
+	              },  
+	            titleFormat : function(date) { // title 설정
+	            	  return date.date.year +"년 "+(date.date.month +1)+"월"; 
+	            	  }  
+	        	
+	            	, 
+	           	dayHeaderContent: function (date) {
+	            		  let weekList = ["일", "월", "화", "수", "목", "금", "토"];
+	            		  return weekList[date.dow];
+	            		}	
+	            	,
+	            navLinks: true,
+	            selectable: true,
+	            selectMirror: true,	    
+	            allDaySlot: false, // allDay 표시 안함	
 	          });
 	        
 	        calendar.render();
@@ -112,9 +126,9 @@
             <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
             <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
             <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
-         </c:if><!-- 로그아웃 or 로그인x -->
+          </c:if><!-- 로그아웃 or 로그인x -->
          
-        <c:if test = "${login != null}">
+          <c:if test = "${login != null}">
             
                <p><a href="">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
@@ -127,10 +141,8 @@
                <p><a href="">상담사 페이지</a></p>
                </c:if>
                <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
-      </c:if>
-      </div>
-   
-         
+          </c:if>
+      </div>         
          <!-- fin 로그인 관련 -->
         <nav class="navbar" style="background-color: #dff6e1;"> <!-- 상단 네비게이션 -->
             <h1><a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
@@ -298,7 +310,7 @@
               </div>           
         </div>
         <h2>오시는 길</h2>
-       <div id="map" style="width:550px;height:400px;"></div>	
+        <div id="map" style="width:550px;height:400px;"></div>	
        		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=387e40e57d47d09b22e39f6b21c6fd82"></script>		
 			<script>
 				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

@@ -43,17 +43,55 @@
 	<script src="<%=request.getContextPath()%>/resources/js/index.global.js"></script>
     <script>
 
-      document.addEventListener('DOMContentLoaded', function() {
-    	  
+    document.addEventListener('DOMContentLoaded', function() {
+  	  	//예약일
+    	var date = document.getElementsByName("resdate");
+    	
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
+          initialView: 'dayGridMonth',
+          
+        headerToolbar: {
+              start: "",
+              center: "title",
+              end: "dayGridMonth",
+            },  
+          titleFormat : function(date) { // title 설정
+        	  return date.date.year +"년 "+(date.date.month +1)+"월"; 
+        	  },
+          dayHeaderContent: function (date) {
+        		  let weekList = ["일", "월", "화", "수", "목", "금", "토"];
+        		  return weekList[date.dow];
+        		}	
+        	,	  
+        	dateClick: function (dateClickInfo) {
+        	  // get all fc-day element
+        	  const fcDayElements = document.querySelectorAll(
+        	    ".fc-daygrid-day.fc-day"
+        	  );
+        	  // init background color found element
+        	  fcDayElements.forEach((element, key, parent) => {
+        	    element.style.backgroundColor = "#ffffff";
+        	  });
+        	  // set background color clicked Element
+        	  dateClickInfo.dayEl.style.backgroundColor = "#dff6e1";
+        	          	  
+        	  
+        	}        
+        	, columnHeaderText : function(date) { 
+        	  return weekList[date.getDay()]; // 헤더 var weekList = ['일','월','화','수','목','금','토']; 
+        	    } , 
+        	navLinks: true,
+	        selectable: true,
+	        selectMirror: true,	    
+	        allDaySlot: false, // allDay 표시 안함	 
+          
         });
         
         calendar.render();
         
       });
-
+		
     </script>
 </head>
 <body>
