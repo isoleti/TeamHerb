@@ -83,7 +83,7 @@ public class UserController {
 	@RequestMapping(value="/checkMail.do", method=RequestMethod.POST)
 	public String checkMail(String mail) {
 		
-		int result = userService.selectById(mail);
+		int result = userService.selectByMail(mail);
 		
 		if(result>0) {
 			return "1";
