@@ -42,7 +42,14 @@ public class UserController {
 			}
 		
 	}
-
+	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
+	public String logtout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+	
+	
 	@ResponseBody
 	@RequestMapping(value="/loginCheck.do", method=RequestMethod.POST)
 	public String loginCheck(UserVo vo, HttpSession session) {
