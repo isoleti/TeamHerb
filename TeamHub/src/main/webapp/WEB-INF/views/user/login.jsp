@@ -8,23 +8,21 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>힐링캠프 로그인</title>
 	<script src = "<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
+	
 	<script>
 			
-		var isRun = false;
 			function loginCheck(){
-				
-				
-				
 
 				var fm = document.frm;
 				var idval = $("#id").val();
 				var pwval = $("#pw").val();
-				
+				var IdCheck = $("#IdCheck").val(":checked"); 
+			
 				if(fm.id.value == ""){
 					alert("아이디를 입력해주세요.");
 					fm.id.focus();
 					return;
-				} else if(fm.pw.value == ""){
+				}else if(fm.pw.value == ""){
 					alert("비밀번호를 입력해주세요.");
 					fm.pw.focus();
 					return;
@@ -38,20 +36,21 @@
 					data : {"id":idval, "pw":pwval},
 					dataType : "json",
 					success:function(data){	
-					
+							//alert("id1"+idval)
+							//alert("pw2"+pwval)
 						 if((data.id == "no") && (data.pw =="no2"))
 						{
 							alert("아이디나 비밀번호가 일치하지 않습니다.");
 							idval = "";
 							pwval = "";
-							return;
+							
 						}
 						else if((data.id != "no") && (data.pw !="no2"))
 						{
-							alert("넘어옴");
+							//alert("넘어옴");
 							idval;
 							pwval;	
-							
+								
 						
 						}					
 				},
@@ -65,12 +64,20 @@
 				});
 				
 				
+
+				
+				
 				fm.action ="<%=request.getContextPath() %>/user/login.do";
 				fm.method="post"; //감춰져서 넘기는 방식 Post
 				fm.submit();
 				
 			
-	} 
+			}
+			
+
+			
+				
+	
 		
 	</script>
 	<style>
@@ -184,6 +191,9 @@
 			top:5px;
 			cursor: pointer;
 		}
+		#checking{
+			posision:relative;
+		}
 		
 		#checking :nth-child(2){
 			left:133px;
@@ -195,6 +205,13 @@
 
 		#checking :nth-child(4){
 			right:106px;
+		}
+		
+		#reId{
+			width:23px;
+			position:absolute;
+			left:100px;
+			top:-10px;
 		}
 		.start_login .naver,
 		.kakao{
@@ -242,15 +259,16 @@
 					<a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath() %>/resources/images/힐링캠프 logo2.png"></a>
 				</div><!--logo-->
 				<form name="frm" id="frm">
-					<input type="text" id="id" name="id" autocomplete="off" required placeholder="아이디">
+					     
+					<input type="text" id="id" name="id" autocomplete="off" required placeholder="아이디" "/>
 					<br>
 					<input type="password" id="pw" name="pw" autocomplete="off" required placeholder="비밀번호">
 					<br>
 					<!-- <input type="button" value="로그인" id="btn" > -->
-					<button type="button" class="Login_btn" onclick="loginCheck()">  로그인</button>
+					<button type="button" class="Login_btn" onclick="loginCheck()">로그인</button>
 					<br>
 					<div id="checking">
-						<input type="checkbox" id="check" value="아이디유지">
+						<input type="checkbox" id="reId" name="reId" />
 						<span>아이디 저장</span>
 						<span><a href="<%=request.getContextPath() %>/user/idFind.do">아이디/비밀번호 찾기</a></span>
 						<span><a href="<%=request.getContextPath() %>/user/join.do">회원가입</a></span>

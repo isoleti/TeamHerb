@@ -1,5 +1,7 @@
 package project.healingcamp.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,12 +46,15 @@ public class UserServiceImpl implements UserService {
 		return userDao.selectByMail(mail);
 	}
 
-
 	@Override
 	public String loginCheck(UserVo vo, HttpSession session) {
-	
+
 		return userDao.loginCheck(vo);
 	}
+
+
+
+
 
 
 	

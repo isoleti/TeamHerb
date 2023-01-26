@@ -1,5 +1,7 @@
 package project.healingcamp.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import project.healingcamp.vo.UserVo;

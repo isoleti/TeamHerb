@@ -51,22 +51,23 @@ public class UserController {
 		String id = userService.loginCheck(vo, session);
 		String pw = userService.loginCheck(vo, session);
 		String value = "";
-		if( (id != null)&&(pw !=null)   )
+		if( (id != null)&&(pw !=null))
 		{	
 			
-			System.out.println("id : " + id );
-			System.out.println("pw : " + pw);
+			System.out.println("id1 : " + id );
+			System.out.println("pw2 : " + pw);
 			session.setAttribute("id", id);
 			session.setAttribute("pw" , pw);
 			System.out.println(id);
 			System.out.println(pw);
 			value = "{\"id\": \" "+id+ "\", \"pw\": \" "+pw+"\" }";;
-		
+			
 		}else
 		{
 			System.out.println("id : null");
 			System.out.println("pw : null");
 			value = "{\"id\": \"no\", \"pw\": \"no2\"}";
+			
 		}
 		return value;
 	}
