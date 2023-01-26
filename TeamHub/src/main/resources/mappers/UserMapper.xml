@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="project.hilingcamp.mapper.userMapper">
+<mapper namespace="project.healingcamp.mapper.userMapper">
 
 	<select id="login" parameterType="userVo" resultType="userVo">
 		select uidx

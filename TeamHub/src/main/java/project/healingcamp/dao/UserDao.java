@@ -16,25 +16,25 @@ public class UserDao {
 	
 	public UserVo login(UserVo vo) {
 		System.out.println(vo.toString());
-		return sqlSession.selectOne("project.hilingcamp.mapper.userMapper.login", vo);
+		return sqlSession.selectOne("project.healingcamp.mapper.userMapper.login", vo);
 	}
 	public int join(UserVo vo) {
 		
-		return sqlSession.insert("project.hilingcamp.mapper.userMapper.join", vo);
+		return sqlSession.insert("project.healingcamp.mapper.userMapper.join", vo);
 	}
 	public int joinCoun(UserVo vo) {
 		
-		return sqlSession.insert("project.hilingcamp.mapper.userMapper.joinCoun", vo);
+		return sqlSession.insert("project.healingcamp.mapper.userMapper.joinCoun", vo);
 	}
 	public int selectById(String id) {
-		return sqlSession.selectOne("project.hilingcamp.mapper.userMapper.selectById",id);
+		return sqlSession.selectOne("project.healingcamp.mapper.userMapper.selectById",id);
 	}
 	public int selectByMail(String mail) {
-		return sqlSession.selectOne("project.hilingcamp.mapper.userMapper.selectByMail",mail);
+		return sqlSession.selectOne("project.healingcamp.mapper.userMapper.selectByMail",mail);
 	}
 	
 	public String loginCheck(UserVo vo) {	
-		return sqlSession.selectOne("project.hilingcamp.mapper.userMapper.loginCheck",vo);
+		return sqlSession.selectOne("project.healingcamp.mapper.userMapper.loginCheck",vo);
 	
 	}
 	
