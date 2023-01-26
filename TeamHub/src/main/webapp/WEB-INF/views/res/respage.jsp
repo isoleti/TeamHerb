@@ -45,12 +45,12 @@
 
     document.addEventListener('DOMContentLoaded', function() {
   	  	//예약일
-    	var date = document.getElementsByName("resdate");
-    	
+    	var rdate = document.getElementsByName("resdate"); 
+    	 	  	
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
           initialView: 'dayGridMonth',
-          
+
         headerToolbar: {
               start: "",
               center: "title",
@@ -65,27 +65,44 @@
         		}	
         	,	  
         	dateClick: function (dateClickInfo) {
-        	  // get all fc-day element
-        	  const fcDayElements = document.querySelectorAll(
-        	    ".fc-daygrid-day.fc-day"
-        	  );
-        	  // init background color found element
-        	  fcDayElements.forEach((element, key, parent) => {
-        	    element.style.backgroundColor = "#ffffff";
-        	  });
-        	  // set background color clicked Element
-        	  dateClickInfo.dayEl.style.backgroundColor = "#dff6e1";
-        	          	  
-        	  
-        	}        
-        	, columnHeaderText : function(date) { 
-        	  return weekList[date.getDay()]; // 헤더 var weekList = ['일','월','화','수','목','금','토']; 
-        	    } , 
-        	navLinks: true,
+        		//년월 값
+        	  var fcMounthNumber = document.querySelector(".fc-toolbar-title");
+        	  	//alert(fcMounthNumber);
+        	  	//일값
+          	  var fcDayNumber = document.querySelector(".fc-daygrid-day-number");
+          		//alert(fcDayNumber);
+          	  const fcDayElements = document.querySelectorAll(
+          	    ".fc-daygrid-day.fc-day"
+          	  );
+          	  // init background color found element
+          	  fcDayElements.forEach((element, key, parent) => {
+          	    element.style.backgroundColor = "#ffffff";
+          	  });
+          	  // set background color clicked Element
+          	  dateClickInfo.dayEl.style.backgroundColor = "#dff6e1";
+          	 
+          	  //년 월값 가져오기
+          	  var val = $(fcMounthNumber);
+			  var valText = val.text();
+			  //alert(val);
+	    	  //alert("valText"+valText);
+          	  
+	    	  //날짜 가져오기
+          	  var val2 = $(fcDayNumber);
+  			  var val2Text = val2.innerHTML;
+  			  alert(val2);
+  	    	  alert("val2Text"+val2Text);
+  	    	
+  	    	  //년월일 담기
+  	    	$(rdate).attr('value',valText+" "+val2Text+"일");
+  	    	  
+          	}             
+        	,  
+        	navLinks: true, 
 	        selectable: true,
 	        selectMirror: true,	    
-	        allDaySlot: false, // allDay 표시 안함	 
-          
+	        allDaySlot: false, // allDay 표시 안함	     
+	 
         });
         
         calendar.render();
@@ -162,10 +179,10 @@
         <div id="res">
             <h2>예약상세</h2>
             <form method="post">
-	            <p>상담/검사 :<input type="text" name="counseling" id="counseling" value=""> </p>
-	            <p>담당상담사 :<input type="text" name="couns" id="couns" value=""> </p>
-	            <p>예약일시 :<input type="text" name="resdate" id="resdate" value=""> </p>
-	            <p>상담비용 :<input type="text" name="rescount" id="rescount" value=""> </p>
+	            <p>상담/검사 :<input type="text" name="counseling" id="counseling" value="" readonly> </p>
+	            <p>담당상담사 :<input type="text" name="couns" id="couns" value="" readonly> </p>
+	            <p>예약일시 :<input type="text" name="resdate" id="resdate" value="" readonly> </p>
+	            <p>상담비용 :<input type="text" name="rescount" id="rescount" value="" readonly> </p>
 	            <button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/resf.do'">현장결제</button><!-- post양식으로 onclick으로 만들기 -->
 	            <button class="btn btn-dark">지금결제</button> <!-- 결제 페이지 열기 --><!-- post양식으로 onclick으로 만들기 -->
             </form>
