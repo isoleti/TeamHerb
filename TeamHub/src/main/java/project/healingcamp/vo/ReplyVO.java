@@ -3,21 +3,29 @@ package project.healingcamp.vo;
 public class ReplyVO {
 	
 	private int replyIdx;
-	private int replyContent;
+	private String replyContent;
 	private String id;
 	private String replyWdate;
 	private String replyIp;
 	private int bidx;
+	private int uidx;
+	
+	public int getUidx() {
+		return uidx;
+	}
+	public void setUidx(int uidx) {
+		this.uidx = uidx;
+	}
 	public int getReplyIdx() {
 		return replyIdx;
 	}
 	public void setReplyIdx(int replyIdx) {
 		this.replyIdx = replyIdx;
 	}
-	public int getReplyContent() {
+	public String getReplyContent() {
 		return replyContent;
 	}
-	public void setReplyContent(int replyContent) {
+	public void setReplyContent(String replyContent) {
 		this.replyContent = replyContent;
 	}
 	public String getId() {
@@ -48,8 +56,10 @@ public class ReplyVO {
 	@Override
 	public String toString() {
 		return "ReplyVO [replyIdx=" + replyIdx + ", replyContent=" + replyContent + ", id=" + id + ", replyWdate="
-				+ replyWdate + ", replyIp=" + replyIp + ", bidx=" + bidx + "]";
+				+ replyWdate + ", replyIp=" + replyIp + ", bidx=" + bidx + ", uidx=" + uidx + "]";
 	}
+	
+	
 	
 	
 

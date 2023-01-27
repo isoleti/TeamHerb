@@ -8,12 +8,18 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.healingcamp.service.Community_BoardService;
+import project.healingcamp.service.ReplyService;
 import project.healingcamp.vo.Community_BoardVO;
 import project.healingcamp.vo.PageVO;
+import project.healingcamp.vo.ReplyVO;
 import project.healingcamp.vo.SearchVO;
 import project.healingcamp.vo.UserVo;
 
@@ -23,6 +29,9 @@ public class CommunityController {
 	
 	@Autowired
 	private Community_BoardService cboardService;
+	
+	@Autowired
+	private ReplyService replyService;
 	
 	//커뮤니티 리스트 이동
 	@RequestMapping(value="/community_list.do",method=RequestMethod.GET)
@@ -43,7 +52,10 @@ public class CommunityController {
 	
 	//게시글 상세보기 이동
 	@RequestMapping(value="/community_view.do",method=RequestMethod.GET)
-	public String community_view(int bidx,Model model) {
+	public String community_view(int bidx,Model model,ReplyVO replyVO) {
+		
+		//댓글 리스트
+		List<ReplyVO> reply_list = replyService.reply_list(bidx);
 		
 		//호출된 결과를 vo에 담음
 		Community_BoardVO vo = cboardService.selectByBidx(bidx);
@@ -53,9 +65,19 @@ public class CommunityController {
 		//model에 vo를 담아 화면에 넘김
 		model.addAttribute("vo",vo);
 		
-		System.out.println("bidx?"+bidx);
 		
 		return "community/community_view";
+	}
+	
+	//
+	@RequestMapping(value="/community_view.do",method=RequestMethod.POST)
+	@ResponseBody
+	public List<ReplyVO> community_view(int bidx) {
+		
+		//댓글 리스트
+		List<ReplyVO> reply_list = replyService.reply_list(bidx);
+		
+		return reply_list;
 	}
 	
 	//게시글 작성 페이지 이동
@@ -115,6 +137,25 @@ public class CommunityController {
 	@RequestMapping(value="/popup.do",method=RequestMethod.GET)
 	public String popup() {
 		return "community/popup";
+	}
+	
+	//댓글 작성
+	@RequestMapping(value="/community_reply_insert.do",method=RequestMethod.POST)
+	@ResponseBody
+	public String community_reply_insert(ReplyVO replyVO,HttpSession session,HttpServletRequest request,Community_BoardVO cboardVO) {
+		
+		//로그인 정보
+		UserVo login = (UserVo)session.getAttribute("login");
+		
+		replyVO.setUidx(login.getUidx()); //댓글작성자 번호
+		replyVO.setId(login.getId()); //댓글작성자 아이디
+		replyVO.setBidx(cboardVO.getBidx()); //작성한댓글의 게시글 번호
+		replyVO.setReplyIp(request.getRemoteAddr()); // 아이피
+		
+		//댓글작성 후 삽입
+		int result = replyService.reply_Insert(replyVO);
+		
+		return "success";
 	}
 	
 	

@@ -18,32 +18,25 @@
     <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
     <style>
 	main{
-	    width:1024px;
-	    margin:0 auto;
+    width:1024px;
+    margin:0 auto;
 	}
 	main #menu{
-	    display: flex;
-	    margin-top:30px;
+    display: flex;
+    margin-top:30px;
+    flex-wrap: wrap;
+   	justify-content: space-between;
 	}  
-	#menu #category{
-	    display:flex;
-	    flex-wrap: wrap;
-	    justify-content: center;
-	}
-    #menu #category li{
-    padding:5px 7px 7px;
+	#menu button{
+	padding:5px 7px 7px;
     margin:0px 16px 16px 0px;
     text-align: center;
     border:1px solid rgb(112,173,71);
     border-radius:5px;
     width:100px;
     cursor:pointer;
-    list-style:none;
-    }
-    #menu #category li:hover{
-    background-color: #F6F6F6;
-    }
-
+    background:white;
+	}
     #search{
     display:flex;
     justify-content: space-between;
@@ -172,7 +165,6 @@
 	 background-color: #fff;
 	 border: 1px solid #ccc; 
 	}
-	
 	.page-item.active .page-link {
 	z-index: 1;
 	color: #555;
@@ -180,13 +172,20 @@
 	background-color: #f1f1f1;
 	border-color: #ccc;
 	}
-	
 	.page-link:focus, .page-link:hover {
 	color: #000;
 	background-color: #fafafa; 
 	border-color: #ccc;
 	}
-
+	.cateActive{
+	background-color: rgb(112,173,71) !important;
+	color:white;
+	font-weight:bold;
+	}
+	.sortActive{
+	font-weight:bolder;
+	}
+	
     </style>
 	<script>
 	
@@ -209,7 +208,7 @@
          
         <c:if test = "${login != null}">
             
-               <p><a href="">로그아웃</a></p>
+               <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
                <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
                </c:if>
@@ -238,24 +237,22 @@
     <main>
       <form action="community_list.do" method="get">
         <div id="menu">
-            <ul id="category">
-                <li><button onclick="location.href='community_list.do'">전체보기</button></li>
-                <li><button name="category" value="육아">육아</button></li>
-                <li><button name="category" value="취업/진로">취업/진로</button></li>
-                <li><button name="category" value="연애">연애</button></li>
-                <li><button name="category" value="대인관계">대인관계</button></li>
-                <li><button name="category" value="가족">가족</button></li>
-                <li><button name="category" value="학업">학업</button></li>
-                <li><button name="category" value="중독">중독</button></li>
-                <li><button name="category" value="자유">자유</button></li>
-                <li><button name="category" value="이별/이혼">이별/이혼</button></li>
-                <li><button name="category" value="따돌림">따돌림</button></li>
-                <li><button name="category" value="정신건강">정신건강</button></li>
-                <li><button name="category" value="투병">투병</button></li>
-                <li><button name="category" value="신체">신체</button></li>
-                <li><button name="category" value="LGBT">LGBT</button></li>
-                <li><button name="category" value="직장">직장</button></li>
-            </ul><!--e:#category-->
+        		<button class="<c:if test="${searchVO.category eq null }">cateActive</c:if>" onclick="location.href='community_list.do'">전체보기</button>
+                <button class="<c:if test="${searchVO.category eq '육아' }">cateActive</c:if>" name="category" value="육아">육아</button>
+                <button class="<c:if test="${searchVO.category eq '취업/진로' }">cateActive</c:if>" name="category" value="취업/진로">취업/진로</button>
+                <button class="<c:if test="${searchVO.category eq '연애' }">cateActive</c:if>" name="category" value="연애">연애</button>
+                <button class="<c:if test="${searchVO.category eq '대인관계' }">cateActive</c:if>" name="category" value="대인관계">대인관계</button>
+                <button class="<c:if test="${searchVO.category eq '가족' }">cateActive</c:if>" name="category" value="가족">가족</button>
+                <button class="<c:if test="${searchVO.category eq '학업' }">cateActive</c:if>" name="category" value="학업">학업</button>
+                <button class="<c:if test="${searchVO.category eq '중독' }">cateActive</c:if>" name="category" value="중독">중독</button>
+                <button class="<c:if test="${searchVO.category eq '자유' }">cateActive</c:if>" name="category" value="자유">자유</button>
+                <button class="<c:if test="${searchVO.category eq '이별/이혼' }">cateActive</c:if>" name="category" value="이별/이혼">이별/이혼</button>
+                <button class="<c:if test="${searchVO.category eq '따돌림' }">cateActive</c:if>" name="category" value="따돌림">따돌림</button>
+                <button class="<c:if test="${searchVO.category eq '정신건강' }">cateActive</c:if>" name="category" value="정신건강">정신건강</button>
+                <button class="<c:if test="${searchVO.category eq '투병' }">cateActive</c:if>" name="category" value="투병">투병</button>
+                <button class="<c:if test="${searchVO.category eq '신체' }">cateActive</c:if>" name="category" value="신체">신체</button>
+                <button class="<c:if test="${searchVO.category eq 'LGBT' }">cateActive</c:if>" name="category" value="LGBT">LGBT</button>
+                <button class="<c:if test="${searchVO.category eq '직장' }">cateActive</c:if>" name="category" value="직장">직장</button>
         </div><!--e:#menu-->
 
         <div id="search">
@@ -275,17 +272,17 @@
             <div id="filter">
                <ul id="filter_option">
                     <li>
-                    <button type="button" onclick="location.href='<%=request.getContextPath()%>/community/community_list.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=wdate&<c:if test='${searchVO.category != null}'>category=${searchVO.category}</c:if>'">
+                    <button class="<c:if test="${searchVO.sort eq 'wdate' }">sortActive</c:if>" type="button" onclick="location.href='<%=request.getContextPath()%>/community/community_list.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=wdate&<c:if test='${searchVO.category != null}'>category=${searchVO.category}</c:if>'">
                     	최신순
                     </button>
                     </li>
                     <li>
-                    <button type="button" onclick="location.href='<%=request.getContextPath()%>/community/community_list.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=hit&<c:if test='${searchVO.category != null}'>category=${searchVO.category}</c:if>'">
+                    <button class="<c:if test="${searchVO.sort eq 'hit' }">sortActive</c:if>" type="button" onclick="location.href='<%=request.getContextPath()%>/community/community_list.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=hit&<c:if test='${searchVO.category != null}'>category=${searchVO.category}</c:if>'">
                     	조회순
                     </button>
                     </li>
                     <li>
-                    <button type="button" onclick="location.href='<%=request.getContextPath()%>/community/community_list.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=likes&<c:if test='${searchVO.category != null}'>category=${searchVO.category}</c:if>'">
+                    <button class="<c:if test="${searchVO.sort eq 'likes' }">sortActive</c:if>" type="button" onclick="location.href='<%=request.getContextPath()%>/community/community_list.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=likes&<c:if test='${searchVO.category != null}'>category=${searchVO.category}</c:if>'">
                     	공감순
                     </button>
                     </li>

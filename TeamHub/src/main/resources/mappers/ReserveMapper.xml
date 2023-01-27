@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="project.healingcamp.mapper.resMapper">
+  <mapper namespace="project.healingcamp.mapper.reserveMapper">
   	
 	  	<select id="countbyLike" resultType="int" parameterType="HashMap">
 		   SELECT COUNT(clidx) as cnt

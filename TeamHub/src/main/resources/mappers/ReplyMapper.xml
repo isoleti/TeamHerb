@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="project.healingcamp.mapper.replyMapper">
+  	
+  	<insert id="reply_Insert" parameterType="replyVO">
+  		INSERT INTO replytable(
+		  			reply_idx
+		  		   ,reply_content
+		  		   ,id
+		  		   ,reply_wdate
+		  		   ,reply_ip
+		  		   ,bidx
+		  		   ,uidx
+		  	)VALUES(
+		  		   reply_idx_seq.nextval
+		  		  ,#{replyContent}
+		  		  ,#{id}
+		  		  ,SYSDATE
+		  		  ,#{replyIp}
+		  		  ,#{bidx}
+		  		  ,#{uidx}
+		  	)
+		  			
+  	</insert>
+  	
+  	<select id="reply_list" resultType="replyVO" parameterType="int">
+  		SELECT reply_idx
+			  ,reply_content
+			  ,id
+			  ,reply_wdate
+			  ,bidx
+			  ,uidx
+		  FROM replytable
+		 WHERE bidx = #{bidx}
+  	</select>
+	
+
+  </mapper>
