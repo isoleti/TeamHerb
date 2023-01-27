@@ -72,7 +72,6 @@
 	border-style:none;
 	background:none;
 	}
-
     .community_wrapper{
     width:100%;
     display:flex;
@@ -156,12 +155,14 @@
 	 border-color: #ccc;
 	 
 	}
-	
 	.page-link:focus, .page-link:hover {
 	  color: #000;
 	  background-color: #fafafa; 
 	  border-color: #ccc;
 	}
+	.sortActive{
+    font-weight: bold;
+    }
     </style>
 </head>
 <body>
@@ -176,7 +177,7 @@
          
         <c:if test = "${login != null}">
             
-               <p><a href="">로그아웃</a></p>
+               <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
                <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
                </c:if>
@@ -221,17 +222,17 @@
             <div id="filter">
                <ul id="filter_option">
                      <li>
-                    <button type="button" onclick="location.href='<%=request.getContextPath()%>/counseller_board/counseller_board_list.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=wdate'">
+                    <button class="<c:if test="${searchVO.sort eq 'wdate' }">sortActive</c:if>" type="button" onclick="location.href='<%=request.getContextPath()%>/counseller_board/counseller_board_list.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=wdate'">
                     	최신순
                     </button>
                     </li>
                     <li>
-                    <button type="button" onclick="location.href='<%=request.getContextPath()%>/counseller_board/counseller_board_list.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=hit'">
+                    <button class="<c:if test="${searchVO.sort eq 'hit' }">sortActive</c:if>" type="button" onclick="location.href='<%=request.getContextPath()%>/counseller_board/counseller_board_list.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=hit'">
                     	조회순
                     </button>
                     </li>
                     <li>
-                    <button type="button" onclick="location.href='<%=request.getContextPath()%>/counseller_board/counseller_board_list.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=likes'">
+                    <button class="<c:if test="${searchVO.sort eq 'likes' }">sortActive</c:if>" type="button" onclick="location.href='<%=request.getContextPath()%>/counseller_board/counseller_board_list.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=likes'">
                     	공감순
                     </button>
                     </li>

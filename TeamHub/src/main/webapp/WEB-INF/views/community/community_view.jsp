@@ -165,7 +165,7 @@
          
         <c:if test = "${login != null}">
             
-               <p><a href="">로그아웃</a></p>
+               <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
                <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
                </c:if>
@@ -267,15 +267,32 @@
             </div><!--e:.reply_view_wrapper-->
         </div><!--e:#reply_wrapper-->
         <div id="reply_input">
-            <form action="">
+            <form id="commentForm" method="post" onsubmit="return false">
+            <input type="hidden" name="bidx" value=${vo.bidx }>
+            <input type="hidden" name="uidx" value=${login.uidx }>
                 <div id="input_wrapper">
-                    <textarea name="reply" id="reply"></textarea>
+                    <textarea name="replyContent" id="reply"></textarea>
                 </div><!--e:#input_wrapper-->
-                <button id="reply_btn">등록</button>
+                <button type="button" id="reply_btn">등록</button>
             </form>
         </div><!--e:#reply_input-->
     </main>
-    <script>
+    
+    <footer>
+        <div id="bottom">   
+            <br> 
+            <p>(주)&nbsp;힐링캠프</p>
+            <p>Team : 허브</p>
+            <p>이젠 아카데미</p>
+            <br>
+            <address>전라북도 전주시 덕진구 금암1동 667-52</address>
+            <p>전화번호 : 010-0000-0000</p>
+            <p>FAX : 063-000-0000</p>
+        </div>
+    </footer>
+</body>
+
+<script>
     	
     	//게시글 삭제여부
     	$("#deleteBtn").on("click",function(){
@@ -295,22 +312,117 @@
 	    		let openUrl = "<%=request.getContextPath()%>/community/popup.do";
 	    		window.open(openUrl,"",popOption);
 	    	}
-    		
     	});
+    	
+    	//로그인한 회원만 이용가능
+   		var login = "${login}";
+   		var target = document.getElementById("btn");
+   		if(login == ""){
+   			target.disabled = true;
+   		}
+    	
+    		
+   		// 댓글 작성 버튼 클릭
+   		$(document).on("click","#reply_btn",function(){
+   			//로그인 정보
+   			var login = "${login}";
+   			//댓글 입력값
+   			var reply = $("textarea[name=replyContent]").val();
+   			
+   			//로그인 여부
+   			if(login == ""){
+    			alert("로그인 후 이용해주세요");
+    			return false;
+   			}
+   			//댓글 작성여부
+   			else if(reply == ""){
+   				alert("댓글을 입력해주세요.");
+   				return false;
+   			}
+   			
+   			//댓글작성
+   			$.ajax({
+	    		type:"post",
+	    		url:"community_reply_insert.do",
+	    		data:$("#commentForm").serialize(),
+	    		dataType:"text",
+	    		success:function(data){
+	    			if(data == "success"){
+	    				alert("댓글등록완료");
+		    			$("#reply").val("");
+	    				getCommentList();
+	    			}
+	    		},error:function(){
+	    			alert("에러어억");
+	    		}
+	    	});
+   		});
+   		
+   		//초기페이지 로딩시 댓글 불러오기
+   		$(function(){
+   			getCommentList();
+   		});
+   		
+   		//댓글목록
+   		function getCommentList(){
+   			var bidx = $("input[name=bidx]").val();
+//    			var id = $("input[name=uidx]").val();
+//    			var content = $("textarea[name=replyContent]").val();
+   			
+   			
+   			$.ajax({
+   				type:"post",
+   				url:"community_view.do",
+//    				dataType:"json",
+//    				data:$("#commentForm").serialize(),
+					data:"bidx="+bidx,
+//    				contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+   				success : function(result){
+
+   					var html="";
+   					
+//    					if(result.length <1){
+//    						alert("댓글업슈");
+//    					}else{
+// 	   					$(result).each(function(){
+// 	   						html += "<div class='reply_info_wrapper'>";
+//    							html += "<ul class='reply_info'>";
+//    							html += "<li class='id'>"+this.id+"</li>";
+//    							html += "<li class='wdate'>"+this.replyWdate+"</li>";
+//    							html += "<li class='comment'>댓글쓰기</li>";
+//    							html += "<li class='report'>신고</li></ul></div>";
+//    							html += "<div class='reply_view_wrapper'>";
+//    							html += "<div class='reply_view'>"+this.replyContent+"</div></div>";
+// 	   					});
+//    					}
+//    					$("#reply_wrapper").html(html);
+   					
+   					if(result.length > 0){
+   						for(i=0; i<result.length; i++){
+   							html += "<div class='reply_info_wrapper'>";
+   							html += "<ul class='reply_info'>";
+   							html += "<li class='id'>"+result[i].id+"</li>";
+   							html += "<li class='wdate'>"+result[i].replyWdate+"</li>";
+   							html += "<li class='comment'>댓글쓰기</li>";
+   							html += "<li class='report'>신고</li></ul></div>";
+   							html += "<div class='reply_view_wrapper'>";
+   							html += "<div class='reply_view'>"+result[i].replyContent+"</div></div>";
+   						}
+			   				$("#reply_wrapper").html(html);
+   					}
+   				},error:function(){
+   					alert("에러여?");
+   				}
+   			});
+   		}
+   		
+    	
+    
+	    	
+    	
+    	
     	
     	
     </script>
-    <footer>
-        <div id="bottom">   
-            <br> 
-            <p>(주)&nbsp;힐링캠프</p>
-            <p>Team : 허브</p>
-            <p>이젠 아카데미</p>
-            <br>
-            <address>전라북도 전주시 덕진구 금암1동 667-52</address>
-            <p>전화번호 : 010-0000-0000</p>
-            <p>FAX : 063-000-0000</p>
-        </div>
-    </footer>
-</body>
+
 </html>

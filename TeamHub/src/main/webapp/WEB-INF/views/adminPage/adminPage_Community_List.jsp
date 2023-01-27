@@ -113,6 +113,9 @@
         border-radius: 5px;
         font-weight: bold;
         }
+        .sortActive{
+        font-weight: bold;
+        }
     </style>
     
 </head>
@@ -128,7 +131,7 @@
          
         <c:if test = "${login != null}">
             
-               <p><a href="">로그아웃</a></p>
+               <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
                <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
                </c:if>
@@ -181,17 +184,17 @@
         <div id="filter">
            <ul id="filter_option">
                 <li>
-                <button type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Community_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=edate'">
+                <button class="<c:if test="${searchVO.sort eq 'edate' }">sortActive</c:if>" type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Community_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=edate'">
                  	최신순
                 </button>
                 </li>
                 <li>
-                <button type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Community_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=id'">
+                <button class="<c:if test="${searchVO.sort eq 'id' }">sortActive</c:if>" type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Community_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=id'">
                  	아이디오름차순
                 </button>
                 </li>
                 <li>
-                <button type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Community_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=title'">
+                <button class="<c:if test="${searchVO.sort eq 'title' }">sortActive</c:if>" type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Community_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=title'">
                  	제목 오름차순
                 </button>
                 </li>
