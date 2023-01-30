@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import project.healingcamp.service.UserSha256;
 import project.healingcamp.vo.UserVo;
 
 @Repository
@@ -33,7 +34,12 @@ public class UserDao {
 		return sqlSession.selectOne("project.healingcamp.mapper.userMapper.selectByMail",mail);
 	}
 	
-	public String loginCheck(UserVo vo) {	
+	public int loginCheck(UserVo vo) {	
+		
+		System.out.println("UserDAO");
+		System.out.println("id : "+vo.getId());
+		System.out.println("pw : "+vo.getPw());
+		
 		return sqlSession.selectOne("project.healingcamp.mapper.userMapper.loginCheck",vo);
 	
 	}

@@ -28,57 +28,32 @@
                return;
             }
             
-            
-            
             $.ajax({
                url : "<%=request.getContextPath()%>/user/loginCheck.do",
                type : "post",
                data : {"id":idval, "pw":pwval},
                dataType : "json",
-               success:function(data){   
-                     //alert("id1"+idval)
-                     //alert("pw2"+pwval)
-                   if((data.id == "no") && (data.pw =="no2"))
-                  {
-                     alert("아이디나 비밀번호가 일치하지 않습니다.");
-                     idval = "";
-                     pwval = "";
-                     
-                  }
-                  else if((data.id != "no") && (data.pw !="no2"))
-                  {
-                     //alert("넘어옴");
-                     idval;
-                     pwval;   
-                        
-                  
-                  }               
-            },
-              error: 
-                 function(request,status,error){
-                      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-              }
-              
-               
-               
+               success:function(data)
+               {
+	            	if(data == 0)
+	            	{
+	            		alert("아이디나 비밀번호가 일치하지 않습니다.");
+	            		idval = "";
+	            		pwval = "";
+	            	}else if( data == 1)
+	            	{
+	            		//alert("넘어옴");
+			            fm.action ="<%=request.getContextPath() %>/user/login.do";
+			            fm.method="post"; //감춰져서 넘기는 방식 Post
+			            fm.submit();
+	            	}
+            	},
+            	error: function(request,status,error)
+            	{
+            		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            	}
             });
-            
-            
-
-            
-            
-            fm.action ="<%=request.getContextPath() %>/user/login.do";
-            fm.method="post"; //감춰져서 넘기는 방식 Post
-            fm.submit();
-            
-         
          }
-         
-
-         
-            
-   
-      
    </script>
    <style>
       *{

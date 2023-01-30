@@ -71,40 +71,28 @@ public class UserController {
 	}
 	
 	
-	
+	//로그인 체크
 	@ResponseBody
 	@RequestMapping(value="/loginCheck.do", method=RequestMethod.POST)
-	public String loginCheck(UserVo vo, Model model, HttpSession session, HttpServletRequest request) {
-		System.out.println("id"+vo.getId()); 
-		System.out.println("pw"+vo.getPw());
-		String id = userService.loginCheck(vo, session);
+	public int loginCheck(UserVo vo, Model model, HttpSession session,HttpServletResponse response ) {
+		System.out.println("id : " + vo.getId()); 
+		System.out.println("pw : " + vo.getPw());
+
 		//비밀번호 암호화
-		String pw = vo.getPw();
-		vo.setPw(UserSha256.encrypt(pw));
-		
+		String s_pw = UserSha256.encrypt(vo.getPw()); 
+		vo.setPw(s_pw);
 		//암호화 확인
-		System.out.println("Pw:" + vo.getPw());
-		
-		String value = "";
-		if( (id != null)&&(pw !=null))
+		System.out.println("s_pw:" + s_pw);
+		//DB에서 ID와 s_pw가 일치하는 계정이 있는지 확인
+		int count = userService.loginCheck(vo, session);
+		if( count == 1 )
 		{	
-			
-			System.out.println("id1 : " + id );
-			System.out.println("pw2 : " + pw);
-			session.setAttribute("id", id);
-			session.setAttribute("pw" , pw);
-			System.out.println(id);
-			System.out.println(pw);
-			value = "{\"id\": \" "+id+ "\", \"pw\": \" "+pw+"\" }";;
-			
+			session.setAttribute("id", vo.getId());
+			return 1;
 		}else
 		{
-			System.out.println("id3 : null");
-			System.out.println("pw4 : null");
-			value = "{\"id\": \"no\", \"pw\": \"no2\"}";
-			
+			return 0;
 		}
-		return value;
 	}
 	
 	// 아이디 찾기 페이지로 이동

@@ -26,7 +26,4 @@ public class UserSha256 {
 			throw new RuntimeException();
 		}
 	}
-
-
-
 }

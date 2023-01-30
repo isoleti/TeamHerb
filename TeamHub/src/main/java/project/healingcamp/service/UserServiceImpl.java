@@ -3,6 +3,7 @@ package project.healingcamp.service;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -49,8 +50,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String loginCheck(UserVo vo, HttpSession session) {
-
+	public int loginCheck(UserVo vo, HttpSession session) {
+		System.out.println("UserService");
+		System.out.println("ID : " + vo.getId());
+		System.out.println("PW : " + vo.getPw());
 		return userDao.loginCheck(vo);
 	}
 
