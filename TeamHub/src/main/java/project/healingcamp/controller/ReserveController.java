@@ -30,37 +30,47 @@ public class ReserveController {
 
 	@Autowired
 	private ReserveServiceImpl reserveService = null;
-
+	
+	//기관찾기
 	@RequestMapping(value = "/findcenter.do", method = RequestMethod.GET)
 	public String findcenter() {
 
 		return "res/findcenter";
 	}
-
+	
+	//상담사찾기
 	@RequestMapping(value = "/findcounselor.do", method = RequestMethod.GET)
 	public String findcounselor() {
 
 		return "res/findcounselor";
 	}
-
+	
+	//상담기관
 	@RequestMapping(value = "/center.do", method = RequestMethod.GET)
 	public String center() {
 
 		return "res/center";
 	}
-
+	
+	//예약페이지
 	@RequestMapping(value = "/respage.do", method = RequestMethod.GET)
 	public String page() {
 
 		return "res/respage";
 	}
-
+	
+	//예약완료
 	@RequestMapping(value = "/resf.do", method = RequestMethod.GET)
 	public String res() {
 
 		return "res/resf";
 	}
 
+	@RequestMapping(value= "/count.do", method = RequestMethod.GET) //나중에 post방식으로 바꿀 것.
+	public String count() {
+		
+		return "res/count";
+	}
 	
 	@ResponseBody
 	@RequestMapping(value="/res/like.do", method=RequestMethod.POST)

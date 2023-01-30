@@ -104,18 +104,6 @@
 			$()
 			//예약일
 			var rdate = document.getElementsByName("resdate");			
-			//예약시간
-			var rtime = document.getElementsByName("restime");
-			
-			modalClick: function modalClickInfo() {
-				var resTime = $("input[name=content]:checked").next().html();						    
-			
-				modal.addEventListener("click", e => {
-				
-			    console.log(resTime);			    
-			    $(rtime).attr('value',resTime);
-				})
-			}	
 			
 			var calendarEl = document.getElementById('calendar');
 			var calendar = new FullCalendar.Calendar(
@@ -123,9 +111,9 @@
 					{
 						initialView: 'dayGridMonth',
 						headerToolbar: {
-							start: "",
+							start: "prev",
 							center: "title",
-							end: "dayGridMonth",
+							end: "dayGridMonth,next",
 						},
 						titleFormat : function(date) { // title 설정
 							return date.date.year +"년 "+(date.date.month +1)+"월";
@@ -182,7 +170,34 @@
 					}
 			);
 			calendar.render();					
-		});
+		});		
+		//예약시간
+		var rtime = document.getElementsByName("restime");		
+		//예약시간 담기
+		function modalClick1(obj) {
+			var rt = $(obj).next();
+			var rtval = rt.text();
+			
+			$(rtime).attr('value',rtval);
+		}
+		function modalClick2(obj) {
+			var rt = $(obj).next();
+			var rtval = rt.text();
+			
+			$(rtime).attr('value',rtval);
+		}
+		function modalClick3(obj) {
+			var rt = $(obj).next();
+			var rtval = rt.text();
+			
+			$(rtime).attr('value',rtval);
+		}
+		function modalClick4(obj) {
+			var rt = $(obj).next();
+			var rtval = rt.text();
+			
+			$(rtime).attr('value',rtval);
+		}
 	</script>
 </head>
 <body>
@@ -253,28 +268,39 @@
         </div>
         <div id="res">
             <h2>예약상세</h2>
-            <form method="post">
+            <!-- <form method="post"> -->
+            	<input type="hidden" name="uidx" id="uidx">
+            	<input type="hidden" name="id" id="id">
 	            <p>상담/검사 :<input type="text" name="counseling" id="counseling" value="" readonly> </p>
 	            <p>담당상담사 :<input type="text" name="couns" id="couns" value="" readonly> </p>
 	            <p>예약일 :<input type="text" name="resdate" id="resdate" value="" readonly> </p>
 	            <p>예약시간 : <input type="text" name="restime" id="restime" value="" readonly> </p>
 	            <p>상담비용 :<input type="text" name="rescount" id="rescount" value="" readonly> </p>
 	            <button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/resf.do'">현장결제</button><!-- post양식으로 onclick으로 만들기 -->
-	            <button class="btn btn-dark">지금결제</button> <!-- 결제 페이지 열기 --><!-- post양식으로 onclick으로 만들기 -->
-            </form>
+	            <button class="btn btn-dark" onclick="location.href='<%=request.getContextPath() %>/res/count.do'">지금결제</button> <!-- 결제 페이지 열기 --><!-- post양식으로 onclick으로 만들기 -->
+            <!-- </form>  -->
         </div>
         <div id="modal" class="modal-overlay">
 	        <div class="modal-window">
 	            <div class="title">
-	                <h2>모달</h2>
+	                <h2>예약가능 시간</h2>
 	            </div>
 	            <div class="close-area">X</div><br>
-	            <input type="radio" name="reserve" class="content" value="09:00 ~ 12:00"><label>09:00 ~ 12:00</label><br>
-	            <input type="radio" name="reserve" class="content" value="12:00 ~ 15:00"><label>12:00 ~ 15:00</label><br>
-	            <input type="radio" name="reserve" class="content" value="15:00 ~ 18:00"><label>15:00 ~ 18:00</label><br>
-	            <input type="radio" name="reserve" class="content" value="18:00 ~ 21:00"><label>18:00 ~ 21:00</label>
+	            <input type="radio" name="reserve" class="content" value="09:00 ~ 12:00" onclick="modalClick1(this)"><label>09:00 ~ 12:00</label><br>
+	            <input type="radio" name="reserve" class="content" value="12:00 ~ 15:00" onclick="modalClick2(this)"><label>12:00 ~ 15:00</label><br>
+	            <input type="radio" name="reserve" class="content" value="15:00 ~ 18:00" onclick="modalClick3(this)"><label>15:00 ~ 18:00</label><br>
+	            <input type="radio" name="reserve" class="content" value="18:00 ~ 21:00" onclick="modalClick4(this)"><label>18:00 ~ 21:00</label>
 	        </div>
     	</div>        
+    	<div id="modal2" class="modal-overlay">
+	        <div class="modal-window">
+	            <div class="title">
+	                <h2>예약가능 시간</h2>
+	            </div>
+	            <div class="close-area">X</div><br>
+	            
+	        </div>
+    	</div>     
     </main>
     <footer> <!-- footer -->
         <div id="bottom">   
