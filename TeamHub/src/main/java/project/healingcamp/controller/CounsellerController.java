@@ -10,10 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.healingcamp.service.Community_BoardService;
+import project.healingcamp.service.ReplyService;
 import project.healingcamp.vo.Community_BoardVO;
 import project.healingcamp.vo.PageVO;
+import project.healingcamp.vo.ReplyVO;
 import project.healingcamp.vo.SearchVO;
 import project.healingcamp.vo.UserVo;
 
@@ -23,6 +26,9 @@ public class CounsellerController {
 	
 	@Autowired
 	private Community_BoardService cboardService;
+	
+	@Autowired
+	private ReplyService replyService;
 
 	//상담사게시판 이동
 	@RequestMapping(value="/counseller_board_list.do",method=RequestMethod.GET)
@@ -50,6 +56,17 @@ public class CounsellerController {
 		model.addAttribute("vo", vo);
 		
 		return "counseller_board/counseller_board_view";
+	}
+	
+	//댓글 리스트
+	@RequestMapping(value="/counseller_board_view.do",method=RequestMethod.POST)
+	@ResponseBody
+	public List<ReplyVO> counseller_board_view(int bidx) {
+		
+		//댓글 리스트
+		List<ReplyVO> counseller_reply_list = replyService.counseller_reply_list(bidx);
+		
+		return counseller_reply_list;
 	}
 	
 	//상담사 게시판 게시글 작성페이지 이동
@@ -98,6 +115,25 @@ public class CounsellerController {
 		
 		return "redirect:counseller_board_list.do";
 	}
+	
+	//댓글 작성
+		@RequestMapping(value="/community_reply_insert.do",method=RequestMethod.POST)
+		@ResponseBody
+		public String community_reply_insert(ReplyVO replyVO,HttpSession session,HttpServletRequest request,Community_BoardVO cboardVO) {
+			
+			//로그인 정보
+			UserVo login = (UserVo)session.getAttribute("login");
+			
+			replyVO.setUidx(login.getUidx()); //댓글작성자 번호
+			replyVO.setId(login.getId()); //댓글작성자 아이디
+			replyVO.setBidx(cboardVO.getBidx()); //작성한댓글의 게시글 번호
+			replyVO.setReply_Ip(request.getRemoteAddr()); // 아이피
+			
+			//댓글작성 후 삽입
+			int result = replyService.reply_Insert(replyVO);
+			
+			return "success";
+		}
 	
 	
 	

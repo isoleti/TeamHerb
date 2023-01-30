@@ -39,10 +39,10 @@ public class CommunityController {
 
 		//페이지네이션(검색어포함)
 		PageVO pageVO = new PageVO(searchVO,cboardService.total(searchVO));
-		System.out.println("pageVO:"+pageVO);
 
 		//전체게시글 데이터 요청
 		List<Community_BoardVO> list = cboardService.list(searchVO);
+		System.out.println("list:"+list);
 		
 		//데이터를 모델에 담아 화면에 넘김
 		model.addAttribute("pageVO",pageVO);//페이지네이션 전달
@@ -53,9 +53,6 @@ public class CommunityController {
 	//게시글 상세보기 이동
 	@RequestMapping(value="/community_view.do",method=RequestMethod.GET)
 	public String community_view(int bidx,Model model,ReplyVO replyVO) {
-		
-		//댓글 리스트
-		List<ReplyVO> reply_list = replyService.reply_list(bidx);
 		
 		//호출된 결과를 vo에 담음
 		Community_BoardVO vo = cboardService.selectByBidx(bidx);
@@ -69,7 +66,7 @@ public class CommunityController {
 		return "community/community_view";
 	}
 	
-	//
+	//댓글 리스트
 	@RequestMapping(value="/community_view.do",method=RequestMethod.POST)
 	@ResponseBody
 	public List<ReplyVO> community_view(int bidx) {
@@ -150,12 +147,20 @@ public class CommunityController {
 		replyVO.setUidx(login.getUidx()); //댓글작성자 번호
 		replyVO.setId(login.getId()); //댓글작성자 아이디
 		replyVO.setBidx(cboardVO.getBidx()); //작성한댓글의 게시글 번호
-		replyVO.setReplyIp(request.getRemoteAddr()); // 아이피
+		replyVO.setReply_Ip(request.getRemoteAddr()); // 아이피
 		
 		//댓글작성 후 삽입
 		int result = replyService.reply_Insert(replyVO);
 		
 		return "success";
+	}
+	
+	@RequestMapping(value="/community_reply_delete.do",method=RequestMethod.POST)
+	public String community_reply_delete(ReplyVO replyVO) {
+		int result = replyService.deleteByReply(replyVO);
+		System.out.println(replyVO.getReply_Idx());
+		
+		return "result";
 	}
 	
 	

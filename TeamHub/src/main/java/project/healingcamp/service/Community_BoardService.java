@@ -2,6 +2,8 @@ package project.healingcamp.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import project.healingcamp.vo.Community_BoardVO;
 import project.healingcamp.vo.SearchVO;
 

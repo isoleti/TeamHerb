@@ -165,5 +165,19 @@
 		 WHERE bidx=#{bidx}
 	</update>
 	
+<!-- 	댓글작성시 댓글 수 카운팅 +1 -->
+	<update id="addReplyCnt" parameterType="int">
+		UPDATE boardtable
+   		   SET replyCnt = replyCnt + 1
+   		 WHERE bidx = #{bidx}
+	</update>
+	
+<!-- 	댓글작성시 댓글 수 카운팅 +1 -->
+	<update id="removeReplyCnt" parameterType="int">
+		UPDATE boardtable
+   		   SET replyCnt = replyCnt - 1
+   		 WHERE bidx = #{bidx}
+	</update>
+	
 
   </mapper>
