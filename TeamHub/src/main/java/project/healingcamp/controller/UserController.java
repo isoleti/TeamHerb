@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.healingcamp.service.UserService;
+import project.healingcamp.service.UserSha256;
 import project.healingcamp.vo.UserVo;
 
 @RequestMapping("/user")
@@ -31,13 +32,25 @@ public class UserController {
 	public String login() {
 		return "user/login";
 	}
-
+	
+	//로그인 하기
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
-	public String login(UserVo vo, HttpSession session) {
+	public String login(UserVo vo, HttpSession session, Model model, HttpServletRequest request) {
+		//vo값 넘어왔는지 확인
 		System.out.println("vo : " + vo.toString());
+	
 		
+		//비밀번호 암호화
+		String userPw = vo.getPw();
+		vo.setPw(UserSha256.encrypt(userPw));
+		
+		//암호화 확인
+		System.out.println("userPw:" + vo.getPw());
+		
+		//로그인 메서드
 		UserVo login = userService.login(vo);
-			
+
+		
 			if(login ==null) {
 				
 				return "user/login";
@@ -61,11 +74,17 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping(value="/loginCheck.do", method=RequestMethod.POST)
-	public String loginCheck(UserVo vo, HttpSession session) {
+	public String loginCheck(UserVo vo, Model model, HttpSession session, HttpServletRequest request) {
 		System.out.println("id"+vo.getId()); 
 		System.out.println("pw"+vo.getPw());
 		String id = userService.loginCheck(vo, session);
-		String pw = userService.loginCheck(vo, session);
+		//비밀번호 암호화
+		String pw = vo.getPw();
+		vo.setPw(UserSha256.encrypt(pw));
+		
+		//암호화 확인
+		System.out.println("Pw:" + vo.getPw());
+		
 		String value = "";
 		if( (id != null)&&(pw !=null))
 		{	
@@ -80,8 +99,8 @@ public class UserController {
 			
 		}else
 		{
-			System.out.println("id : null");
-			System.out.println("pw : null");
+			System.out.println("id3 : null");
+			System.out.println("pw4 : null");
 			value = "{\"id\": \"no\", \"pw\": \"no2\"}";
 			
 		}
@@ -140,16 +159,31 @@ public class UserController {
 		return "user/pwFind";
 	}
 	
+	// 회원가입 컨트롤러
 	@RequestMapping(value="/join.do", method=RequestMethod.GET)
 	public String join() {
-		
+			
 		return "user/join";
 	}
 	
+	//회원가입 컨트롤러
 	@RequestMapping(value="/join.do", method=RequestMethod.POST)
-	public String join(UserVo vo) {
+	public String join(UserVo vo, Model model,HttpServletRequest request ) {
 		
-		int joinVo = userService.join(vo);
+		//암호확인
+		System.out.println("첫번째"+vo.getPw());
+		
+		//비밀번호 암호화(sha256
+		String encryPassword = UserSha256.encrypt(vo.getPw());//1.받아온 값을 암호화한다.
+	
+		vo.setPw(encryPassword);//2. 그값을 저장
+		
+		System.out.println("두번째"+vo.getPw());
+		
+		//회원가입 메서드
+		int joinVo = userService.join(vo);//3. 저장된 객체 그대로 데이터로 보낸다.
+	
+		//인증 메일 보내기 메서드 
 		
 		return "user/joinComplete";
 		
@@ -181,15 +215,28 @@ public class UserController {
 		}
 	}
 	
+	//상담사회원가입
 	@RequestMapping(value="/joinCounselor.do", method=RequestMethod.GET)
 	public String joinCoun() {
 		
 		return "user/joinCounselor";
 	}
+	
+	//상담사회원가입
 	@RequestMapping(value="/joinCounselor.do", method=RequestMethod.POST)
-	public String joinCoun(UserVo vo) {
+	public String joinCoun(UserVo vo,Model model,HttpServletRequest request ) {
 		
-		int joinCounVo = userService.joinCoun(vo);
+		//암호확인
+		System.out.println("첫번째"+vo.getPw());
+				
+		//비밀번호 암호화(sha256
+		String encryPassword = UserSha256.encrypt(vo.getPw());//1.받아온 값을 암호화한다.
+			
+		vo.setPw(encryPassword);//2. 그값을 저장
+				
+		System.out.println("두번째"+vo.getPw());
+		
+		int joinCounVo = userService.joinCoun(vo);//3. 저장된 객체 그대로 데이터로 보낸다.
 		
 		return "user/joinComplete";
 	}

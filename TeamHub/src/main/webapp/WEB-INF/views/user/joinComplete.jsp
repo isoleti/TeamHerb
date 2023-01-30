@@ -42,7 +42,7 @@
             <a>회원가입이 완료되었습니다.</a>
             <a style="color: #848484; margin-top: 30px;">아이디님의 회원가입을 축하드립니다.</a>
             <button class="btn1" onclick="location.href='<%=request.getContextPath()%>/'">홈으로</button>
-            <button class="btn2">로그인</button><br><br><br>
+            <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/user/login.do'">로그인</button><br><br><br>
         </div>
 
     </main>

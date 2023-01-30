@@ -109,7 +109,9 @@
 	<div class="idCheck_Area">
 		<div class="idCheck_box">
 			<div class="logo">
-				<img src="../resources/images/힐링캠프 logo2.png"/>
+				<a href="<%=request.getContextPath()%>/">
+					<img src="<%=request.getContextPath() %>/resources/images/힐링캠프 logo2.png">
+				</a>			
 			</div><!--logo-->
 			
 			<form id="frm" method="post" action="findId.do" name="findform">
