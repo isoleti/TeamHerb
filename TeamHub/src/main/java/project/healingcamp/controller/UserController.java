@@ -1,10 +1,16 @@
 package project.healingcamp.controller;
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,6 +48,9 @@ public class UserController {
 			}
 		
 	}
+	
+
+	
 	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
 	public String logtout(HttpSession session) {
 		session.invalidate();
@@ -79,11 +88,52 @@ public class UserController {
 		return value;
 	}
 	
-	
+	// 아이디 찾기 페이지로 이동
 	@RequestMapping(value="/idFind.do", method=RequestMethod.GET)
 	public String idpwFind() {
 		return "user/idFind";
 	}
+	
+	
+	
+	//아이디 찾기 실행
+	@RequestMapping(value="/findId.do", method=RequestMethod.POST)
+	public String findId(HttpServletResponse response, String mail, Model model) {
+		System.out.println("mail:" +mail);
+		
+		String user = userService.findId(mail); 
+			if(user != null) 
+			{	
+				System.out.println("id:"+mail );
+				model.addAttribute("id", user);
+				
+				return "user/idMatch";
+			}
+			
+			else 
+			{
+				response.setContentType("text/html; charset=UTF-8");
+		        PrintWriter out;
+				try 
+				{
+					out = response.getWriter();
+					out.println("<script>alert('일치하는 아이디가 존재하지 않습니다.'); history.go(-1);</script>");
+			  
+					out.close();
+					return null;
+				} 
+				catch (IOException e) 
+				{
+					
+					e.printStackTrace();
+				}
+					
+				return "user/idFind";
+			}
+		
+	}
+
+	
 	
 	@RequestMapping(value="/pwFind.do", method=RequestMethod.GET)
 	public String pwFind() {

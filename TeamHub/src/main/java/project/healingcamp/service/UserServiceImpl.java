@@ -1,7 +1,9 @@
 package project.healingcamp.service;
 
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +54,16 @@ public class UserServiceImpl implements UserService {
 		return userDao.loginCheck(vo);
 	}
 
+	@Override
+	public String findId(String mail) {
+	
+		return userDao.findId(mail);
+	}
 
+
+	
+	 
+	
 
 
 

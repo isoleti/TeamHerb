@@ -38,4 +38,12 @@ public class UserDao {
 	
 	}
 	
+	public String findId(String mail){
+		String id = sqlSession.selectOne("project.healingcamp.mapper.userMapper.findId", mail);
+		System.out.println("id ÂïÈû?"+id);
+		return sqlSession.selectOne("project.healingcamp.mapper.userMapper.findId", mail);
+		
+		
+	}
+	
 }

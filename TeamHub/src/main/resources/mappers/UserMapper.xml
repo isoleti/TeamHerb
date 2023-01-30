@@ -21,7 +21,12 @@
 		 where id= #{id}
 	</select>
 	
-	
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="String" resultType="String">
+		select id 
+		 from usertable
+		 where mail = #{mail}
+	</select>
 	
 	<select id="selectByMail" parameterType="String" resultType="int"> 
 	select count(*)
