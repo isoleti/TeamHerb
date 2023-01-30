@@ -8,8 +8,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.healingcamp.service.AdminService;
 import project.healingcamp.vo.Community_BoardVO;
@@ -173,17 +176,17 @@ public class AdminController {
 		
 	//FAQ페이지 이동
 	@RequestMapping(value="/adminPage_Faq_List.do",method=RequestMethod.GET)
-	public String adminPage_Faq_List(Model model,SearchVO searchVO) {
+	public String adminPage_Faq_List(Model model,SearchVO searchVO,HttpServletRequest request) {
 		
 		//페이지네이션(검색어포함)
 		PageVO pageVO = new PageVO(searchVO , adminService.faq_Total(searchVO)); 
 		
 		//전체게시글 데이터 요청
 		List<Community_BoardVO> faq_List = adminService.faq_List(searchVO);
-		
 		//데이터를 모델에 담아 화면에 넘김
 		model.addAttribute("pageVO",pageVO);//페이지네이션 전달
 		model.addAttribute("faq_List",faq_List);//글목록 전달
+		model.addAttribute("category",request.getParameter("category")); // 카테고리 전달
 		
 		return "adminPage/adminPage_Faq_List";
 	}

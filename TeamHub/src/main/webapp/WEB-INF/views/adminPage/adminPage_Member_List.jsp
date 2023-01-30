@@ -118,6 +118,9 @@
         .btn:nth-child(1){
         margin-left:10px;
         }
+        .sortActive{
+        font-weight: bold;
+        }
     </style>
     
 </head>
@@ -133,7 +136,7 @@
          
         <c:if test = "${login != null}">
             
-               <p><a href="">로그아웃</a></p>
+               <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
                <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
                </c:if>
@@ -186,13 +189,15 @@
         <div id="filter">
            <ul id="filter_option">
                 <li>
-                <button type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Member_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=edate'">
+                <button class="<c:if test="${searchVO.sort eq 'edate' }">sortActive</c:if>" type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Member_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=edate'">
                  	최신가입일순
                 </button>
                 </li>
-                <li><button type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Member_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=id'">
+                <li>
+                <button class="<c:if test="${searchVO.sort eq 'id' }">sortActive</c:if>" type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Member_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=id'">
                  	아이디오름차순
-                </button></li>
+                </button>
+                </li>
                 <li>신고 오름차순</li>
            </ul><!--e:#filter_option-->
         </div><!--e:#filter-->

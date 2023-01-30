@@ -18,7 +18,8 @@
         table .title{width:12%; text-align: center;}
         table th{width:7.5%; text-align: center;}
         table tr{margin:5%, auto;}
-       
+        body main .table-success th,
+        body main .table-success td{background-color:#dff6f1;}
     </style>
 </head>
 <body>
@@ -60,7 +61,7 @@
         </nav> <!-- fin 상단 네비게이션 -->
     </header>
     <main>
-        <table class="table table-success table-striped-columns">
+        <table class="table table-success">
             <tr>
                 <th rowspan="6">개인상담<br> 프로그램</th>
                 <td class="title">놀이치료</td>

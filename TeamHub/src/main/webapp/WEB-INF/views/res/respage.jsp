@@ -37,79 +37,153 @@
         main #res .btn-dark{margin-left:4%;}       
         
         main input {border:none; background:#f0ffff;}
+        
+        /*modal style*/
+        #modal.modal-overlay {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        #modal .modal-window {
+            background: rgba( 169, 250, 250, 0.70 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 13.5px );
+            -webkit-backdrop-filter: blur( 13.5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            width: 400px;
+            height: 500px;
+            position: relative;
+            top: -100px;
+            padding: 10px;
+        }
+        #modal .title {
+            padding-left: 10px;
+            display: inline;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+            
+        }
+        #modal .title h2 {
+            display: inline;
+        }
+        #modal .close-area {
+            display: inline;
+            float: right;
+            padding-right: 10px;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+        
+        #modal .content {
+            margin-top: 20px;
+            padding: 0px 10px;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/resources/js/index.global.js"></script>
-    <script>
-
-    document.addEventListener('DOMContentLoaded', function() {
-  	  	//예약일
-    	var rdate = document.getElementsByName("resdate"); 
-    	 	  	
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-
-        headerToolbar: {
-              start: "",
-              center: "title",
-              end: "dayGridMonth",
-            },  
-          titleFormat : function(date) { // title 설정
-        	  return date.date.year +"년 "+(date.date.month +1)+"월"; 
-        	  },
-          dayHeaderContent: function (date) {
-        		  let weekList = ["일", "월", "화", "수", "목", "금", "토"];
-        		  return weekList[date.dow];
-        		}	
-        	,	  
-        	dateClick: function (dateClickInfo) {
-        		//년월 값
-        	  var fcMounthNumber = document.querySelector(".fc-toolbar-title");
-        	  	//alert(fcMounthNumber);
-        	  	//일값
-          	  var fcDayNumber = document.querySelector(".fc-daygrid-day-number");
-          		//alert(fcDayNumber);
-          	  const fcDayElements = document.querySelectorAll(
-          	    ".fc-daygrid-day.fc-day"
-          	  );
-          	  // init background color found element
-          	  fcDayElements.forEach((element, key, parent) => {
-          	    element.style.backgroundColor = "#ffffff";
-          	  });
-          	  // set background color clicked Element
-          	  dateClickInfo.dayEl.style.backgroundColor = "#dff6e1";
-          	 
-          	  //년 월값 가져오기
-          	  var val = $(fcMounthNumber);
-			  var valText = val.text();
-			  //alert(val);
-	    	  //alert("valText"+valText);
-          	  
-	    	  //날짜 가져오기
-          	  var val2 = $(fcDayNumber);
-  			  var val2Text = val2.innerHTML;
-  			  alert(val2);
-  	    	  alert("val2Text"+val2Text);
-  	    	
-  	    	  //년월일 담기
-  	    	$(rdate).attr('value',valText+" "+val2Text+"일");
-  	    	  
-          	}             
-        	,  
-        	navLinks: true, 
-	        selectable: true,
-	        selectMirror: true,	    
-	        allDaySlot: false, // allDay 표시 안함	     
-	 
-        });
-        
-        calendar.render();
-        
-      });
-		
-    </script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function()
+		{
+			$()
+			//예약일
+			var rdate = document.getElementsByName("resdate");			
+			//예약시간
+			var rtime = document.getElementsByName("restime");
+			
+			modalClick: function modalClickInfo() {
+				var resTime = $("input[name=content]:checked").next().html();						    
+			
+				modal.addEventListener("click", e => {
+				
+			    console.log(resTime);			    
+			    $(rtime).attr('value',resTime);
+				})
+			}	
+			
+			var calendarEl = document.getElementById('calendar');
+			var calendar = new FullCalendar.Calendar(
+					calendarEl,
+					{
+						initialView: 'dayGridMonth',
+						headerToolbar: {
+							start: "",
+							center: "title",
+							end: "dayGridMonth",
+						},
+						titleFormat : function(date) { // title 설정
+							return date.date.year +"년 "+(date.date.month +1)+"월";
+						},
+						dayHeaderContent: function (date) {
+							let weekList = ["일", "월", "화", "수", "목", "금", "토"];
+							return weekList[date.dow];
+						},
+						dateClick: function (dateClickInfo) { //년월 값
+							var modal = document.getElementById("modal")
+							//console.log(dateClickInfo.dateStr);
+							var fcDayNumber = document.getElementsByName("dateClickInfo.dateStr");
+							//console.log(fcDayNumber);
+							const fcDayElements = document.querySelectorAll(".fc-daygrid-day.fc-day");
+							// init background color found element
+							fcDayElements.forEach((element, key, parent) => {
+								element.style.backgroundColor = "#ffffff";
+							});
+							// set background color clicked Element
+							dateClickInfo.dayEl.style.backgroundColor = "#dff6e1";
+							
+							//날짜 가져오기
+							
+							
+							//modal script					        
+							modal.style.display = "flex"
+					        function modalOn() {
+					            modal.style.display = "flex"
+					        }
+					        function isModalOn() {
+					            return modal.style.display === "flex"
+					        }
+					        function modalOff() {
+					            modal.style.display = "none"
+					        }
+					        const closeBtn = modal.querySelector(".close-area")
+					        closeBtn.addEventListener("click", e => {
+					            modal.style.display = "none"
+					        })
+					        modal.addEventListener("click", e => {
+						    const evTarget = e.target
+						    if(evTarget.classList.contains("modal-overlay")) {
+						        modal.style.display = "none"
+						    	}
+					        })			    
+					        $(rdate).attr('value',dateClickInfo.dateStr);
+						},
+						
+						
+						navLinks: true,
+						selectable: true,
+						selectMirror: true,
+						allDaySlot: false, // allDay 표시 안함
+					}
+			);
+			calendar.render();					
+		});
+	</script>
 </head>
 <body>
    <header>    <!--header-->
@@ -140,12 +214,13 @@
          
          <!-- fin 로그인 관련 -->
         <nav class="navbar" style="background-color: #dff6e1;"> <!-- 상단 네비게이션 -->
-            <h1><a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
-           <a href="<%=request.getContextPath()%>/program.do">치료프로그램</a>
-            <a href="<%=request.getContextPath()%>/test.do">심리테스트</a>
-            <a href="<%=request.getContextPath()%>/community/community_list.do">커뮤니티</a>
-            <a href="<%=request.getContextPath()%>/res/findcenter.do">상담 예약</a>
-            <a href="<%=request.getContextPath()%>/counseller_board/counseller_board_list.do">상담사 게시판</a>
+            <h1>
+	            <a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
+	            <a href="<%=request.getContextPath()%>/program.do">치료프로그램</a>
+	            <a href="<%=request.getContextPath()%>/test.do">심리테스트</a>
+	            <a href="<%=request.getContextPath()%>/community/community_list.do">커뮤니티</a>
+	            <a href="<%=request.getContextPath()%>/res/findcenter.do">상담 예약</a>
+	            <a href="<%=request.getContextPath()%>/counseller_board/counseller_board_list.do">상담사 게시판</a>
             <section></section>
         </nav> <!-- fin 상단 네비게이션 -->
     </header> <!--fin header-->
@@ -181,12 +256,25 @@
             <form method="post">
 	            <p>상담/검사 :<input type="text" name="counseling" id="counseling" value="" readonly> </p>
 	            <p>담당상담사 :<input type="text" name="couns" id="couns" value="" readonly> </p>
-	            <p>예약일시 :<input type="text" name="resdate" id="resdate" value="" readonly> </p>
+	            <p>예약일 :<input type="text" name="resdate" id="resdate" value="" readonly> </p>
+	            <p>예약시간 : <input type="text" name="restime" id="restime" value="" readonly> </p>
 	            <p>상담비용 :<input type="text" name="rescount" id="rescount" value="" readonly> </p>
 	            <button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/resf.do'">현장결제</button><!-- post양식으로 onclick으로 만들기 -->
 	            <button class="btn btn-dark">지금결제</button> <!-- 결제 페이지 열기 --><!-- post양식으로 onclick으로 만들기 -->
             </form>
         </div>
+        <div id="modal" class="modal-overlay">
+	        <div class="modal-window">
+	            <div class="title">
+	                <h2>모달</h2>
+	            </div>
+	            <div class="close-area">X</div><br>
+	            <input type="radio" name="reserve" class="content" value="09:00 ~ 12:00"><label>09:00 ~ 12:00</label><br>
+	            <input type="radio" name="reserve" class="content" value="12:00 ~ 15:00"><label>12:00 ~ 15:00</label><br>
+	            <input type="radio" name="reserve" class="content" value="15:00 ~ 18:00"><label>15:00 ~ 18:00</label><br>
+	            <input type="radio" name="reserve" class="content" value="18:00 ~ 21:00"><label>18:00 ~ 21:00</label>
+	        </div>
+    	</div>        
     </main>
     <footer> <!-- footer -->
         <div id="bottom">   

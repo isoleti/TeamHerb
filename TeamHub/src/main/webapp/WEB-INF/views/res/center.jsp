@@ -62,19 +62,19 @@
 		    dataType: "json",
 		    data: 'center=' +center+ '&uidx=' +uidx,
 		    success: function(data) {
-		      var msg = '';
-		      var like_img = '';
-		      msg += data.msg;
-		      alert(msg);
-		      
-		      if(data.like_check == 0){
-		        like_img = "./images/dislike.png";
-		      } else {
-		        like_img = "./images/like.png";
-		      }      
-		      $('#like_img', frm_read).attr('src', like_img);
-		      $('#like_cnt').html(data.like_cnt);
-		      $('#like_check').html(data.like_check);
+			      var msg = '';
+			      var like_img = '';
+			      msg += data.msg;
+			      alert(msg);
+			      
+			      if(data.like_check == 0){
+			        like_img = "./images/dislike.png";
+			      } else {
+			        like_img = "./images/like.png";
+			      }      
+			      $('#like_img', frm_read).attr('src', like_img);
+			      $('#like_cnt').html(data.like_cnt);
+			      $('#like_check').html(data.like_check);
 		    },
 		    error: function(request, status, error){
 		      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -91,29 +91,24 @@
 	        var calendar = new FullCalendar.Calendar(calendarEl, {
 	            initialView: 'timeGridWeek',
 	            slotDuration: '03:00:00',	
-	            headerToolbar: {
+	            headerToolbar:{
 	                start: "",
 	                center: "title",
 	                end: "timeGridWeek dayGridDay",
-	              },  
+	            },  
 	            titleFormat : function(date) { // title 설정
 	            	  return date.date.year +"년 "+(date.date.month +1)+"월"; 
-	            	  }  
-	        	
-	            	, 
+	            	  }, 
 	           	dayHeaderContent: function (date) {
-	            		  let weekList = ["일", "월", "화", "수", "목", "금", "토"];
-	            		  return weekList[date.dow];
-	            		}	
-	            	,
+	            	  let weekList = ["일", "월", "화", "수", "목", "금", "토"];
+	            	  return weekList[date.dow];
+	            		},
 	            navLinks: true,
 	            selectable: true,
 	            selectMirror: true,	    
 	            allDaySlot: false, // allDay 표시 안함	
 	          });
-	        
 	        calendar.render();
-	        
 	      });
 	
 	 </script>
