@@ -98,6 +98,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/resources/js/index.global.js"></script>
+	<!-- iamport 연결 -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', function()
 		{
@@ -172,7 +175,16 @@
 			calendar.render();					
 		});		
 		//예약시간
-		var rtime = document.getElementsByName("restime");		
+		var rtime = document.getElementsByName("restime");	
+		var coun = document.getElementsByName("counseling");			
+		var counseler = document.getElementsByName("couns");
+		var date = document.getElementsByName("resdate");
+		var count = document.getElementsByName("rescount");
+		
+		//객체 초기화
+		var IMP = window.IMP;   // 생략 가능
+		IMP.init("imp05817143");
+		
 		//예약시간 담기
 		function modalClick1(obj) {
 			var rt = $(obj).next();
@@ -198,6 +210,46 @@
 			
 			$(rtime).attr('value',rtval);
 		}
+		
+		var today = new Date();   
+	    var hours = today.getHours(); // 시
+	    var minutes = today.getMinutes();  // 분
+	    var seconds = today.getSeconds();  // 초
+	    var milliseconds = today.getMilliseconds();
+	    var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+	    
+	    //iamport 결제 모듈
+	    function requestPay() {
+	    	
+		   var rtval = $(rtime).text();
+		   var coval  = $(counseler).text();
+		   var couval = $(coun).text();
+		   
+		   var rtjson = JSON.stringify(rtval);
+		   var cojson = JSON.stringify(coval);
+		   var coujson = JSON.stringify(coval);
+		   
+		   console.log("rtval"+rtval);
+		   console.log("coval"+coval);
+		   console.log("couval"+couval);
+		   
+	       IMP.request_pay({
+	           pg : 'html5_inicis.INIpayTest',
+	           pay_method : 'card',
+	           merchant_uid: "IMP"+makeMerchantUid, 
+	           name : ""+$(coujson)+$(cojson)+$(rtjson)+"",
+	           amount : 100000,
+	           buyer_email : 'Iamport@chai.finance',
+	           buyer_name : '아임포트 기술지원팀',
+	           buyer_tel : '010-1234-5678'
+	       }, function (rsp) { // callback
+	             if (rsp.success) {
+	                 console.log(rsp);
+	             } else {
+	                 console.log(rsp);
+	             }
+	          });
+	    }
 	</script>
 </head>
 <body>
@@ -257,9 +309,9 @@
 	    <div id="step2">
 	        <h2>2.당담 상담사</h2>
 	        <table class="table table-hover">
-		         <tr id="n21"><td>상담사</td><td>100,000</td><td><button class="btn btn-outline-success" onclick="click21(this)">선택</button></td></tr>            
-		         <tr id="n22"><td>상담사2</td><td>90,000</td><td><button class="btn btn-outline-success" onclick="click22(this)">선택</button></td></tr>            
-		         <tr id="n23"><td>상담사3</td><td>80,000</td><td><button class="btn btn-outline-success" onclick="click23(this)">선택</button></td></tr>            
+		         <tr id="n21"><td>상담사</td><td>100000</td><td><button class="btn btn-outline-success" onclick="click21(this)">선택</button></td></tr>            
+		         <tr id="n22"><td>상담사2</td><td>90000</td><td><button class="btn btn-outline-success" onclick="click22(this)">선택</button></td></tr>            
+		         <tr id="n23"><td>상담사3</td><td>80000</td><td><button class="btn btn-outline-success" onclick="click23(this)">선택</button></td></tr>            
 	        </table>          
 	    </div>
         <div id="step3">
@@ -271,13 +323,13 @@
             <!-- <form method="post"> -->
             	<input type="hidden" name="uidx" id="uidx">
             	<input type="hidden" name="id" id="id">
-	            <p>상담/검사 :<input type="text" name="counseling" id="counseling" value="" readonly> </p>
-	            <p>담당상담사 :<input type="text" name="couns" id="couns" value="" readonly> </p>
-	            <p>예약일 :<input type="text" name="resdate" id="resdate" value="" readonly> </p>
-	            <p>예약시간 : <input type="text" name="restime" id="restime" value="" readonly> </p>
-	            <p>상담비용 :<input type="text" name="rescount" id="rescount" value="" readonly> </p>
+	            <p>상담/검사 :<input type="text" name="counseling" id="counseling" readonly> </p>
+	            <p>담당상담사 :<input type="text" name="couns" id="couns" readonly> </p>
+	            <p>예약일 :<input type="text" name="resdate" id="resdate" readonly> </p>
+	            <p>예약시간 : <input type="text" name="restime" id="restime" readonly> </p>
+	            <p>상담비용 :<input type="number" name="rescount" id="rescount" readonly> </p>
 	            <button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/resf.do'">현장결제</button><!-- post양식으로 onclick으로 만들기 -->
-	            <button class="btn btn-dark" onclick="location.href='<%=request.getContextPath() %>/res/count.do'">지금결제</button> <!-- 결제 페이지 열기 --><!-- post양식으로 onclick으로 만들기 -->
+	            <button class="btn btn-dark" onclick="requestPay()">지금결제</button> <!-- 결제 페이지 열기 --><!-- post양식으로 onclick으로 만들기 -->
             <!-- </form>  -->
         </div>
         <div id="modal" class="modal-overlay">
@@ -292,15 +344,6 @@
 	            <input type="radio" name="reserve" class="content" value="18:00 ~ 21:00" onclick="modalClick4(this)"><label>18:00 ~ 21:00</label>
 	        </div>
     	</div>        
-    	<div id="modal2" class="modal-overlay">
-	        <div class="modal-window">
-	            <div class="title">
-	                <h2>예약가능 시간</h2>
-	            </div>
-	            <div class="close-area">X</div><br>
-	            
-	        </div>
-    	</div>     
     </main>
     <footer> <!-- footer -->
         <div id="bottom">   
