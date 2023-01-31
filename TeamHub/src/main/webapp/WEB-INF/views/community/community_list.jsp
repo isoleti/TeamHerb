@@ -310,7 +310,7 @@
                         </div><!--e:#empathy_wrapper-->
                         
                         <div class="like">${vo.likes }명이 공감</div>
-                        <div class="reply">댓글 n개</div>
+                        <div class="reply">댓글 ${vo.replyCnt}개</div>
                         <div class="hit">조회수 ${vo.hit}</div>
                     </div><!--e:.reaction-->
                     

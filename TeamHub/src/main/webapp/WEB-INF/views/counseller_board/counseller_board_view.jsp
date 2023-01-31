@@ -11,7 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>힐링캠프</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xpressengine/xeicon@2.3.1/xeicon.min.css">
-    <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
     <script src="<%=request.getContextPath()%>/resources/js/bootstrap.bundle.js"></script>
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
@@ -75,6 +74,10 @@
         padding:10px;
         min-height:450px;
         }
+        .reply_box{
+        border-bottom:1px solid #e5e7eb;
+        padding:15px 0;
+        }
         .reply_info_wrapper .reply_info{
         display: flex;
         padding:0rem;
@@ -93,9 +96,16 @@
        #reply_input{
         margin-top:30px;
        }
-       #reply_input input{
+       #input_wrapper{
         width:100%;
-        height:60px;
+        border:1px solid;
+       }
+       #reply_input textarea{
+        height:100%;
+        width:92%;
+        border-style:none;
+        outline:none;
+        resize: none;
        }
        #reply_input button{
         position:relative;
@@ -223,26 +233,23 @@
         </div><!--e:#write_form_wrapper-->
             
         <div id="reply_wrapper">
-            <div class="reply_info_wrapper">
-                <ul class="reply_info">
-                    <li class="id">작성자</li>
-                    <li class="wdate">2023-01-03 12:42</li>
-                    <li class="comment">댓글쓰기</li>
-                    <li class="report">신고</li>
-                </ul><!--e:.write_info-->
-            </div><!--e:.write_info_wrapper-->
-            <div class="reply_view_wrapper">
-                <div class="reply_view">댓글댓글댓글</div>
-            </div><!--e:.reply_view_wrapper-->
+            
         </div><!--e:#reply_wrapper-->
+        
         <div id="reply_input">
-            <form action="">
-                <input type="text">
-                <button id="reply_btn">등록</button>
+            <form id="commentForm" method="post" onsubmit="return false">
+            <input type="hidden" name="bidx" value=${vo.bidx }>
+            <input type="hidden" name="uidx" value=${login.uidx }>
+            <input type="hidden" name="board_type" value="1">
+                <div id="input_wrapper">
+                    <textarea name="reply_Content" id="reply"></textarea>
+                </div><!--e:#input_wrapper-->
+                <button type="button" id="reply_btn">등록</button>
             </form>
         </div><!--e:#reply_input-->
     </main>
     <script>
+    	//게시글 삭제여부
     	$("#deleteBtn").on("click",function(){
     		if(confirm("정말 삭제하시겠습니까?") == true){
     		alert("게시물이 삭제되었습니다.");   		
@@ -251,6 +258,105 @@
     			location.href="<%=request.getContextPath()%>/counseller_board/counseller_board_view.do?bidx="+${vo.bidx};
     		}
     	});
+    	
+    	//로그인한 회원만 이용가능
+   		var login = "${login}";
+   		var target = document.getElementById("btn");
+   		if(login == ""){
+   			target.disabled = true;
+   		}
+    	
+    	// 댓글 작성 버튼 클릭
+   		$(document).on("click","#reply_btn",function(){
+   			
+   			//댓글 입력값
+   			var reply = $("textarea[name=reply_Content]").val();
+   			
+   			//로그인 여부
+   			if(login == ""){
+    			alert("로그인 후 이용해주세요");
+    			return false;
+   			}
+   			//댓글 작성여부
+   			else if(reply == ""){
+   				alert("댓글을 입력해주세요.");
+   				return false;
+   			}
+   			
+   			//댓글작성
+   			$.ajax({
+	    		type:"post",
+	    		url:"community_reply_insert.do",
+	    		data:$("#commentForm").serialize(),
+	    		dataType:"text",
+	    		success:function(data){
+	    			if(data == "success"){
+	    				alert("댓글 작성이 완료되었습니다.");
+		    			$("#reply").val("");
+	    				getCommentList();
+	    			}
+	    		},error:function(){
+	    			alert("에러어억");
+	    		}
+	    	});
+   		});
+   		
+   		//초기페이지 로딩시 댓글 불러오기
+   		$(function(){
+   			getCommentList();
+   		});
+   		
+   		//댓글목록
+   		function getCommentList(){
+   			
+   			//작성하려는 댓글의 게시물 번호
+   			var bidx = $("input[name=bidx]").val();
+   			
+   			//현재 로그인한 아이디 
+   			var id = '<%=session.getAttribute("id")%>';
+   			$.ajax({
+   				type:"post",
+   				url:"counseller_board_view.do",
+				data:"bidx="+bidx,
+   				success : function(result){
+   					console.log(result);
+   					var html="";
+   					
+   					if(result.length > 0){
+   						for(i = 0; i < result.length; i++){
+   							html += "<div class='reply_box'>";
+   							html += "<div class='reply_info_wrapper'>";
+   							html += "<ul class='reply_info'>";
+   							html += "<li class='id'>"+result[i].id+"</li>";
+   							html += "<li class='wdate'>"+result[i].reply_Wdate+"</li>";
+   							
+   							if(id == result[i].id){
+	   							html += "<li class='comment'><a>댓글수정</a></li>";
+   							}else{
+   								html += "<li class='comment'>댓글쓰기</li>";
+   							}
+   							
+   							if(id == result[i].id){
+   								html += "<li class='report'><a href='javascript:deleteReply(${replyVO.reply_Idx});'>삭제</a></li></ul></div>";
+   							}else{
+	   							html += "<li class='report'>신고</li></ul></div>";
+   							}
+   							
+   							html += "<div class='reply_view_wrapper'>";
+   							html += "<div class='reply_view'>"+result[i].reply_Content+"</div></div>";
+   							html += "</div>";
+   						}
+   					}else{
+   						html += "<div>등록된 댓글이 없습니다.</div>";
+   					}
+   					
+   					$("#reply_wrapper").html(html);
+   					
+   				},error:function(){
+   					alert("에러여?");
+   				}
+   			});
+   		}
     </script>
     <footer>
         <div id="bottom">   

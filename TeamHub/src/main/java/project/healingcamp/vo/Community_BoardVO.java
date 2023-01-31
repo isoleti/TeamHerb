@@ -17,9 +17,16 @@ public class Community_BoardVO {
 	private int board_type;
 	private int uidx;
 	private String hide_id;
+	private int replyCnt;
 	
 	
 	
+	public int getReplyCnt() {
+		return replyCnt;
+	}
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
+	}
 	public String getHide_id() {
 		return hide_id;
 	}

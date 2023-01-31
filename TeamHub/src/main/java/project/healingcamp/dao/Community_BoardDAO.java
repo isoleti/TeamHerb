@@ -2,6 +2,7 @@ package project.healingcamp.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -52,8 +53,14 @@ public class Community_BoardDAO {
 	public int modifyByBidx(Community_BoardVO cboardVO) {
 		return sqlSession.update("project.healingcamp.mapper.communityMapper.modifyByBidx", cboardVO);
 	}
+	public int addReplyCnt(int bidx) {
+		return sqlSession.update("project.healingcamp.mapper.communityMapper.addReplyCnt",bidx);
+	}
+	public int removeReplyCnt(int bidx) {
+		return sqlSession.update("project.healingcamp.mapper.communityMapper.removeReplyCnt",bidx);
+	}
 	
-	
+		
 	
 	//상담사게시판
 	public List<Community_BoardVO> counseller_board_list(SearchVO searchVO){

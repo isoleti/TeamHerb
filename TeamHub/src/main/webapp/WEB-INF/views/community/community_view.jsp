@@ -74,6 +74,10 @@
         padding:10px;
         min-height:450px;
         }
+        .reply_box{
+        border-bottom:1px solid #e5e7eb;
+        padding:15px 0;
+        }
         .reply_info_wrapper .reply_info{
         display: flex;
         padding:0rem;
@@ -254,24 +258,16 @@
         </div><!--e:#write_form_wrapper-->
                     
         <div id="reply_wrapper">
-            <div class="reply_info_wrapper">
-                <ul class="reply_info">
-                    <li class="id">작성자</li>
-                    <li class="wdate">2023-01-03 12:42</li>
-                    <li class="comment">댓글쓰기</li>
-                    <li class="report">신고</li>
-                </ul><!--e:.write_info-->
-            </div><!--e:.write_info_wrapper-->
-            <div class="reply_view_wrapper">
-                <div class="reply_view">댓글댓글댓글</div>
-            </div><!--e:.reply_view_wrapper-->
+        	
         </div><!--e:#reply_wrapper-->
+        
         <div id="reply_input">
             <form id="commentForm" method="post" onsubmit="return false">
             <input type="hidden" name="bidx" value=${vo.bidx }>
             <input type="hidden" name="uidx" value=${login.uidx }>
+            <input type="hidden" name="board_type" value="0">
                 <div id="input_wrapper">
-                    <textarea name="replyContent" id="reply"></textarea>
+                    <textarea name="reply_Content" id="reply"></textarea>
                 </div><!--e:#input_wrapper-->
                 <button type="button" id="reply_btn">등록</button>
             </form>
@@ -324,11 +320,9 @@
     		
    		// 댓글 작성 버튼 클릭
    		$(document).on("click","#reply_btn",function(){
-   			//로그인 정보
-   			var login = "${login}";
    			//댓글 입력값
-   			var reply = $("textarea[name=replyContent]").val();
-   			
+   			var reply = $("textarea[name=reply_Content]").val();
+   			alert(reply);
    			//로그인 여부
    			if(login == ""){
     			alert("로그인 후 이용해주세요");
@@ -348,7 +342,7 @@
 	    		dataType:"text",
 	    		success:function(data){
 	    			if(data == "success"){
-	    				alert("댓글등록완료");
+	    				alert("댓글 작성이 완료되었습니다.");
 		    			$("#reply").val("");
 	    				getCommentList();
 	    			}
@@ -365,64 +359,76 @@
    		
    		//댓글목록
    		function getCommentList(){
+   			
+   			//작성하려는 댓글의 게시물 번호
    			var bidx = $("input[name=bidx]").val();
-//    			var id = $("input[name=uidx]").val();
-//    			var content = $("textarea[name=replyContent]").val();
    			
-   			
+   			//현재 로그인한 아이디 
+   			var id = '<%=session.getAttribute("id")%>';
    			$.ajax({
    				type:"post",
    				url:"community_view.do",
-//    				dataType:"json",
-//    				data:$("#commentForm").serialize(),
-					data:"bidx="+bidx,
-//    				contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+				data:"bidx="+bidx,
    				success : function(result){
-
    					var html="";
-   					
-//    					if(result.length <1){
-//    						alert("댓글업슈");
-//    					}else{
-// 	   					$(result).each(function(){
-// 	   						html += "<div class='reply_info_wrapper'>";
-//    							html += "<ul class='reply_info'>";
-//    							html += "<li class='id'>"+this.id+"</li>";
-//    							html += "<li class='wdate'>"+this.replyWdate+"</li>";
-//    							html += "<li class='comment'>댓글쓰기</li>";
-//    							html += "<li class='report'>신고</li></ul></div>";
-//    							html += "<div class='reply_view_wrapper'>";
-//    							html += "<div class='reply_view'>"+this.replyContent+"</div></div>";
-// 	   					});
-//    					}
-//    					$("#reply_wrapper").html(html);
-   					
    					if(result.length > 0){
-   						for(i=0; i<result.length; i++){
+   						for(i = 0; i < result.length; i++){
+	   					var reply_Idx = result[i].reply_Idx;
+   							html += "<div class='reply_box'>";
    							html += "<div class='reply_info_wrapper'>";
    							html += "<ul class='reply_info'>";
    							html += "<li class='id'>"+result[i].id+"</li>";
-   							html += "<li class='wdate'>"+result[i].replyWdate+"</li>";
-   							html += "<li class='comment'>댓글쓰기</li>";
-   							html += "<li class='report'>신고</li></ul></div>";
+   							html += "<li class='wdate'>"+result[i].reply_Wdate+"</li>";
+   							
+   							if(id == result[i].id){
+	   							html += "<li class='comment'><a>댓글수정</a></li>";
+   							}else{
+   								html += "<li class='comment'>댓글쓰기</li>";
+   							}
+   							
+   							if(id == result[i].id){
+   								html += "<li class='report'><a href='javascript:deleteReply()'>삭제</a></li></ul></div>";
+   							}else{
+	   							html += "<li class='report'>신고</li></ul></div>";
+   							}
+   							
    							html += "<div class='reply_view_wrapper'>";
-   							html += "<div class='reply_view'>"+result[i].replyContent+"</div></div>";
+   							html += "<div class='reply_view'>"+result[i].reply_Content+"</div></div>";
+   							html += "</div>";
    						}
-			   				$("#reply_wrapper").html(html);
+   					}else{
+   						html += "<div>등록된 댓글이 없습니다.</div>";
    					}
+   					
+   					$("#reply_wrapper").html(html);
+   					
    				},error:function(){
    					alert("에러여?");
    				}
    			});
    		}
    		
-    	
-    
-	    	
-    	
-    	
-    	
-    	
+   		function deleteReply(reply_Idx){
+   			alert("call");
+   			var ans = confirm("선택하신 댓글을 삭제하시겠습니까?");
+   			if(!ans){return false;}
+   			console.log(reply_Idx)
+   			
+   			$.ajax({
+   				type:"post",
+   				url:"community_reply_delete.do?reply_Idx"+reply_Idx,
+   				data:"reply_Idx="+reply_Idx,
+   				success:function(data){
+   					if(data == "1"){
+   						alert("삭제성공");
+   						location.reload;
+   					}
+   				},error:function(){
+   					alert("실패!!!!!!!!!!");
+   				}
+   			});
+   		}
+   		
     </script>
 
 </html>
