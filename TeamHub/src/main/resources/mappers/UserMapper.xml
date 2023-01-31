@@ -93,7 +93,7 @@
 	<select id="loginCheck" resultType="int">
 		select count(id) as count
 			from usertable
-			where id = #{id} and pw = #{pw}.
+			where id = #{id} and pw = #{pw}
 
 	</select>
 	

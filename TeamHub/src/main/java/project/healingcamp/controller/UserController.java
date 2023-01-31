@@ -28,6 +28,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	//로그인
 	@RequestMapping(value="/login.do", method= RequestMethod.GET)
 	public String login() {
 		return "user/login";
@@ -62,8 +63,7 @@ public class UserController {
 		
 	}
 	
-
-	
+	//로그아웃
 	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
 	public String logtout(HttpSession session) {
 		session.invalidate();
@@ -113,7 +113,6 @@ public class UserController {
 			{	
 				System.out.println("id:"+mail );
 				model.addAttribute("id", user);
-				
 				return "user/idMatch";
 			}
 			
@@ -125,19 +124,15 @@ public class UserController {
 				{
 					out = response.getWriter();
 					out.println("<script>alert('일치하는 아이디가 존재하지 않습니다.'); history.go(-1);</script>");
-			  
 					out.close();
 					return null;
 				} 
 				catch (IOException e) 
-				{
-					
+				{	
 					e.printStackTrace();
-				}
-					
+				}		
 				return "user/idFind";
 			}
-		
 	}
 
 	
