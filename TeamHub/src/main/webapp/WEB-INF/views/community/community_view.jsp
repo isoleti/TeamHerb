@@ -119,6 +119,9 @@
         font-weight: bold;
         height:32px;
        }
+       .delete, .commentModify, .cancel{
+       	cursor:pointer;
+       }
         .postbtn{
         border:1px solid silver;
         border-radius:15px;
@@ -322,7 +325,6 @@
    		$(document).on("click","#reply_btn",function(){
    			//댓글 입력값
    			var reply = $("textarea[name=reply_Content]").val();
-   			alert(reply);
    			//로그인 여부
    			if(login == ""){
     			alert("로그인 후 이용해주세요");
@@ -373,28 +375,33 @@
    					var html="";
    					if(result.length > 0){
    						for(i = 0; i < result.length; i++){
-	   					var reply_Idx = result[i].reply_Idx;
+   						
+	   					var reply_Idx = result[i].reply_Idx; //댓글번호
+	   					var bidx = result[i].bidx; // 댓글이 달린  게시글 번호
+	   					var reply_Content = result[i].reply_Content; //댓글 내용
+	   					var writer = result[i].id //댓글 작성자
+	   					
    							html += "<div class='reply_box'>";
-   							html += "<div class='reply_info_wrapper'>";
+   							html += "<div class='reply_box_wrapper"+reply_Idx+"'><div class='reply_info_wrapper'>";
    							html += "<ul class='reply_info'>";
    							html += "<li class='id'>"+result[i].id+"</li>";
    							html += "<li class='wdate'>"+result[i].reply_Wdate+"</li>";
    							
    							if(id == result[i].id){
-	   							html += "<li class='comment'><a>댓글수정</a></li>";
+	   							html += "<li class='commentModify' onclick='commentModify("+reply_Idx+",\""+reply_Content+"\",\""+writer+"\");'>댓글수정</li>";
    							}else{
    								html += "<li class='comment'>댓글쓰기</li>";
    							}
    							
    							if(id == result[i].id){
-   								html += "<li class='report'><a href='javascript:deleteReply()'>삭제</a></li></ul></div>";
+   								html += "<li class='delete' onclick='deleteReply("+reply_Idx+","+bidx+");'>삭제</li></ul></div>";
    							}else{
 	   							html += "<li class='report'>신고</li></ul></div>";
    							}
    							
    							html += "<div class='reply_view_wrapper'>";
    							html += "<div class='reply_view'>"+result[i].reply_Content+"</div></div>";
-   							html += "</div>";
+   							html += "</div></div>";
    						}
    					}else{
    						html += "<div>등록된 댓글이 없습니다.</div>";
@@ -408,26 +415,62 @@
    			});
    		}
    		
-   		function deleteReply(reply_Idx){
-   			alert("call");
+   		//댓글 삭제
+   		function deleteReply(reply_Idx,bidx){
    			var ans = confirm("선택하신 댓글을 삭제하시겠습니까?");
    			if(!ans){return false;}
-   			console.log(reply_Idx)
    			
    			$.ajax({
    				type:"post",
-   				url:"community_reply_delete.do?reply_Idx"+reply_Idx,
-   				data:"reply_Idx="+reply_Idx,
+   				url:"community_reply_delete.do",
+   				data:{"reply_Idx":reply_Idx,"bidx":bidx},
    				success:function(data){
-   					if(data == "1"){
-   						alert("삭제성공");
-   						location.reload;
+   					if(data == 1){
+   						alert("삭제가 완료되었습니다.");
+   						location.reload();
    					}
    				},error:function(){
-   					alert("실패!!!!!!!!!!");
+   					alert("댓글 삭제 실패");
    				}
    			});
    		}
+   		
+   		//댓글 수정창
+		function commentModify(reply_Idx,reply_Content,writer){
+			
+			var comment = ""
+				comment += "<div class='reply_info_wrapper' >";
+				comment += "<ul class='reply_info'>";
+				comment += "<li class='id'>"+writer+"</li>";
+				comment += "<li class='commentModify' onclick='updateBtn("+reply_Idx+",\""+reply_Content+"\");'>댓글수정</li>";
+				comment += "<li class='cancel' onclick='getCommentList();'>취소</li></ul></div>";
+				comment += "<div class='reply_view_wrapper'>";
+				comment += "<textarea id='reply_Edit_Content' name='reply_Content' style='width:100%;'>"+reply_Content+"</textarea></div>";
+			
+			$(".reply_box_wrapper"+reply_Idx).replaceWith(comment);
+		}
+   		
+   		function updateBtn(reply_Idx,reply_Content){
+   			var reply_Content = $("textarea[name='reply_Content']").val();
+   			alert(reply_Content);
+   			
+   			$.ajax({
+   				url:"community_reply_update.do",
+   				type:"post",
+   				data:JSON.stringify({ "reply_Idx":reply_Idx ,"reply_Content":reply_Content}),
+//    				contentType:"application/json",
+//    				dataType:"text",
+   				success:function(result){
+   					if(result == 1){
+	   					alert("성공");
+	   					getCommentList();
+   					}
+   				},error:function(){
+   					alert("으아아악!");
+   				}
+   			});
+   		}
+   			
    		
     </script>
 

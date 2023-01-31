@@ -59,6 +59,13 @@
 <!-- 댓글 삭제 -->
 	<delete id="deleteByReply" parameterType="replyVO">
 		DELETE replytable 
-		 WHERE reply_idx = #{reply_Idx}
+		 WHERE reply_idx = #{reply_Idx} 
 	</delete>
+	
+<!-- 	댓글 수정 -->
+	<update id="updateByReply" parameterType="replyVO">
+		UPDATE replytable 
+		   SET reply_content = #{reply_Content} 
+		 WHERE reply_idx = #{reply_idx}
+	</update>
   </mapper>

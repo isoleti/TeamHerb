@@ -39,11 +39,8 @@ public class CommunityController {
 
 		//페이지네이션(검색어포함)
 		PageVO pageVO = new PageVO(searchVO,cboardService.total(searchVO));
-
 		//전체게시글 데이터 요청
 		List<Community_BoardVO> list = cboardService.list(searchVO);
-		System.out.println("list:"+list);
-		
 		//데이터를 모델에 담아 화면에 넘김
 		model.addAttribute("pageVO",pageVO);//페이지네이션 전달
 		model.addAttribute("datalist",list);//글목록 전달
@@ -113,6 +110,7 @@ public class CommunityController {
 		return "community/community_modify";
 	}
 	
+	//게시글 수정
 	@RequestMapping(value="/community_modify.do",method=RequestMethod.POST)
 	public String community_modify(Community_BoardVO cboardVO) {
 		
@@ -150,18 +148,31 @@ public class CommunityController {
 		replyVO.setReply_Ip(request.getRemoteAddr()); // 아이피
 		
 		//댓글작성 후 삽입
-		int result = replyService.reply_Insert(replyVO);
+		replyService.reply_Insert(replyVO);
 		
 		return "success";
 	}
 	
+	//댓글 삭제
 	@RequestMapping(value="/community_reply_delete.do",method=RequestMethod.POST)
+	@ResponseBody
 	public String community_reply_delete(ReplyVO replyVO) {
-		int result = replyService.deleteByReply(replyVO);
-		System.out.println(replyVO.getReply_Idx());
+		replyService.deleteByReply(replyVO);
 		
-		return "result";
+		return "1";
 	}
+	
+	//댓글 수정
+	@RequestMapping(value="/community_reply_update.do",method=RequestMethod.POST)
+	public String community_reply_update(ReplyVO replyVO) {
+		int result = replyService.updateByReply(replyVO);
+		System.out.println("result:"+result);
+		System.out.println("번호:"+replyVO.getReply_Idx());
+		System.out.println("내용:"+replyVO.getReply_Content());
+		
+		return "1";
+	}
+	
 	
 	
 	

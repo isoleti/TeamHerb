@@ -44,6 +44,11 @@ public class ReplyServiceImpl implements ReplyService {
 		return replyDAO.counseller_reply_list(bidx);
 	}
 
+	@Override
+	public int updateByReply(ReplyVO replyVO) {
+		return replyDAO.updateByReply(replyVO);
+	}
+
 	
 	
 

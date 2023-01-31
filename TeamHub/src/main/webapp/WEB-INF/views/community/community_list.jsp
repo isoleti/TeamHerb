@@ -187,14 +187,7 @@
 	}
 	
     </style>
-	<script>
 	
-		function changeImage(obj){
-			$(".empathy").attr('src','./../resources/upload/like_color_change.jpg');
-		}
-		
-		
-	</script>
 </head>
 <body>
      <header>    <!--header-->
@@ -306,7 +299,7 @@
                     <div class="reaction">
                     
                         <div class="empathy_wrapper">
-                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감" onclick="changeImage(this);">
+                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감">
                         </div><!--e:#empathy_wrapper-->
                         
                         <div class="like">${vo.likes }명이 공감</div>
@@ -373,5 +366,15 @@
         </div>
     </footer>
 </body>
+
+<script>
+	
+		$(".empathy").click(function(){
+			alert("call");
+			var heart = $(this).attr('src','./../resources/upload/like_color_change.jpg');
+		}); 			
+		
+		
+	</script>
 
 </html>

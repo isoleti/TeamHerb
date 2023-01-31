@@ -35,4 +35,9 @@ public class ReplyDAO {
 	public int deleteByReply(ReplyVO replyVO) {
 		return sqlSession.delete("project.healingcamp.mapper.replyMapper.deleteByReply", replyVO);
 	}
+	
+	//´ñ±Û ¼öÁ¤
+	public int updateByReply(ReplyVO replyVO) {
+		return sqlSession.update("project.healingcamp.mapper.replyMapper.updateByReply", replyVO);
+	}
 }
