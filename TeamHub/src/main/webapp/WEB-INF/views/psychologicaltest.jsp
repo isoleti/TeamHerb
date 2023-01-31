@@ -162,7 +162,7 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
                     <p class="description">스트레스 자가진단 테스트입니다.</p>
                 </div>
                 <div class="btn_wrapper">
-                    <a class="start_btn" href="https://aiselftest.com/stress" target="_blank">시작하기</a>
+                    <a class="start_btn" href="https://www.simcong.com/quiz/2" target="_blank">시작하기</a>
                 </div>
             </div><!--e:.item_box-->
 
@@ -182,7 +182,7 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
                     <p class="description">자존감 테스트입니다.</p>
                 </div>
                 <div class="btn_wrapper">
-                    <a class="start_btn" href="https://https://www.simcong.com/quiz/136" target="_blank">시작하기</a>
+                    <a class="start_btn" href="https://www.simcong.com/quiz/136" target="_blank">시작하기</a>
                 </div>
             </div><!--e:.item_box-->
 

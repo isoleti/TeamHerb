@@ -10,4 +10,5 @@ public interface ReplyService {
 	List<ReplyVO> reply_list(int bidx);
 	List<ReplyVO> counseller_reply_list(int bidx);
 	int deleteByReply(ReplyVO replyVO);
+	int updateByReply(ReplyVO replyVO);
 }

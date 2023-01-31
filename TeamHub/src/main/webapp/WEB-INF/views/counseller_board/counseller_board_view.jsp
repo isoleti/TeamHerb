@@ -119,6 +119,9 @@
         font-weight: bold;
         height:32px;
        }
+       .delete, .commentModify, .cancel{
+       	cursor:pointer;
+       }
         .postbtn{
         border:1px solid silver;
         border-radius:15px;
@@ -324,20 +327,26 @@
    					
    					if(result.length > 0){
    						for(i = 0; i < result.length; i++){
-   							html += "<div class='reply_box'>";
-   							html += "<div class='reply_info_wrapper'>";
-   							html += "<ul class='reply_info'>";
-   							html += "<li class='id'>"+result[i].id+"</li>";
-   							html += "<li class='wdate'>"+result[i].reply_Wdate+"</li>";
+   							
+   							var reply_Idx = result[i].reply_Idx; //댓글번호
+   		   					var bidx = result[i].bidx; // 댓글이 달린  게시글 번호
+   		   					var reply_Content = result[i].reply_Content; //댓글 내용
+   		   					var writer = result[i].id //댓글 작성자
+   							
+   		   					html += "<div class='reply_box'>";
+							html += "<div class='reply_box_wrapper"+reply_Idx+"'><div class='reply_info_wrapper'>";
+							html += "<ul class='reply_info'>";
+							html += "<li class='id'>"+result[i].id+"</li>";
+							html += "<li class='wdate'>"+result[i].reply_Wdate+"</li>";
    							
    							if(id == result[i].id){
-	   							html += "<li class='comment'><a>댓글수정</a></li>";
+   								html += "<li class='commentModify' onclick='commentModify("+reply_Idx+",\""+reply_Content+"\",\""+writer+"\");'>댓글수정</li>";
    							}else{
    								html += "<li class='comment'>댓글쓰기</li>";
    							}
    							
    							if(id == result[i].id){
-   								html += "<li class='report'><a href='javascript:deleteReply(${replyVO.reply_Idx});'>삭제</a></li></ul></div>";
+   								html += "<li class='report'><a href='javascript:void(0);' onclick='javascript:deleteReply("+reply_Idx+","+bidx+");''>삭제</a></li></ul></div>";
    							}else{
 	   							html += "<li class='report'>신고</li></ul></div>";
    							}
@@ -357,6 +366,42 @@
    				}
    			});
    		}
+   		
+   		//댓글 삭제
+   		function deleteReply(reply_Idx,bidx){
+   			var ans = confirm("선택하신 댓글을 삭제하시겠습니까?");
+   			if(!ans){return false;}
+   			
+   			$.ajax({
+   				type:"post",
+   				url:"community_reply_delete.do",
+   				data:{"reply_Idx":reply_Idx, "bidx":bidx},
+   				success:function(data){
+   					if(data == 1){
+   						alert("삭제가 완료되었습니다.");
+   						location.reload();
+   					}
+   				},error:function(){
+   					alert("댓글 삭제 실패");
+   				}
+   			});
+   		}
+   		
+   		//댓글 수정창
+		function commentModify(reply_Idx,reply_Content,writer){
+			
+			var comment = ""
+				comment += "<div class='reply_info_wrapper' >";
+				comment += "<ul class='reply_info'>";
+				comment += "<li class='id'>"+writer+"</li>";
+				comment += "<li class='commentModify' onclick='updateBtn("+reply_Idx+",\""+reply_Content+"\");'>댓글수정</li>";
+				comment += "<li class='cancel' onclick='getCommentList();'>취소</li></ul></div>";
+				comment += "<div class='reply_view_wrapper'>";
+				comment += "<textarea style='width:100%;'>"+reply_Content+"</textarea></div>";
+			
+			$(".reply_box_wrapper"+reply_Idx).replaceWith(comment);
+		}
+   		
     </script>
     <footer>
         <div id="bottom">   

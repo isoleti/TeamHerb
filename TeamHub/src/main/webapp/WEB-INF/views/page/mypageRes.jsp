@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="project.healingcamp.vo.UserVo" %>
 <%@ page session="true" %>    
     
 <!DOCTYPE html>
@@ -18,8 +19,9 @@
                 text-align:center; padding-top: 30px; 
                 padding:40px;}
         .bar a{display:block;}
-        .bar a:nth-child(1){font-size:25px; font-weight: bold; padding-bottom:20px;display: block; 
+        .bar a:nth-child(1){font-size:25px; font-weight: bold; padding-bottom:20px;display: block;
                 width:280px; border-bottom:1px solid #e4e4e4; position:relative; left:-40px;}
+        .bar input{ text-align:center; border:none; }
         .bar img{margin-top: 20px;}
         .bar a:nth-child(2){font-size:20px; margin-top:20px;}
         .bar button{width:200px;  background:white;
@@ -93,7 +95,7 @@
         <div class="bar">
                 <a>마이페이지</a>
                 <img src="../resources/upload/profile.png" alt="프로필" class="pro">
-                <a>아이디</a>
+                <a><input type="text" id="id" name="id" value="${login.id}" readonly></a>
                 <button class="btn1" onclick="location.href='<%=request.getContextPath()%>/page/pwConfirm.do'">회원정보</button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageRes.do'">나의 예약 </button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageCouns.do'">상담 예약</button>

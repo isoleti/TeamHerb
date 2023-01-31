@@ -117,24 +117,32 @@ public class CounsellerController {
 	}
 	
 	//댓글 작성
-		@RequestMapping(value="/community_reply_insert.do",method=RequestMethod.POST)
-		@ResponseBody
-		public String community_reply_insert(ReplyVO replyVO,HttpSession session,HttpServletRequest request,Community_BoardVO cboardVO) {
-			
-			//로그인 정보
-			UserVo login = (UserVo)session.getAttribute("login");
-			
-			replyVO.setUidx(login.getUidx()); //댓글작성자 번호
-			replyVO.setId(login.getId()); //댓글작성자 아이디
-			replyVO.setBidx(cboardVO.getBidx()); //작성한댓글의 게시글 번호
-			replyVO.setReply_Ip(request.getRemoteAddr()); // 아이피
-			
-			//댓글작성 후 삽입
-			int result = replyService.reply_Insert(replyVO);
-			
-			return "success";
-		}
+	@RequestMapping(value="/community_reply_insert.do",method=RequestMethod.POST)
+	@ResponseBody
+	public String community_reply_insert(ReplyVO replyVO,HttpSession session,HttpServletRequest request,Community_BoardVO cboardVO) {
+		
+		//로그인 정보
+		UserVo login = (UserVo)session.getAttribute("login");
+		
+		replyVO.setUidx(login.getUidx()); //댓글작성자 번호
+		replyVO.setId(login.getId()); //댓글작성자 아이디
+		replyVO.setBidx(cboardVO.getBidx()); //작성한댓글의 게시글 번호
+		replyVO.setReply_Ip(request.getRemoteAddr()); // 아이피
+		
+		//댓글작성 후 삽입
+		int result = replyService.reply_Insert(replyVO);
+		
+		return "success";
+	}
 	
+	//댓글 삭제
+	@RequestMapping(value="/community_reply_delete.do",method=RequestMethod.POST)
+	@ResponseBody
+	public String community_reply_delete(ReplyVO replyVO) {
+		int result = replyService.deleteByReply(replyVO);
+		
+		return "1";
+	}
 	
 	
 	

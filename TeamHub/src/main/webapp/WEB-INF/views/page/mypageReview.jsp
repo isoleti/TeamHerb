@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   
+ 	
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,11 +26,11 @@
         .btn1{ height:50px; font-size:18px;  margin:30px 0;font-weight:bold;}
         
         .btn2{height:35px; font-size:15px; border-radius:5px;  margin-top:20px;}
-        .content{display:inline-block; position: relative; top:-300px; left:50px; }
+        .content{display:inline-block; position: relative; top:-600px; left:350px; }
        
         .content a{ font-size:20px;  font-weight: bold;
             display:block;}
-        #review{width:800px; height:150px; border:1px solid #e4e4e4;}
+        #rcontent{width:800px; height:150px; border:1px solid #e4e4e4;}
         .content button{display: block; border: none; width: 100px; 
             height:30px; margin-top: 20px; border-radius:10px;
             position: relative; left:700px;}
@@ -63,12 +65,14 @@
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageScrap.do'">스크랩 글</button>
   
             </div><!--//.bar-->
-        <div class="content">
-            <a >상담사 후기</a><br><br>
-            <a >후기작성</a>
-            <input type="text" name="review" id="review">
-            <button>등록</button>
- 
+        <form action="mypageReview.do" method="post">
+	        <div class="content">
+	            <a >상담사 후기</a><br><br>
+	            <a >후기작성</a>
+	            <textarea name="rcontent" id="rcontent"></textarea>
+	            <button>등록</button>
+	         </div>
+ 		</form>
 
     </main>
     <footer>
