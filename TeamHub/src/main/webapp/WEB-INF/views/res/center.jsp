@@ -110,7 +110,9 @@
 	          });
 	        calendar.render();
 	      });
-	
+		function respage(){
+			alert("로그인 후 사용하세요");
+		}	
 	 </script>
 </head>
 <body>
@@ -125,7 +127,7 @@
          
           <c:if test = "${login != null}">
             
-               <p><a href="">로그아웃</a></p>
+               <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
                <p><a href="">관리자 페이지</a></p>
                </c:if>
@@ -178,19 +180,34 @@
             <p>주요 상담분야</p><br>
             <p>주소 :</p><br>
             <P>전화 : </P><br>
-            <button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do'">예약하기</button>
+            <c:if test = "${login == null}"> 
+            	<button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button>
+            </c:if>
+            <c:if test = "${login != null}"> 
+            	<button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do'">예약하기</button>
+            </c:if>
             <button class="btn btn-dark">문의하기</button>
             <div class="cal"> <!--상담사 상담 일정-->
                 <p>상담사 : </p>
                 <div id='calendar'></div>
             </div><!-- fin 상담사 일정-->
             <div id="test"> <!--상담 및 검사 안내-->
+            <c:if test = "${login == null}">   
+                <table class="table table-striped">
+                    <tr><th>상담 종류</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
+                    <tr><th>상담 종류</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
+                    <tr><th>상담 종류</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
+                    <tr><th>상담 종류</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
+                </table>
+            </c:if>    
+            <c:if test = "${login != null}">   
                 <table class="table table-striped">
                     <tr><th>상담 종류</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do'">예약하기</button></td></tr>                    
                     <tr><th>상담 종류</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do'">예약하기</button></td></tr>                    
                     <tr><th>상담 종류</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do'">예약하기</button></td></tr>                    
                     <tr><th>상담 종류</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do'">예약하기</button></td></tr>                    
                 </table>
+            </c:if>
             </div><!-- fin test-->
         </div><!--예약 및 일정-->
         <div id="cenN"><!-- 센터 책갈피-->

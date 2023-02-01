@@ -65,12 +65,6 @@ public class ReserveController {
 
 		return "res/resf";
 	}
-
-	@RequestMapping(value= "/count.do", method = RequestMethod.GET) //나중에 post방식으로 바꿀 것.
-	public String count() {
-		
-		return "res/count";
-	}
 	
 	@ResponseBody
 	@RequestMapping(value="/res/like.do", method=RequestMethod.POST)

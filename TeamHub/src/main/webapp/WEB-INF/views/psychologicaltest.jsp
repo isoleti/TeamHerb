@@ -75,7 +75,7 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
          
         <c:if test = "${login != null}">
             
-               <p><a href="">로그아웃</a></p>
+               <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
                <p><a href="">관리자 페이지</a></p>
                </c:if>

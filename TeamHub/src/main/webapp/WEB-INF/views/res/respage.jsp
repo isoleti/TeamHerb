@@ -1,3 +1,4 @@
+<%@page import="project.healingcamp.vo.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
@@ -68,6 +69,7 @@
             position: relative;
             top: -100px;
             padding: 10px;
+            z-index:99999;
         }
         #modal .title {
             padding-left: 10px;
@@ -98,8 +100,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/resources/js/index.global.js"></script>
-	<!-- iamport 연결 -->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+	<!-- iamport 연결 -->	
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', function()
@@ -181,6 +182,7 @@
 		var date = document.getElementsByName("resdate");
 		var count = document.getElementsByName("rescount");
 		
+		
 		//객체 초기화
 		var IMP = window.IMP;   // 생략 가능
 		IMP.init("imp05817143");
@@ -219,36 +221,68 @@
 	    var makeMerchantUid = hours +  minutes + seconds + milliseconds;
 	    
 	    //iamport 결제 모듈
-	    function requestPay() {
-	    	
-		   var rtval = $(rtime).text();
-		   var coval  = $(counseler).text();
-		   var couval = $(coun).text();
+	    function requestPay(obj) {
+
+		   var rd = document.querySelector("#resdate").value;
+		   var rt = document.querySelector("#restime").value;
+		   var co  = document.querySelector("#couns").value;
+		   var cou = document.querySelector("#counseling").value;
+		   var ct = document.querySelector("#rescount").value;
+		   Number(ct);
 		   
-		   var rtjson = JSON.stringify(rtval);
-		   var cojson = JSON.stringify(coval);
-		   var coujson = JSON.stringify(coval);
+		   /* 		    
+ 		   alert("rt : "+rt);
+		   alert("co : "+co);
+		   alert("cou : "+cou); 
 		   
-		   console.log("rtval"+rtval);
-		   console.log("coval"+coval);
-		   console.log("couval"+couval);
 		   
-	       IMP.request_pay({
-	           pg : 'html5_inicis.INIpayTest',
-	           pay_method : 'card',
-	           merchant_uid: "IMP"+makeMerchantUid, 
-	           name : ""+$(coujson)+$(cojson)+$(rtjson)+"",
-	           amount : 100000,
-	           buyer_email : 'Iamport@chai.finance',
-	           buyer_name : '아임포트 기술지원팀',
-	           buyer_tel : '010-1234-5678'
-	       }, function (rsp) { // callback
-	             if (rsp.success) {
-	                 console.log(rsp);
-	             } else {
-	                 console.log(rsp);
-	             }
-	          });
+		   console.log("rt : "+rt);
+		   console.log("co : "+co);
+		   console.log("cou : "+cou);
+		   console.log("Number(ct) : "+Number(ct));
+		   
+		   alert("rtval : "+rtval);
+		   alert("coval : "+coval);
+		   alert("couval : "+couval);
+		   
+		   console.log("rtval : "+rtval);
+		   console.log("coval : "+coval);
+		   console.log("couval : "+couval);
+ 		   */	
+ 		   
+		   if(cou == ""){
+	  			  alert("상담을 선택해주세요")
+				   return;
+		   }else if(co == ""){
+ 			  alert("상담사를 선택해주세요")
+			   return;
+ 		   }else if(rd == ""){
+  			  alert("상담일을 선택해주세요")
+			   return;
+		   }else if(rt == ""){
+ 			   alert("시간을 선택해주세요")
+ 			   return;
+ 		   }else{
+ 		   
+		       IMP.request_pay({
+		           pg : 'html5_inicis.INIpayTest',
+		           pay_method : 'card',
+		           merchant_uid: "IMP"+makeMerchantUid, 
+		           name : ""+cou+" / "+co+" / "+rd+" : "+rt+"",
+		           amount : Number(ct),
+		           buyer_email : ''+${mail}+'',
+		           buyer_name : ''+${id}+''',
+		           buyer_tel : ''+${phone}+''
+		       }, function (rsp) { // callback
+		             if (rsp.success) {
+		            	 console.log(rsp);
+		            	 return "res/resf.do";
+		             } else {
+		                 console.log(rsp);
+		                 return "res/respage.do";
+		             }
+		          });
+ 		   }
 	    }
 	</script>
 </head>
@@ -264,7 +298,7 @@
          
         <c:if test = "${login != null}">
             
-               <p><a href="">로그아웃</a></p>
+               <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
                <p><a href="">관리자 페이지</a></p>
                </c:if>
@@ -329,7 +363,7 @@
 	            <p>예약시간 : <input type="text" name="restime" id="restime" readonly> </p>
 	            <p>상담비용 :<input type="number" name="rescount" id="rescount" readonly> </p>
 	            <button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/resf.do'">현장결제</button><!-- post양식으로 onclick으로 만들기 -->
-	            <button class="btn btn-dark" onclick="requestPay()">지금결제</button> <!-- 결제 페이지 열기 --><!-- post양식으로 onclick으로 만들기 -->
+	            <button class="btn btn-dark" onclick="requestPay(this)">지금결제</button> <!-- 결제 페이지 열기 --><!-- post양식으로 onclick으로 만들기 -->
             <!-- </form>  -->
         </div>
         <div id="modal" class="modal-overlay">
