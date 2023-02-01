@@ -22,9 +22,9 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public int total() {
+	public int total(Criteria cri) {
 		
-		return reviewDao.total();
+		return reviewDao.total(cri);
 	}
 
 	@Override

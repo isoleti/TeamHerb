@@ -18,8 +18,8 @@ public class ReviewDao {
 	public List<ReviewVo> list(Criteria cri){
 		return sqlSession.selectList("project.healingcamp.mapper.reviewMapper.list", cri);
 	}
-	 public int total() {
-		 return sqlSession.selectOne("project.healingcamp.mapper.reviewMapper.total");
+	 public int total(Criteria cri) {
+		 return sqlSession.selectOne("project.healingcamp.mapper.reviewMapper.total", cri);
 	 };
 	 
 	public int deleteRidx(int ridx) {
