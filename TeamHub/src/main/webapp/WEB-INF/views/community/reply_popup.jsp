@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>신고하기</title>
-    <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
     <style>
         body{
             width:550px;
@@ -44,6 +43,7 @@
             padding-bottom:10px;
             width:50%;
             float:left;
+            list-style:none;
         }
         .report_type li label{
             font-size:13px;
@@ -111,8 +111,15 @@
         </div><!--e:.pop_content-->
         <div class="pop_footer">
             <button>등록</button>
-            <button>취소</button>
+            <button onclick="closePopup();" id="cancel">취소</button>
         </div><!--e:.pop_footer-->
     </form><!--e:#report_form-->
 </body>
+
+	<script>
+    	function closePopup(){
+    		window.close();
+    	}
+	</script>
+
 </html>

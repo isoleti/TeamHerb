@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -130,7 +131,7 @@ public class CounsellerController {
 		replyVO.setReply_Ip(request.getRemoteAddr()); // ¾ÆÀÌÇÇ
 		
 		//´ñ±ÛÀÛ¼º ÈÄ »ðÀÔ
-		int result = replyService.reply_Insert(replyVO);
+		replyService.reply_Insert(replyVO);
 		
 		return "success";
 	}
@@ -139,9 +140,24 @@ public class CounsellerController {
 	@RequestMapping(value="/community_reply_delete.do",method=RequestMethod.POST)
 	@ResponseBody
 	public String community_reply_delete(ReplyVO replyVO) {
-		int result = replyService.deleteByReply(replyVO);
+		 replyService.deleteByReply(replyVO);
 		
 		return "1";
+	}
+	
+	//´ñ±Û ¼öÁ¤
+	@RequestMapping(value="/community_reply_update.do",method=RequestMethod.POST)
+	@ResponseBody
+	public String community_reply_update(@RequestBody ReplyVO replyVO) {
+		replyService.updateByReply(replyVO);
+		
+		return "1";
+	}
+	
+	//´ñ±Û ½Å°í ÆË¾÷Ã¢
+	@RequestMapping(value="/reply_popup.do",method=RequestMethod.GET)
+	public String reply_popup() {
+		return "community/reply_popup";
 	}
 	
 	

@@ -80,6 +80,7 @@ public class CommunityController {
 		return "community/community_write";
 	}
 	
+	//댓글 작성
 	@RequestMapping(value="/community_write.do",method=RequestMethod.POST)
 	public String community_write(Community_BoardVO cboardVO,HttpSession session,HttpServletRequest request) {
 		
@@ -114,7 +115,7 @@ public class CommunityController {
 	@RequestMapping(value="/community_modify.do",method=RequestMethod.POST)
 	public String community_modify(Community_BoardVO cboardVO) {
 		
-		int result = cboardService.modifyByBidx(cboardVO);
+		cboardService.modifyByBidx(cboardVO);
 		
 		return "redirect:community_view.do?bidx="+cboardVO.getBidx();
 	}
@@ -164,16 +165,47 @@ public class CommunityController {
 	
 	//댓글 수정
 	@RequestMapping(value="/community_reply_update.do",method=RequestMethod.POST)
-	public String community_reply_update(ReplyVO replyVO) {
-		int result = replyService.updateByReply(replyVO);
-		System.out.println("result:"+result);
-		System.out.println("번호:"+replyVO.getReply_Idx());
-		System.out.println("내용:"+replyVO.getReply_Content());
+	@ResponseBody
+	public String community_reply_update(@RequestBody ReplyVO replyVO) {
+		replyService.updateByReply(replyVO);
 		
 		return "1";
 	}
 	
+	//댓글 신고 팝업창
+	@RequestMapping(value="/reply_popup.do",method=RequestMethod.GET)
+	public String reply_popup() {
+		return "community/reply_popup";
+	}
 	
+	
+	//대댓글 작성
+	@RequestMapping(value="community_re_reply.do",method=RequestMethod.POST)
+	@ResponseBody
+	public String re_replyInsert(@RequestBody ReplyVO replyVO, HttpSession session, HttpServletRequest request,Community_BoardVO cboardVO) {
+		
+		//로그인 정보
+		UserVo login = (UserVo)session.getAttribute("login");
+		
+		replyVO.setId(login.getId()); //대댓글 작성자 아이디
+		replyVO.setUidx(login.getUidx()); //대댓글 작성자 uidx
+		replyVO.setReply_Ip(request.getRemoteAddr()); //ip
+		
+		replyService.re_replyInsert(replyVO);
+		
+		return "1";
+		
+	}
+	
+	//대댓글 리스트
+	@RequestMapping(value="community_re_replyList.do",method=RequestMethod.GET)
+	@ResponseBody
+	public List<ReplyVO> re_replyList(int bidx){
+		
+		List<ReplyVO> re_replyList = replyService.re_replyList(bidx);
+		System.out.println("대댓리스트?"+re_replyList);
+		return re_replyList;
+	}
 	
 	
 	

@@ -10,6 +10,8 @@ public class ReplyVO {
 	private int bidx;
 	private int uidx;
 	private int board_type;
+	private int rdepth;
+	private int rparent;
 	
 	
 	
@@ -18,9 +20,25 @@ public class ReplyVO {
 	public String toString() {
 		return "ReplyVO [reply_Idx=" + reply_Idx + ", reply_Content=" + reply_Content + ", id=" + id + ", reply_Wdate="
 				+ reply_Wdate + ", reply_Ip=" + reply_Ip + ", bidx=" + bidx + ", uidx=" + uidx + ", board_type="
-				+ board_type + "]";
+				+ board_type + ", rdepth=" + rdepth + ", rparent=" + rparent + ", getRdepth()=" + getRdepth()
+				+ ", getRparent()=" + getRparent() + ", getBoard_type()=" + getBoard_type() + ", getReply_Idx()="
+				+ getReply_Idx() + ", getReply_Content()=" + getReply_Content() + ", getReply_Wdate()="
+				+ getReply_Wdate() + ", getReply_Ip()=" + getReply_Ip() + ", getUidx()=" + getUidx() + ", getId()="
+				+ getId() + ", getBidx()=" + getBidx() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
 	}
-	
+	public int getRdepth() {
+		return rdepth;
+	}
+	public void setRdepth(int rdepth) {
+		this.rdepth = rdepth;
+	}
+	public int getRparent() {
+		return rparent;
+	}
+	public void setRparent(int rparent) {
+		this.rparent = rparent;
+	}
 	public int getBoard_type() {
 		return board_type;
 	}

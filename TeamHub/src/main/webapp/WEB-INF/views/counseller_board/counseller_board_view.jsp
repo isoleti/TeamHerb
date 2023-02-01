@@ -119,7 +119,7 @@
         font-weight: bold;
         height:32px;
        }
-       .delete, .commentModify, .cancel{
+       .delete, .commentModify, .cancel, .report{
        	cursor:pointer;
        }
         .postbtn{
@@ -262,8 +262,13 @@
     		}
     	});
     	
-    	//로그인한 회원만 이용가능
-   		var login = "${login}";
+    	//로그인 정보
+    	var login = "${login}";
+   		
+   		//현재 로그인한아이디
+   		var id = '<%=session.getAttribute("id")%>'; 
+   		
+   		//로그인한 회원만 이용가능
    		var target = document.getElementById("btn");
    		if(login == ""){
    			target.disabled = true;
@@ -315,14 +320,11 @@
    			//작성하려는 댓글의 게시물 번호
    			var bidx = $("input[name=bidx]").val();
    			
-   			//현재 로그인한 아이디 
-   			var id = '<%=session.getAttribute("id")%>';
    			$.ajax({
    				type:"post",
    				url:"counseller_board_view.do",
 				data:"bidx="+bidx,
    				success : function(result){
-   					console.log(result);
    					var html="";
    					
    					if(result.length > 0){
@@ -348,7 +350,7 @@
    							if(id == result[i].id){
    								html += "<li class='report'><a href='javascript:void(0);' onclick='javascript:deleteReply("+reply_Idx+","+bidx+");''>삭제</a></li></ul></div>";
    							}else{
-	   							html += "<li class='report'>신고</li></ul></div>";
+	   							html += "<li class='report' onclick='reportReply("+reply_Idx+")'>신고</li></ul></div>";
    							}
    							
    							html += "<div class='reply_view_wrapper'>";
@@ -362,7 +364,7 @@
    					$("#reply_wrapper").html(html);
    					
    				},error:function(){
-   					alert("에러여?");
+   					alert("error");
    				}
    			});
    		}
@@ -395,12 +397,44 @@
 				comment += "<ul class='reply_info'>";
 				comment += "<li class='id'>"+writer+"</li>";
 				comment += "<li class='commentModify' onclick='updateBtn("+reply_Idx+",\""+reply_Content+"\");'>댓글수정</li>";
-				comment += "<li class='cancel' onclick='getCommentList();'>취소</li></ul></div>";
+				comment += "<li class='cancel' onclick='getCommentList();'>취소</li></ul></div>";//취소버튼 클릭시 댓글 목록리스트 함수 실행
 				comment += "<div class='reply_view_wrapper'>";
-				comment += "<textarea style='width:100%;'>"+reply_Content+"</textarea></div>";
+				comment += "<textarea style='width:100%;' name='reply_Content'>"+reply_Content+"</textarea></div>";
 			
 			$(".reply_box_wrapper"+reply_Idx).replaceWith(comment);
 		}
+   		
+		//댓글 수정
+   		function updateBtn(reply_Idx,reply_Content){
+   			var reply_Content = $("textarea[name='reply_Content']").val(); //수정된 댓글 내용
+   			
+   			$.ajax({
+   				url:"community_reply_update.do",
+   				type:"post",
+   				data:JSON.stringify({ "reply_Idx":reply_Idx ,"reply_Content":reply_Content}),
+   				dataType:"json",
+   				contentType : "application/json;charset=UTF-8",
+   				success:function(result){
+   					if(result == 1){
+	   					alert("댓글 수정이 완료되었습니다.");
+	   					getCommentList();//댓글 수정완료시 댓글 목록리스트 함수 실행
+   					}
+   				},error:function(){
+   					alert("error");
+   				}
+   			});
+   		}
+		
+   		//댓글 신고팝업창 띄우기
+   		function reportReply(reply_Idx){
+   			if(login == ""){
+   				alert("로그인 후 이용해주세요.");
+   			}else{
+	   			let popOption = "width = 568px, height=558px, scrollbars=no";
+	   			let openUrl = "<%=request.getContextPath()%>/community/reply_popup.do";
+	   			window.open(openUrl,"",popOption);
+	   		}
+   		}
    		
     </script>
     <footer>

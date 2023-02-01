@@ -93,21 +93,21 @@
         .reply_view_wrapper{
         margin-left:15px;
         }
-       #reply_input{
+        #reply_input{
         margin-top:30px;
-       }
-       #input_wrapper{
+        }
+        #input_wrapper{
         width:100%;
         border:1px solid;
-       }
-       #reply_input textarea{
+        }
+        #reply_input textarea{
         height:100%;
         width:92%;
         border-style:none;
         outline:none;
         resize: none;
-       }
-       #reply_input button{
+        }
+        #reply_input button{
         position:relative;
         bottom:46px;
         right:10px;
@@ -118,10 +118,20 @@
         padding:5px 15px;
         font-weight: bold;
         height:32px;
-       }
-       .delete, .commentModify, .cancel{
+        }
+        .re_reply_box{
+       	border-bottom: 1px solid #e5e7eb;
+	    padding: 15px 25px;
+	    background-color: #FCFCFC;
+        }
+        .reply_ico{
+       	float:left;
+       	margin-left:-7px;
+       	opacity:.5;
+        }
+        .delete, .commentModify, .cancel, .report, .re_reply, .re_reply_btn{
        	cursor:pointer;
-       }
+        }
         .postbtn{
         border:1px solid silver;
         border-radius:15px;
@@ -129,18 +139,18 @@
         padding:0 5px;
         float:right;
         align-items: center;
-       }
-       .postbtn div{
+        }
+        .postbtn div{
         padding:2px;
-       }
-	   .likebtn img{
-	   width:24px;
-       height:24px;
-       cursor:pointer;
-	   }
-	   .clip img{
-	   cursor:pointer;
-	   }
+        }
+	    .likebtn img{
+	    width:24px;
+        height:24px;
+        cursor:pointer;
+	    }
+	    .clip img{
+	    cursor:pointer;
+	    }
     </style>
     <script>
 	
@@ -292,7 +302,7 @@
 </body>
 
 <script>
-    	
+
     	//게시글 삭제여부
     	$("#deleteBtn").on("click",function(){
     		if(confirm("정말 삭제하시겠습니까?") == true){
@@ -313,8 +323,13 @@
 	    	}
     	});
     	
-    	//로그인한 회원만 이용가능
-   		var login = "${login}";
+   		//로그인 정보
+    	var login = "${login}";
+   		
+   		//현재 로그인한아이디
+   		var id = '<%=session.getAttribute("id")%>'; 
+   		
+   		//로그인한 회원만 이용가능
    		var target = document.getElementById("btn");
    		if(login == ""){
    			target.disabled = true;
@@ -344,12 +359,11 @@
 	    		dataType:"text",
 	    		success:function(data){
 	    			if(data == "success"){
-	    				alert("댓글 작성이 완료되었습니다.");
 		    			$("#reply").val("");
 	    				getCommentList();
 	    			}
 	    		},error:function(){
-	    			alert("에러어억");
+	    			alert("error");
 	    		}
 	    	});
    		});
@@ -365,8 +379,6 @@
    			//작성하려는 댓글의 게시물 번호
    			var bidx = $("input[name=bidx]").val();
    			
-   			//현재 로그인한 아이디 
-   			var id = '<%=session.getAttribute("id")%>';
    			$.ajax({
    				type:"post",
    				url:"community_view.do",
@@ -380,28 +392,59 @@
 	   					var bidx = result[i].bidx; // 댓글이 달린  게시글 번호
 	   					var reply_Content = result[i].reply_Content; //댓글 내용
 	   					var writer = result[i].id //댓글 작성자
+	   					var rdepth = result[i].rdepth //댓글깊이 
+	   					var rparent = result[i].rparent; 
+	   					console.log(rdepth);
 	   					
-   							html += "<div class='reply_box'>";
-   							html += "<div class='reply_box_wrapper"+reply_Idx+"'><div class='reply_info_wrapper'>";
-   							html += "<ul class='reply_info'>";
-   							html += "<li class='id'>"+result[i].id+"</li>";
-   							html += "<li class='wdate'>"+result[i].reply_Wdate+"</li>";
+		   					if(rdepth == 0){//댓글일때
+	   							html += "<div class='reply_box'>";
+	   							html += "<div class='reply_box_wrapper"+reply_Idx+"'><div class='reply_info_wrapper'>";
+	   							html += "<ul class='reply_info'>";
+	   							html += "<li class='id'>"+result[i].id+"</li>";
+	   							html += "<li class='wdate'>"+result[i].reply_Wdate+"</li>";
+	   							
+	   							if(id == result[i].id){
+		   							html += "<li class='commentModify' onclick='commentModify("+reply_Idx+",\""+reply_Content+"\",\""+writer+"\");'>댓글수정</li>";
+	   							}else{
+	   								html += "<li class='re_reply' onclick='re_reply("+reply_Idx+","+bidx+")'>댓글쓰기</li>";
+	   							}
+	   							
+	   							if(id == result[i].id){
+	   								html += "<li class='delete' onclick='deleteReply("+reply_Idx+","+bidx+");'>삭제</li></ul></div>";
+	   							}else{
+		   							html += "<li class='report' onclick='reportReply()'>신고</li></ul></div>";
+	   							}
+	   							
+	   							html += "<div class='reply_view_wrapper'>";
+	   							html += "<div class='reply_view'>"+result[i].reply_Content+"</div></div>";
+	   							html += "</div></div>";
+	   							html += "<div class='re_reply_area"+reply_Idx+"'></div>"
+		   						
+		   					}else{//대댓글일때
+		   						html += "<div class='re_reply_area"+reply_Idx+"'>";
+		   						html += "<div class='re_reply_box'>";
+	   		   					html += "<span class='reply_ico'>└</span>";
+	   		   					html += "<div class='reply_info_wrapper' >";
+	   		   					html += "<ul class='reply_info'>";
+	   		   					html += "<li class='id'>"+result[i].id+"</li>";
+		   		   				html += "<li class='wdate'>"+result[i].reply_Wdate+"</li>";
+	   							
+	   							if(id == result[i].id){
+		   							html += "<li class='commentModify' onclick='commentModify("+reply_Idx+",\""+reply_Content+"\",\""+writer+"\");'>댓글수정</li>";
+	   							}else{
+	   								html += "<li class='re_reply' onclick='re_reply("+reply_Idx+","+bidx+")'>댓글쓰기</li>";
+	   							}
+	   							
+	   							if(id == result[i].id){
+	   								html += "<li class='delete' onclick='deleteReply("+reply_Idx+","+bidx+");'>삭제</li></ul></div>";
+	   							}else{
+		   							html += "<li class='report' onclick='reportReply()'>신고</li></ul></div>";
+	   							}
    							
-   							if(id == result[i].id){
-	   							html += "<li class='commentModify' onclick='commentModify("+reply_Idx+",\""+reply_Content+"\",\""+writer+"\");'>댓글수정</li>";
-   							}else{
-   								html += "<li class='comment'>댓글쓰기</li>";
-   							}
-   							
-   							if(id == result[i].id){
-   								html += "<li class='delete' onclick='deleteReply("+reply_Idx+","+bidx+");'>삭제</li></ul></div>";
-   							}else{
-	   							html += "<li class='report'>신고</li></ul></div>";
-   							}
-   							
-   							html += "<div class='reply_view_wrapper'>";
-   							html += "<div class='reply_view'>"+result[i].reply_Content+"</div></div>";
-   							html += "</div></div>";
+	   		   					html += "<div class='reply_view_wrapper'>";
+	   		   					html += "<div class='reply_view'>"+result[i].reply_Content+"</div></div>";
+	   		   					html += "</div></div>";
+		   					}
    						}
    					}else{
    						html += "<div>등록된 댓글이 없습니다.</div>";
@@ -410,7 +453,7 @@
    					$("#reply_wrapper").html(html);
    					
    				},error:function(){
-   					alert("에러여?");
+   					alert("error");
    				}
    			});
    		}
@@ -443,33 +486,145 @@
 				comment += "<ul class='reply_info'>";
 				comment += "<li class='id'>"+writer+"</li>";
 				comment += "<li class='commentModify' onclick='updateBtn("+reply_Idx+",\""+reply_Content+"\");'>댓글수정</li>";
-				comment += "<li class='cancel' onclick='getCommentList();'>취소</li></ul></div>";
+				comment += "<li class='cancel' onclick='getCommentList();'>취소</li></ul></div>"; //취소버튼 클릭시 댓글 목록리스트 함수 실행
 				comment += "<div class='reply_view_wrapper'>";
 				comment += "<textarea id='reply_Edit_Content' name='reply_Content' style='width:100%;'>"+reply_Content+"</textarea></div>";
 			
 			$(".reply_box_wrapper"+reply_Idx).replaceWith(comment);
 		}
    		
+   		//댓글 수정
    		function updateBtn(reply_Idx,reply_Content){
-   			var reply_Content = $("textarea[name='reply_Content']").val();
-   			alert(reply_Content);
+   			var reply_Content = $("textarea[name='reply_Content']").val(); //수정된 댓글 내용
    			
-   			$.ajax({
-   				url:"community_reply_update.do",
-   				type:"post",
-   				data:JSON.stringify({ "reply_Idx":reply_Idx ,"reply_Content":reply_Content}),
-//    				contentType:"application/json",
-//    				dataType:"text",
-   				success:function(result){
-   					if(result == 1){
-	   					alert("성공");
-	   					getCommentList();
-   					}
-   				},error:function(){
-   					alert("으아아악!");
-   				}
-   			});
+   			if(reply_Content == ""){
+   				alert("내용을 입력해주세요.");
+   			}else{
+	   			$.ajax({
+	   				url:"community_reply_update.do",
+	   				type:"post",
+	   				data:JSON.stringify({ "reply_Idx":reply_Idx ,"reply_Content":reply_Content}),
+	   				dataType:"json",
+	   				contentType : "application/json;charset=UTF-8",
+	   				success:function(result){
+	   					if(result == 1){
+		   					alert("댓글 수정이 완료되었습니다.");
+		   					getCommentList();//댓글 수정완료시 댓글 목록리스트 함수 실행
+	   					}
+	   				},error:function(){
+	   					alert("error");
+	   				}
+	   			});
+   			}
    		}
+   		
+   		//댓글 신고팝업창 띄우기
+   		function reportReply(reply_Idx){
+   			if(login == ""){
+   				alert("로그인 후 이용해주세요.");
+   			}else{
+	   			let popOption = "width = 568px, height=558px, scrollbars=no";
+	   			let openUrl = "<%=request.getContextPath()%>/community/reply_popup.do";
+	   			window.open(openUrl,"",popOption);
+	   		}
+   		}
+   		
+   		//대댓글
+   		function re_reply(reply_Idx,bidx){
+   			if(login == ""){
+   				alert("로그인 후 이용해주세요.");
+   			}else{
+   				var reply = "";
+   					reply += "<div class='re_reply_box'>";
+   					reply += "<span class='reply_ico'>└</span>";
+   					reply += "<div class='reply_info_wrapper' >";
+   					reply += "<ul class='reply_info'>";
+   					reply += "<li class='id'>"+id+"</li>";
+   					reply += "<li class='re_reply_btn' onclick='re_reply_btn("+reply_Idx+","+bidx+");'>댓글등록</li>";
+   					reply += "<li class='cancel' onclick='getCommentList();'>취소</li></ul></div>"; //취소버튼 클릭시 댓글 목록리스트 함수 실행
+   					reply += "<div class='reply_view_wrapper'>";
+   					reply += "<textarea id='reply_Edit_Content' name='reply_Content' style='width:100%;'></textarea>";
+   					reply += "<input type='hidden' name='rparent' value="+reply_Idx+"></div>";
+   					reply += "</div>";
+	   				$(".re_reply_area"+reply_Idx).html(reply);
+   			}
+   			
+   			//display 여부에 따라 show,hide
+   			if($(".re_reply_area"+reply_Idx).css("display") == "none"){
+   				$(".re_reply_area"+reply_Idx).show();
+   			}else{
+   				$(".re_reply_area"+reply_Idx).hide();
+   			}
+   		}
+   		
+   		//대댓글 등록
+   		function re_reply_btn(reply_Idx,bidx){
+   			var reply_Content = $("textarea[name='reply_Content']").val();
+   			var rparent = $("input[name=rparent]").val();
+   			
+   			if(reply_Content == ""){
+   				alert("내용을 입력해주세요.");
+   			}else{
+	   			$.ajax({
+	   				url:"community_re_reply.do",
+	   				type:"post",
+	   				data:JSON.stringify({"reply_Content":reply_Content, "bidx":bidx,"rparent":rparent}), //rparent:대댓글 다는 댓글의 idx
+	   				dataType:"json",
+	   				contentType:"application/json; charset=UTF-8",
+	   				success:function(result){
+	   					getCommentList();
+	   					//getReplyList(bidx); //대댓글 입력 성공시 대댓글 리스트함수 호출
+	   					
+	   				},error:function(){
+	   					alert("error");
+	   				}
+	   			});
+   			}
+   		}
+			
+//    		$(function(){
+// 			//var rparent = $("input[name=rparent]").val();
+// 			var bidx = $("input[name=bidx]").val();
+			
+//    			getReplyList(bidx);
+//    		});
+   		
+//    		//대댓글 리스트
+//    		function getReplyList(bidx){
+//    			//console.log(rparent);
+//    			console.log(bidx);
+//    			$.ajax({
+//    				type:"get",
+//    				url:"community_re_replyList.do",
+//    				data:{"bidx":bidx},
+//    				success:function(result){
+//    					console.log(result);
+   					
+//    					var reply = "";
+//    					if(result.length > 0){
+//    						for(i = 0; i <result.length; i++){
+//    						var rparent = result[i].rparent; //댓글번호
+//    							reply += "<div class='re_reply_box'>";
+//    		   					reply += "<span class='reply_ico'>└</span>";
+//    		   					reply += "<div class='reply_info_wrapper' >";
+//    		   					reply += "<ul class='reply_info'>";
+//    		   					reply += "<li class='id'>"+result[i].id+"</li>";
+//    		   					reply += "<li class='re_reply_btn'>댓글수정</li>";
+//    		   					reply += "<li class='cancel'>삭제</li></ul></div>"; //취소버튼 클릭시 댓글 목록리스트 함수 실행
+//    		   					reply += "<div class='reply_view_wrapper'>";
+//    		   					reply += "<div class='reply_view'>"+result[i].reply_Content+"</div></div>";
+//    		   					reply += "</div>";
+   							
+//    						}
+//    					}
+// 	   				$(".re_reply_area"+rparent).html(reply);
+   					
+//    				},error:function(){
+//    					alert("error");
+//    				}
+//    			});
+//    		}
+   		
    			
    		
     </script>

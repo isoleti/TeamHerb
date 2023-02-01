@@ -30,7 +30,7 @@
   	</insert>
   	
   	
-<!--   	댓글 목록 -->
+<!--   커뮤니티 댓글 목록 -->
   	<select id="reply_list" resultType="replyVO" parameterType="int">
   		SELECT reply_idx
 			  ,reply_content
@@ -38,9 +38,11 @@
 			  ,reply_wdate
 			  ,bidx
 			  ,uidx
+			  ,rdepth
 		  FROM replytable
 		 WHERE bidx = #{bidx}
 		   AND board_type = 0
+<!-- 		   AND rdepth = 0 -->
   	</select>
   	
 <!--  상담사게시판 댓글 목록 -->
@@ -66,6 +68,57 @@
 	<update id="updateByReply" parameterType="replyVO">
 		UPDATE replytable 
 		   SET reply_content = #{reply_Content} 
-		 WHERE reply_idx = #{reply_idx}
+		 WHERE reply_idx = #{reply_Idx}
 	</update>
+	
+<!-- 	대댓글 작성 -->
+	<insert id="re_replyInsert" parameterType="replyVO">
+		INSERT into replytable (
+					 reply_idx
+					,reply_content
+					,id
+					,reply_wdate
+					,reply_ip
+					,bidx
+					,uidx
+					,board_type
+					,rdepth
+					,rparent
+					)
+			VALUES (
+					reply_idx_seq.nextval
+					,#{reply_Content}
+					,#{id}
+					,SYSDATE
+					,#{reply_Ip}
+					,#{bidx}
+					,#{uidx}
+					,0
+					,1
+					,#{rparent}
+					)
+	</insert>
+	
+<!-- 	대댓글 목록 -->
+	<select id="re_replyList" resultType="replyVO" parameterType="int">
+		SELECT reply_idx
+			  ,reply_content
+			  ,id
+			  ,reply_wdate
+			  ,bidx
+			  ,uidx
+			  ,board_type
+			  ,rdepth
+			  ,rparent
+		  FROM replytable 
+		 WHERE bidx = #{bidx} 
+<!-- 		   AND rparent = #{rparent} -->
+		   AND board_type=0 
+		   AND rdepth=1
+	</select>
+	
+	
+	
+	
+	
   </mapper>

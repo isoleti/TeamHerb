@@ -21,15 +21,13 @@ public class ReplyDAO {
 	
 	//커뮤니티 댓글 목록
 	public List<ReplyVO> reply_list(int bidx){
-		List<ReplyVO> reply_list = sqlSession.selectList("project.healingcamp.mapper.replyMapper.reply_list",bidx);
-		return reply_list;
+		return sqlSession.selectList("project.healingcamp.mapper.replyMapper.reply_list",bidx);
 	}
 	
 	//상담사 게시판 댓글 목록
-		public List<ReplyVO> counseller_reply_list(int bidx){
-			List<ReplyVO> reply_list = sqlSession.selectList("project.healingcamp.mapper.replyMapper.counseller_reply_list",bidx);
-			return reply_list;
-		}
+	public List<ReplyVO> counseller_reply_list(int bidx){
+		return sqlSession.selectList("project.healingcamp.mapper.replyMapper.counseller_reply_list",bidx);
+	}
 	
 	//댓글 삭제
 	public int deleteByReply(ReplyVO replyVO) {
@@ -40,4 +38,15 @@ public class ReplyDAO {
 	public int updateByReply(ReplyVO replyVO) {
 		return sqlSession.update("project.healingcamp.mapper.replyMapper.updateByReply", replyVO);
 	}
+	
+	//대댓글 작성
+	public int re_replyInsert(ReplyVO replyVO) {
+		return sqlSession.insert("project.healingcamp.mapper.replyMapper.re_replyInsert",replyVO);
+	}
+	
+	//대댓글 목록
+	public List<ReplyVO> re_replyList(int bidx) {
+		return sqlSession.selectList("project.healingcamp.mapper.replyMapper.re_replyList", bidx);
+	}
 }
+

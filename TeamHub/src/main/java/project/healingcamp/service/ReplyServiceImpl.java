@@ -29,7 +29,8 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public List<ReplyVO> reply_list(int bidx) {
-		return replyDAO.reply_list(bidx);
+		List<ReplyVO> reply_list = replyDAO.reply_list(bidx);
+		return reply_list;
 	}
 
 	@Transactional
@@ -41,12 +42,26 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public List<ReplyVO> counseller_reply_list(int bidx) {
-		return replyDAO.counseller_reply_list(bidx);
+		List<ReplyVO> counseller_reply_list = replyDAO.counseller_reply_list(bidx);
+		return counseller_reply_list;
 	}
 
 	@Override
 	public int updateByReply(ReplyVO replyVO) {
 		return replyDAO.updateByReply(replyVO);
+	}
+
+	@Transactional
+	@Override
+	public int re_replyInsert(ReplyVO replyVO) {
+		cboardDAO.addReplyCnt(replyVO.getBidx());
+		return replyDAO.re_replyInsert(replyVO);
+	}
+
+	@Override
+	public List<ReplyVO> re_replyList(int bidx) {
+		List<ReplyVO> re_replyList = replyDAO.re_replyList(bidx);
+		return re_replyList;
 	}
 
 	
