@@ -47,8 +47,8 @@ public class ReviewController {
 		
 		System.out.println("list:"+list);
 		
-		 PageMaker pageMaker = new PageMaker(cri,reviewService.total());
-		 System.out.println("√—«’∞Ë:" + reviewService.total());
+		 PageMaker pageMaker = new PageMaker(cri,reviewService.total(cri));
+		 System.out.println("√—«’∞Ë:" + reviewService.total(cri));
 		 System.out.println("∆‰¿Ã¡ˆ"+ pageMaker);
 		model.addAttribute("list", list);
 		

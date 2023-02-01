@@ -8,7 +8,7 @@ import project.healingcamp.vo.ReviewVo;
 public interface ReviewService {
 	
 	public List<ReviewVo> list(Criteria cri);
-	int total();
+	int total(Criteria cri);
 	int deleteRidx(int ridx);
 	int insert(ReviewVo reviewvo);
 
