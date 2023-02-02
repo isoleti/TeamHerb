@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
      <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
- 	<%@ page import="java.util.*" %>
- 	 	<%@ page import="project.healingcamp.vo.UserVo" %>
- 	<%@ page session="true" %>
+    <%@ page import="java.util.*" %>
+        <%@ page import="project.healingcamp.vo.UserVo" %>
+    <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,21 +15,21 @@
 <script >
 
  $(function(){ //회원가입페이지가 로드됐을때 function실행 
-	$("form").submit(function(){
-		if($("#agree").is(":checked") == false){
-		 alert("회원탈퇴 안내에 동의하셔야  회원탈퇴가 가능합니다.");
-		 	return false;
-		}
-		else if($("#pw").val() == ""){
-			alert("비밀번호를 입력하세요.");
-			return false;
-		}
-		
-		else {
-			return true;
-		}
-		})
-	});
+   $("form").submit(function(){
+      if($("#agree").is(":checked") == false){
+       alert("회원탈퇴 안내에 동의하셔야  회원탈퇴가 가능합니다.");
+          return false;
+      }
+      else if($("#pw").val() == ""){
+         alert("비밀번호를 입력하세요.");
+         return false;
+      }
+      
+      else {
+         return true;
+      }
+      })
+   });
 
 </script>
 <style>
@@ -54,7 +54,7 @@
 
 </head>
 <body>
-	   <header>       
+      <header>       
         <div ><p><a href="">로그아웃</a></p><p><a href="">마이페이지</a></p><p><a href="">고객센터</a></p></div><!-- 로그인 및 고객센터 관련 버튼--> 
         <nav class="navbar" > <!-- 네비게이션 -->
             <h1><a href=""><img src="../resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
@@ -65,8 +65,8 @@
     
     <main>
         <h2>회원탈퇴</h2>
-		<form action="userDel.do"  method="post">
-		
+      <form action="userDel.do"  method="post">
+      
         <div class="userimfo">
            <div class="basic">
            <a class="p">회원 탈퇴 안내</a>
@@ -87,7 +87,6 @@
         
         <a>귀하의 회원탈퇴 진행을 위해 비밀번호를 인증해주세요.</a><br>
         <input type="password" name="pw" id="pw" autoComplete="off">
-         <input type="hidden"  id="pw2" name="pw2" readonly> 
         <input type="hidden"  id="id" name="id" value="${login.id}" readonly> 
          <input type="hidden"  id="uidx" name="uidx" value="${login.uidx}" readonly> 
         

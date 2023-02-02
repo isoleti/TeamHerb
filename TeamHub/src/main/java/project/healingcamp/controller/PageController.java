@@ -58,22 +58,22 @@ public class PageController {
 		return "page/userDel";
 	}
 	@RequestMapping(value="userDel.do", method=RequestMethod.POST)
-	public String Withdraw(UserVo vo, HttpSession session, Model model, HttpServletRequest request) {
-		
-		//비밀번호 암호화
-		String userPw = vo.getPw();
-		vo.setPw(UserSha256.encrypt(userPw));
-				
-		//암호화 확인
-		System.out.println("userPw:" + vo.getPw());
-				
-		
-		userService.userDelete(vo);
-		session.invalidate();
-		return "redirect:/";
-		
-		
-	}
+	   public String Withdraw(UserVo vo, HttpSession session, Model model, HttpServletRequest request) {
+	      
+	      //비밀번호 암호화
+	      String userPw = vo.getPw();
+	      vo.setPw(UserSha256.encrypt(userPw));
+	            
+	      //암호화 확인
+	      System.out.println("userPw:" + vo.getPw());
+	            
+	      
+	      userService.userDelete(vo);
+	      session.invalidate();
+	      return "redirect:/";
+	      
+	      
+	 }
 	@RequestMapping(value="mypageCouns.do", method=RequestMethod.GET)
 	public String mypageCouns() {
 		

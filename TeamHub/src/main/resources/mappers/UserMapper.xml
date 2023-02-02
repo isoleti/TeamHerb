@@ -99,12 +99,12 @@
 
 	</select>
 	<!--회원탈퇴 -->
-	<update id="userDelete" parameterType="userVo">
-		update usertable
-			set delyn = 'Y'
-			where pw =#{pw}
-			and id =#{id}
-			and uidx=#{uidx}
-	</update>
+   <update id="userDelete" parameterType="userVo">
+      update usertable
+         set delyn = 'Y'
+         where pw =#{pw}
+         and id =#{id}
+         and uidx=#{uidx}
+   </update>
 
 </mapper>
