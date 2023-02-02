@@ -62,7 +62,12 @@ public class UserServiceImpl implements UserService {
 	
 		return userDao.findId(mail);
 	}
-
+	
+	@Override
+	public int userDelete(UserVo vo) {
+	
+		return userDao.userDelete(vo);
+	}
 
 	
 	 

@@ -2,6 +2,9 @@ package project.healingcamp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import project.healingcamp.service.PageService;
+import project.healingcamp.service.UserService;
+import project.healingcamp.service.UserSha256;
 import project.healingcamp.vo.ReserveVO;
 import project.healingcamp.vo.ReviewVo;
+import project.healingcamp.vo.UserVo;
 
 @RequestMapping("/page")
 @Controller
@@ -18,6 +24,9 @@ public class PageController {
 	
 	@Autowired
 	private PageService pageService;
+	
+	@Autowired
+	private UserService userService;
 	
 	//마이페이지
 	@RequestMapping(value="/mypageRes.do", method=RequestMethod.GET)
@@ -48,7 +57,23 @@ public class PageController {
 		
 		return "page/userDel";
 	}
-	
+	@RequestMapping(value="userDel.do", method=RequestMethod.POST)
+	public String Withdraw(UserVo vo, HttpSession session, Model model, HttpServletRequest request) {
+		
+		//비밀번호 암호화
+		String userPw = vo.getPw();
+		vo.setPw(UserSha256.encrypt(userPw));
+				
+		//암호화 확인
+		System.out.println("userPw:" + vo.getPw());
+				
+		
+		userService.userDelete(vo);
+		session.invalidate();
+		return "redirect:/";
+		
+		
+	}
 	@RequestMapping(value="mypageCouns.do", method=RequestMethod.GET)
 	public String mypageCouns() {
 		
