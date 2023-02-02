@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="true" %>    
 <!DOCTYPE html>
 <html lang="ko" style="--vh:5.02px;">
 <head>
@@ -117,20 +120,18 @@
 			<div class="logo">
 				<img src="../resources/images/힐링캠프 logo2.png">
 			</div><!--logo-->
-			<form id="frm">
+			<form id="frm"  class="content" action="pw_auth.do" method="post">
 				<ul>
 					<li><a href="<%=request.getContextPath() %>/user/idFind.do"><p id="idcheck">아이디찾기</p></a></li>
 					<li><a href="<%=request.getContextPath() %>/user/pwFind.do"><p id="pwcheck">비밀번호 찾기</p></a></li>
 				</ul>
 				<input type="text" id="id" name="id" autocomplete="off" required placeholder="아이디를 입력해주세요." >
 				<br>
-				<input type="text" id="name" name="name" autocomplete="off" required placeholder="이름을 입력해주세요.">
+				<input type="text" id="mail" name="mail" autocomplete="off" required="/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)?$/i" required placeholder="이메일을 입력해주세요. ex)hogildong@naver.com">
 				<br>
-				<input type="text" id="mail" name="mail" autocomplete="off" required placeholder="이메일을 입력해주세요. ex)hogildong@naver.com">
-				<br>
-				<input type="button" id="btn" onclick="check()" value="비밀번호 찾기">
+				<input type="submit" id="btn"  value="비밀번호 찾기">
 			</form><!--frm-->
-		</div><!--idCheck_box-->
-	</div><!--idCheck_Area-->
-</body>
+			</div><!--idCheck_box-->
+		</div><!--idCheck_Area-->
+	</body>
 </html>
