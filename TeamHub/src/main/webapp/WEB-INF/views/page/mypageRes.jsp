@@ -29,7 +29,8 @@
         .btn1{ height:50px; font-size:18px;  margin:30px 0;font-weight:bold;}
         
         .btn2{height:35px; font-size:15px; border-radius:5px;  margin-top:20px;}
-       .btn3:hover{background:#e4e4e4;}
+        .btn2:hover{background:#e4e4e4;}
+        .btn3:hover{background:#e4e4e4;}
         .content{display:inline-block; position: relative; top:00px; left:50px; }
         .content a{ font-size:20px; 
             display:block; margin-top:20px;}
@@ -65,7 +66,7 @@
          
         <c:if test = "${login != null}">
             
-               <p><a href="">로그아웃</a></p>
+               <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
                <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
                </c:if>

@@ -37,7 +37,8 @@
                 font-weight:bold; margin-left:80px;cursor: pointer; position:relative; top:130px; font-size:15px;}
         .btn:nth-child(2){background: #e4e4e4;}
         .btn:nth-child(3){background: #70ad47;}
-        #bar a{border-bottom:1px solid black; display:inline-block; cursor: pointer; position:relative; top:135px;}        
+        #bar a{border-bottom:1px solid black; display:inline-block; cursor: pointer; position:relative; top:135px;} 
+        #bar a:hover{color:red; border-color:red;}       
 </style>
 </head>
 <body>
@@ -55,22 +56,22 @@
          <div class="userimfo">
             <div class="basic">
             <a class="p">기본정보</a>
-            <a>아이디 <input type="text" name="id" id="id"><br>
+            <a>아이디 <input type="text" name="id" id="id"></a><br>
             <a>이메일주소  <input type="text" name="mail" id="mail"></a><br>
             <a>연락처 <input type="number" name="phone" id="phone"></a>
             <hr>
             <a class="p">비밀번호 변경</a>
-            <a>비밀번호 변경 <input type="password" name="password" id="password"><br>
+            <a>비밀번호 변경 <input type="password" name="password" id="password"></a><br>
             <a>비밀번호 확인 <input type="password" name="password" id="password"></a>
             <hr>
-           
+          	</div>
                  
             <div id="bar">
             <a href="<%= request.getContextPath() %>/page/userDel.do">회원탈퇴</a>
             <button class="btn">취소</button>
             <button class="btn">저장</button>
-            </div>
- </div><!--.userimfo-->
+            </div><!-- #bar -->
+ 		</div><!--.userimfo-->
     </main>
     <footer>
         <div id="bottom">   

@@ -17,6 +17,7 @@ public interface UserService {
 	int joinCoun(UserVo vo);
 	int loginCheck(UserVo vo, HttpSession session);
 	String findId(String mail);
+	int userDelete(UserVo vo);
 
 }
 

@@ -14,7 +14,7 @@
 			 from usertable
 			 where id = #{id}
 			 and pw = #{pw}
-			
+			 and delyn ='N'
 	</select>	
 	
 	<select id="selectById" parameterType="String" resultType="int">
@@ -98,6 +98,13 @@
 			where id = #{id} and pw = #{pw}
 
 	</select>
-	
+	<!--회원탈퇴 -->
+	<update id="userDelete" parameterType="userVo">
+		update usertable
+			set delyn = 'Y'
+			where pw =#{pw}
+			and id =#{id}
+			and uidx=#{uidx}
+	</update>
 
 </mapper>

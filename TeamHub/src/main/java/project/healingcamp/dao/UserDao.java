@@ -33,7 +33,9 @@ public class UserDao {
 	public int selectByMail(String mail) {
 		return sqlSession.selectOne("project.healingcamp.mapper.userMapper.selectByMail",mail);
 	}
-	
+	public int userDelete(UserVo vo) {
+		return sqlSession.update("project.healingcamp.mapper.userMapper.userDelete", vo);
+	}
 	public int loginCheck(UserVo vo) {	
 		
 		System.out.println("UserDAO");

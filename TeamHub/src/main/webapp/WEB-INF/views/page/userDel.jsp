@@ -1,11 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+ 	<%@ page import="java.util.*" %>
+ 	 	<%@ page import="project.healingcamp.vo.UserVo" %>
+ 	<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원탈퇴</title>
 <link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
+<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
+<script >
+
+ $(function(){ //회원가입페이지가 로드됐을때 function실행 
+	$("form").submit(function(){
+		if($("#agree").is(":checked") == false){
+		 alert("회원탈퇴 안내에 동의하셔야  회원탈퇴가 가능합니다.");
+		 	return false;
+		}
+		else if($("#pw").val() == ""){
+			alert("비밀번호를 입력하세요.");
+			return false;
+		}
+		
+		else {
+			return true;
+		}
+		})
+	});
+
+</script>
 <style>
    main{margin:0 auto;  width:1160px; }
         main{margin:0 auto;  width:1160px; }
@@ -14,7 +40,7 @@
                  padding-top: 30px; margin-left:250px; border-radius:10px;
                 padding:40px; margin-bottom:10px;}
         .p{font-size:25px; margin-bottom:20px;display: block; font-weight:bold;}
-        #password{margin-top:30px; width: 300px; height:30px;}
+        #pw{margin-top:30px; width: 300px; height:30px;}
         .btn{width:100px; height:30px; margin-left: 50px;}
         #step{margin-top: 30px; }
         #step button{width:100px; height:35px; border:none; font-weight: bold; color:white; border-radius:5px;
@@ -39,7 +65,8 @@
     
     <main>
         <h2>회원탈퇴</h2>
-
+		<form action="userDel.do"  method="post">
+		
         <div class="userimfo">
            <div class="basic">
            <a class="p">회원 탈퇴 안내</a>
@@ -56,18 +83,21 @@
         
         </div>
         
-        <a><input type="checkbox">  위 사항을 확인하였으며 동의합니다</a><br><Br><br>
+        <a><input type="checkbox" id="agree">  위 사항을 확인하였으며 동의합니다</a><br><Br><br>
         
         <a>귀하의 회원탈퇴 진행을 위해 비밀번호를 인증해주세요.</a><br>
-        <input type="password" name="password" id="password">
-
-        <button class="btn">인증</button>
+        <input type="password" name="pw" id="pw" autoComplete="off">
+         <input type="hidden"  id="pw2" name="pw2" readonly> 
+        <input type="hidden"  id="id" name="id" value="${login.id}" readonly> 
+         <input type="hidden"  id="uidx" name="uidx" value="${login.uidx}" readonly> 
+        
         <div id="step">
-        <button class="btn">취소</button>
+        <button type="button" class="btn" onclick="location.href='<%=request.getContextPath()%>/'">취소</button>
         <button class="btn">회원탈퇴</button>
-        </div>
-    </div>
-    
+        </div><!--#step  -->
+    </div><!--.userimfo  -->
+    </form>
+
     </main>
     <footer>
         <div id="bottom">   

@@ -41,6 +41,7 @@ public class UserController {
 		System.out.println("vo : " + vo.toString());
 	
 		
+		
 		//비밀번호 암호화
 		String userPw = vo.getPw();
 		vo.setPw(UserSha256.encrypt(userPw));
@@ -49,7 +50,9 @@ public class UserController {
 		System.out.println("userPw:" + vo.getPw());
 		
 		//로그인 메서드
-		UserVo login = userService.login(vo);
+			
+		
+			UserVo login = userService.login(vo);
 
 		
 			if(login ==null) {
