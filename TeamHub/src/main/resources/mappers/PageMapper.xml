@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="project.healingcamp.mapper.pageMapper">
+  
+  <!--회원가입 수정전 비밀번호 인증 -->
+  	<select id="pwCheck" parameterType="userVo" resultType="userVo">
+  		select pw
+  			from usertable
+  			where pw=#{pw}
+ 
+  	</select>
+  
+  
+  
+  </mapper>

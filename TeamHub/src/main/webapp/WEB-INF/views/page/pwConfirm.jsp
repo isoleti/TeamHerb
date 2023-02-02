@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    <%@ page import="java.util.*" %>
+        <%@ page import="project.healingcamp.vo.UserVo" %>
+    <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +12,21 @@
 <title>비밀번호 인증</title>
 <link href="<%= request.getContextPath() %>/resources/css/bootstrap.css" rel="stylesheet">
 <link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
+<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
+<script >
+
+ $(function(){ //회원가입페이지가 로드됐을때 function실행 
+   $("form").submit(function(){
+      if($("#pw").val() == ""){
+         alert("비밀번호를 입력하세요.");
+         return false;
+      }
+      
+      })
+   });
+
+</script>
+
 <style>
 	   main{margin:0 auto;  width:1160px; }
         
@@ -32,16 +52,17 @@
         </nav>
     </header> 
     <main>
+    	<form action="checkPw.do"  method="post">
         <div class="pwcheck">
             <a>비밀번호 인증</a>
             <a >귀하의 개인정보를 보호하기 위해 비밀번호를
                 인증해주세요.</a>
             
-            <input type="password" name="password" id="password" >
-            <button class="btn1"  onclick="location.href='<%=request.getContextPath()%>/page/userModify.do'">확인</button>
+            <input type="password" name="pw" id="pw" >
+            <button class="btn1">확인</button>
            
         </div>
-
+		</form>
     </main>
     <footer>
         <div id="bottom">   

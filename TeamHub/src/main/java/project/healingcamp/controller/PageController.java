@@ -41,7 +41,16 @@ public class PageController {
 	}
 	
 	@RequestMapping(value="/checkPw.do", method=RequestMethod.POST)
-	public String checkPw(String pw) {
+	public String checkPw(UserVo vo, Model model, HttpServletRequest request, String pw) {
+		
+		//비밀번호 암호화
+		String userPw = vo.getPw();
+		vo.setPw(UserSha256.encrypt(userPw));
+				
+		//암호화 확인
+		System.out.println("userPw:" + vo.getPw());
+		
+		pageService.pwCheck(vo);
 		
 		return "page/userModify";
 	}
