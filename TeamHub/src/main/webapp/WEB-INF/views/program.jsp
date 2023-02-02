@@ -18,8 +18,8 @@
         table .title{width:12%; text-align: center;}
         table th{width:7.5%; text-align: center;}
         table tr{margin:5%, auto;}
-        body main .table-success th,
-        body main .table-success td{background-color:#dff6f1;}
+        body main .table-success th{background-color:rgba(35,177,200, 0.25); border:1px solid #000000;}
+        body main .table-success td{background-color:#ffffff; border:1px solid #000000;}
     </style>
 </head>
 <body>

@@ -230,6 +230,8 @@
 		   var ct = document.querySelector("#rescount").value;
 		   Number(ct);
 		   
+		   
+		   
 		   /* 		    
  		   alert("rt : "+rt);
 		   alert("co : "+co);
@@ -270,9 +272,9 @@
 		           merchant_uid: "IMP"+makeMerchantUid, 
 		           name : ""+cou+" / "+co+" / "+rd+" : "+rt+"",
 		           amount : Number(ct),
-		           buyer_email : ''+${mail}+'',
-		           buyer_name : ''+${id}+''',
-		           buyer_tel : ''+${phone}+''
+		           buyer_email : '${login.mail}',
+		           buyer_name : '${login.id}',
+		           buyer_tel : '${login.phone}'
 		       }, function (rsp) { // callback
 		             if (rsp.success) {
 		            	 console.log(rsp);
@@ -343,9 +345,9 @@
 	    <div id="step2">
 	        <h2>2.당담 상담사</h2>
 	        <table class="table table-hover">
-		         <tr id="n21"><td>상담사</td><td>100000</td><td><button class="btn btn-outline-success" onclick="click21(this)">선택</button></td></tr>            
-		         <tr id="n22"><td>상담사2</td><td>90000</td><td><button class="btn btn-outline-success" onclick="click22(this)">선택</button></td></tr>            
-		         <tr id="n23"><td>상담사3</td><td>80000</td><td><button class="btn btn-outline-success" onclick="click23(this)">선택</button></td></tr>            
+		         <tr id="n21"><td>상담사</td><td>100</td><td><button class="btn btn-outline-success" onclick="click21(this)">선택</button></td></tr>            
+		         <tr id="n22"><td>상담사2</td><td>100</td><td><button class="btn btn-outline-success" onclick="click22(this)">선택</button></td></tr>            
+		         <tr id="n23"><td>상담사3</td><td>100</td><td><button class="btn btn-outline-success" onclick="click23(this)">선택</button></td></tr>            
 	        </table>          
 	    </div>
         <div id="step3">
@@ -354,17 +356,17 @@
         </div>
         <div id="res">
             <h2>예약상세</h2>
-            <!-- <form method="post"> -->
-            	<input type="hidden" name="uidx" id="uidx">
+            <form method="post">
+               	<input type="hidden" name="uidx" id="uidx">
             	<input type="hidden" name="id" id="id">
 	            <p>상담/검사 :<input type="text" name="counseling" id="counseling" readonly> </p>
 	            <p>담당상담사 :<input type="text" name="couns" id="couns" readonly> </p>
 	            <p>예약일 :<input type="text" name="resdate" id="resdate" readonly> </p>
 	            <p>예약시간 : <input type="text" name="restime" id="restime" readonly> </p>
 	            <p>상담비용 :<input type="number" name="rescount" id="rescount" readonly> </p>
-	            <button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/resf.do'">현장결제</button><!-- post양식으로 onclick으로 만들기 -->
-	            <button class="btn btn-dark" onclick="requestPay(this)">지금결제</button> <!-- 결제 페이지 열기 --><!-- post양식으로 onclick으로 만들기 -->
-            <!-- </form>  -->
+	            <input type="button" class="btn btn-outline-success" onclick="resf()" value="현장결제">
+	            <input type="button" class="btn btn-dark" onclick="requestPay(this)" value="지금결제">
+            </form>
         </div>
         <div id="modal" class="modal-overlay">
 	        <div class="modal-window">

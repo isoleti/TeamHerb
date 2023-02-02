@@ -11,7 +11,8 @@ public class ReserveVO {
 	private int uidx;
 	private int clidx;
 	private int likecheck;
-	
+	private int phone;
+	private String mail;
 	
 	public int getResidx() {
 		return residx;
@@ -67,12 +68,24 @@ public class ReserveVO {
 	}
 	public void setLikecheck(int likecheck) {
 		this.likecheck = likecheck;
+	}	
+	public int getPhone() {
+		return phone;
+	}
+	public void setPhone(int phone) {
+		this.phone = phone;
+	}
+	public String getMail() {
+		return mail;
+	}
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 	@Override
 	public String toString() {
 		return "ReserveVO [residx=" + residx + ", center=" + center + ", coun=" + coun + ", resdate=" + resdate
 				+ ", rescount=" + rescount + ", resc=" + resc + ", uidx=" + uidx + ", clidx=" + clidx + ", likecheck="
-				+ likecheck + "]";
+				+ likecheck + ", phone=" + phone + ", mail=" + mail + "]";
 	}
 	
 	
