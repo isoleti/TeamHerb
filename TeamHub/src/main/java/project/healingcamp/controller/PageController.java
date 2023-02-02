@@ -1,8 +1,11 @@
 package project.healingcamp.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +44,7 @@ public class PageController {
 	}
 	
 	@RequestMapping(value="/checkPw.do", method=RequestMethod.POST)
-	public String checkPw(UserVo vo, Model model, HttpServletRequest request, String pw) {
+	public String checkPw(UserVo vo, Model model, HttpServletResponse response, String pw) {
 		
 		//비밀번호 암호화
 		String userPw = vo.getPw();
@@ -50,9 +53,29 @@ public class PageController {
 		//암호화 확인
 		System.out.println("userPw:" + vo.getPw());
 		
-		pageService.pwCheck(vo);
+
+		UserVo check = pageService.pwCheck(vo);
+		
+		if(check ==null) {
+			response.setContentType("text/html; charset=UTF-8");
+	        PrintWriter out;
+			try 
+			{
+				out = response.getWriter();
+				out.println("<script>alert('일치하는 비밀번호가 존재하지 않습니다.'); history.go(-1);</script>");
+				out.close();
+				return null;
+			} 
+			catch (IOException e) 
+			{	
+				e.printStackTrace();
+			}		
+			return "page/pwConfirm";
+		} else{
+		
 		
 		return "page/userModify";
+		}
 	}
 	
 	@RequestMapping(value="/userModify.do", method=RequestMethod.GET)
@@ -67,7 +90,7 @@ public class PageController {
 		return "page/userDel";
 	}
 	@RequestMapping(value="userDel.do", method=RequestMethod.POST)
-	   public String Withdraw(UserVo vo, HttpSession session, Model model, HttpServletRequest request) {
+	   public String Withdraw(UserVo vo, HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response) {
 	      
 	      //비밀번호 암호화
 	      String userPw = vo.getPw();
@@ -75,12 +98,31 @@ public class PageController {
 	            
 	      //암호화 확인
 	      System.out.println("userPw:" + vo.getPw());
-	            
+	      
+	      UserVo check = pageService.pwCheck(vo);
+			
+			if(check ==null) {
+				response.setContentType("text/html; charset=UTF-8");
+		        PrintWriter out;
+				try 
+				{
+					out = response.getWriter();
+					out.println("<script>alert('일치하는 비밀번호가 존재하지 않습니다.'); history.go(-1);</script>");
+					out.close();
+					return null;
+				} 
+				catch (IOException e) 
+				{	
+					e.printStackTrace();
+				}		
+				return "page/userDel";
+			} else{
+	      
 	      
 	      userService.userDelete(vo);
 	      session.invalidate();
 	      return "redirect:/";
-	      
+			}
 	      
 	 }
 	@RequestMapping(value="mypageCouns.do", method=RequestMethod.GET)

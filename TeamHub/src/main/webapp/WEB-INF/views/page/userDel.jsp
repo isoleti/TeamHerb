@@ -40,14 +40,14 @@
                  padding-top: 30px; margin-left:250px; border-radius:10px;
                 padding:40px; margin-bottom:10px;}
         .p{font-size:25px; margin-bottom:20px;display: block; font-weight:bold;}
-        #pw{margin-top:30px; width: 300px; height:30px;}
+        #pw{margin-top:30px; width: 300px; height:30px; }
         .btn{width:100px; height:30px; margin-left: 50px;}
         #step{margin-top: 30px; }
-        #step button{width:100px; height:35px; border:none; font-weight: bold; color:white; border-radius:5px;
+        #step button{width:200px; height:40px; border:none; font-weight: bold; color:white; border-radius:5px;
             background: #e4e4e4}
 
-        #step button:nth-child(2){width:300px; height:40px; background:#70ad47; 
-                font-size:16px; margin-left:130px;}
+        #step button:nth-child(2){ background:#70ad47; 
+                font-size:16px; }
 
         #bottom {margin-top: 400px;}
 </style>
