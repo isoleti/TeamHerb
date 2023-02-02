@@ -3,18 +3,24 @@ package project.healingcamp.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Random;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import project.healingcamp.service.UserService;
 import project.healingcamp.service.UserSha256;
@@ -27,6 +33,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	//로그인
 	@RequestMapping(value="/login.do", method= RequestMethod.GET)
@@ -232,4 +241,138 @@ public class UserController {
 		
 		return "user/joinComplete";
 	}
+	
+	//이메일로 인증번호 발송 
+	@RequestMapping(value = "/pw_auth.do")
+	public ModelAndView pw_auth(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException {
+			
+		String mail = (String)request.getParameter("mail");
+		String id = (String)request.getParameter("id");
+			
+		System.out.println("mail: "+mail);
+		System.out.println("id: "+id);
+			
+		UserVo vo = userService.selectJoin(mail); //userService의 seletJoin Mapper에서 메일 값을 받아와 vo에 넣어놓는다.
+		System.out.println("vo: "+vo);	
+			
+			if(vo != null) { //vo값이 null이아니면  ->mapper의 mail값이 db안에 있는 값과 일치
+			Random r = new Random(); 
+			int num = r.nextInt(999999); // 랜덤난수설정
+			
+				if (vo.getId().equals(id))
+				{ //vo에서 받아온 id가 input의 id값과 같을 때 
+					session.setAttribute("mail", vo.getMail()); //vo의 메일값을 세션에담아 보낸다.
+					
+					String setfrom = "dptjd17@naver.com"; // naver 
+					String tomail = mail; //받는사람
+					String title = "[힐링캠프] 비밀번호변경 인증 이메일 입니다";  //이메일 제목
+					String content = System.getProperty("line.separator") + "안녕하세요 회원님" + System.getProperty("line.separator")
+							+ "힐링캠프 비밀번호찾기(변경) 인증번호는 " + num + " 입니다." + System.getProperty("line.separator"); // 
+					
+					try { 
+						MimeMessage message = mailSender.createMimeMessage();
+						MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "utf-8");
+		
+						messageHelper.setFrom(setfrom); 
+						messageHelper.setTo(tomail); 
+						messageHelper.setSubject(title);
+						messageHelper.setText(content); 
+		
+						mailSender.send(message);
+						} 
+					catch (Exception e) 
+						{
+							System.out.println(e.getMessage());
+						}
+			
+					ModelAndView mv = new ModelAndView();
+					mv.setViewName("user/pw_auth");
+					mv.addObject("num", num);
+					return mv;
+				}//if (vo.getId().equals(id))
+				else  //vo에서 받아온 id가 input의 id값과 같지 않을때 
+				{
+					response.setContentType("text/html; charset=UTF-8");
+			        PrintWriter out;
+			        
+						try 
+						{
+							out = response.getWriter();
+							System.out.println("out: "+ out);
+							out.println("<script>alert('일치하는 아이디가 존재하지 않습니다.'); history.go(-1);</script>");
+							out.close();
+							return null;
+						} 
+						catch (IOException e) 
+						{	
+							e.printStackTrace();
+						}		
+					
+					ModelAndView mv = new ModelAndView();
+					mv.setViewName("user/pwFind");
+					return mv;
+				}
+			} //if(vo != null)
+				else //(vo == null)
+				{	
+					response.setContentType("text/html; charset=UTF-8");
+			        PrintWriter out;
+			        
+						try 
+						{
+							out = response.getWriter();
+							System.out.println("out: "+ out);
+							out.println("<script>alert('일치하는 아이디나 이메일이 없습니다.'); history.go(-1);</script>");
+							out.close();
+							return null;
+						} 
+						catch (IOException e) 
+						{	
+							e.printStackTrace();
+						}		
+					
+					ModelAndView mv = new ModelAndView();
+					mv.setViewName("user/pwFind"); //비밀번호 찾기로 감
+					return mv;
+					
+				}
+			
+		}
+		
+		//비밀번호 인증번호 동일 확인
+		@RequestMapping(value="/pw_set.do", method=RequestMethod.POST)
+			public String pw_set(@RequestParam(value="email_injeung")String email_injeung,
+					@RequestParam(value = "num") String num, HttpServletResponse response) throws IOException{
+				
+
+				System.out.println("num: "+num);
+				if(email_injeung.equals(num))
+				{
+					return "user/pw_new";
+				}
+				else 
+				{		
+					return "user/pwFind";
+				}
+			}
+		
+		//db비밀번호 업데이트
+		@RequestMapping(value="/pw_new.do", method =RequestMethod.POST)
+			public String pw_new(UserVo vo, HttpSession session)throws IOException{
+			
+			int result = userService.pwUpdate(vo);
+			System.out.println("result: "+result);
+			
+			if(result == 1) {
+				return "user/login";
+				
+			}
+			else {
+				System.out.println("pw_update"+result);
+				return "user/pw_new";
+			}
+			
+			
+		}
+	
 }

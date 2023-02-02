@@ -45,13 +45,23 @@ public class UserDao {
 		return sqlSession.selectOne("project.healingcamp.mapper.userMapper.loginCheck",vo);
 	
 	}
-	
+	//아이디 찾기
 	public String findId(String mail){
 		String id = sqlSession.selectOne("project.healingcamp.mapper.userMapper.findId", mail);
 		System.out.println("id 찍힘?"+id);
 		return sqlSession.selectOne("project.healingcamp.mapper.userMapper.findId", mail);
+	
+	}
+	
+	//회원정보 조회
+	public UserVo selectJoin(String mail) {
+		return sqlSession.selectOne("project.healingcamp.mapper.userMapper.selectJoin",mail);
+	}
 		
-		
+	//패스워드 변경
+	public int pwUpdate(UserVo vo) {
+		System.out.println("Daovo:" + vo);
+		return sqlSession.update("project.healingcamp.mapper.userMapper.pwUpdate", vo);
 	}
 	
 }

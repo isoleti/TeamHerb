@@ -69,16 +69,25 @@ public class UserServiceImpl implements UserService {
 		return userDao.userDelete(vo);
 	}
 	
-
-
+	//비밀번호 회원정보 조회
+	@Override
+	public UserVo selectJoin(String mail) {
+		
+		return userDao.selectJoin(mail);
+	}
+		
+	//비밀번호 업데이트
+	@Override
+	public int pwUpdate(UserVo vo) {
 	
-	 
+	//비밀번호 암호화
+	String s_pw = UserSha256.encrypt(vo.getPw()); 
+	vo.setPw(s_pw);
 	
-
-
-
-
-	
-
-	
+	//암호화 확인
+	System.out.println("s_pw:" + s_pw);
+			
+	return userDao.pwUpdate(vo);
+	}
+		
 }
