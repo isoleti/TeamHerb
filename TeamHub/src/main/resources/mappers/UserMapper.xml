@@ -106,5 +106,18 @@
          and id =#{id}
          and uidx=#{uidx}
    </update>
-
+	<!-- 회원정보 조회 -->
+	<select id="selectJoin" parameterType="String" resultType="userVo">
+		select *
+			from usertable
+			where mail = #{mail}
+	</select>
+	
+	<!-- 패스워드 변경 -->
+	<update id = "pwUpdate" parameterType="userVo">
+		update usertable
+			set pw = #{pw}
+			where mail = #{mail}
+	</update>	
+	
 </mapper>
