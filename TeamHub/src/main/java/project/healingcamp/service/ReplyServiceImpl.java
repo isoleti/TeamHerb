@@ -58,11 +58,7 @@ public class ReplyServiceImpl implements ReplyService {
 		return replyDAO.re_replyInsert(replyVO);
 	}
 
-	@Override
-	public List<ReplyVO> re_replyList(int bidx) {
-		List<ReplyVO> re_replyList = replyDAO.re_replyList(bidx);
-		return re_replyList;
-	}
+
 
 	
 	

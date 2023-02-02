@@ -12,5 +12,4 @@ public interface ReplyService {
 	int deleteByReply(ReplyVO replyVO);
 	int updateByReply(ReplyVO replyVO);
 	int re_replyInsert(ReplyVO replyVO);
-	List<ReplyVO> re_replyList(int bidx);
 }

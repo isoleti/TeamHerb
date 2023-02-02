@@ -16,6 +16,7 @@
 		  		   ,bidx
 		  		   ,uidx
 		  		   ,board_type
+		  		   ,rparent
 		  	)VALUES(
 		  		   reply_idx_seq.nextval
 		  		  ,#{reply_Content}
@@ -25,6 +26,7 @@
 		  		  ,#{bidx}
 		  		  ,#{uidx}
 			  	  ,#{board_type}
+			  	  ,reply_idx_seq.nextval
 		  	)
 		  			
   	</insert>
@@ -39,10 +41,11 @@
 			  ,bidx
 			  ,uidx
 			  ,rdepth
+			  ,rparent
 		  FROM replytable
 		 WHERE bidx = #{bidx}
 		   AND board_type = 0
-<!-- 		   AND rdepth = 0 -->
+		 ORDER BY rparent asc, reply_wdate asc
   	</select>
   	
 <!--  상담사게시판 댓글 목록 -->
@@ -99,23 +102,7 @@
 					)
 	</insert>
 	
-<!-- 	대댓글 목록 -->
-	<select id="re_replyList" resultType="replyVO" parameterType="int">
-		SELECT reply_idx
-			  ,reply_content
-			  ,id
-			  ,reply_wdate
-			  ,bidx
-			  ,uidx
-			  ,board_type
-			  ,rdepth
-			  ,rparent
-		  FROM replytable 
-		 WHERE bidx = #{bidx} 
-<!-- 		   AND rparent = #{rparent} -->
-		   AND board_type=0 
-		   AND rdepth=1
-	</select>
+
 	
 	
 	

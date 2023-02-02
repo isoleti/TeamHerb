@@ -44,9 +44,6 @@ public class ReplyDAO {
 		return sqlSession.insert("project.healingcamp.mapper.replyMapper.re_replyInsert",replyVO);
 	}
 	
-	//´ë´ñ±Û ¸ñ·Ï
-	public List<ReplyVO> re_replyList(int bidx) {
-		return sqlSession.selectList("project.healingcamp.mapper.replyMapper.re_replyList", bidx);
-	}
+	
 }
 

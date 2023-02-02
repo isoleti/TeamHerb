@@ -63,24 +63,13 @@ public class CommunityController {
 		return "community/community_view";
 	}
 	
-	//댓글 리스트
-	@RequestMapping(value="/community_view.do",method=RequestMethod.POST)
-	@ResponseBody
-	public List<ReplyVO> community_view(int bidx) {
-		
-		//댓글 리스트
-		List<ReplyVO> reply_list = replyService.reply_list(bidx);
-		
-		return reply_list;
-	}
-	
 	//게시글 작성 페이지 이동
 	@RequestMapping(value="/community_write.do",method=RequestMethod.GET)
 	public String community_write() {
 		return "community/community_write";
 	}
 	
-	//댓글 작성
+	//게시글 작성
 	@RequestMapping(value="/community_write.do",method=RequestMethod.POST)
 	public String community_write(Community_BoardVO cboardVO,HttpSession session,HttpServletRequest request) {
 		
@@ -134,6 +123,19 @@ public class CommunityController {
 	public String popup() {
 		return "community/popup";
 	}
+	
+	///////////////////////////////////////댓글////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//댓글 리스트
+		@RequestMapping(value="/community_replyList.do",method=RequestMethod.GET)
+		@ResponseBody
+		public List<ReplyVO> community_view(int bidx) {
+			
+			//댓글 리스트
+			List<ReplyVO> reply_list = replyService.reply_list(bidx);
+			
+			return reply_list;
+		}
 	
 	//댓글 작성
 	@RequestMapping(value="/community_reply_insert.do",method=RequestMethod.POST)
@@ -197,15 +199,7 @@ public class CommunityController {
 		
 	}
 	
-	//대댓글 리스트
-	@RequestMapping(value="community_re_replyList.do",method=RequestMethod.GET)
-	@ResponseBody
-	public List<ReplyVO> re_replyList(int bidx){
-		
-		List<ReplyVO> re_replyList = replyService.re_replyList(bidx);
-		System.out.println("대댓리스트?"+re_replyList);
-		return re_replyList;
-	}
+	
 	
 	
 	
