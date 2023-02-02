@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
-
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
 
 <script>/*아이디 중복체크 */
@@ -206,7 +205,7 @@ $(function(){
 
  <style>
  	
- 		header a:hover{color: inherit;}
+ 		header a:hover{color: #0d6efd;}
         main{margin:0 auto;  width:1160px; }
         main h2{font-size:20px; margin:20px 250px; font-weight:bold;}
        
@@ -248,11 +247,30 @@ $(function(){
 </head>
 <body>
   <header>       
-        <div >
-        <p><a href="">로그아웃</a></p>
-        <p><a href="<%= request.getContextPath() %>/page/mypageRes.do">마이페이지</a></p>
-        <p><a href="">고객센터</a></p>
-        </div><!-- 로그인 및 고객센터 관련 버튼--> 
+       <div> <!--로그인 관련-->
+             
+          <c:if test = "${login == null}">   
+            <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
+            <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
+            <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
+         </c:if><!-- 로그아웃 or 로그인x -->
+         
+        <c:if test = "${login != null}">
+            
+               <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
+               <c:if test = "${login.usertype eq 'a'}">
+               <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
+               </c:if>
+               <c:if test = "${login.usertype eq 'u'}">
+               <p><a href="<%= request.getContextPath() %>/page/mypageRes.do">마이 페이지</a></p>
+               </c:if>
+               <c:if test = "${login.usertype eq 'c'}">
+               <p><a href="">상담사 페이지</a></p>
+               </c:if>
+               <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
+      </c:if>
+      </div>
+   
         <nav class="navbar" > <!-- 네비게이션 -->
             <h1><a href=""><img src="../resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
            
