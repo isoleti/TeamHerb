@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.healingcamp.service.PageService;
 import project.healingcamp.service.UserService;
@@ -44,14 +46,19 @@ public class PageController {
 	}
 	
 	@RequestMapping(value="/checkPw.do", method=RequestMethod.POST)
-	public String checkPw(UserVo vo, Model model, HttpServletResponse response, String pw) {
+	public String checkPw(UserVo vo, Model model, HttpServletResponse response,  HttpSession session) {
 		
+		System.out.println("/checkPw.do : " + vo.toString());
 		//비밀번호 암호화
 		String userPw = vo.getPw();
+		
 		vo.setPw(UserSha256.encrypt(userPw));
-				
-		//암호화 확인
-		System.out.println("userPw:" + vo.getPw());
+		
+
+		UserVo login =(UserVo)session.getAttribute("login");
+		
+		vo.setId(login.getId()); //로그인 id와 연결
+		vo.setUidx(login.getUidx()); //로그인 uidx와 연결
 		
 		//pwCheck 메서드 
 		UserVo check = pageService.pwCheck(vo);
@@ -75,16 +82,48 @@ public class PageController {
 		} else{
 		
 		
-		return "page/userModify";
+		return "redirect:userModify.do?uidx="+login.getUidx();
 		}
 	}
 	
 	@RequestMapping(value="/userModify.do", method=RequestMethod.GET)
-	public String userModify() {
+	public String userModify(int uidx, Model model) {
+		System.out.println("/userModify.do GET : " + uidx); 
+	
+		UserVo vo = userService.selectByUidx(uidx);
+		if( vo != null )
+		{
+			System.out.println("/userModify.do " + " GET : " + vo.toString());
+			model.addAttribute("vo", vo);
+		}
 		
 		return "page/userModify";
 	}
+	//회원정보 수정
+	@RequestMapping(value="/userModify.do", method=RequestMethod.POST)
+	public String userModify(UserVo vo, HttpSession session, Model model, HttpServletRequest request) {
+		System.out.println("/userModify.do POST : " + vo.toString());
+		
+		 //비밀번호 암호화
+	      String userPw = vo.getPw();
+	      vo.setPw(UserSha256.encrypt(userPw));
+	      
+	            
+	      //암호화 확인
+	      System.out.println("userPw:" + vo.getPw());
+		
+		if ( userService.userModify(vo) != 1 )
+		{
+			System.out.println("/userModify.do POST : error ");
+			return "redirect:userModify.do?uidx="+vo.getUidx();
+		}
+			System.out.println("/userModify.do POST : done ");
+			session.invalidate();
+		return "redirect:/";
+		}
 	
+	
+	//회원탈퇴
 	@RequestMapping(value="userDel.do", method=RequestMethod.GET)
 	public String userDel() {
 		
@@ -96,6 +135,7 @@ public class PageController {
 	      //비밀번호 암호화
 	      String userPw = vo.getPw();
 	      vo.setPw(UserSha256.encrypt(userPw));
+	      
 	            
 	      //암호화 확인
 	      System.out.println("userPw:" + vo.getPw());

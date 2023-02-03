@@ -1,11 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="project.healingcamp.vo.UserVo" %>
+<%@ page session="true" %>    
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원정보수정</title>
 <link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
+<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
+<script>
+(function(){ //회원가입페이지가 로드됐을때 function실행 
+	$("form").submit(function(){ //event가 일어났을 때 실행 (이때는 onblur가 실행할때 일어남 )
+	
+		
+		if($("#pw").val() != $("#pw2").val()){
+			alert("비밀번호가 일치하지 않습니다.");
+			return false;
+		}
+		else{
+			return true;	
+		}
+		
+		});
+	})
+
+</script>
 <style>
    main{margin:0 auto;  width:1160px; }
         main h2{font-size:22px; margin:80px 250px; }
@@ -43,7 +66,29 @@
 </head>
 <body>
 	 <header>       
-        <div ><p><a href="">로그아웃</a></p><p><a href="">마이페이지</a></p><p><a href="">고객센터</a></p></div><!-- 로그인 및 고객센터 관련 버튼--> 
+          <div> <!--로그인 관련-->
+          <c:if test = "${login == null}">   
+            <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
+            <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
+            <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
+         </c:if><!-- 로그아웃 or 로그인x -->
+         
+        <c:if test = "${login != null}">
+            
+               <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
+               <c:if test = "${login.usertype eq 'a'}">
+               <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
+               </c:if>
+               <c:if test = "${login.usertype eq 'u'}">
+               <p><a href="<%= request.getContextPath() %>/page/mypageRes.do">마이 페이지</a></p>
+               </c:if>
+               <c:if test = "${login.usertype eq 'c'}">
+               <p><a href="<%= request.getContextPath() %>/page/counspageRes.do">상담사 페이지</a></p>
+               </c:if>
+               <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
+      </c:if>
+      </div>
+   
         <nav class="navbar" > <!-- 네비게이션 -->
             <h1><a href=""><img src="../resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
            
@@ -52,26 +97,36 @@
     </header>
     <main>
         <h2>회원정보</h2>
-
+        
+		<form action="userModify.do" method="post">
+			<input type="hidden" id="uidx" name="uidx" value="${login.uidx}">
          <div class="userimfo">
             <div class="basic">
             <a class="p">기본정보</a>
-            <a>아이디 <input type="text" name="id" id="id"></a><br>
-            <a>이메일주소  <input type="text" name="mail" id="mail"></a><br>
-            <a>연락처 <input type="number" name="phone" id="phone"></a>
+            <a>아이디 <input type="text" name="id" id="id" value="${vo.id}" disabled></a><br>
+            <a>이메일주소  <input type="text" name="mail" id="mail" value="${vo.mail}"></a><br>
+            <a>연락처 <input type="number" name="phone" id="phone" value="${vo.phone}"></a>
             <hr>
             <a class="p">비밀번호 변경</a>
-            <a>비밀번호 변경 <input type="password" name="password" id="password"></a><br>
-            <a>비밀번호 확인 <input type="password" name="password" id="password"></a>
+           
+            <a>비밀번호 변경 <input type="password" name="pw" id="pw" autoComplete="off"></a><br>
+            <a>비밀번호 확인 <input type="password" name="pw2" id="pw2" autoComplete="off"></a> 
+            
             <hr>
           	</div>
                  
             <div id="bar">
             <a href="<%= request.getContextPath() %>/page/userDel.do">회원탈퇴</a>
-            <button class="btn">취소</button>
+            <c:if test = "${login.usertype eq 'u'}">
+            <button type="button" class="btn" onclick="location.href='<%=request.getContextPath()%>/page/mypageRes.do'">취소</button>
+            </c:if>
+            <c:if test = "${login.usertype eq 'c'}">
+            <button type="button" class="btn" onclick="location.href='<%=request.getContextPath()%>/page/countspageRes.do'">취소</button>
+            </c:if>
             <button class="btn">저장</button>
             </div><!-- #bar -->
  		</div><!--.userimfo-->
+ 		</form>
     </main>
     <footer>
         <div id="bottom">   

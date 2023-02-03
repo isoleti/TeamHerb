@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import project.healingcamp.service.UserSha256;
+import project.healingcamp.vo.Community_BoardVO;
 import project.healingcamp.vo.UserVo;
 
 @Repository
@@ -33,9 +34,22 @@ public class UserDao {
 	public int selectByMail(String mail) {
 		return sqlSession.selectOne("project.healingcamp.mapper.userMapper.selectByMail",mail);
 	}
+	public int selectByPhone(int phone) {
+		return sqlSession.selectOne("project.healingcamp.mapper.userMapper.selectByPhone",phone);
+	}
+	//회원탈퇴
 	public int userDelete(UserVo vo) {
 		return sqlSession.update("project.healingcamp.mapper.userMapper.userDelete", vo);
 	}
+	//회원정보 조회
+	public UserVo selectByUidx(int uidx) {
+		return sqlSession.selectOne("project.healingcamp.mapper.userMapper.selectByUidx", uidx);
+	}
+	//회원정보 수정
+	public int userModify(UserVo vo) {
+		return sqlSession.update("project.healingcamp.mapper.userMapper.userModify", vo);
+	}
+	
 	public int loginCheck(UserVo vo) {	
 		
 		System.out.println("UserDAO");

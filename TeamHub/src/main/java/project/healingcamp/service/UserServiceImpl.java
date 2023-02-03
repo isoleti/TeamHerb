@@ -48,7 +48,11 @@ public class UserServiceImpl implements UserService {
 		
 		return userDao.selectByMail(mail);
 	}
-
+	@Override
+	public int selectByPhone(int phone) {
+		
+		return userDao.selectByPhone(phone);
+	}
 	@Override
 	public int loginCheck(UserVo vo, HttpSession session) {
 		System.out.println("UserService");
@@ -67,6 +71,17 @@ public class UserServiceImpl implements UserService {
 	public int userDelete(UserVo vo) {
 		
 		return userDao.userDelete(vo);
+	}
+
+	@Override
+	public UserVo selectByUidx(int uidx) {
+		
+		return userDao.selectByUidx(uidx);
+	}
+	@Override
+	public int userModify(UserVo vo) {
+		System.out.println("서비스임플에서 uidx: "+vo.getUidx());
+		return userDao.userModify(vo);
 	}
 	
 	//비밀번호 회원정보 조회
@@ -89,5 +104,8 @@ public class UserServiceImpl implements UserService {
 			
 	return userDao.pwUpdate(vo);
 	}
+
+	
+	
 		
 }

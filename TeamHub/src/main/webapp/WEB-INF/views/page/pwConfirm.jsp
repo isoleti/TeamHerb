@@ -57,7 +57,8 @@
             <a>비밀번호 인증</a>
             <a >귀하의 개인정보를 보호하기 위해 비밀번호를
                 인증해주세요.</a>
-            
+            <input type="hidden" id="id" value="${login.id}">
+             <input type="hidden" id="uidx" value="${login.uidx}">
             <input type="password" name="pw" id="pw" >
             <button class="btn1">확인</button>
            

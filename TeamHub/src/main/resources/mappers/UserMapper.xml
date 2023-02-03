@@ -23,6 +23,18 @@
 		 where id= #{id}
 	</select>
 	
+	<select id="selectByMail" parameterType="String" resultType="int"> 
+	select count(*)
+		from usertable
+		where mail = #{mail}
+	</select>	
+	
+	<select id="selectByPhone" parameterType="int" resultType="int"> 
+	select count(*)
+		from usertable
+		where phone = #{phone}
+	</select>	
+	
 	<!-- 아이디 찾기 -->
 	<select id="findId" parameterType="String" resultType="String">
 		select id 
@@ -30,11 +42,8 @@
 		 where mail = #{mail}
 	</select>
 	
-	<select id="selectByMail" parameterType="String" resultType="int"> 
-	select count(*)
-		from usertable
-		where mail = #{mail}
-	</select>	
+	
+	
 	
 	<insert id="join" parameterType="userVo" >
 	<![CDATA[
@@ -98,6 +107,28 @@
 			where id = #{id} and pw = #{pw}
 
 	</select>
+	<!-- uidx별로 한개의 회원정보 조회 -->
+	<select id="selectByUidx" parameterType="int" resultType="userVo">
+	select uidx
+		  ,id
+		  ,mail
+		  ,phone
+		  from usertable
+		  where uidx=#{uidx}
+	
+	</select>
+	<!-- 회원정보 수정 -->
+	<update id="userModify" parameterType="userVo">
+		update usertable
+		set mail =#{mail}
+		 ,phone =#{phone}
+		 
+		where uidx = #{uidx} 
+		
+	</update>
+	<!-- 비밀번호 재설정 -->
+	
+	
 	<!--회원탈퇴 -->
    <update id="userDelete" parameterType="userVo">
       update usertable
