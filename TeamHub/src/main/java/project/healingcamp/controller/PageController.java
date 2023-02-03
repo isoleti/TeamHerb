@@ -53,9 +53,10 @@ public class PageController {
 		//암호화 확인
 		System.out.println("userPw:" + vo.getPw());
 		
-
+		//pwCheck 메서드 
 		UserVo check = pageService.pwCheck(vo);
 		
+		//check 변수안에 데이터가 있을때 없을때 if
 		if(check ==null) {
 			response.setContentType("text/html; charset=UTF-8");
 	        PrintWriter out;
@@ -157,14 +158,14 @@ public class PageController {
 	//상담사 페이지
 	@RequestMapping(value="/counspageRes.do", method=RequestMethod.GET)
 	public String counspageRes(Model model, ReserveVO vo) {
-		
-		List<ReserveVO> list = pageService.list(vo);
-		
-		model.addAttribute("datalist", list);
+		/*
+		 * List<ReserveVO> list = pageService.list(vo);
+		 * 
+		 * model.addAttribute("datalist", list);
+		 */
 		
 		return "page/counspageRes"; 
 	}
-	
 	
 	
 	@RequestMapping(value="/counspageCou.do", method=RequestMethod.GET)
