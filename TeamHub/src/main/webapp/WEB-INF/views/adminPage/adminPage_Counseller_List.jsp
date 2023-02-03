@@ -284,7 +284,11 @@
 </body>
 
 <script>
-	 	$(function(){	 		
+	 	$(function(){	 
+	 		
+	 		//로그인 정보
+    		var login = "${login}";
+	 		
 		   //전체선택
 	 		$("#check_all").click(function(){ //전체 체크 클릭시
 					if($("#check_all").prop("checked")){ //체크된 경우
@@ -294,9 +298,7 @@
 					}
 	 		});
 	 		
-	 	});
 	 	
-	 	$(function(){
 		   //회원탈퇴
 	     	var checkboxes = document.querySelectorAll(".checkbox");
 	    	$("#deleteBtn2").click(function(){
@@ -310,25 +312,29 @@
 	    		}    
 	    		if( flag == false ) //flag false 일경우
 	    		{
+	    			//미로그인시
+	    			if(login == ""){
+		    			alert("로그인 후 이용해주세요.");
+		    			return false;
+		    		}
+	    			
 	    			alert("탈퇴시킬 회원을 선택해주세요.");
 	    			return false;
 	    		}
 	    		
-	    		pw = prompt("관리자 비밀번호를 입력해주세요.");
-	    		if(pw == ""){
-	    			alert("비밀번호를 입력해주세요.");
+	    		
+	    		//탈퇴처리 여부 확인
+	    		if(login == ""){
+	    			alert("로그인 후 이용해주세요.");
 	    			return false;
-	    		}else if(pw != '${login.pw}'){
-	    			alert("비밀번호가 일치하지 않습니다.");
+	    		}else if(!confirm("회원 탈퇴 하시겠습니까?")){
 	    			return false;
 	    		}else{
-		   			alert("회원 탈퇴가 완료되었습니다.");   		
-		   			return true;
+	    			alert("탈퇴 처리가 완료되었습니다.");
+	    			return true;
 	    		}
 	    	});
-	 	});
      	
-		$(function(){
 	    	//회원정지팝업
 	    	var checkboxes = document.querySelectorAll(".checkbox");
 	    	$("#banBtn").click(function(){
@@ -340,13 +346,20 @@
 	    				flag = true; //flag true
 	    			}
 	    		}    
-	    		if( flag == false ) //flag false 일경우
-	    		{
-	    			alert("승인할 회원을 선택해주세요.");
+	    		
+	    		//미로그인시
+    			if(login == ""){
+	    			alert("로그인 후 이용해주세요.");
 	    			return false;
+	    		}else{
+		    		if( flag == false ) //flag false 일경우
+		    		{
+		    			alert("승인할 회원을 선택해주세요.");
+		    			return false;
+		    		}
 	    		}
+	    		
 	    	});
-	    	
 		});   
 	    	
 	   

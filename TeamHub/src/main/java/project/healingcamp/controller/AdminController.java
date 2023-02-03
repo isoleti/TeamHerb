@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.healingcamp.service.AdminService;
+import project.healingcamp.service.UserSha256;
 import project.healingcamp.vo.Community_BoardVO;
 import project.healingcamp.vo.PageVO;
 import project.healingcamp.vo.SearchVO;
@@ -39,22 +40,23 @@ public class AdminController {
 		
 		return "adminPage/adminPage_Member_List";
 	}
-
+	
 	//회원탈퇴
 	@RequestMapping(value="/member_delete.do",method=RequestMethod.POST)
 	public String member_delete(UserVo userVo) {
 		
-		int result = adminService.delete_member(userVo);
-		
+		adminService.update_member(userVo);
 		String usertype = userVo.getUsertype();
+		System.out.println("회원유형:"+usertype);
 		
-		if(usertype == "u") { //usertype이 u이면
-			return "redirect:adminPage_Member_List.do"; //회원관리로 이동
-		}else {
+		if(usertype == "a"){ //usertype이 u이면
 			return "redirect:adminPage_Counseller_List.do";
 		}
+		else{
+			return "redirect:adminPage_Member_List.do"; //회원관리로 이동
+		}
 	}
-	
+
 	//회원정지
 	@RequestMapping(value="/adminPage_Shutdown_Period_Popup.do",method=RequestMethod.GET)
 	public String adminPage_Shutdown_Period_Popup() {

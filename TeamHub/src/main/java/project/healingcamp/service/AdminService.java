@@ -17,7 +17,7 @@ public interface AdminService {
 	int counseller_total(SearchVO searchVO);
 	
 	//È¸¿øÅ»Åð
-	int delete_member(UserVo userVo);
+	int update_member(UserVo userVo);
 	
 	//Ä¿¹Â´ÏÆ¼
 	List<Community_BoardVO> community_List(SearchVO searchVO);

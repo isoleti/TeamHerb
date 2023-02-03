@@ -119,6 +119,16 @@
         font-weight: bold;
         height:32px;
        }
+       .re_reply_box{
+      	border-bottom: 1px solid #e5e7eb;
+	    padding: 15px 25px;
+	    background-color: #FCFCFC;
+       }
+       .reply_ico{
+       	float:left;
+       	margin-left:-7px;
+       	opacity:.5;
+        }
        .delete, .commentModify, .cancel, .report{
        	cursor:pointer;
        }
@@ -204,11 +214,11 @@
                 <div id="content">${vo.content }</div>
                     <div class="postbtn">
                          <div class="likebtn">
-                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감" onclick="likecount();" onmouseover="onHover();" onmouseout="offHover();">
+                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감" onclick="likecount();">
                             <span style="font-size:13px;">${vo.likes}공감</span>
                         </div><!--e:.likebtn-->
                         <div class="clip">
-                            <img class="bookmark" src="<%=request.getContextPath()%>/resources/upload/bookmark.jpg" alt="북마크" onclick="bookmark();" onmouseover="onHover2();" onmouseout="offHover2();">
+                            <img class="bookmark" src="<%=request.getContextPath()%>/resources/upload/bookmark.jpg" alt="북마크" onclick="bookmark();">
                         </div><!--e:.clip-->
                         <div class="other">
                         	<!-- Split dropup button -->
@@ -435,6 +445,61 @@
 	   			window.open(openUrl,"",popOption);
 	   		}
    		}
+   		
+   		
+   		//좋아요
+   		$(".empathy").hover(
+    		function(){//하트 마우스 올라왔을때
+    			$(this).attr('src','./../resources/upload/like_color_change.jpg');
+    		},
+    		function(){//하트 마우스 벗어났을때
+    			$(this).attr('src','./../resources/upload/like.jpg');
+    		}
+    	);
+   		
+   		//북마크 
+   		$(".bookmark").hover(
+    		function(){//북마크 마우스 올라왔을때
+    			$(this).attr('src','./../resources/upload/bookmark_color_change.jpg');
+    		},
+    		function(){//북마크 마우스 벗어났을때
+    			$(this).attr('src','./../resources/upload/bookmark.jpg');
+    		}
+    	);
+   		
+   		//좋아요 버튼 클릭
+		let num = 0;
+		$(".empathy").on("click",function(e){
+			if(login == ""){
+				alert("로그인 후 이용해주세요.");
+			}else{
+				if(num == 0){ //num이 0일때 좋아요 후  num 1로 변경
+					$(this).attr('src','./../resources/upload/like_color_change.jpg');
+					$(this).unbind('mouseenter mouseleave'); //좋아요 on 일때 hover기능 unbind
+					num = 1;
+				}else{//num이 1일때 좋아요 취소 후 num 0으로 변경
+					$(this).attr('src','./../resources/upload/like.jpg');
+					num = 0;
+				}
+			}
+		});
+		
+		//북마크 버튼 클릭
+		let num2 = 0;
+		$(".bookmark").on("click",function(e){
+			if(login == ""){
+				alert("로그인 후 이용해주세요.");
+			}else{
+				if(num2 == 0){ //num이 0일때 북마크 후  num 1로 변경
+					$(this).attr('src','./../resources/upload/bookmark_color_change.jpg');
+					$(this).unbind('mouseenter mouseleave');//북마크 on 일때 hover기능 unbind
+					num2 = 1;
+				}else{//num이 1일때 북마크 취소 후 num 0으로 변경
+					$(this).attr('src','./../resources/upload/bookmark.jpg');
+					num2 = 0;
+				}
+			}
+		});	
    		
     </script>
     <footer>

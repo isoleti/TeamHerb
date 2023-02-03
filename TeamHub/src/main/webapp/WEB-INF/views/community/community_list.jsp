@@ -145,6 +145,9 @@
     color:rgb(102, 102, 102);
     text-decoration:none;
     }
+    .empathy{
+    cursor:pointer;
+    }
     .community .footer{
     display: flex;
     justify-content: space-between;
@@ -368,28 +371,37 @@
 </body>
 
 	<script>
-
+	
+		//로그인 정보
+		var login = "${login}";
+		
 		//좋아요 버튼 클릭
 		let num = 0;
 		$(".empathy").on("click",function(e){
-			if(num == 0){ //num이 0일때 좋아요 후  num 1로 변경
-				$(this).attr('src','./../resources/upload/like_color_change.jpg');
-				num = 1;
-			}else{//num이 1일때 좋아요 취소 후 num 0으로 변경
-				$(this).attr('src','./../resources/upload/like.jpg');
-				num = 0;
+			if(login == ""){
+				alert("로그인 후 이용해주세요.")
+			}else{
+				if(num == 0){ //num이 0일때 좋아요 후  num 1로 변경
+					$(this).attr('src','./../resources/upload/like_color_change.jpg');
+					$(this).unbind('mouseenter mouseleave');//좋아요 on 일때 hover기능 unbind
+					num = 1;
+				}else{//num이 1일때 좋아요 취소 후 num 0으로 변경
+					$(this).attr('src','./../resources/upload/like.jpg');
+					num = 0;
+				}
 			}
 		});	
+			
 		
 		//좋아요
-// 	  		$(".empathy").hover(
-// 	   		function(){//하트 마우스 올라왔을때
-// 	   			$(this).attr('src','./../resources/upload/like_color_change.jpg');
-// 	   		},
-// 	   		function(){//하트 마우스 벗어났을때
-// 	   			$(this).attr('src','./../resources/upload/like.jpg');
-// 	   		}
-// 	   	);
+  		$(".empathy").hover(
+	   		function(){//하트 마우스 올라왔을때
+	   			$(this).attr('src','./../resources/upload/like_color_change.jpg');
+	   		},
+	   		function(){//하트 마우스 벗어났을때
+	   			$(this).attr('src','./../resources/upload/like.jpg');
+	   		}
+   		);
 			
    		
 		

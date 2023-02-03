@@ -39,9 +39,8 @@ public class AdminDAO {
 	}
 	
 	//È¸¿øÅ»Åð
-	public int delete_member(UserVo userVo) {
-		
-		return sqlSession.delete("project.healingcamp.mapper.adminMapper.delete_member", userVo);
+	public int update_member(UserVo userVo) {
+		return sqlSession.update("project.healingcamp.mapper.adminMapper.update_member", userVo);
 	}
 	
 	//Ä¿¹Â´ÏÆ¼

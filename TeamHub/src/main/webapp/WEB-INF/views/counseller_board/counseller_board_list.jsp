@@ -15,6 +15,7 @@
     <title>힐링캠프</title>
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
+    <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
     <style>
     main{
     width:1024px;
@@ -146,7 +147,9 @@
     background-color: #fff;
     border: 1px solid #ccc; 
 	}
-	
+	.empathy{
+	cursor:pointer;
+	}
 	.page-item.active .page-link {
 	 z-index: 1;
 	 color: #555;
@@ -307,4 +310,42 @@
 
     </footer>
 </body>
+
+	<script>
+
+		//로그인 정보
+		var login = "${login}";
+		
+		//좋아요 버튼 클릭
+		let num = 0;
+		$(".empathy").on("click",function(e){
+			if(login == ""){
+				alert("로그인 후 이용해주세요.")
+			}else{
+				if(num == 0){ //num이 0일때 좋아요 후  num 1로 변경
+					$(this).attr('src','./../resources/upload/like_color_change.jpg');
+					$(this).unbind('mouseenter mouseleave');//좋아요 on 일때 hover기능 unbind
+					num = 1;
+				}else{//num이 1일때 좋아요 취소 후 num 0으로 변경
+					$(this).attr('src','./../resources/upload/like.jpg');
+					num = 0;
+				}
+			}
+		});	
+		
+		//좋아요
+  		$(".empathy").hover(
+	   		function(){//하트 마우스 올라왔을때
+	   			$(this).attr('src','./../resources/upload/like_color_change.jpg');
+	   		},
+	   		function(){//하트 마우스 벗어났을때
+	   			$(this).attr('src','./../resources/upload/like.jpg');
+	   		}
+   		);
+			
+   		
+		
+		
+	</script>
+
 </html>

@@ -202,34 +202,34 @@
            </ul><!--e:#filter_option-->
         </div><!--e:#filter-->
 
-        <div id="list">
-            <table style="width: 100%;">
-                <tr>
-                    <th style="width:10%;">NO</th>
-                    <th style="width:10%;"><input type="checkbox" id="check_all" name="check_all" value="check_all"></th>
-                    <th>아이디</th>
-                    <th>이메일</th>
-                    <th>가입일</th>
-                    <th style="width:10%;">신고</th>
-                </tr>
-     <form action="member_delete.do" method="post">
-     <input type="hidden" name="usertype" value="u">
-                <c:forEach items="${memberList}" var="vo" varStatus="status">
-                <tr id="memberList_wrapper">
-                    <td>${pageVO.total-(pageVO.total-((pageVO.pageNum-1)*10+status.index)-1) }</td>
-                    <td><input class="checkbox" type="checkbox" name="uidx" value="${vo.uidx }"></td>
-                    <td>${vo.id }</td>
-                    <td>${vo.mail }</td>
-                    <td>${vo.edate }</td>
-                    <td>0</td>
-                </tr>
-                </c:forEach>
-            </table>
-        </div><!--e:#list-->
+		<div id="list">
+			<table style="width: 100%;">
+				<tr>
+					<th style="width:10%;">NO</th>
+					<th style="width:10%;"><input type="checkbox" id="check_all" name="check_all" value="check_all"></th>
+					<th>아이디</th>
+					<th>이메일</th>
+					<th>가입일</th>
+					<th style="width:10%;">신고</th>
+				</tr>
+		<form action="member_delete.do" method="post">
+		<input type="hidden" name="usertype" value="u">
+			<c:forEach items="${memberList}" var="vo" varStatus="status">
+				<tr id="memberList_wrapper">
+					<td>${pageVO.total-(pageVO.total-((pageVO.pageNum-1)*10+status.index)-1) }</td>
+					<td><input class="checkbox" type="checkbox" name="uidx" value="${vo.uidx }"></td>
+					<td>${vo.id }</td>
+					<td>${vo.mail }</td>
+					<td>${vo.edate }</td>
+					<td>0</td>
+				</tr>
+			</c:forEach>
+			</table>
+		</div><!--e:#list-->
         
 	        <div id="delete_btn_wrapper">
 	            <button type="submit" id="deleteBtn" class="btn">탈퇴</button>
-	      </form>
+	   </form>
 	            <button onclick="banPopup()" id="banBtn" class="btn">정지</button>
 	        </div>
 
@@ -282,7 +282,11 @@
 </body>
 
 <script>
-	 	$(function(){	 		
+	 	$(function(){
+	 		
+	 		//로그인 정보
+	 		var login = "${login}";
+	 		
 		   //전체선택
 	 		$("#check_all").click(function(){ //전체 체크 클릭시
 					if($("#check_all").prop("checked")){ //체크된 경우
@@ -292,12 +296,11 @@
 					}
 	 		});
 	 		
-	 	});
-	 	
-	 	$(function(){
 		   //회원탈퇴
 	     	var checkboxes = document.querySelectorAll(".checkbox");
 	    	$("#deleteBtn").click(function(){
+	    		
+	    		//체크박스 체크여부
 	    		var flag = false;
 	    		for(var i = 0; i < checkboxes.length; i++)
 	    		{
@@ -308,25 +311,30 @@
 	    		}    
 	    		if( flag == false ) //flag false 일경우
 	    		{
+	    			//미로그인시
+	    			if(login == ""){
+		    			alert("로그인 후 이용해주세요.");
+		    			return false;
+		    		}
+	    			
+	    			//체크박스 미선택시
 	    			alert("탈퇴시킬 회원을 선택해주세요.");
 	    			return false;
 	    		}
 	    		
-	    		pw = prompt("관리자 비밀번호를 입력해주세요.");
-	    		if(pw == ""){
-	    			alert("비밀번호를 입력해주세요.");
+	    		//탈퇴처리 여부 확인
+	    		if(login == ""){
+	    			alert("로그인 후 이용해주세요.");
 	    			return false;
-	    		}else if(pw != '${login.pw}'){
-	    			alert("비밀번호가 일치하지 않습니다.");
+	    		}else if(!confirm("회원 탈퇴 하시겠습니까?")){
 	    			return false;
 	    		}else{
-		   			alert("회원 탈퇴가 완료되었습니다.");   		
-		    		return true;
+	    			alert("탈퇴 처리가 완료되었습니다.");
+	    			return true;
 	    		}
+    			
 	    	});
-	 	});
      	
-		$(function(){
 	    	//회원정지팝업
 	    	var checkboxes = document.querySelectorAll(".checkbox");
 	    	$("#banBtn").click(function(){
@@ -338,15 +346,25 @@
 	    				flag = true; //flag true
 	    			}
 	    		}    
-	    		if( flag == false ) //flag false 일경우
-	    		{
-	    			alert("정지시킬 회원을 선택해주세요.");
+	    		
+	    		//미로그인시
+	    		if(login == ""){
+	    			alert("로그인 후 이용해주세요.");
 	    			return false;
 	    		}else{
-		    		let popOption = "width = 568px, height=402px, scrollbars=no";
-		    		let openUrl = "<%=request.getContextPath()%>/adminPage/adminPage_Shutdown_Period_Popup.do";
-		    		window.open(openUrl,"",popOption);
+		    		if( flag == false ) //flag false 일경우
+		    		{
+		    			//체크박스 미선택시
+		    			alert("정지시킬 회원을 선택해주세요.");
+		    			return false;
+		    		}else{
+			    		let popOption = "width = 568px, height=402px, scrollbars=no";
+			    		let openUrl = "<%=request.getContextPath()%>/adminPage/adminPage_Shutdown_Period_Popup.do";
+			    		window.open(openUrl,"",popOption);
+		    		}
 	    		}
+	    		
+	    		
 	    	});
 	    	
 		});   

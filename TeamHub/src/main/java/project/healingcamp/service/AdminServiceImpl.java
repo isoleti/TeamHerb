@@ -33,9 +33,9 @@ public class AdminServiceImpl implements AdminService {
 
 	//Ε»Επ
 	@Override
-	public int delete_member(UserVo userVo) {
+	public int update_member(UserVo userVo) {
 
-		return adminDAO.delete_member(userVo);
+		return adminDAO.update_member(userVo);
 	}
 
 	//»σ΄γ»η

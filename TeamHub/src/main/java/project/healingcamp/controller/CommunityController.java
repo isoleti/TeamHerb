@@ -168,7 +168,7 @@ public class CommunityController {
 	//´ñ±Û ¼öÁ¤
 	@RequestMapping(value="/community_reply_update.do",method=RequestMethod.POST)
 	@ResponseBody
-	public String community_reply_update(@RequestBody ReplyVO replyVO) {
+	public String community_reply_update(ReplyVO replyVO) {
 		replyService.updateByReply(replyVO);
 		
 		return "1";

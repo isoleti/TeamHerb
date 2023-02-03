@@ -19,69 +19,7 @@
 	    <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
 	    <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
 	    <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
-	    <script>
-			$(function(){
-				//------------------------------------------------------------------------------//
-				//클릭시 카테고리 변경
-				$(document).on("click",".cate",function(){
-					
-					var cateVal = $("input[name=category]").val($(this).val());
-					if (cateVal.val() == "전체보기")
-					{
-						location.href='adminPage_Faq_List.do';
-					}else
-					{
-						var paraStr = "adminPage_Faq_List.do?category=" + cateVal.val();
-						location.href=paraStr; 
-					}
-				});
-				
-				//------------------------------------------------------------------------------//
-
-				//------------------------------------------------------------------------------//
-				//전체선택
-				$("#check_all").click(function(){ //전체 체크 클릭시
-					if($("#check_all").prop("checked")){ //체크된 경우
-						$("input[name=bidx]").prop("checked",true); //전체 선택
-					}else{
-						$("input[name=bidx]").prop("checked",false); //전체 해제
-					}
-		 		});
-				//------------------------------------------------------------------------------//
-				
-				//------------------------------------------------------------------------------//
-				//게시물 삭제
-		     	var checkboxes = document.querySelectorAll(".checkbox");
-		    	$("#deleteBtn").click(function(){
-		    		var flag = false;
-		    		for(var i = 0; i < checkboxes.length; i++)
-		    		{
-		    			if(checkboxes[i].checked == true) //체크박스에 체크된 경우
-		    			{
-		    				flag = true; //flag true
-		    			}
-		    		}    
-		    		if( flag == false ) //flag false 일경우
-		    		{
-		    			alert("삭제할 게시물을 선택해주세요.");
-		    			return false;
-		    		}
-		    		
-		    		pw = prompt("관리자 비밀번호를 입력해주세요.");
-		    		if(pw == ""){
-		    			alert("비밀번호를 입력해주세요.");
-		    			return false;
-		    		}else if(pw != '${login.pw}'){
-		    			alert("비밀번호가 일치하지 않습니다.");
-		    			return false;
-		    		}else{
-			   			alert("게시물 삭제가 완료되었습니다.");   		
-			    		return true;
-		    		}
-		    	});
-				//------------------------------------------------------------------------------//
-			});
-		</script>
+	   
 	    <style>
 	       
 	        main{
@@ -344,4 +282,78 @@
 	        </div>
 	    </footer>
 	</body>
+	
+	 <script>
+			$(function(){
+				
+				//로그인 정보
+		 		var login = "${login}";
+				
+				//------------------------------------------------------------------------------//
+				//클릭시 카테고리 변경
+				$(document).on("click",".cate",function(){
+					
+					var cateVal = $("input[name=category]").val($(this).val());
+					if (cateVal.val() == "전체보기")
+					{
+						location.href='adminPage_Faq_List.do';
+					}else
+					{
+						var paraStr = "adminPage_Faq_List.do?category=" + cateVal.val();
+						location.href=paraStr; 
+					}
+				});
+				
+				//------------------------------------------------------------------------------//
+
+				//------------------------------------------------------------------------------//
+				//전체선택
+				$("#check_all").click(function(){ //전체 체크 클릭시
+					if($("#check_all").prop("checked")){ //체크된 경우
+						$("input[name=bidx]").prop("checked",true); //전체 선택
+					}else{
+						$("input[name=bidx]").prop("checked",false); //전체 해제
+					}
+		 		});
+				//------------------------------------------------------------------------------//
+				
+				//------------------------------------------------------------------------------//
+				//게시물 삭제
+		     	var checkboxes = document.querySelectorAll(".checkbox");
+		    	$("#deleteBtn").click(function(){
+		    		var flag = false;
+		    		for(var i = 0; i < checkboxes.length; i++)
+		    		{
+		    			if(checkboxes[i].checked == true) //체크박스에 체크된 경우
+		    			{
+		    				flag = true; //flag true
+		    			}
+		    		}    
+		    		if( flag == false ) //flag false 일경우
+		    		{
+		    			//미로그인시
+		    			if(login == ""){
+			    			alert("로그인 후 이용해주세요.");
+			    			return false;
+			    		}
+		    			
+		    			alert("삭제할 게시물을 선택해주세요.");
+		    			return false;
+		    		}
+		    		
+		    		//탈퇴처리 여부 확인
+		    		if(login == ""){
+		    			alert("로그인 후 이용해주세요.");
+		    			return false;
+		    		}else if(!confirm("게시물을 삭제 하시겠습니까?")){
+		    			return false;
+		    		}else{
+		    			alert("게시물 삭제가 완료되었습니다.");
+		    			return true;
+		    		}
+		    	});
+				//------------------------------------------------------------------------------//
+			});
+		</script>
+	
 </html>
