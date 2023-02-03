@@ -4,7 +4,61 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="project.healingcamp.mapper.reserveMapper">
-  
+  		<!-- 현장결제시 DB insert -->
+  		<insert id = "res" parameterType="reserveVO">
+  			<![CDATA[ 
+  			insert into reservationtable(
+  						 residx
+  						,center
+  						,coun
+  						,resdate
+  						,restime
+  						,rescount  						
+  						,uidx
+  						,state
+  						,id
+  			)values(
+  						 residx_seq.nextval
+  						,#{center}
+  						,#{coun}
+  						,#{resdate}
+  						,#{restime}
+  						,#{rescount}
+  						,#{uidx}
+  						,'N'
+  						,#{id}
+  			)
+  			]]>
+  						
+  		</insert>
+  		
+  		<!-- 결제모듈 결제 완료시 DB insert -->
+  		<insert id = "count" parameterType="reserveVO">
+  			<![CDATA[ 
+  			insert into reservationtable(
+  						 residx
+  						,center
+  						,coun
+  						,resdate
+  						,restime
+  						,rescount  						
+  						,uidx
+  						,state
+  						,id
+  			)values(
+  						 residx_seq.nextval
+  						,#{center}
+  						,#{coun}
+  						,#{resdate}
+  						,#{restime}
+  						,#{rescount}
+  						,#{uidx}
+  						,'Y'
+  						,#{id}
+  			)
+  			]]>
+  						
+  		</insert>
   
   	
   </mapper>

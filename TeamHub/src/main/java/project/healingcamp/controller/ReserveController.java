@@ -38,13 +38,6 @@ public class ReserveController {
 		return "res/findcenter";
 	}
 	
-	//상담사찾기
-	@RequestMapping(value = "/findcounselor.do", method = RequestMethod.GET)
-	public String findcounselor() {
-
-		return "res/findcounselor";
-	}
-	
 	//상담기관
 	@RequestMapping(value = "/center.do", method = RequestMethod.GET)
 	public String center() {
@@ -65,6 +58,13 @@ public class ReserveController {
 
 		return "res/resf";
 	}
+	
+	//예약완료
+		@RequestMapping(value = "/resf.do", method = RequestMethod.POST)
+		public String resF() {
+
+			return "res/resf";
+		}
 	
 	
 }

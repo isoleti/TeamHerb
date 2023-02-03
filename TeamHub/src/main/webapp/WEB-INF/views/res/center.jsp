@@ -45,43 +45,70 @@
         main #faq .accordion  .accordion-button{width:100%;}
         main #map{margin-left:25%; }
         main .cal #calendar tr{height:45px;}
+        
+        /*modal style*/
+        #modal.modal-overlay {
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: 45%;
+            top: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        #modal .modal-window {
+            background: rgba( 169, 250, 250, 0.70 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 13.5px );
+            -webkit-backdrop-filter: blur( 13.5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            width: 1000px;
+            height: 500px;
+            position: fixed;
+            top: -100px;
+            padding: 10px;
+            z-index:99999;
+        }
+        #modal .title {
+            padding-left: 10px;
+            display: inline;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+            
+        }
+        #modal .title h2 {
+            display: inline;
+        }
+        #modal .close-area {
+            display: inline;
+            float: right;
+            padding-right: 10px;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+        
+        #modal .content {
+            margin-top: 20px;
+            padding: 0px 10px;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+        
+        .title h2{text-align: center;}
+        .modal-window textarea{margin-left:5%; width:840px; height:250px; resize:none; margin-top:3%; border: 1px solid rgba( 255, 255, 255, 0.18 );}
+        .modal-window input{margin-left:30%;}
     </style>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-     <script>
-    
-     	function like_func(){
-		  var frm_read = $('#frm_read');
-		  var center = $('#center', frm_read).val();
-		  var uidx = $('#uidx', frm_read).val();
-		  console.log("center, uidx : " + center +","+ uidx);
-		  
-		  $.ajax({
-		    url: "../res/like.do",
-		    type: "GET",
-		    cache: false,
-		    dataType: "json",
-		    data: 'center=' +center+ '&uidx=' +uidx,
-		    success: function(data) {
-			      var msg = '';
-			      var like_img = '';
-			      msg += data.msg;
-			      alert(msg);
-			      
-			      if(data.like_check == 0){
-			        like_img = "./images/dislike.png";
-			      } else {
-			        like_img = "./images/like.png";
-			      }      
-			      $('#like_img', frm_read).attr('src', like_img);
-			      $('#like_cnt').html(data.like_cnt);
-			      $('#like_check').html(data.like_check);
-		    },
-		    error: function(request, status, error){
-		      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		    }
-		  });
-		}
-     </script>
      <script src="<%=request.getContextPath()%>/resources/js/index.global.js"></script> 
 	 <script>
 	
@@ -112,7 +139,8 @@
 	      });
 		function respage(){
 			alert("로그인 후 사용하세요");
-		}	
+		}
+		
 	 </script>
 </head>
 <body>
@@ -160,21 +188,6 @@
             <img src="" alt="">
         </div>
         <div id="res"><!-- 예약 및 일정-->   
-	        <c:choose>
-			    <c:when test="${mno ne null}">
-			     <p id="res1">
-			     	<a href='javascript: like_func();'>
-			     		<img width="20px" height="20px" src="<%=request.getContextPath()%>/resources/upload/like2	.png" alt = "좋아요 표시">
-			     	</a>
-			     </p>
-			    </c:when>
-			    <c:otherwise>
-			     <a href='javascript: login_need();'></a>
-			    </c:otherwise>
-			</c:choose>
-		    <a href='#'><img width="20px" height="20px" src="<%=request.getContextPath()%>/resources/upload/dislike.png" alt = "좋아요 표시"></a>［<span id='reply_cnt'></span>］명이 좋아합니다
-		    <span id='like_cnt' style='margin-left: 5px;'></span>          
-            <p id="res2"><i class="xi-share-alt"></i>공유하기</p><br>
             <p></p><br>   
             <p>기관설명 기관명</p><br>
             <p>주요 상담분야</p><br>
@@ -186,7 +199,7 @@
             <c:if test = "${login != null}"> 
             	<button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do'">예약하기</button>
             </c:if>
-            <button class="btn btn-dark">문의하기</button>
+            <button class="btn btn-dark" onclick="modalOn()">문의하기</button>
             <div class="cal"> <!--상담사 상담 일정-->
                 <p>상담사 : </p>
                 <div id='calendar'></div>
@@ -291,7 +304,7 @@
                   </h2>
                   <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                      <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                      <strong></strong><code></code>
                     </div>
                   </div>
                 </div>
@@ -303,7 +316,7 @@
                   </h2>
                   <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                      <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                      <strong></strong><code></code>
                     </div>
                   </div>
                 </div>
@@ -315,9 +328,8 @@
                   </h2>
                   <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                      <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                      <strong></strong><code></code>
                     </div>
-                  </div>
                 </div>
               </div>           
         </div>
@@ -352,7 +364,21 @@
 				    position : iwPosition, 
 				    content : iwContent 
 				});
-			</script>           	
+			</script>		
+		<div id="modal" class="modal-overlay">
+	        <div class="modal-window">
+	        <form>
+	            <div class="title">
+	                <h2>문의하기</h2>
+	            </div>
+	            <div class="close-area">X</div><br>
+	           	<hr>
+	           	<input type="hidden" name="" value="">
+			    <textarea>문의 내용을 입력하세요</textarea><br>
+			    <input type="button" class="btn btn-outline-success" value="문의하기">
+			</form>
+	        </div>
+    	</div>
     </main>
     <footer> <!-- footer -->
         <div id="bottom">   
@@ -365,6 +391,32 @@
             <p>전화번호 : 010-0000-0000</p>
             <p>FAX : 063-000-0000</p>
         </div>
-</footer> <!-- end footer -->
+	</footer> <!-- end footer -->
+	<script>
+	
+		//modal script	
+		var modal = document.getElementById("modal");
+		
+		function modalOn() {
+		    modal.style.display = "flex";
+		}
+		function isModalOn() {
+		    return modal.style.display === "flex";
+		}
+		function modalOff() {
+		    modal.style.display = "none";
+		}
+		const closeBtn = modal.querySelector(".close-area")
+		closeBtn.addEventListener("click", e => {
+		    modal.style.display = "none";
+		})
+		modal.addEventListener("click", e => {
+		const evTarget = e.target
+		if(evTarget.classList.contains("modal-overlay")) {
+		    modal.style.display = "none";
+			}
+		})
+		
+	</script>
 </body>
 </html>

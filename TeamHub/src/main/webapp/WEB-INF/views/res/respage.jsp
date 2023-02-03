@@ -66,7 +66,7 @@
             border: 1px solid rgba( 255, 255, 255, 0.18 );
             width: 400px;
             height: 500px;
-            position: relative;
+            position: fixed;
             top: -100px;
             padding: 10px;
             z-index:99999;
@@ -277,14 +277,44 @@
 		           buyer_tel : '${login.phone}'
 		       }, function (rsp) { // callback
 		             if (rsp.success) {
-		            	 console.log(rsp);
-		            	 return "res/resf.do";
-		             } else {
-		                 console.log(rsp);
-		                 return "res/respage.do";
-		             }
+		            	// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+		                 // jQuery로 HTTP 요청
+		                 jQuery.ajax({
+		                   url: "{서버의 결제 정보를 받는 가맹점 endpoint}", 
+		                   method: "POST",
+		                   headers: { "Content-Type": "application/json" },
+		                   data: {
+		                     imp_uid: rsp.imp_uid,            // 결제 고유번호
+		                     merchant_uid: rsp.merchant_uid   // 주문번호
+		                   }
+		                 }).done(function (data) {
+		                   // 가맹점 서버 결제 API 성공시 로직
+		                   
+		                 })
+		               } else {
+		                 alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+		               }
 		          });
  		   }
+	    }
+	    
+	    function resf() {
+	    	var fm = document.frm;
+	    	
+	    	if(fm.counseling == "" && fm.counseling == null){
+	    		return;
+	    	}else if(fm.couns == "" && fm.couns == null){
+	    		return;
+	    	}else if(fm.resdate == "" && fm.resdate == null){
+	    		return;
+	    	}else if(fm.restime == "" && fm.restime == null){
+	    		return;
+	    	}else if(fm.rescount == "" && fm.rescount == null){
+	    		return;
+	    	}
+	    	fm.action = "<%=request.getContextPath() %>/res/resf.do";
+	    	fm.method = "post";
+	    	fm.submit();
 	    }
 	</script>
 </head>
@@ -356,9 +386,10 @@
         </div>
         <div id="res">
             <h2>예약상세</h2>
-            <form method="post">
-               	<input type="hidden" name="uidx" id="uidx">
-            	<input type="hidden" name="id" id="id">
+            <form name="frm" id="frm">
+            	<input type="hidden" name="center" id="center" value="${center}">
+               	<input type="hidden" name="uidx" id="uidx" value="${login.uidx }">
+            	<input type="hidden" name="id" id="id" value="${login.id }">
 	            <p>상담/검사 :<input type="text" name="counseling" id="counseling" readonly> </p>
 	            <p>담당상담사 :<input type="text" name="couns" id="couns" readonly> </p>
 	            <p>예약일 :<input type="text" name="resdate" id="resdate" readonly> </p>

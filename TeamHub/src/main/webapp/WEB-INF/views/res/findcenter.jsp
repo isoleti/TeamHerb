@@ -63,17 +63,11 @@
             <section></section>
         </nav> <!-- fin 상단 네비게이션 -->
     </header> <!--fin header-->
-    <main>
-        <dt>
-            <dl><a href="<%=request.getContextPath()%>/res/findcenter.do">센터 찾기</a></dl>
-            <dl><a href="<%=request.getContextPath()%>/res/findcounselor.do">상담사 찾기</a></dl>
-        </dt>       
+    <main>     
         <form>
         <select class="form-select" aria-label="Default select example">
             <option selected>선택</option>
             <option value="center">상담 기관</option>
-            <option value="counselor">심리 상담사</option>
-            <option value="">상담사 등급</option>
         </select>        
         <input type="text">
         <input class="btn btn-outline-success" type="button"  value="검색">
