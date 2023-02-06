@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="project.healingcamp.mapper.likeMapper">
+
+	<!-- 좋아요 체크 확인 -->
+	<select id="likeCount" parameterType="likeVO" resultType="int">
+		SELECT COUNT(*) 
+		  FROM liketable 
+		 WHERE bidx = #{bidx} AND id = #{id}
+	</select>
+
+	<!-- 좋아요 +1 -->
+	<insert id="likeUp" parameterType="likeVO">
+		INSERT into liketable(
+			like_no,
+			bidx,
+			id,
+			likenum
+		)VALUES(
+			like_no_seq.nextval,
+			#{bidx},
+			#{id},
+			1
+		)
+		
+	</insert>
+	
+	<!-- 좋아요 -1 -->
+	<delete id="likeDown" parameterType="likeVO">
+		DELETE liketable 
+		 WHERE bidx = #{bidx} 
+		   AND id= #{id}
+	</delete>
+	
+	
+
+
+	
+	
+	
+	
+	
+  </mapper>
