@@ -1,8 +1,8 @@
 package project.healingcamp.vo;
 
-public class PageMaker {
+public class MypageMaker {
 
-	 private Criteria cri; // page, perPageNum 을 가지고 있음
+	 private MyCriteria cri; // page, perPageNum 을 가지고 있음
 	
 	   private int startPage; //첫 페이지 번호
 	   private int endPage;   //마지막 페이지 번호
@@ -13,7 +13,7 @@ public class PageMaker {
 	   private int page;   //조회하는 페이지 번호
 	   private int perPageNum;    //보여질 데이터개수
 	   
-	public PageMaker(Criteria cri,int total) {
+	public MypageMaker(MyCriteria cri,int total) {
 		
 		this.page = cri.getPage();
 		this.perPageNum = cri.getPerPageNum();
@@ -40,10 +40,10 @@ public class PageMaker {
 		this.next = this.endPage<realEnd;
 	} 
 	  
-	public Criteria getCri() {
+	public MyCriteria getCri() {
 		return cri;
 	}
-	public void setCri(Criteria cri) {
+	public void setCri(MyCriteria cri) {
 		this.cri = cri;
 	}
 	public int getStartPage() {

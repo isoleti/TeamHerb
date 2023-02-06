@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-      <%@ page import="java.util.*" %>
-   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-   <%@ page session="true" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="java.util.*" %>
+<%@ page import="project.healingcamp.vo.Community_BoardVO" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page session="true" %>
+
+<% List<Community_BoardVO> list = (List<Community_BoardVO>)request.getAttribute("list"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +26,7 @@
         .bar a{display:block;}
         .bar a:nth-child(1){font-size:25px; font-weight: bold; padding-bottom:20px;display: block; 
                 width:280px; border-bottom:1px solid #e4e4e4; position:relative; left:-40px;}
-          .bar input{ text-align:center; border:none; }
+        .bar input{ text-align:center; border:none; }
         .bar img{margin-top: 20px;}
         .bar a:nth-child(2){font-size:20px; margin-top:20px;}
         .bar button{width:200px;  background:white;
@@ -55,7 +61,7 @@
 </head>
 <body>
 	 <header>       
-       <div> <!--로그인 관련-->
+           <div> <!--로그인 관련-->
              
           <c:if test = "${login == null}">   
             <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
@@ -105,17 +111,18 @@
         <div class="content">
             <a class="p">내가 쓴 글</a>
             <a class="p">작성 기간</a>
-            <button class="btn3">1개월</button>
+           <!--  <button class="btn3">1개월</button>
             <button class="btn3">3개월</button>
             <button class="btn3">6개월</button>
             <p>기간 입력</p>
             <input type="date" name="date1" id="date1" >
             <p>~</p>
-            <input type="date" name="date2" id="date2" >
+            <input type="date" name="date2" id="date2" > -->
 
            
             <div id="tb">
-            <table border="1">
+            <form action="mywrite_delete.do" method="post">
+            <table border="1"> 
                 <tr>
                     <td>글 번호</td>
                     <td>제목</td>
@@ -123,74 +130,54 @@
                     <td>작성 일시</td>
                     <td>관리</td>
                 </tr>
-                <tr>
-                    <td>글 번호</td>
-                    <td>제목</td>
-                    <td>사연</td>
-                    <td>작성 일시</td>
-                    <td><button>수정</button>
-                        <button>삭제</button></td>
-                </tr>
-                <tr>
-                    <td>글 번호</td>
-                    <td>제목</td>
-                    <td>사연</td>
-                    <td>작성 일시</td>
-                    <td><button>수정</button>
-                        <button>삭제</button></td>
-                </tr>
-                <tr>
-                    <td>글 번호</td>
-                    <td>제목</td>
-                    <td>사연</td>
-                    <td>작성 일시</td>
-                    <td><button>수정</button>
-                        <button>삭제</button></td>
-                </tr>
-                <tr>
-                    <td>글 번호</td>
-                    <td>제목</td>
-                    <td>사연</td>
-                    <td>작성 일시</td>
-                    <td><button>수정</button>
-                        <button>삭제</button></td>
-                </tr>
-                <tr>
-                    <td>글 번호</td>
-                    <td>제목</td>
-                    <td>사연</td>
-                    <td>작성 일시</td>
-                    <td><button>수정</button>
-                        <button>삭제</button></td>
-                </tr>
-             
+                
                
-
+                 <c:forEach items="${list}" var="vo">
+                <tr>
+                    <td>${vo.bidx}</td>
+                    <td>${vo.title}</td>
+                    <td>${vo.category}</td>
+                    <c:set var="wdate" value="${vo.wdate}"/>
+                    <td>${fn:substring(wdate,0,11)}</td>
+                    <td><button type="button">수정</button>
+                        <button>삭제</button></td>
+                </tr>
+                </c:forEach>  
             </table>
-             
+				</form>
+            
     </div><!--#tb-->
-
-    <div id="navi">
+	
     <nav aria-label="Page navigation example">
         <ul class="pagination">
+        <!-- Prev 시작 -->
+          <c:if test="${MypageMaker.prev}"> <!--  -->
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
+            <a class="page-link" href="<%=request.getContextPath() %>/page/mypageWrite.do?page=${(MypageMaker.startPage-1)}&perPageNum=${MypageMaker.perPageNum}" aria-label="Prev">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          </c:if>
+          <!-- Prev 끝 -->
+          <!-- Page번호 시작 -->
+           <c:forEach begin="${MypageMaker.startPage }" end="${MypageMaker.endPage}" var="index">
+          <li class="page-item"><a class="page-link <c:if test='${MypageMaker.page eq index }'>active</c:if>" href="<%=request.getContextPath() %>/page/mypageWrite.do?page=${index}">${index}</a></li>
+          </c:forEach>
+         <!-- Page번호 끝 -->
+         <!-- Next 시작 -->
+          <c:if test="${MypageMaker.next}">
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
+            <a class="page-link" href="<%=request.getContextPath() %>/page/mypageWrite.do?page=${(MypageMaker.endPage+1)}&perPageNum=${MypageMaker.perPageNum}" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
+          </c:if>	
+          <!-- Next 끝 -->
         </ul>
       </nav>
 
      </div><!--#navi-->   
-
+	</div><!-- #content -->
     </main>
     <footer>
         <div id="bottom">   

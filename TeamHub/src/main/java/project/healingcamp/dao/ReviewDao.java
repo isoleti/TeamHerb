@@ -20,8 +20,7 @@ public class ReviewDao {
 	}
 	 public int total(Criteria cri) {
 		 return sqlSession.selectOne("project.healingcamp.mapper.reviewMapper.total", cri);
-	 };
-	 
+	 }
 	public int deleteRidx(int ridx) {
 		return sqlSession.delete("project.healingcamp.mapper.reviewMapper.deleteRidx", ridx);
 	}

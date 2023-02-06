@@ -11,7 +11,7 @@
 		<typeAlias type="project.healingcamp.vo.SearchVO" alias="searchVO"/>
 		<typeAlias type="project.healingcamp.vo.ReplyVO" alias="replyVO"/>
 		<typeAlias type="project.healingcamp.vo.Criteria" alias="criteria"/>
-		<typeAlias type="project.healingcamp.vo.LikeVO" alias="likeVO"/>
+		<typeAlias type="project.healingcamp.vo.MyCriteria" alias="myCriteria"/>
 	</typeAliases>
 
 

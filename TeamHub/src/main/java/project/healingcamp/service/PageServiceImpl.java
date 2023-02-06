@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.healingcamp.dao.PageDao;
+import project.healingcamp.vo.Community_BoardVO;
+import project.healingcamp.vo.MyCriteria;
 import project.healingcamp.vo.ReserveVO;
 import project.healingcamp.vo.UserVo;
 
@@ -23,7 +25,19 @@ public class PageServiceImpl implements PageService{
 
 	@Override
 	public UserVo pwCheck(UserVo vo) {
-		System.out.println("서비스 임플에서 pw: "+vo.getPw());
+		
 		return pageDao.pwCheck(vo);
+	}
+
+	@Override
+	public List<Community_BoardVO> list(MyCriteria cri) {
+		System.out.println("서비스임플 list: "+cri.getContent());
+		return pageDao.list(cri);
+	}
+
+	@Override
+	public int total(MyCriteria cri) {
+		
+		return pageDao.total(cri);
 	}
 }

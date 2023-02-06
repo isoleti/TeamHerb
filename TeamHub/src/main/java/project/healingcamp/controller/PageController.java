@@ -16,11 +16,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import project.healingcamp.service.Community_BoardService;
 import project.healingcamp.service.PageService;
 import project.healingcamp.service.UserService;
 import project.healingcamp.service.UserSha256;
+import project.healingcamp.vo.Community_BoardVO;
+import project.healingcamp.vo.Criteria;
+import project.healingcamp.vo.MyCriteria;
+import project.healingcamp.vo.MypageMaker;
+import project.healingcamp.vo.PageMaker;
 import project.healingcamp.vo.ReserveVO;
 import project.healingcamp.vo.ReviewVo;
+import project.healingcamp.vo.SearchVO;
 import project.healingcamp.vo.UserVo;
 
 @RequestMapping("/page")
@@ -33,6 +40,8 @@ public class PageController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private Community_BoardService cboardService;
 	// 마이페이지
 	@RequestMapping(value = "/mypageRes.do", method = RequestMethod.GET)
 	public String mypageRes() {
@@ -117,7 +126,7 @@ public class PageController {
 		return "redirect:/";
 	}
 
-	// 비밀번호 변경
+	// 비밀번호 변경(결국 못함)
 	@RequestMapping(value = "/pwReset.do", method = RequestMethod.POST)
 	public String pwReset(UserVo vo, HttpSession session, Model model, HttpServletRequest request) {
 		System.out.println("/pwReset.do POST : " + vo.toString());
@@ -192,13 +201,34 @@ public class PageController {
 
 		return "page/mypageCount";
 	}
-
-	@RequestMapping(value = "mypageWrite.do", method = RequestMethod.GET)
-	public String mypageWrite() {
-
+	//나의 글쓰기 목록
+	@RequestMapping(value="mypageWrite.do", method=RequestMethod.GET)
+	public String mypageWrite(Model model, MyCriteria cri) {
+		
+		//전체게시글 데이터 요청
+		List<Community_BoardVO> list = pageService.list(cri);
+		
+		System.out.println("나의 글쓰기list:"+list);
+		 MypageMaker mypageMaker = new MypageMaker(cri, pageService.total(cri));
+		//데이터를 모델에 담아 화면에 넘김
+		
+		model.addAttribute("list",list);//글목록 전달
+		model.addAttribute("mypageMaker", mypageMaker);
+		
 		return "page/mypageWrite";
 	}
-
+	//나의 글쓰기 삭제
+		@RequestMapping(value="/mywrite_delete.do",method=RequestMethod.POST)
+		public String delete(int bidx) { 
+			//db 상세데이터 조회
+			
+			cboardService.deleteByBidx(bidx);
+			System.out.println("삭제"+bidx);
+			
+			return "redirect:mypageWrite.do";
+		
+		}
+	
 	@RequestMapping(value = "mypageReview.do", method = RequestMethod.GET)
 	public String mypageReview() {
 

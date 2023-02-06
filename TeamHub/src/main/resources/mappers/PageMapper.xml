@@ -12,7 +12,20 @@
   			where pw=#{pw}
  
   	</select>
-  
+  <!-- 마이페이지 나의 글쓰기 목록 -->
+   <select id="list" resultType="cboardVO" parameterType="cboardVO" ><!--여기 parameterType에 criteria 넣으면 서버 안열림 -->
+			<![CDATA[
+				select * 
+			from boardtable
+				where uidx=#{uidx}
+			 ]]>
+  </select>
+   <!-- 전체 게시글 수를 구하는 sql문 -->
+    <select id="total" resultType="int" parameterType="myCriteria">
+        select count(*) 
+        from boardtable
+        where uidx=#{uidx}
+    </select>
   
   
   </mapper>

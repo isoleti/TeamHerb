@@ -25,7 +25,7 @@
     <select id="total" resultType="int" parameterType="criteria">
         select count(*) 
         from reviewtable
-        where uidx=${uidx}
+        where uidx=#{uidx}
     </select>
   
   <!--상담사 후기 지우기 -->
