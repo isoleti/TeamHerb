@@ -78,12 +78,18 @@ public class UserServiceImpl implements UserService {
 		
 		return userDao.selectByUidx(uidx);
 	}
+	//회원정보 수정
 	@Override
 	public int userModify(UserVo vo) {
 		System.out.println("서비스임플에서 uidx: "+vo.getUidx());
 		return userDao.userModify(vo);
 	}
-	
+	//회원정보 비밀번호 변경
+	@Override
+	public int pwReset(UserVo vo) {
+		return userDao.pwReset(vo);
+	}
+
 	//비밀번호 회원정보 조회
 	@Override
 	public UserVo selectJoin(String mail) {

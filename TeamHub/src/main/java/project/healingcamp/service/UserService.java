@@ -21,6 +21,7 @@ public interface UserService {
 	int userDelete(UserVo vo);
 	UserVo selectByUidx(int uidx);
 	int userModify(UserVo vo);
+	int pwReset(UserVo vo); //회원정보에서 비번 변경
 	UserVo selectJoin(String mail); //회원정보 조회
 	int pwUpdate(UserVo vo);//패스워드 변경
 }

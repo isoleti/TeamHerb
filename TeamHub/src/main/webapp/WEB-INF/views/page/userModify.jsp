@@ -7,63 +7,98 @@
     
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>회원정보수정</title>
-<link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
-<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
-<script>
-(function(){ //회원가입페이지가 로드됐을때 function실행 
-	$("form").submit(function(){ //event가 일어났을 때 실행 (이때는 onblur가 실행할때 일어남 )
-	
+	<head>
+		<meta charset="UTF-8">
+		<title>회원정보수정</title>
+		<link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
+		<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
+		<script>
+		$(function(){ //회원가입페이지가 로드됐을때 function실행 
+			$("form").submit(function(){ 
+				alert("call");
+				var mailval = $("#mail").val();
+				var phoneval = $("#phone").val();
 		
-		if($("#pw").val() != $("#pw2").val()){
-			alert("비밀번호가 일치하지 않습니다.");
-			return false;
-		}
-		else{
-			return true;	
-		}
+				var npwval = $("#npw").val();
+				var pwcval = $("#pwc").val();
+				
+				alert(	  "mailval : "	+ mailval	+ "\n"
+						+ "phoneval : "	+ phoneval	+ "\n"
+						//+ "opwval : "	+ opwval	+ "\n"
+						+ "npwval : "	+ npwval	+ "\n"
+						+ "pwcval : "	+ pwcval	+ "\n"
+						+ "mail : ${vo.mail}"		+ "\n"
+						+ "phone : ${vo.phone}");
 		
+				if ( mailval != "${vo.mail}" || phoneval != "${vo.phone}" )
+				{
+					alert("개인정보 수정");
+					// 이메일이나 전화번호 업데이트 처리
+					form.action="<%=request.getContextPath() %>/page/userModify.do";
+					form.method="POST";
+					form.submit();
+					
+				}
+				if ( npwval != null )
+				{
+					alert("개인 정보와 비번 수정");
+					if( npwval != pwcval )
+					{
+						// 새 비번과 비번확인이 같지 않으므로, 사용자에게 메세지를 보내고, submit을 중단하고, 회원정보 페이지로 되돌린다
+						alert("변경된 비밀번호가 일치하지 않습니다.");
+						return false;
+					}else if( npwval == pwcval )
+					{
+						alert("새로운 비번으로 설정");
+						
+						// 기존 비밀번호가 올바른지 DB랑 통신을 한다
+						// case 1 : 비번이 올바르면 새 비밀번호를 DB에 업데이트 한다
+						// case 2 : 기존 비번이 올바르지 않으니, 사옹자에게 알리고, 회원정보 페이지로 되돌린다.
+						form.action ="pwReset.do";
+						form.method="POST"; //감춰져서 넘기는 방식 Post
+						form.submit();
+						
+					} //else if
+				} //else if ( npwval != null )
+			})
 		});
-	})
-
-</script>
-<style>
-   main{margin:0 auto;  width:1160px; }
-        main h2{font-size:22px; margin:80px 250px; }
-        .userimfo{width:600px; height:600px; display:block; border:1px solid #e4e4e4; 
-                 padding-top: 30px; margin-left:250px; border-radius:10px;
-                padding:40px;}
-        .p{font-size:25px; margin-bottom:20px;display: block; font-weight:bold;}
-        .basic input{width:250px; height:25px; margin-left:20px;}
-        .userimfo hr{margin:20px 0; }
-        .userimfo a{font-weight: bold;}
-        #phone{margin-left:52px;}
-        #id{margin-left:12px;}
-        .userimfo input{ margin-bottom:10px; border:1px solid #e4e4e4; border-radius:5px; }
-        #id{position: relative; left:40px;}
-
-        .m{height:40px;}
-        .m input{ margin-left: 20px;}
-        .m a{font-weight:bold;}
-        .b input:nth-child(1){width:100px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px;}
-        .b input:nth-child(2){width:40px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px;}
-        .b input:nth-child(3){width:40px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px;}
-
-        .ch1{position:relative; left:252px; }
-        .ch1 input{ margin-right:10px;}
-        .ch2{position:relative; left:450px; top:-42px;}
-        .ch2 input{margin-right:10px;}
-
-        .btn{width:180px; height:40px; border-radius:5px; border: none; color:white; 
-                font-weight:bold; margin-left:80px;cursor: pointer; position:relative; top:130px; font-size:15px;}
-        .btn:nth-child(2){background: #e4e4e4;}
-        .btn:nth-child(3){background: #70ad47;}
-        #bar a{border-bottom:1px solid black; display:inline-block; cursor: pointer; position:relative; top:135px;} 
-        #bar a:hover{color:red; border-color:red;}       
-</style>
-</head>
+		
+		</script>
+		<style>
+		   main{margin:0 auto;  width:1160px; }
+		        main h2{font-size:22px; margin:80px 250px; }
+		        .userimfo{width:600px; height:600px; display:block; border:1px solid #e4e4e4; 
+		                 padding-top: 30px; margin-left:250px; border-radius:10px;
+		                padding:40px;}
+		        .p{font-size:25px; margin-bottom:20px;display: block; font-weight:bold;}
+		        .basic input{width:250px; height:25px; margin-left:20px;}
+		        .userimfo hr{margin:20px 0; }
+		        .userimfo a{font-weight: bold;}
+		        #phone{margin-left:52px;}
+		        #id{margin-left:12px;}
+		        .userimfo input{ margin-bottom:10px; border:1px solid #e4e4e4; border-radius:5px; }
+		        #id{position: relative; left:40px;}
+		
+		        .m{height:40px;}
+		        .m input{ margin-left: 20px;}
+		        .m a{font-weight:bold;}
+		        .b input:nth-child(1){width:100px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px;}
+		        .b input:nth-child(2){width:40px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px;}
+		        .b input:nth-child(3){width:40px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px;}
+		
+		        .ch1{position:relative; left:252px; }
+		        .ch1 input{ margin-right:10px;}
+		        .ch2{position:relative; left:450px; top:-42px;}
+		        .ch2 input{margin-right:10px;}
+		
+		        .btn{width:180px; height:40px; border-radius:5px; border: none; color:white; 
+		                font-weight:bold; margin-left:80px;cursor: pointer; position:relative; top:130px; font-size:15px;}
+		        .btn:nth-child(2){background: #e4e4e4;}
+		        .btn:nth-child(3){background: #70ad47;}
+		        #bar a{border-bottom:1px solid black; display:inline-block; cursor: pointer; position:relative; top:135px;} 
+		        #bar a:hover{color:red; border-color:red;}       
+		</style>
+	</head>
 <body>
 	 <header>       
           <div> <!--로그인 관련-->
@@ -98,7 +133,7 @@
     <main>
         <h2>회원정보</h2>
         
-		<form action="userModify.do" method="post">
+		<form method="POST"> <!-- onsubmit="return DoSubmit();" --> 
 			<input type="hidden" id="uidx" name="uidx" value="${login.uidx}">
          <div class="userimfo">
             <div class="basic">
@@ -106,13 +141,14 @@
             <a>아이디 <input type="text" name="id" id="id" value="${vo.id}" disabled></a><br>
             <a>이메일주소  <input type="text" name="mail" id="mail" value="${vo.mail}"></a><br>
             <a>연락처 <input type="number" name="phone" id="phone" value="${vo.phone}"></a>
-            <hr>
-            <a class="p">비밀번호 변경</a>
-           
-            <a>비밀번호 변경 <input type="password" name="pw" id="pw" autoComplete="off"></a><br>
-            <a>비밀번호 확인 <input type="password" name="pw2" id="pw2" autoComplete="off"></a> 
+           <!--  <hr> -->
+           <!--  <a class="p">비밀번호 변경</a>
+           	 -->
+           <!--  <a>현재 비밀번호 <input type="password" id="opw" autoComplete="off"></a><br> -->
+         <!--    <a>비밀번호 변경 <input type="password" name="pw" id="npw" autoComplete="off"></a><br>
+            <a>비밀번호 확인 <input type="password" id="pwc" autoComplete="off"></a>  -->
             
-            <hr>
+            <!-- <hr> -->
           	</div>
                  
             <div id="bar">

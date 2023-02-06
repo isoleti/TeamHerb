@@ -49,6 +49,10 @@ public class UserDao {
 	public int userModify(UserVo vo) {
 		return sqlSession.update("project.healingcamp.mapper.userMapper.userModify", vo);
 	}
+	//비밀번호 변경
+	public int pwReset(UserVo vo) {
+		return sqlSession.update("project.healingcamp.mapper.userMapper.pwReset", vo);
+	}
 	
 	public int loginCheck(UserVo vo) {	
 		
