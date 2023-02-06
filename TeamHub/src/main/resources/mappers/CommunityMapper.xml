@@ -81,6 +81,7 @@
   			  ,hit
   			  ,bidx
   			  ,hide_id
+  			  ,likes
   		 FROM boardtable
   		WHERE bidx=#{bidx}
   	</select>
@@ -177,6 +178,20 @@
 		UPDATE boardtable
    		   SET replyCnt = replyCnt - 1
    		 WHERE bidx = #{bidx}
+	</update>
+	
+<!-- 	좋아요수 카운팅 +1 -->
+	<update id="addLikeCnt" parameterType="int">
+		UPDATE boardtable
+		   SET likes = likes + 1
+		 WHERE bidx = #{bidx}
+	</update>
+	
+<!-- 	좋아요수 카운팅 -1 -->
+	<update id="removeLikeCnt" parameterType="int">
+		UPDATE boardtable
+		   SET likes = likes - 1
+		 WHERE bidx = #{bidx}
 	</update>
 	
 

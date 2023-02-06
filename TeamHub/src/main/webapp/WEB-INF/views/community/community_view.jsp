@@ -222,7 +222,7 @@
                 <div id="content">${vo.content}</div>
                     <div class="postbtn">
                         <div class="likebtn">
-                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감" onclick="likecount();" >
+                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감"  >
                             <span style="font-size:13px;">${vo.likes}공감</span>
                         </div><!--e:.likebtn-->
                         <div class="clip">
@@ -644,7 +644,68 @@
     		}
     	);
    		
-   		//북마크 
+   		var bidx = ${vo.bidx};	//게시글 번호
+		var id = "${login.id}"; //회원아이디
+		var likeCount = ${likeCount}; //좋아요 수
+		
+		if(likeCount == 1){ //likeCount이 1일때 꽉찬하트
+			$(".empathy").attr('src','./../resources/upload/like_color_change.jpg');
+			$(".empathy").unbind('mouseenter mouseleave'); //좋아요 on 일때 hover기능 unbind
+		}else{//likeCount이 0일때 빈하트
+			$(".empathy").attr('src','./../resources/upload/like.jpg');
+		}
+		
+		//좋아요 버튼 클릭
+		$(".empathy").on("click",function(){
+			if(login == ""){
+				alert("로그인 후 이용해주세요.");
+			}else{
+				//좋아요 체크여부
+				$.ajax({
+					url:"likeCount.do",
+					type:"post",
+					data:{"bidx":bidx,"id":id},
+					success:function(result){
+						
+						if(result == 1){//좋아요 체크시 좋아요 취소
+							$.ajax({
+								url:"likeDown.do",
+								type:"post",
+								data:{"bidx":bidx,"id":id},
+								context:this,
+								success:function(result){
+									//alert("좋아요취소 성공!");
+									
+								},error:function(){
+									alert("error");
+								}
+							});
+							$(".empathy").attr('src','./../resources/upload/like.jpg'); 
+							
+						}else if(result == 0){
+							$.ajax({
+								url:"likeUp.do",
+								type:"post",
+								data:{"bidx":bidx,"id":id},
+								context:this,
+								success:function(result){
+									//alert("좋아요성공!");
+									
+								},error:function(){
+									alert("error");
+								}
+							});
+							$(".empathy").attr('src','./../resources/upload/like_color_change.jpg');
+							$(".empathy").unbind('mouseenter mouseleave'); //좋아요 on 일때 hover기능 unbind
+						}
+					},error:function(){
+						alert("error");
+					}
+				});
+			}
+		});
+		
+		//북마크 
    		$(".bookmark").hover(
     		function(){//북마크 마우스 올라왔을때
     			$(this).attr('src','./../resources/upload/bookmark_color_change.jpg');
@@ -653,23 +714,6 @@
     			$(this).attr('src','./../resources/upload/bookmark.jpg');
     		}
     	);
-   		
-   		//좋아요 버튼 클릭
-		let num = 0;
-		$(".empathy").on("click",function(e){
-			if(login == ""){
-				alert("로그인 후 이용해주세요.");
-			}else{
-				if(num == 0){ //num이 0일때 좋아요 후  num 1로 변경
-					$(this).attr('src','./../resources/upload/like_color_change.jpg');
-					$(this).unbind('mouseenter mouseleave'); //좋아요 on 일때 hover기능 unbind
-					num = 1;
-				}else{//num이 1일때 좋아요 취소 후 num 0으로 변경
-					$(this).attr('src','./../resources/upload/like.jpg');
-					num = 0;
-				}
-			}
-		});
 		
 		//북마크 버튼 클릭
 		let num2 = 0;

@@ -59,6 +59,12 @@ public class Community_BoardDAO {
 	public int removeReplyCnt(int bidx) {
 		return sqlSession.update("project.healingcamp.mapper.communityMapper.removeReplyCnt",bidx);
 	}
+	public int addLikeCnt(int bidx) {
+		return sqlSession.update("project.healingcamp.mapper.communityMapper.addLikeCnt", bidx);
+	}
+	public int removeLikeCnt(int bidx) {
+		return sqlSession.update("project.healingcamp.mapper.communityMapper.removeLikeCnt", bidx);
+	}
 	
 		
 	

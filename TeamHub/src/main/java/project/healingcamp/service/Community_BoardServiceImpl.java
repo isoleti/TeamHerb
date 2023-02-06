@@ -127,6 +127,8 @@ public class Community_BoardServiceImpl implements Community_BoardService{
 		return cboardDAO.counseller_board_modifyByBidx(cboardVO);
 	}
 
+	
+
 
 	
 

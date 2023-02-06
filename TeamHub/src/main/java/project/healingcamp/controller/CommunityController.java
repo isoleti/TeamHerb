@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.healingcamp.service.Community_BoardService;
+import project.healingcamp.service.LikeService;
 import project.healingcamp.service.ReplyService;
 import project.healingcamp.vo.Community_BoardVO;
+import project.healingcamp.vo.LikeVO;
 import project.healingcamp.vo.PageVO;
 import project.healingcamp.vo.ReplyVO;
 import project.healingcamp.vo.SearchVO;
@@ -32,6 +34,9 @@ public class CommunityController {
 	
 	@Autowired
 	private ReplyService replyService;
+	
+	@Autowired
+	private LikeService likeService;
 	
 	//커뮤니티 리스트 이동
 	@RequestMapping(value="/community_list.do",method=RequestMethod.GET)
@@ -49,16 +54,28 @@ public class CommunityController {
 	
 	//게시글 상세보기 이동
 	@RequestMapping(value="/community_view.do",method=RequestMethod.GET)
-	public String community_view(int bidx,Model model,ReplyVO replyVO) {
+	public String community_view(int bidx,Model model,ReplyVO replyVO,HttpSession session) {
 		
 		//호출된 결과를 vo에 담음
 		Community_BoardVO vo = cboardService.selectByBidx(bidx);
 		//조회수 증가
 		cboardService.hitCount(bidx);
+		//로그인정보
+		UserVo login = (UserVo)session.getAttribute("login");
+		
+		//좋아요 클릭 체크
+		LikeVO likeVO = new LikeVO();
+		likeVO.setBidx(bidx);
+		
+		if(login != null) {
+			likeVO.setId(login.getId());
+		}else {
+			likeVO.setId("");
+		}
 		
 		//model에 vo를 담아 화면에 넘김
 		model.addAttribute("vo",vo);
-		
+		model.addAttribute("likeCount",likeService.likeCount(likeVO));
 		
 		return "community/community_view";
 	}

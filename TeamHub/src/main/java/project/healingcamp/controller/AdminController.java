@@ -47,13 +47,12 @@ public class AdminController {
 		
 		adminService.update_member(userVo);
 		String usertype = userVo.getUsertype();
-		System.out.println("회원유형:"+usertype);
 		
-		if(usertype == "a"){ //usertype이 u이면
-			return "redirect:adminPage_Counseller_List.do";
+		if(usertype.equals("u")){ //usertype이 u이면
+			return "redirect:adminPage_Member_List.do"; //회원관리로 이동
 		}
 		else{
-			return "redirect:adminPage_Member_List.do"; //회원관리로 이동
+			return "redirect:adminPage_Counseller_List.do";
 		}
 	}
 
