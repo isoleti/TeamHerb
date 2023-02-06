@@ -5,12 +5,12 @@
   
   <mapper namespace="project.healingcamp.mapper.reserveMapper">
   		<!-- 현장결제시 DB insert -->
-  		<insert id = "res" parameterType="reserveVO">
+  		<insert id = "resF" parameterType="reserveVO">
   			<![CDATA[ 
   			insert into reservationtable(
   						 residx
   						,center
-  						,coun
+  						,couns
   						,resdate
   						,restime
   						,rescount  						
@@ -20,7 +20,7 @@
   			)values(
   						 residx_seq.nextval
   						,#{center}
-  						,#{coun}
+  						,#{couns}
   						,#{resdate}
   						,#{restime}
   						,#{rescount}
@@ -33,7 +33,7 @@
   		</insert>
   		
   		<!-- 결제모듈 결제 완료시 DB insert -->
-  		<insert id = "count" parameterType="reserveVO">
+  		<insert id = "couF" parameterType="reserveVO">
   			<![CDATA[ 
   			insert into reservationtable(
   						 residx

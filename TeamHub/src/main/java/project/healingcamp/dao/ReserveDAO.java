@@ -15,6 +15,13 @@ public class ReserveDAO {
 	 @Autowired
 	 private SqlSession sqlSession;
 	 
+	 public int resF(ReserveVO vo) {
 	 
+		 return sqlSession.insert("project.healingcamp.mapper.reserveMapper.resF", vo);
+	 }
 	 
+	 public int couF(ReserveVO vo) {
+		 
+		 return sqlSession.insert("project.healingcamp.mapper.reserveMapper.couF", vo);
+	 }
 }

@@ -61,8 +61,12 @@ public class ReserveController {
 	
 	//예약완료
 		@RequestMapping(value = "/resf.do", method = RequestMethod.POST)
-		public String resF() {
-
+		public String resF(ReserveVO vo) {
+			System.out.println("vo"+ vo);
+			
+			//예약 메서드
+			int resVO = reserveService.resF(vo);
+			
 			return "res/resf";
 		}
 	

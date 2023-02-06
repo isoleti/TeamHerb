@@ -48,10 +48,10 @@
         
         /*modal style*/
         #modal.modal-overlay {
-            width: 0;
-            height: 0;
+            width: 100%;
+            height: 100%;
             position: absolute;
-            left: 45%;
+            left: 0;
             top: 0;
             display: none;
             flex-direction: column;
@@ -65,7 +65,7 @@
             border: 1px solid rgba(255, 255, 255, 0.18);
         }
         #modal .modal-window {
-            background: rgba( 169, 250, 250, 0.70 );
+            background: rgba( 255, 255, 255, 0.70 );
             box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
             backdrop-filter: blur( 13.5px );
             -webkit-backdrop-filter: blur( 13.5px );
@@ -74,7 +74,7 @@
             width: 1000px;
             height: 500px;
             position: fixed;
-            top: -100px;
+            top: 200px;
             padding: 10px;
             z-index:99999;
         }
@@ -110,8 +110,7 @@
     </style>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
      <script src="<%=request.getContextPath()%>/resources/js/index.global.js"></script> 
-	 <script>
-	
+	 <script>	
 	      document.addEventListener('DOMContentLoaded', function() {
 	    	  
 	        var calendarEl = document.getElementById('calendar');

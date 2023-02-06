@@ -14,6 +14,18 @@ public class ReserveServiceImpl implements ReserveService{
 	@Autowired
 	private ReserveDAO reserveDAO;
 
+	@Override
+	public int resF(ReserveVO vo) {
+		
+		return reserveDAO.resF(vo);
+	}
+
+	@Override
+	public int couF(ReserveVO vo) {
+		
+		return reserveDAO.couF(vo);
+	}
+
 	
 
 	

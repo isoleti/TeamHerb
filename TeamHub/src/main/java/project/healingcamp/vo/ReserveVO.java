@@ -4,7 +4,7 @@ public class ReserveVO {
 	
 	private int residx;
 	private String center;
-	private String coun;
+	private String couns;
 	private String resdate;
 	private String rescount;
 	private String resc;
@@ -13,6 +13,8 @@ public class ReserveVO {
 	private int likecheck;
 	private int phone;
 	private String mail;
+	private String restime;
+	private String id;
 	
 	public int getResidx() {
 		return residx;
@@ -26,11 +28,11 @@ public class ReserveVO {
 	public void setCenter(String center) {
 		this.center = center;
 	}
-	public String getCoun() {
-		return coun;
+	public String getCouns() {
+		return couns;
 	}
-	public void setCoun(String coun) {
-		this.coun = coun;
+	public void setCouns(String couns) {
+		this.couns = couns;
 	}
 	public String getResdate() {
 		return resdate;
@@ -80,12 +82,25 @@ public class ReserveVO {
 	}
 	public void setMail(String mail) {
 		this.mail = mail;
+	}	
+	public String getRestime() {
+		return restime;
+	}
+	public void setRestime(String restime) {
+		this.restime = restime;
+	}
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	@Override
 	public String toString() {
-		return "ReserveVO [residx=" + residx + ", center=" + center + ", coun=" + coun + ", resdate=" + resdate
+		return "ReserveVO [residx=" + residx + ", center=" + center + ", couns=" + couns + ", resdate=" + resdate
 				+ ", rescount=" + rescount + ", resc=" + resc + ", uidx=" + uidx + ", clidx=" + clidx + ", likecheck="
-				+ likecheck + ", phone=" + phone + ", mail=" + mail + "]";
+				+ likecheck + ", phone=" + phone + ", mail=" + mail + ", restime=" + restime + ", id=" + id + "]";
 	}
 	
 	

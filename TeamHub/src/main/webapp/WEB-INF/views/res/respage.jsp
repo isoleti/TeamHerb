@@ -67,7 +67,7 @@
             width: 400px;
             height: 500px;
             position: fixed;
-            top: -100px;
+            top: 200px;
             padding: 10px;
             z-index:99999;
         }
@@ -301,20 +301,26 @@
 	    function resf() {
 	    	var fm = document.frm;
 	    	
-	    	if(fm.counseling == "" && fm.counseling == null){
+	    	if(fm.counseling.value == ""){
+		    	alert("상담을 선택해주세요");
 	    		return;
-	    	}else if(fm.couns == "" && fm.couns == null){
+	    	}else if(fm.couns.value == ""){
+	    		alert("상담사를 선택해주세요")
 	    		return;
-	    	}else if(fm.resdate == "" && fm.resdate == null){
+	    	}else if(fm.resdate.value == ""){
+	    		alert("상담일을 선택해주세요")
 	    		return;
-	    	}else if(fm.restime == "" && fm.restime == null){
+	    	}else if(fm.restime.value == ""){
+	    		alert("시간을 선택해주세요")
 	    		return;
-	    	}else if(fm.rescount == "" && fm.rescount == null){
+	    	}else if(fm.rescount.value == ""){
+	    		alert("결제액을 선택해주세요");
 	    		return;
-	    	}
+	    	}else{
 	    	fm.action = "<%=request.getContextPath() %>/res/resf.do";
 	    	fm.method = "post";
 	    	fm.submit();
+	    	}
 	    }
 	</script>
 </head>
@@ -387,7 +393,7 @@
         <div id="res">
             <h2>예약상세</h2>
             <form name="frm" id="frm">
-            	<input type="hidden" name="center" id="center" value="${center}">
+            	<input type="hidden" name="center" id="center" value="${center}+test">
                	<input type="hidden" name="uidx" id="uidx" value="${login.uidx }">
             	<input type="hidden" name="id" id="id" value="${login.id }">
 	            <p>상담/검사 :<input type="text" name="counseling" id="counseling" readonly> </p>
