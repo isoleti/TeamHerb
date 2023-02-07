@@ -11,7 +11,6 @@ public interface PageService {
 
 	public List<Community_BoardVO> list(MyCriteria cri);
 	UserVo pwCheck(UserVo vo);
-	
 	public List<ReserveVO> list(ReserveVO vo);
 	int total(MyCriteria cri);
 	

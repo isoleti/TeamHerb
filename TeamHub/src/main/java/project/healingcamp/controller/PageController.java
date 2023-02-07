@@ -201,27 +201,36 @@ public class PageController {
 
 		return "page/mypageCount";
 	}
+	
 	//나의 글쓰기 목록
-	@RequestMapping(value="mypageWrite.do", method=RequestMethod.GET)
-	public String mypageWrite(Model model, MyCriteria cri) {
+	@RequestMapping(value="/mypageWrite.do",method=RequestMethod.GET)
+	public String mypageWrite(Model model, Community_BoardVO cboardVO, HttpSession session, MyCriteria cri) {
+		
+		UserVo login =(UserVo)session.getAttribute("login");
+		
+		cri.setId(login.getId());
+		cri.setUidx(login.getUidx());
+		
 		
 		//전체게시글 데이터 요청
 		List<Community_BoardVO> list = pageService.list(cri);
 		
-		System.out.println("나의 글쓰기list:"+list);
-		 MypageMaker mypageMaker = new MypageMaker(cri, pageService.total(cri));
-		//데이터를 모델에 담아 화면에 넘김
+		MypageMaker mypageMaker = new MypageMaker(cri, pageService.total(cri));
 		
+		 System.out.println("총합계:" + pageService.total(cri));
+		 System.out.println("페이지"+ mypageMaker);
+		 
 		model.addAttribute("list",list);//글목록 전달
-		model.addAttribute("mypageMaker", mypageMaker);
-		
+		 model.addAttribute("mypageMaker", mypageMaker);
+		 
 		return "page/mypageWrite";
 	}
-	//나의 글쓰기 삭제
+	
+	//나의 글쓰기 삭제(보류)
 		@RequestMapping(value="/mywrite_delete.do",method=RequestMethod.POST)
 		public String delete(int bidx) { 
 			//db 상세데이터 조회
-			
+			System.out.println("del 컨트롤러: "+bidx);
 			cboardService.deleteByBidx(bidx);
 			System.out.println("삭제"+bidx);
 			
