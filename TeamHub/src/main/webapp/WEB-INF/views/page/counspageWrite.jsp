@@ -133,7 +133,7 @@
                     <td><a href="<%=request.getContextPath()%>/counseller_board/counseller_board_view.do?bidx=${cboardVO.bidx}">${cboardVO.title}</a></td>
                 	<c:set var="wdate" value="${cboardVO.wdate}"/>
                     <td>${fn:substring(wdate,0,11)}</td>
-                    <td><button type="button">수정</button>
+                    <td><button type="button" onclick="location.href='<%=request.getContextPath()%>//counseller_board/counseller_board_modify.do?bidx=${cboardVO.bidx}'">수정</button>
                        <!--  <button>삭제</button>--> </td>
                 </tr>
                   </c:forEach>  

@@ -41,7 +41,7 @@
         .btn2{height:35px; font-size:15px; border-radius:5px;  margin-top:20px;}
          .btn2:hover{background:#e4e4e4;}
         .btn3:hover{background:#e4e4e4;}
-        .content{display:inline-block; position: relative; top:-450px; left:50px; }
+        .content{display:inline-block; position: relative; top:-350px; left:50px; }
         .p{ font-size:20px; 
             display:block; margin-top:20px;}
         .content a:nth-child(3){display:inline-block;}
@@ -62,7 +62,7 @@
         #tb button{width:50px; margin:0;}
         #navi{width:200px; margin-left:300px;}
         #navi a{font-size:15px; color:black;}
-		ul.pagination{position:relative; top:-410px; left:557px;}
+		ul.pagination{position:relative; top:-300px; left:557px;}
    </style>
 </head>
 <body>
@@ -105,13 +105,11 @@
                 <a>마이페이지</a>
                 <img src="../resources/upload/profile.png" alt="프로필" class="pro">
                  <a><input type="text" id="id" name="id" value="${login.id}" readonly></a>
-                <button class="btn1" onclick="location.href='<%=request.getContextPath()%>/page/pwConfirm.do'">회원정보</button>
+ 				<button class="btn1" onclick="location.href='<%=request.getContextPath()%>/page/pwConfirm.do'">회원정보</button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageRes.do'">나의 예약 </button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageCouns.do'">상담 예약</button>
-                <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageCount.do'">결제 내역</button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageWrite.do'">내가 쓴 글</button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageReviewList.do'">상담사 후기</button>
-                <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageScrap.do'">스크랩 글</button>
   
             </div><!--//.bar-->
         <div class="content">
