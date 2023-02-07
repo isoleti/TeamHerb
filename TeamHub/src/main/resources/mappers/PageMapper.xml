@@ -13,18 +13,27 @@
  
   	</select>
   <!-- 마이페이지 나의 글쓰기 목록 -->
-   <select id="list" resultType="cboardVO" parameterType="cboardVO" ><!--여기 parameterType에 criteria 넣으면 서버 안열림 -->
+   <select id="list" resultType="cboardVO" parameterType="myCriteria">
 			<![CDATA[
 				select * 
-			from boardtable
-				where uidx=#{uidx}
+			from (
+				select rownum as rnum, a. *
+				 from (
+				 	select * 
+				 	from  boardtable
+				 	 where uidx=#{uidx} and delyn='N'
+				 	 order by wdate desc
+			 		)a 
+					)
+					WHERE RNUM BETWEEN (#{page}-1)*#{perPageNum}+1 AND #{page}*#{perPageNum}
 			 ]]>
   </select>
+  
    <!-- 전체 게시글 수를 구하는 sql문 -->
     <select id="total" resultType="int" parameterType="myCriteria">
         select count(*) 
-        from boardtable
-        where uidx=#{uidx}
+	        from boardtable
+	      	  where uidx=#{uidx} and delyn='N' 
     </select>
   
   

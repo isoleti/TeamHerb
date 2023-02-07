@@ -57,9 +57,11 @@ public class MyCriteria extends Community_BoardVO{
 
 		@Override
 		public String toString() {
-			return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", rowStart=" + rowStart + ", rowEnd="
+			return "MyCriteria [page=" + page + ", perPageNum=" + perPageNum + ", rowStart=" + rowStart + ", rowEnd="
 					+ rowEnd + "]";
 		}
+
+	
 		
 		
 	     

@@ -5,10 +5,7 @@ public class LikeVO {
 	private int like_no;
 	private int likeNum; //좋아요 체크 유무 - 좋아요 체크  :1 , 좋아요 미체크 :0
 	private int bidx;
-	private int uidx;
 	private String id;
-	
-	
 	
 	public String getId() {
 		return id;
@@ -34,20 +31,10 @@ public class LikeVO {
 	public void setBidx(int bidx) {
 		this.bidx = bidx;
 	}
-	public int getUidx() {
-		return uidx;
-	}
-	public void setUidx(int uidx) {
-		this.uidx = uidx;
-	}
 	
 	@Override
 	public String toString() {
-		return "LikeVO [like_no=" + like_no + ", likeNum=" + likeNum + ", bidx=" + bidx + ", uidx=" + uidx + ", id="
-				+ id + "]";
+		return "LikeVO [like_no=" + like_no + ", likeNum=" + likeNum + ", bidx=" + bidx + ", id=" + id + "]";
 	}
-	
-	
-	
 	
 }

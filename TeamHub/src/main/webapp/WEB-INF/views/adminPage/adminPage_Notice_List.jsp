@@ -183,11 +183,11 @@
 	  <input type="hidden" name="board_type" value="2">
                 <c:forEach items="${notice_List}" var="vo" varStatus="status">
                 <tr>
-                    <td>${pageVO.total-(pageVO.total-((pageVO.pageNum-1)*10+status.index)-1) }</td>
+                    <td>${pageVO.total-(pageVO.total-((pageVO.pageNum-1)*10+status.index)-1)}</td>
                     <td><input type="checkbox" class="checkbox" name="bidx" value="${vo.bidx }"></td>
-                    <td>${vo.title }</td>
-                    <td>${vo.id }</td>
-                    <td>${vo.wdate }</td>
+                    <td>${vo.title}</td>
+                    <td>${vo.id}</td>
+                    <td>${vo.wdate}</td>
                 </tr>
                 </c:forEach>
             </table>

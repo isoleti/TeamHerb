@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="project.healingcamp.mapper.customerMapper">
+  	<!-- 고객센터 게시판 목록-->
+	<select id = "notice_getList" resultType="cboardVO" parameterType="criteria">
+		<![CDATA[
+	        select *
+	       	  from (
+	       	  		select rownum as rnum, a.* 
+	       	  		  from ( 
+	       	  		  select bidx
+						    ,title
+						    ,content
+						    ,wdate
+						  
+							from boardtable
+							     where delyn='N' and board_type= '2'
+							     order by bidx desc
+							     )a
+							     )	
+	        					WHERE rnum BETWEEN (#{page}-1)*#{perPageNum}+1 AND #{page}*#{perPageNum}
+		       	]]>
+	  	</select>  <!-- delyn은 글삭제가 안된거 -->
+	  	 <!-- 전체 게시글 수를 구하는 sql문 -->
+	    <select id="total" resultType="int" parameterType="criteria">
+	        select count(*) 
+	        from boardtable
+	         where delyn='N' and board_type= '2'
+							     
+	    </select>
+	  	
+	  	
+  </mapper>

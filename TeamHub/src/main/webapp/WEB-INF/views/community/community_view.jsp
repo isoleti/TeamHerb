@@ -129,7 +129,7 @@
        	margin-left:-7px;
        	opacity:.5;
         }
-        .delete, .comment_Modify, .cancel, .report, .re_reply, .re_reply_btn{
+        .delete, .commentModify, .cancel, .report, .re_reply, .re_reply_btn{
        	cursor:pointer;
         }
         .postbtn{
@@ -148,9 +148,7 @@
         height:24px;
         cursor:pointer;
 	    }
-	    .clip img{
-	    cursor:pointer;
-	    }
+
     </style>
 </head>
 <body>
@@ -223,11 +221,8 @@
                     <div class="postbtn">
                         <div class="likebtn">
                             <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감"  >
-                            <span style="font-size:13px;">${vo.likes}공감</span>
+                            <span id="likeCnt" style="font-size:13px;">${vo.likes }공감</span>
                         </div><!--e:.likebtn-->
-                        <div class="clip">
-                            <img class="bookmark" src="<%=request.getContextPath()%>/resources/upload/bookmark.jpg" alt="북마크" onclick="bookmark();" >
-                        </div><!--e:.clip-->
                         <div class="other">
                         	<!-- Split dropup button -->
 							<div class="btn-group dropup">
@@ -381,9 +376,9 @@
 
 	   						html += "<div class='reply_area"+rparent+"'>";
 	   						if(reply_Content == ""){ //삭제된 댓글일때
-	   							html += "<dlv>";
+	   							html += "<div>";
 	   							html += "<div>삭제된 댓글입니다.</div>"
-	   							html += "</dlv>";
+	   							html += "</div>";
 	   						}else{
 		   						if(rdepth == 0){//댓글일때
 		   						    html += "<div class='reply_box'>";
@@ -394,7 +389,7 @@
 		   						    html += 				"<li class='wdate'>"+result[i].reply_Wdate+"</li>";
 
 		   						    if(id == result[i].id){ //현재 로그인된 아이디일시 댓글수정가능
-		   						        html += 			"<li class='comment_Modify' onclick='commentModify("+reply_Idx+",\""+reply_Content+"\",\""+writer+"\");'>댓글수정</li>";
+		   						        html += 			"<li class='commentModify' onclick='commentModify("+reply_Idx+",\""+reply_Content+"\",\""+writer+"\");'>댓글수정</li>";
 		   						        html += 			"<li class='delete' onclick='deleteReply("+reply_Idx+","+bidx+");'>삭제</li>";
 		   						    }else{
 		   						        html += 			"<li class='re_reply' onclick='re_reply("+reply_Idx+","+bidx+")'>답글쓰기</li>";
@@ -420,7 +415,7 @@
 			   		   				html += 			"<li class='wdate'>"+result[i].reply_Wdate+"</li>";
 
 		   							if(id == result[i].id){
-			   							html += 		"<li class='comment_Modify' onclick='commentModify("+reply_Idx+",\""+reply_Content+"\",\""+writer+"\");'>댓글수정</li>";
+			   							html += 		"<li class='commentModify' onclick='commentModify("+reply_Idx+",\""+reply_Content+"\",\""+writer+"\");'>댓글수정</li>";
 		   								html += 		"<li class='delete' onclick='deleteReply("+reply_Idx+","+bidx+");'>삭제</li>";
 		   							}else{
 		   								html += 		"<li class='re_reply' onclick='re_reply("+reply_Idx+","+bidx+")'>답글쓰기</li>";
@@ -486,65 +481,65 @@
 					comment +=	"<textarea id='reply_Edit_Content' name='reply_Content' style='width:100%;'>"+reply_Content+"</textarea>";
 					comment +="</div>";
 
-				var comment_tl = `<div class='reply_info_wrapper' >
-	<ul class='reply_info'>
-		<li class='id'>${writer}</li>
-		<li class='commentModify' onclick='updateBtn(${reply_Idx},"${reply_Content}");'>댓글수정</li>
-		<li class='cancel' onclick='getCommentList();'>취소</li>
-	</ul>
-</div>
-<div class='reply_view_wrapper'>
-	<textarea id='reply_Edit_Content' name='reply_Content' style='width:100%;'>${reply_Content}</textarea>
-</div>`;
-//					$(".reply_box_wrapper"+reply_Idx).replaceWith(comment);
-					$(".reply_box_wrapper"+reply_Idx).replaceWith(comment_tl);
+					$(".reply_box_wrapper"+reply_Idx).replaceWith(comment);
+					
+// 				var comment_tl = `<div class='reply_info_wrapper' >
+// 	<ul class='reply_info'>
+// 		<li class='id'>${writer}</li>
+// 		<li class='commentModify' onclick='updateBtn(${reply_Idx},"${reply_Content}");'>댓글수정</li>
+// 		<li class='cancel' onclick='getCommentList();'>취소</li>
+// 	</ul>
+// </div>
+// <div class='reply_view_wrapper'>
+// 	<textarea id='reply_Edit_Content' name='reply_Content' style='width:100%;'>${reply_Content}</textarea>
+// </div>`;
+// 					$(".reply_box_wrapper"+reply_Idx).replaceWith(comment_tl);
 
 		}
 
    		//댓글 수정창 원복하기
-		   function commentReset(reply_Idx,reply_Content,writer)
-		   {
-				var str_li_a = '';
-				var str_li_b = '';
-				if(id == result[i].id)
-				{
-					str_li_a = `<li class='comment_Modify' onclick='commentModify(${reply_Idx},"${reply_Content}","${writer}");'>댓글수정</li>`;
-					str_li_b = `<li class='delete' onclick='deleteReply(${reply_Idx},${bidx});'>삭제</li>`;
-				}else
-				{
-					str_li_a = `<li class='re_reply' onclick='re_reply(${reply_Idx},${bidx})'>답글쓰기</li>`;
-					str_li_b = `<li class='report' onclick='reportReply()'>신고</li>`;
-				}
-   			var form_lt = `
-<div class='re_reply_box'>
-	<div class='reply_box_wrapper${reply_Idx}'>
-  		<span class='reply_ico'>└</span>
-  		<div class='reply_info_wrapper' >
-  			<ul class='reply_info'>
-  				<li class='id'>${result[i].id}</li>
-				<li class='wdate'>${result[i].reply_Wdate}</li>
-				${str_li_a}
-				${str_li_b}
+// 		   function commentReset(reply_Idx,reply_Content,writer)
+// 		   {
+// 				var str_li_a = '';
+// 				var str_li_b = '';
+// 				if(id == result[i].id)
+// 				{
+// 					str_li_a = `<li class='comment_Modify' onclick='commentModify(${reply_Idx},"${reply_Content}","${writer}");'>댓글수정</li>`;
+// 					str_li_b = `<li class='delete' onclick='deleteReply(${reply_Idx},${bidx});'>삭제</li>`;
+// 				}else
+// 				{
+// 					str_li_a = `<li class='re_reply' onclick='re_reply(${reply_Idx},${bidx})'>답글쓰기</li>`;
+// 					str_li_b = `<li class='report' onclick='reportReply()'>신고</li>`;
+// 				}
+//    			var form_lt = `
+// <div class='re_reply_box'>
+// 	<div class='reply_box_wrapper${reply_Idx}'>
+//   		<span class='reply_ico'>└</span>
+//   		<div class='reply_info_wrapper' >
+//   			<ul class='reply_info'>
+//   				<li class='id'>${result[i].id}</li>
+// 				<li class='wdate'>${result[i].reply_Wdate}</li>
+// 				${str_li_a}
+// 				${str_li_b}
 
 
-			</ul>
-		</div>
-  		<div class='reply_view_wrapper'>
-  			<div class='reply_view'>${result[i].reply_Content}
-			</div>
-  		</div>
-  	</div>
-</div>
-   			`;
-					$(".reply_box_wrapper"+reply_Idx).replaceWith(comment_tl);
+// 			</ul>
+// 		</div>
+//   		<div class='reply_view_wrapper'>
+//   			<div class='reply_view'>${result[i].reply_Content}
+// 			</div>
+//   		</div>
+//   	</div>
+// </div>
+//    			`;
+// 					$(".reply_box_wrapper"+reply_Idx).replaceWith(comment_tl);
 
-		}
+// 		}
 
 
    		//댓글 수정
    		function updateBtn(reply_Idx,reply_Content){
    			var reply_Content = $("textarea[name='reply_Content']").val(); //수정된 댓글 내용
-
    			if(reply_Content == ""){
    				alert("내용을 입력해주세요.");
    			}else{
@@ -645,7 +640,7 @@
     	);
    		
    		var bidx = ${vo.bidx};	//게시글 번호
-		var id = "${login.id}"; //회원아이디
+		var id = "${login.id}"; //로그인한 회원아이디
 		var likeCount = ${likeCount}; //좋아요 수
 		
 		if(likeCount == 1){ //likeCount이 1일때 꽉찬하트
@@ -672,10 +667,8 @@
 								url:"likeDown.do",
 								type:"post",
 								data:{"bidx":bidx,"id":id},
-								context:this,
-								success:function(result){
-									//alert("좋아요취소 성공!");
-									
+								success:function(data){
+									$("#likeCnt").html(data.likes+"공감");
 								},error:function(){
 									alert("error");
 								}
@@ -687,10 +680,8 @@
 								url:"likeUp.do",
 								type:"post",
 								data:{"bidx":bidx,"id":id},
-								context:this,
-								success:function(result){
-									//alert("좋아요성공!");
-									
+								success:function(data){
+									$("#likeCnt").html(data.likes+"공감");
 								},error:function(){
 									alert("error");
 								}

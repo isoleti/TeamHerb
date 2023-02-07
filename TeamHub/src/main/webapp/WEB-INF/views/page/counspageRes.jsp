@@ -133,17 +133,17 @@
                     
                 </tr>
                 
-                <tr>
                 <c:forEach items="${datalist}" var="vo">
+                <tr>
                     <td>${vo.residx}</td>
                     <td>${vo.id}</td>
                     <td>${vo.resdate }</td>
                     <td>${vo.state}</td>
-                </c:forEach>
                     <td><button>수락</button>
                     <button>거절</button></td>
                    
                 </tr>
+                </c:forEach>
                 
                 <tr>
                     <td>예약 번호</td>

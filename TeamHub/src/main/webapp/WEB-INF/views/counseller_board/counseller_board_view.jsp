@@ -148,9 +148,6 @@
        height:24px;
        cursor:pointer;
 	   }
-	   .clip img{
-	   cursor:pointer;
-	   }
 
     </style>
     
@@ -214,12 +211,9 @@
                 <div id="content">${vo.content }</div>
                     <div class="postbtn">
                          <div class="likebtn">
-                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감" onclick="likecount();">
-                            <span style="font-size:13px;">${vo.likes}공감</span>
+                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감">
+                            <span id="likeCnt" style="font-size:13px;">${vo.likes}공감</span>
                         </div><!--e:.likebtn-->
-                        <div class="clip">
-                            <img class="bookmark" src="<%=request.getContextPath()%>/resources/upload/bookmark.jpg" alt="북마크" onclick="bookmark();">
-                        </div><!--e:.clip-->
                         <div class="other">
                         	<!-- Split dropup button -->
 							<div class="btn-group dropup">
@@ -417,22 +411,25 @@
 		//댓글 수정
    		function updateBtn(reply_Idx,reply_Content){
    			var reply_Content = $("textarea[name='reply_Content']").val(); //수정된 댓글 내용
-   			
-   			$.ajax({
-   				url:"community_reply_update.do",
-   				type:"post",
-   				data:JSON.stringify({ "reply_Idx":reply_Idx ,"reply_Content":reply_Content}),
-   				dataType:"json",
-   				contentType : "application/json;charset=UTF-8",
-   				success:function(result){
-   					if(result == 1){
-	   					alert("댓글 수정이 완료되었습니다.");
-	   					getCommentList();//댓글 수정완료시 댓글 목록리스트 함수 실행
-   					}
-   				},error:function(){
-   					alert("error");
-   				}
-   			});
+   			if(reply_Content == ""){
+   				alert("내용을 입력해주세요.");
+   			}else{
+	   			$.ajax({
+	   				url:"community_reply_update.do",
+	   				type:"post",
+	   				data:JSON.stringify({ "reply_Idx":reply_Idx ,"reply_Content":reply_Content}),
+	   				dataType:"json",
+	   				contentType : "application/json;charset=UTF-8",
+	   				success:function(result){
+	   					if(result == 1){
+		   					alert("댓글 수정이 완료되었습니다.");
+		   					getCommentList();//댓글 수정완료시 댓글 목록리스트 함수 실행
+	   					}
+	   				},error:function(){
+	   					alert("error");
+	   				}
+	   			});
+   			}
    		}
 		
    		//댓글 신고팝업창 띄우기
@@ -447,7 +444,7 @@
    		}
    		
    		
-   		//좋아요
+   	//좋아요
    		$(".empathy").hover(
     		function(){//하트 마우스 올라왔을때
     			$(this).attr('src','./../resources/upload/like_color_change.jpg');
@@ -457,7 +454,64 @@
     		}
     	);
    		
-   		//북마크 
+   		var bidx = ${vo.bidx};	//게시글 번호
+		var id = "${login.id}"; //회원아이디
+		var likeCount = ${likeCount}; //좋아요 수
+		
+		if(likeCount == 1){ //likeCount이 1일때 꽉찬하트
+			$(".empathy").attr('src','./../resources/upload/like_color_change.jpg');
+			$(".empathy").unbind('mouseenter mouseleave'); //좋아요 on 일때 hover기능 unbind
+		}else{//likeCount이 0일때 빈하트
+			$(".empathy").attr('src','./../resources/upload/like.jpg');
+		}
+		
+		//좋아요 버튼 클릭
+		$(".empathy").on("click",function(){
+			if(login == ""){
+				alert("로그인 후 이용해주세요.");
+			}else{
+				//좋아요 체크여부
+				$.ajax({
+					url:"likeCount.do",
+					type:"post",
+					data:{"bidx":bidx,"id":id},
+					success:function(result){
+						
+						if(result == 1){//좋아요 체크시 좋아요 취소
+							$.ajax({
+								url:"likeDown.do",
+								type:"post",
+								data:{"bidx":bidx,"id":id},
+								success:function(data){
+									$("#likeCnt").html(data.likes+"공감");
+								},error:function(){
+									alert("error");
+								}
+							});
+							$(".empathy").attr('src','./../resources/upload/like.jpg'); 
+							
+						}else if(result == 0){
+							$.ajax({
+								url:"likeUp.do",
+								type:"post",
+								data:{"bidx":bidx,"id":id},
+								success:function(data){
+									$("#likeCnt").html(data.likes+"공감");
+								},error:function(){
+									alert("error");
+								}
+							});
+							$(".empathy").attr('src','./../resources/upload/like_color_change.jpg');
+							$(".empathy").unbind('mouseenter mouseleave'); //좋아요 on 일때 hover기능 unbind
+						}
+					},error:function(){
+						alert("error");
+					}
+				});
+			}
+		});
+		
+		//북마크 
    		$(".bookmark").hover(
     		function(){//북마크 마우스 올라왔을때
     			$(this).attr('src','./../resources/upload/bookmark_color_change.jpg');
@@ -466,23 +520,6 @@
     			$(this).attr('src','./../resources/upload/bookmark.jpg');
     		}
     	);
-   		
-   		//좋아요 버튼 클릭
-		let num = 0;
-		$(".empathy").on("click",function(e){
-			if(login == ""){
-				alert("로그인 후 이용해주세요.");
-			}else{
-				if(num == 0){ //num이 0일때 좋아요 후  num 1로 변경
-					$(this).attr('src','./../resources/upload/like_color_change.jpg');
-					$(this).unbind('mouseenter mouseleave'); //좋아요 on 일때 hover기능 unbind
-					num = 1;
-				}else{//num이 1일때 좋아요 취소 후 num 0으로 변경
-					$(this).attr('src','./../resources/upload/like.jpg');
-					num = 0;
-				}
-			}
-		});
 		
 		//북마크 버튼 클릭
 		let num2 = 0;

@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-        <%@ page import="java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="project.healingcamp.vo.UserVo" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="java.util.*" %>
+<%@ page import="project.healingcamp.vo.Community_BoardVO" %>
 <%@ page session="true" %>
+
+<% List<Community_BoardVO> list = (List<Community_BoardVO>)request.getAttribute("list"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,8 +32,8 @@
         .btn1{ height:50px; font-size:18px;  margin:30px 0;font-weight:bold;}
         
         .btn2{height:35px; font-size:15px; border-radius:5px;  margin-top:20px;}
-        .content{display:inline-block; position: relative; top:80px; left:50px; }
-        .content a{ font-size:20px; 
+        .content{display:inline-block; position: relative; top:-300px; left:50px; }
+        .p{ font-size:20px; 
             display:block; margin-top:20px;}
         .content a:nth-child(3){display:inline-block;}
         .content button{margin-top:20px; border:1px solid #e4e4e4; width:100px; height:30px; 
@@ -42,6 +45,7 @@
         #sb {display:inline-block;}
         #sb button{background:#0ed145; color:white; margin-left:100px;}
 
+		#tb td{height:50px;}
         #tb table{border:1px solid #dff6e1; width:800px; height:200px; text-align:center; margin-top:40px;}
         #tb tr:nth-child(1){font-weight: bold;}
         #tb td:nth-child(5){padding:0;}
@@ -49,7 +53,7 @@
         #tb button{width:50px; margin:0;}
         #navi{width:200px; margin-left:300px;}
         #navi a{font-size:15px; color:black;}
-
+		ul.pagination{position:relative; top:-250px; left:557px;}
    </style>
 </head>
 <body>
@@ -100,88 +104,70 @@
             </div><!--//.bar-->
         <div class="content">
             <a class="p">내가 쓴 글</a>
-            <a class="p">작성 기간</a>
+           <!--  <a class="p">작성 기간</a>
             <button class="btn3">1개월</button>
             <button class="btn3">3개월</button>
             <button class="btn3">6개월</button>
             <p>기간 입력</p>
             <input type="date" name="date1" id="date1" >
             <p>~</p>
-            <input type="date" name="date2" id="date2" >
+            <input type="date" name="date2" id="date2" > -->
 
-           
-            <div id="tb">
-            <table border="1">
+
+             <div id="tb">
+             
+            <table border="1"> 
+            
+                <input type="hidden" name="uidx" value="${cboardVO.uidx}">
                 <tr>
                     <td>글 번호</td>
                     <td>제목</td>
-                    <td>사연</td>
                     <td>작성 일시</td>
                     <td>관리</td>
                 </tr>
+                
+                
+                 <c:forEach items="${list}" var="cboardVO">
                 <tr>
-                    <td>글 번호</td>
-                    <td>제목</td>
-                    <td>사연</td>
-                    <td>작성 일시</td>
-                    <td><button>수정</button>
-                        <button>삭제</button></td>
+                    <td>${cboardVO.bidx}</td>
+                    <td><a href="<%=request.getContextPath()%>/counseller_board/counseller_board_view.do?bidx=${cboardVO.bidx}">${cboardVO.title}</a></td>
+                	<c:set var="wdate" value="${cboardVO.wdate}"/>
+                    <td>${fn:substring(wdate,0,11)}</td>
+                    <td><button type="button" onclick="location.href='<%=request.getContextPath()%>//counseller_board/counseller_board_modify.do?bidx=${cboardVO.bidx}'">수정</button>
+                       <!--  <button>삭제</button>--> </td>
                 </tr>
-                <tr>
-                    <td>글 번호</td>
-                    <td>제목</td>
-                    <td>사연</td>
-                    <td>작성 일시</td>
-                    <td><button>수정</button>
-                        <button>삭제</button></td>
-                </tr>
-                <tr>
-                    <td>글 번호</td>
-                    <td>제목</td>
-                    <td>사연</td>
-                    <td>작성 일시</td>
-                    <td><button>수정</button>
-                        <button>삭제</button></td>
-                </tr>
-                <tr>
-                    <td>글 번호</td>
-                    <td>제목</td>
-                    <td>사연</td>
-                    <td>작성 일시</td>
-                    <td><button>수정</button>
-                        <button>삭제</button></td>
-                </tr>
-                <tr>
-                    <td>글 번호</td>
-                    <td>제목</td>
-                    <td>사연</td>
-                    <td>작성 일시</td>
-                    <td><button>수정</button>
-                        <button>삭제</button></td>
-                </tr>
-             
+                  </c:forEach>  
                
 
             </table>
              
-    </div><!--#tb-->
-
-    <div id="navi">
+     </div><!--#tb-->
+	</div><!-- #content -->
     <nav aria-label="Page navigation example">
         <ul class="pagination">
+        <!-- Prev 시작 -->
+          <c:if test="${mypageMaker.prev}"> <!--  -->
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
+            <a class="page-link" href="<%=request.getContextPath() %>/page/counspageWrite.do?page=${(mypageMaker.startPage-1)}&perPageNum=${mypageMaker.perPageNum}" aria-label="Prev">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          </c:if>
+          <!-- Prev 끝 -->
+          <!-- Page번호 시작 -->
+           <c:forEach begin="${mypageMaker.startPage }" end="${mypageMaker.endPage}" var="index">
+          <li class="page-item"><a class="page-link <c:if test='${mypageMaker.page eq index }'>active</c:if>" href="<%=request.getContextPath() %>/page/counspageWrite.do?page=${index}">${index}</a></li>
+          </c:forEach>
+         <!-- Page번호 끝 -->
+         <!-- Next 시작 -->
+          <c:if test="${mypageMaker.next}">
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
+            <a class="page-link" href="<%=request.getContextPath() %>/page/counspageWrite.do?page=${(mypageMaker.endPage+1)}&perPageNum=${mypageMaker.perPageNum}" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
+          </c:if>	
+          <!-- Next 끝 -->
         </ul>
       </nav>
 

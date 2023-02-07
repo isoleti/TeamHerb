@@ -117,12 +117,12 @@ public class Community_BoardVO {
 	public void setBoard_type(int board_type) {
 		this.board_type = board_type;
 	}
-	
 	@Override
 	public String toString() {
 		return "Community_BoardVO [bidx=" + bidx + ", title=" + title + ", content=" + content + ", wdate=" + wdate
 				+ ", id=" + id + ", hit=" + hit + ", likes=" + likes + ", delyn=" + delyn + ", category=" + category
-				+ ", filename=" + filename + ", report=" + report + ", ip=" + ip + ", board_type=" + board_type + "]";
+				+ ", filename=" + filename + ", report=" + report + ", ip=" + ip + ", board_type=" + board_type
+				+ ", uidx=" + uidx + ", hide_id=" + hide_id + ", replyCnt=" + replyCnt + "]";
 	}
 	
 	

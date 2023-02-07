@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.healingcamp.service.Community_BoardService;
+import project.healingcamp.service.LikeService;
 import project.healingcamp.service.ReplyService;
 import project.healingcamp.vo.Community_BoardVO;
+import project.healingcamp.vo.LikeVO;
 import project.healingcamp.vo.PageVO;
 import project.healingcamp.vo.ReplyVO;
 import project.healingcamp.vo.SearchVO;
@@ -30,6 +32,9 @@ public class CounsellerController {
 	
 	@Autowired
 	private ReplyService replyService;
+	
+	@Autowired
+	private LikeService likeService;
 
 	//상담사게시판 이동
 	@RequestMapping(value="/counseller_board_list.do",method=RequestMethod.GET)
@@ -50,11 +55,27 @@ public class CounsellerController {
 	
 	//상담사 게시판 게시글 상세보기
 	@RequestMapping(value="/counseller_board_view.do",method=RequestMethod.GET)
-	public String counseller_board_view(int bidx,Model model) {
+	public String counseller_board_view(int bidx,Model model,HttpSession session) {
 		
-		cboardService.counseller_board_hitCount(bidx);
+		//호출된 결과를 vo에 담음
 		Community_BoardVO vo = cboardService.counseller_selectByBidx(bidx);
+		//조회수 증가
+		cboardService.counseller_board_hitCount(bidx);
+		//로그인정보
+		UserVo login = (UserVo)session.getAttribute("login");
+		
+		//좋아요 클릭 체크
+		LikeVO likeVO = new LikeVO();
+		likeVO.setBidx(bidx);
+		
+		if(login != null) {
+			likeVO.setId(login.getId());
+		}else {
+			likeVO.setId("");
+		}
+		
 		model.addAttribute("vo", vo);
+		model.addAttribute("likeCount",likeService.likeCount(likeVO));
 		
 		return "counseller_board/counseller_board_view";
 	}

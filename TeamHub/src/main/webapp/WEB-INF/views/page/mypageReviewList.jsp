@@ -34,7 +34,7 @@
         .btn2{height:35px; font-size:15px; border-radius:5px;  margin-top:20px;}
          .btn2:hover{background:#e4e4e4;}
         .btn3:hover{background:#e4e4e4;}
-        .content{display:inline-block; position: relative; top:-450px;}
+        .content{display:inline-block; position: relative; top:-350px;}
         .content div{margin-bottom: 20px; background:white; }
         .content a{ font-size:20px;  font-weight: bold;
             display:block;  margin-left:70px;}
@@ -49,7 +49,7 @@
         .p{font-weight:bold;}
         #navi{width:200px; position:relative; left:600px; top:-430px;}
         #navi a{font-size:15px; color:black;}
-      
+      ul.pagination{position:relative; top:100px; }
 </style>
 </head>
 <body>
@@ -95,11 +95,8 @@
                 <button class="btn1" onclick="location.href='<%=request.getContextPath()%>/page/pwConfirm.do'">회원정보</button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageRes.do'">나의 예약 </button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageCouns.do'">상담 예약</button>
-                <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageCount.do'">결제 내역</button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageWrite.do'">내가 쓴 글</button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageReviewList.do'">상담사 후기</button>
-                <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageScrap.do'">스크랩 글</button>
-  
             </div><!--//.bar-->
         
         <div class="content">

@@ -7,15 +7,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.healingcamp.service.LikeService;
+import project.healingcamp.vo.Community_BoardVO;
 import project.healingcamp.vo.LikeVO;
 
-@RequestMapping(value="/community")
+@RequestMapping(value={"/community","/counseller_board"})
 @Controller
 public class LikeController {
 	
 	@Autowired
 	private LikeService likeService;
 	
+	//좋아요 체크 여부
 	@RequestMapping(value="/likeCount.do",method=RequestMethod.POST)
 	@ResponseBody
 	public int likeCount(LikeVO likeVO) {
@@ -26,15 +28,20 @@ public class LikeController {
 	//좋아요 +1
 	@RequestMapping(value="/likeUp.do",method=RequestMethod.POST)
 	@ResponseBody
-	public void likeUp(LikeVO likeVO) {
-		likeService.likeUp(likeVO);
+	public Community_BoardVO likeUp(LikeVO likeVO) {
+		Community_BoardVO cboardVO = new Community_BoardVO();
+		cboardVO = likeService.likeUp(likeVO);
+		return cboardVO;
 	}
 	
 	//좋아요 -1
 	@RequestMapping(value="/likeDown.do",method=RequestMethod.POST)
 	@ResponseBody
-	public void likeDown(LikeVO likeVO) {
-		likeService.likeDown(likeVO);
+	public Community_BoardVO likeDown(LikeVO likeVO) {
+		Community_BoardVO cboardVO = new Community_BoardVO();
+		cboardVO = likeService.likeDown(likeVO);
+		return cboardVO;
 	}
+	
 
 }
