@@ -35,11 +35,27 @@
 		   AND id= #{id}
 	</delete>
 	
+	<!-- 	좋아요수 카운팅 +1 -->
+	<update id="addLikeCnt" parameterType="int">
+		UPDATE boardtable
+		   SET likes = likes + 1
+		 WHERE bidx = #{bidx}
+	</update>
 	
+	<!-- 	좋아요수 카운팅 -1 -->
+	<update id="removeLikeCnt" parameterType="int">
+		UPDATE boardtable
+		   SET likes = likes - 1
+		 WHERE bidx = #{bidx}
+	</update>
 
+	<!-- 게시글의 좋아요 총 갯수 -->
+	<select id="likeNum" parameterType="int" resultType="cboardVO">
+		SELECT likes 
+		  FROM boardtable 
+		 WHERE bidx = #{bidx}
+	</select>
 
-	
-	
 	
 	
 	

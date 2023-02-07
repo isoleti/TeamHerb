@@ -46,6 +46,7 @@ public class CommunityController {
 		PageVO pageVO = new PageVO(searchVO,cboardService.total(searchVO));
 		//전체게시글 데이터 요청
 		List<Community_BoardVO> list = cboardService.list(searchVO);
+		
 		//데이터를 모델에 담아 화면에 넘김
 		model.addAttribute("pageVO",pageVO);//페이지네이션 전달
 		model.addAttribute("datalist",list);//글목록 전달
@@ -185,7 +186,7 @@ public class CommunityController {
 	//댓글 수정
 	@RequestMapping(value="/community_reply_update.do",method=RequestMethod.POST)
 	@ResponseBody
-	public String community_reply_update(ReplyVO replyVO) {
+	public String community_reply_update(@RequestBody ReplyVO replyVO) {
 		replyService.updateByReply(replyVO);
 		
 		return "1";
