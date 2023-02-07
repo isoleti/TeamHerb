@@ -9,6 +9,23 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>비밀번호찾기 재설정</title>
+	<script src = "<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
+	<script>
+		
+		function checkAuth(){
+			
+			var fm = document.frm;
+			var email_injeung = $("#email_injeung").val();
+			
+			alert("함수가 작동하나요?");
+			
+			if(fm.email_injeung.value != fm.num.value){//내가 쓴 이메일 인증 값 == 네이버 메일로 보낸 random num의 값
+				alert("인증번호가 맞지 않아요");
+			}
+			
+		}
+	 
+	</script>
 	<style>
 		*{
 			margin:0;
@@ -111,11 +128,12 @@
 				<img src="../resources/images/check.png"/>
 			</div><!--img_place-->
 			<p id="p1">메일로 인증번호가 보내졌습니다.</br>인증번호를 입력해주세요.</p>
-			<form id="frm" action="pw_set.do" method="post">
+			
+			<form id="frm" name="frm" action="pw_set.do" method="post">
 				<input type="hidden" name="num" value="${num}">
 				<input type="text" pattern="[0-9]+" id="email_injeung" name="email_injeung" autocomplete="off" required placeholder="인증번호를 입력하세요." />
 				<br>
-				<input type="submit" value="확인" id="btn" >
+				<input type="submit" value="확인" id="btn" onclick="checkAuth()">
 			</form>	
 		</div><!--idMatch_place-->
 	</div><!--id_match-->

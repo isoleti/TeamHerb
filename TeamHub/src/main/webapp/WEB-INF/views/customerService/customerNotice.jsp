@@ -221,6 +221,7 @@
 	        				 	  <div class="accordion" id="accordionExample">
 						                <div class="accordion-item">
 							                  	<h2 class="accordion-header" id="headingOne">
+							                  		
 								                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${status.index}" aria-expanded="true" aria-controls="collapseOne">
 								                     	 ${list.title}
 								                    </button>
@@ -238,10 +239,44 @@
 					               </div><!-- accordion -->
 				               </c:forEach> 	
 						</form>
+						
+						
+				        <!--부트스트랩 페이지네이션-->
+					        <nav aria-label="Page navigation example">
+					            <ul style="margin-left:251px;" class="pagination justify-content-center">
+					            
+						<!--이전버튼 활성화 -->
+					              <c:if test="${pageMaker.prev}">
+						              <li class="page-item">
+						                <a class="page-link" href="<%=request.getContextPath() %>/customerService/customerNotice.do?page=${(pageMaker.startPage-1)}&perPageNum=${pageMaker.perPageNum}" aria-label="Prev">
+						                  <span aria-hidden="true">&laquo;</span>
+						                </a>
+						              </li>
+						            </c:if>
+					              
+						<!-- Prev 끝 -->
+				        <!-- Page번호 시작 -->
+					           <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage}" var="index">
+						         	<li class="page-item"><a class="page-link <c:if test='${pageMaker.page eq index }'>active</c:if>" href="<%=request.getContextPath() %>/customerService/customerNotice.do?page=${index}">${index}</a></li>
+						       </c:forEach>
+					    <!-- Page번호 끝 -->
+					    <!-- Next 시작 -->
+					          <c:if test="${pageMaker.next}">
+						          <li class="page-item">
+							            <a class="page-link" href="<%=request.getContextPath() %>/customerService/customerNotice.do?page=${(pageMaker.endPage+1)}&perPageNum=${pageMaker.perPageNum}" aria-label="Next">
+							              	<span aria-hidden="true">&raquo;</span>
+							            </a>
+						          </li>
+					          </c:if>	
+					          <!-- Next 끝 -->
+					        </ul>
+				     	 </nav>
+						
 					</div><!--notice_place-->
 				</div><!--notice_area-->
 			</div><!--customer_area-->
 		</div><!--메인 랩-->
+		
 	</main>
 	<footer> <!-- footer -->
         <div id="bottom">   
