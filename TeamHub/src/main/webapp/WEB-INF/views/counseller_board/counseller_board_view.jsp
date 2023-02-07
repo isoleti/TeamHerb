@@ -148,9 +148,6 @@
        height:24px;
        cursor:pointer;
 	   }
-	   .clip img{
-	   cursor:pointer;
-	   }
 
     </style>
     
