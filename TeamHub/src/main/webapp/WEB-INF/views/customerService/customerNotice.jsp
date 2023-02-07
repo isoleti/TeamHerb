@@ -178,7 +178,17 @@
 			right:0;
 		}
 
+		nav{
+			position:relative;
+			top:50px;
+			right:center;
+			text-align:center;		
+		}
 		
+		nav ul{
+			position:relative;
+			left:-75px;
+		}
 
 	</style>
 
