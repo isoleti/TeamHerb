@@ -269,8 +269,26 @@ public class PageController {
 	}
 
 	@RequestMapping(value = "/counspageWrite.do", method = RequestMethod.GET)
-	public String counspageWrite() {
+	public String counspageWrite(Model model, Community_BoardVO cboardVO, HttpSession session, MyCriteria cri) {
 
+		UserVo login =(UserVo)session.getAttribute("login");
+		
+		System.out.println("상담사마이페이지 :"+login.toString());
+		cri.setId(login.getId());
+		cri.setUidx(login.getUidx());
+		
+		
+		//전체게시글 데이터 요청
+		List<Community_BoardVO> list = pageService.list(cri);
+		
+		MypageMaker mypageMaker = new MypageMaker(cri, pageService.total(cri));
+		
+		 System.out.println("총합계:" + pageService.total(cri));
+		 System.out.println("페이지"+ mypageMaker);
+		 
+		 model.addAttribute("list",list);//글목록 전달
+		 model.addAttribute("mypageMaker", mypageMaker);
+		 
 		return "page/counspageWrite";
 	}
 }

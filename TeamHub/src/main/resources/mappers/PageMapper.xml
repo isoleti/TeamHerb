@@ -21,7 +21,7 @@
 				 from (
 				 	select * 
 				 	from  boardtable
-				 	 where uidx=${uidx} and delyn='N' and board_type= '0' 
+				 	 where uidx=#{uidx} and delyn='N'
 				 	 order by wdate desc
 			 		)a 
 					)
@@ -33,7 +33,7 @@
     <select id="total" resultType="int" parameterType="myCriteria">
         select count(*) 
 	        from boardtable
-	      	  where uidx=#{uidx} and delyn='N' and board_type= '0' 
+	      	  where uidx=#{uidx} and delyn='N' 
     </select>
   
   
