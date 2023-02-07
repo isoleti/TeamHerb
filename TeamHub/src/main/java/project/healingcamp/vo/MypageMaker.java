@@ -13,7 +13,7 @@ public class MypageMaker {
 	   private int page;   //조회하는 페이지 번호
 	   private int perPageNum;    //보여질 데이터개수
 	   
-	public MypageMaker(MyCriteria cri,int total) {
+	public MypageMaker(MyCriteria cri, int total) {
 		
 		this.page = cri.getPage();
 		this.perPageNum = cri.getPerPageNum();
@@ -93,9 +93,10 @@ public class MypageMaker {
 
 	@Override
 	public String toString() {
-		return "PageMaker [cri=" + cri + ", startPage=" + startPage + ", endPage=" + endPage + ", prev=" + prev
+		return "MypageMaker [cri=" + cri + ", startPage=" + startPage + ", endPage=" + endPage + ", prev=" + prev
 				+ ", next=" + next + ", total=" + total + ", page=" + page + ", perPageNum=" + perPageNum + "]";
 	}
+
 	
 	
 	   

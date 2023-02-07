@@ -29,9 +29,10 @@ public class PageServiceImpl implements PageService{
 		return pageDao.pwCheck(vo);
 	}
 
+
 	@Override
 	public List<Community_BoardVO> list(MyCriteria cri) {
-		System.out.println("서비스임플 list: "+cri.getContent());
+		
 		return pageDao.list(cri);
 	}
 

@@ -4,7 +4,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.*" %>
 <%@ page import="project.healingcamp.vo.Community_BoardVO" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page session="true" %>
 
 <% List<Community_BoardVO> list = (List<Community_BoardVO>)request.getAttribute("list"); %>
@@ -16,6 +15,12 @@
 <title>마이페이지 내가 쓴 글</title>
 <link href="<%= request.getContextPath() %>/resources/css/bootstrap.css" rel="stylesheet">
 <link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
+ <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
+<script>
+
+
+
+</script>
  <style>
     
           main{margin:0 auto;  width:1160px; }
@@ -36,8 +41,8 @@
         .btn2{height:35px; font-size:15px; border-radius:5px;  margin-top:20px;}
          .btn2:hover{background:#e4e4e4;}
         .btn3:hover{background:#e4e4e4;}
-        .content{display:inline-block; position: relative; top:-90px; left:50px; }
-        .content a{ font-size:20px; 
+        .content{display:inline-block; position: relative; top:-450px; left:50px; }
+        .p{ font-size:20px; 
             display:block; margin-top:20px;}
         .content a:nth-child(3){display:inline-block;}
         .content button{margin-top:20px; border:1px solid #e4e4e4; width:100px; height:30px; 
@@ -48,15 +53,16 @@
         #sb a{font-size:15px; font-style: none;}
         #sb {display:inline-block;}
         #sb button{background:#0ed145; color:white; margin-left:100px;}
-
-        #tb table{border:1px solid #dff6e1; width:800px; height:200px; text-align:center; margin-top:40px;}
+		
+		#tb td{height:50px;}
+        #tb table{border:1px solid #dff6e1; width:800px;  text-align:center; margin-top:40px;}
         #tb tr:nth-child(1){font-weight: bold;}
         #tb td:nth-child(5){padding:0;}
         #tb tr:nth-child(2n){background-color:#dff6e1;}
         #tb button{width:50px; margin:0;}
         #navi{width:200px; margin-left:300px;}
         #navi a{font-size:15px; color:black;}
-
+		ul.pagination{position:relative; top:-410px; left:557px;}
    </style>
 </head>
 <body>
@@ -110,7 +116,7 @@
             </div><!--//.bar-->
         <div class="content">
             <a class="p">내가 쓴 글</a>
-            <a class="p">작성 기간</a>
+            <!-- <a class="p">작성 기간</a> -->
            <!--  <button class="btn3">1개월</button>
             <button class="btn3">3개월</button>
             <button class="btn3">6개월</button>
@@ -121,8 +127,10 @@
 
            
             <div id="tb">
-            <form action="mywrite_delete.do" method="post">
+             
             <table border="1"> 
+            
+                <input type="hidden" name="uidx" value="${cboardVO.uidx}">
                 <tr>
                     <td>글 번호</td>
                     <td>제목</td>
@@ -130,44 +138,45 @@
                     <td>작성 일시</td>
                     <td>관리</td>
                 </tr>
-                
                
-                 <c:forEach items="${list}" var="vo">
+                
+                 <c:forEach items="${list}" var="cboardVO">
                 <tr>
-                    <td>${vo.bidx}</td>
-                    <td>${vo.title}</td>
-                    <td>${vo.category}</td>
-                    <c:set var="wdate" value="${vo.wdate}"/>
+                    <td>${cboardVO.bidx}</td>
+                    <td><a href="<%=request.getContextPath()%>/community/community_view.do?bidx=${cboardVO.bidx}">${cboardVO.title}</a></td>
+                    <td>${cboardVO.category}</td>
+                    <c:set var="wdate" value="${cboardVO.wdate}"/>
                     <td>${fn:substring(wdate,0,11)}</td>
-                    <td><button type="button">수정</button>
-                        <button>삭제</button></td>
+                    <td><button type="button" onclick="location.href='<%=request.getContextPath()%>/community/community_modify.do?bidx=${cboardVO.bidx}'">수정</button>
+                        <!--일단 보류:  <button>삭제</button></td> -->
                 </tr>
                 </c:forEach>  
+               
             </table>
-				</form>
+				
             
     </div><!--#tb-->
-	
+	</div><!-- #content -->
     <nav aria-label="Page navigation example">
         <ul class="pagination">
         <!-- Prev 시작 -->
-          <c:if test="${MypageMaker.prev}"> <!--  -->
+          <c:if test="${mypageMaker.prev}"> <!--  -->
           <li class="page-item">
-            <a class="page-link" href="<%=request.getContextPath() %>/page/mypageWrite.do?page=${(MypageMaker.startPage-1)}&perPageNum=${MypageMaker.perPageNum}" aria-label="Prev">
+            <a class="page-link" href="<%=request.getContextPath() %>/page/mypageWrite.do?page=${(mypageMaker.startPage-1)}&perPageNum=${mypageMaker.perPageNum}" aria-label="Prev">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
           </c:if>
           <!-- Prev 끝 -->
           <!-- Page번호 시작 -->
-           <c:forEach begin="${MypageMaker.startPage }" end="${MypageMaker.endPage}" var="index">
-          <li class="page-item"><a class="page-link <c:if test='${MypageMaker.page eq index }'>active</c:if>" href="<%=request.getContextPath() %>/page/mypageWrite.do?page=${index}">${index}</a></li>
+           <c:forEach begin="${mypageMaker.startPage }" end="${mypageMaker.endPage}" var="index">
+          <li class="page-item"><a class="page-link <c:if test='${mypageMaker.page eq index }'>active</c:if>" href="<%=request.getContextPath() %>/page/mypageWrite.do?page=${index}">${index}</a></li>
           </c:forEach>
          <!-- Page번호 끝 -->
          <!-- Next 시작 -->
-          <c:if test="${MypageMaker.next}">
+          <c:if test="${mypageMaker.next}">
           <li class="page-item">
-            <a class="page-link" href="<%=request.getContextPath() %>/page/mypageWrite.do?page=${(MypageMaker.endPage+1)}&perPageNum=${MypageMaker.perPageNum}" aria-label="Next">
+            <a class="page-link" href="<%=request.getContextPath() %>/page/mypageWrite.do?page=${(mypageMaker.endPage+1)}&perPageNum=${mypageMaker.perPageNum}" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
@@ -177,8 +186,9 @@
       </nav>
 
      </div><!--#navi-->   
-	</div><!-- #content -->
+	
     </main>
+    
     <footer>
         <div id="bottom">   
             <br> 
