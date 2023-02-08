@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import project.healingcamp.dao.CustomerDao;
 import project.healingcamp.vo.Community_BoardVO;
 import project.healingcamp.vo.Criteria;
-import project.healingcamp.vo.Criteria2;
 import project.healingcamp.vo.SearchVO;
 
 

@@ -4,7 +4,6 @@ import java.util.List;
 
 import project.healingcamp.vo.Community_BoardVO;
 import project.healingcamp.vo.Criteria;
-import project.healingcamp.vo.Criteria2;
 import project.healingcamp.vo.SearchVO;
 
 public interface customer_centerService {
