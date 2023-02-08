@@ -3,8 +3,10 @@ package project.healingcamp.vo;
 public class MypageMaker {
 
 	 private MyCriteria cri; // page, perPageNum 을 가지고 있음
-	
-	   private int startPage; //첫 페이지 번호
+	 private MyRCriteria rcri;
+	 
+
+	private int startPage; //첫 페이지 번호
 	   private int endPage;   //마지막 페이지 번호
 	   private boolean prev;  //이전버튼
 	   private boolean next;  //다음버튼
@@ -39,7 +41,45 @@ public class MypageMaker {
 		this.prev = this.startPage >1;
 		this.next = this.endPage<realEnd;
 	} 
-	  
+	
+		public MypageMaker(MyRCriteria rcri, int total) {
+		
+		this.page = rcri.getPage();
+		this.perPageNum = rcri.getPerPageNum();
+		this.total = total;
+		this.rcri = rcri;
+		
+	
+		//끝번호
+		this.endPage = (int)Math.ceil(this.page/10.0)*10;
+		
+		//시작번호
+		this.startPage = this.endPage-10+1;
+		
+		//마지막 끝번호
+		int realEnd = (int)Math.ceil(this.total/(double)this.perPageNum);
+		
+		System.out.println("End값"+realEnd);
+		System.out.println("EndPage"+endPage);
+		if(this.endPage >realEnd) {
+			this.endPage=realEnd;
+		}
+		
+		this.prev = this.startPage >1;
+		this.next = this.endPage<realEnd;
+	} 
+	
+	
+	
+	
+	
+	
+   public MyRCriteria getRcri() {
+		return rcri;
+	}
+	public void setRcri(MyRCriteria rcri) {
+		this.rcri = rcri;
+	}  
 	public MyCriteria getCri() {
 		return cri;
 	}
@@ -93,9 +133,11 @@ public class MypageMaker {
 
 	@Override
 	public String toString() {
-		return "MypageMaker [cri=" + cri + ", startPage=" + startPage + ", endPage=" + endPage + ", prev=" + prev
-				+ ", next=" + next + ", total=" + total + ", page=" + page + ", perPageNum=" + perPageNum + "]";
+		return "MypageMaker [cri=" + cri + ", rcri=" + rcri + ", startPage=" + startPage + ", endPage=" + endPage
+				+ ", prev=" + prev + ", next=" + next + ", total=" + total + ", page=" + page + ", perPageNum="
+				+ perPageNum + "]";
 	}
+
 
 	
 	

@@ -1,6 +1,8 @@
 package project.healingcamp.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,12 @@ public class LikeServiceImpl implements LikeService{
 		Community_BoardVO cboardVO = new Community_BoardVO();
 		cboardVO = likeDAO.likeDown(likeVO);
 		return cboardVO;
+	}
+
+	@Override
+	public List<LikeVO> likeList() {
+		List<LikeVO> likeList = likeDAO.likeList();
+		return likeList;
 	}
 
 	

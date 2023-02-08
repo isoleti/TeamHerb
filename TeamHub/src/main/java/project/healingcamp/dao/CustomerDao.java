@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import project.healingcamp.vo.Community_BoardVO;
 import project.healingcamp.vo.Criteria;
+import project.healingcamp.vo.SearchVO;
 
 @Repository
 public class CustomerDao {
@@ -24,12 +25,12 @@ public class CustomerDao {
 	}
 	
 	//faq ¸ñ·Ï
-	public List<Community_BoardVO> customeFaq(Criteria cri){
-		return sqlSession.selectList("project.healingcamp.mapper.customerMapper.faq_List", cri);
+	public List<Community_BoardVO> customeFaq(SearchVO searchVO){
+		return sqlSession.selectList("project.healingcamp.mapper.customerMapper.faq_List", searchVO);
 	} 
 	
-	public int faq_Total(Criteria cri) {
-		return sqlSession.selectOne("project.healingcamp.mapper.customerMapper.faq_Total", cri);
+	public int faq_Total(SearchVO searchVO) {
+		return sqlSession.selectOne("project.healingcamp.mapper.customerMapper.faq_Total", searchVO);
 	}
 	
 }

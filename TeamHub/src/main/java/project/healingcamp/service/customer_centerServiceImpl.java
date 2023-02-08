@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import project.healingcamp.dao.CustomerDao;
 import project.healingcamp.vo.Community_BoardVO;
 import project.healingcamp.vo.Criteria;
+import project.healingcamp.vo.SearchVO;
 
 
 @Service
@@ -29,15 +30,17 @@ public class customer_centerServiceImpl implements customer_centerService{
 	}
 
 	@Override
-	public List<Community_BoardVO> faq_List(Criteria cri) {
-		List<Community_BoardVO> faq_List = CustomerDao.customeFaq(cri);
+	public List<Community_BoardVO> faq_List(SearchVO searchVO) {
+		List<Community_BoardVO> faq_List = CustomerDao.customeFaq(searchVO);
 		return faq_List;
 	}
 
 	@Override
-	public int faq_Total(Criteria cri) {
-		return CustomerDao.faq_Total(cri);
+	public int faq_Total(SearchVO searchVO) {
+		// TODO Auto-generated method stub
+		return CustomerDao.faq_Total(searchVO);
 	}
 
+	
 	
 }

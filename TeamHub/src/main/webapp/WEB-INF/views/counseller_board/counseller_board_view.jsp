@@ -207,37 +207,33 @@
                 </div><!--e:#write_info_wrapper-->
             </div><!--e:#title_wrapper-->
 
-            <div id="content_wrapper">
-                <div id="content">${vo.content }</div>
-                    <div class="postbtn">
-                         <div class="likebtn">
-                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감">
-                            <span id="likeCnt" style="font-size:13px;">${vo.likes}공감</span>
-                        </div><!--e:.likebtn-->
-                        <div class="other">
-                        	<!-- Split dropup button -->
-							<div class="btn-group dropup">
-							 <button type="button" id="btn" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            	<i style="color:rgb(187,187,187);" class="xi-ellipsis-h xi-x">
-                            	</i>
-							 </button>						 
-							  <ul class="dropdown-menu">
-							  <c:if test="${login.usertype eq 'c'}"><!-- 게시글을 작성한 작성자만 수정,삭제 가능 -->
-							    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/counseller_board/counseller_board_modify.do?bidx=${vo.bidx}">수정</a></li>
-							    <li><button id="deleteBtn" class="dropdown-item" onclick="document.delfrm.submit()">삭제</button></li>
-							    <form name="delfrm" action="counseller_board_delete.do" method="post">
-							    	<input type="hidden" name="bidx" value="${vo.bidx }">
-							    </form>
-							  </c:if>
-							  <c:if test="${login.usertype eq 'u'}">
-							    <li><a class="dropdown-item" href="#">신고하기</a></li>
-							  </c:if>
-							  </ul>
-							</div>
-                        </div><!--e:.other-->
-                    </div><!--e:.postbtn-->
-                </div><!--e:#content_wrapper-->
-        </div><!--e:#write_form_wrapper-->
+			<div id="content_wrapper">
+				<div id="content">${vo.content}</div>
+				<div class="postbtn">
+					<div class="likebtn">
+						<img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감"  >
+						<span id="likeCnt" style="font-size:13px;">${vo.likes }명이 공감</span>
+					</div><!--e:.likebtn-->
+					<div class="other">
+					<!-- Split dropup button -->
+					<c:if test="${login.id == vo.id}"><!-- 게시글을 작성한 작성자만 드롭다운메뉴 노출 -->
+					<div class="btn-group dropup">
+						<button type="button" id="btn" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+						<i style="color:rgb(187,187,187);" class="xi-ellipsis-h xi-x"></i>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="<%=request.getContextPath()%>/community/community_modify.do?bidx=${vo.bidx}">수정</a></li>
+							<li><button id="deleteBtn" class="dropdown-item" onclick="document.delfrm.submit()">삭제</button></li>
+							<form name="delfrm" action="community_delete.do" method="post">
+								<input type="hidden" name="bidx" value="${vo.bidx }">
+							</form>
+						</ul>
+					</div>
+					</c:if>
+					</div><!--e:.other-->
+				</div><!--e:.postbtn-->
+			</div><!--e:#content_wrapper-->
+		</div><!--e:#write_form_wrapper-->
             
         <div id="reply_wrapper">
             
@@ -273,10 +269,10 @@
    		var id = '<%=session.getAttribute("id")%>'; 
    		
    		//로그인한 회원만 이용가능
-   		var target = document.getElementById("btn");
-   		if(login == ""){
-   			target.disabled = true;
-   		}
+//    		var target = document.getElementById("btn");
+//    		if(login == ""){
+//    			target.disabled = true;
+//    		}
     	
     	// 댓글 작성 버튼 클릭
    		$(document).on("click","#reply_btn",function(){
@@ -432,19 +428,7 @@
    			}
    		}
 		
-   		//댓글 신고팝업창 띄우기
-   		function reportReply(reply_Idx){
-   			if(login == ""){
-   				alert("로그인 후 이용해주세요.");
-   			}else{
-	   			let popOption = "width = 568px, height=558px, scrollbars=no";
-	   			let openUrl = "<%=request.getContextPath()%>/community/reply_popup.do";
-	   			window.open(openUrl,"",popOption);
-	   		}
-   		}
-   		
-   		
-   	//좋아요
+   		//좋아요
    		$(".empathy").hover(
     		function(){//하트 마우스 올라왔을때
     			$(this).attr('src','./../resources/upload/like_color_change.jpg');
@@ -483,7 +467,7 @@
 								type:"post",
 								data:{"bidx":bidx,"id":id},
 								success:function(data){
-									$("#likeCnt").html(data.likes+"공감");
+									$("#likeCnt").html(data.likes+"명이 공감");
 								},error:function(){
 									alert("error");
 								}
@@ -496,7 +480,7 @@
 								type:"post",
 								data:{"bidx":bidx,"id":id},
 								success:function(data){
-									$("#likeCnt").html(data.likes+"공감");
+									$("#likeCnt").html(data.likes+"명이 공감");
 								},error:function(){
 									alert("error");
 								}
@@ -510,34 +494,6 @@
 				});
 			}
 		});
-		
-		//북마크 
-   		$(".bookmark").hover(
-    		function(){//북마크 마우스 올라왔을때
-    			$(this).attr('src','./../resources/upload/bookmark_color_change.jpg');
-    		},
-    		function(){//북마크 마우스 벗어났을때
-    			$(this).attr('src','./../resources/upload/bookmark.jpg');
-    		}
-    	);
-		
-		//북마크 버튼 클릭
-		let num2 = 0;
-		$(".bookmark").on("click",function(e){
-			if(login == ""){
-				alert("로그인 후 이용해주세요.");
-			}else{
-				if(num2 == 0){ //num이 0일때 북마크 후  num 1로 변경
-					$(this).attr('src','./../resources/upload/bookmark_color_change.jpg');
-					$(this).unbind('mouseenter mouseleave');//북마크 on 일때 hover기능 unbind
-					num2 = 1;
-				}else{//num이 1일때 북마크 취소 후 num 0으로 변경
-					$(this).attr('src','./../resources/upload/bookmark.jpg');
-					num2 = 0;
-				}
-			}
-		});	
-   		
     </script>
     <footer>
         <div id="bottom">   
