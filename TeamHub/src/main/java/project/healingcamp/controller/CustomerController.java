@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import project.healingcamp.service.customer_centerService;
 import project.healingcamp.vo.Community_BoardVO;
 import project.healingcamp.vo.Criteria;
-import project.healingcamp.vo.Criteria2;
 import project.healingcamp.vo.PageMaker;
-import project.healingcamp.vo.PageMaker2;
 import project.healingcamp.vo.PageVO;
 import project.healingcamp.vo.SearchVO;
 
