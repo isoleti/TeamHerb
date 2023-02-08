@@ -13,10 +13,10 @@
 <link href="<%= request.getContextPath() %>/resources/css/bootstrap.css" rel="stylesheet">
 <link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
 <style>
-      main{margin:0 auto;  width:1160px; }
+      main{margin:0 auto;  width:1160px; margint-top:0; }
         main h2{font-size:22px; margin:80px 250px; }
         .bar{width:280px; height:700px; display:inline-block; border:1px solid #e4e4e4; 
-                text-align:center; padding-top: 30px; 
+                text-align:center; padding-top: 30px; position:relative; top:-34px;
                 padding:40px;}
         .bar a{display:block;}
         .bar a:nth-child(1){font-size:25px; font-weight: bold; padding-bottom:20px;display: block;
@@ -31,7 +31,7 @@
         .btn2{height:35px; font-size:15px; border-radius:5px;  margin-top:20px;}
         .btn2:hover{background:#e4e4e4;}
         .btn3:hover{background:#e4e4e4;}
-        .content{display:inline-block; position: relative; top:00px; left:50px; }
+        .content{display:inline-block; position: relative; top:150px; left:50px; }
         .content a{ font-size:20px; 
             display:block; margin-top:20px;}
         .content a:nth-child(3){display:inline-block;}
@@ -100,10 +100,8 @@
                 <button class="btn1" onclick="location.href='<%=request.getContextPath()%>/page/pwConfirm.do'">회원정보</button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageRes.do'">나의 예약 </button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageCouns.do'">상담 예약</button>
-                <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageCount.do'">결제 내역</button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageWrite.do'">내가 쓴 글</button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageReviewList.do'">상담사 후기</button>
-                <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageScrap.do'">스크랩 글</button>
   
             </div><!--//.bar-->
         <div class="content">

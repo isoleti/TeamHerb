@@ -276,24 +276,32 @@
 		           buyer_name : '${login.id}',
 		           buyer_tel : '${login.phone}'
 		       }, function (rsp) { // callback
+		    	     
 		             if (rsp.success) {
+		            	 
 		            	// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
 		                 // jQuery로 HTTP 요청
 		                 jQuery.ajax({
-		                   url: "{서버의 결제 정보를 받는 가맹점 endpoint}", 
+		                   url: "<%=request.getContextPath() %>/res/countf.do", //가맹점 서버 
 		                   method: "POST",
 		                   headers: { "Content-Type": "application/json" },
 		                   data: {
 		                     imp_uid: rsp.imp_uid,            // 결제 고유번호
 		                     merchant_uid: rsp.merchant_uid   // 주문번호
+		                     
 		                   }
-		                 }).done(function (data) {
-		                   // 가맹점 서버 결제 API 성공시 로직
-		                   
+		                 }).done(function (data) {		                	
+		                   // 가맹점 서버 결제 API 성공시 로직	
 		                 })
 		               } else {
-		                 alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+		                 alert("결제에 실패하였습니다. " + rsp.error_msg);
 		               }
+		             var fm = document.frm;
+		             
+                     fm.action = "<%=request.getContextPath() %>/res/countf.do"
+                     fm.method = "post";
+         	    	 fm.submit();
+		       	
 		          });
  		   }
 	    }
@@ -322,31 +330,36 @@
 	    	fm.submit();
 	    	}
 	    }
+	    
+	    function logPlease() {
+	    	alert("로그인 후 사용해주세요.");
+	    }
 	</script>
 </head>
 <body>
    <header>    <!--header-->
-        <div> <!--로그인 관련-->
+      <div> <!--로그인 관련-->
              
-          <c:if test = "${login == null}">   
+      <c:if test = "${login == null}">   
             <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
             <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
             <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
-         </c:if><!-- 로그아웃 or 로그인x -->
+      </c:if><!-- 로그아웃 or 로그인x -->
          
-        <c:if test = "${login != null}">
+      <c:if test = "${login != null}">
             
                <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
-               <p><a href="">관리자 페이지</a></p>
+               <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
                </c:if>
                <c:if test = "${login.usertype eq 'u'}">
-               <p><a href="">마이 페이지</a></p>
+               <p><a href="<%= request.getContextPath() %>/page/mypageRes.do">마이 페이지</a></p>
                </c:if>
                <c:if test = "${login.usertype eq 'c'}">
                <p><a href="">상담사 페이지</a></p>
                </c:if>
                <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
+               
       </c:if>
       </div>
    
@@ -401,8 +414,15 @@
 	            <p>예약일 :<input type="text" name="resdate" id="resdate" readonly> </p>
 	            <p>예약시간 : <input type="text" name="restime" id="restime" readonly> </p>
 	            <p>상담비용 :<input type="number" name="rescount" id="rescount" readonly> </p>
-	            <input type="button" class="btn btn-outline-success" onclick="resf()" value="현장결제">
-	            <input type="button" class="btn btn-dark" onclick="requestPay(this)" value="지금결제">
+	            <c:if test = "${login != null}">
+	            	<input type="button" class="btn btn-outline-success" onclick="resf()" value="현장결제">
+	            	<input type="button" class="btn btn-dark" onclick="requestPay(this)" value="지금결제">
+	            </c:if>
+	            <c:if test = "${login == null}">
+	            	<input type="button" class="btn btn-outline-success" onclick="logPlease()" value="로그인">
+	            	<input type="button" class="btn btn-dark" onclick="logPlease()" value="해주세요">
+	            </c:if>
+	            
             </form>
         </div>
         <div id="modal" class="modal-overlay">

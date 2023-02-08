@@ -166,33 +166,18 @@
 		 WHERE bidx=#{bidx}
 	</update>
 	
-<!-- 	댓글작성시 댓글 수 카운팅 +1 -->
 	<update id="addReplyCnt" parameterType="int">
-		UPDATE boardtable
-   		   SET replyCnt = replyCnt + 1
-   		 WHERE bidx = #{bidx}
-	</update>
-	
-<!-- 	댓글작성시 댓글 수 카운팅 +1 -->
-	<update id="removeReplyCnt" parameterType="int">
-		UPDATE boardtable
-   		   SET replyCnt = replyCnt - 1
-   		 WHERE bidx = #{bidx}
-	</update>
-	
-<!-- 	좋아요수 카운팅 +1 -->
-	<update id="addLikeCnt" parameterType="int">
-		UPDATE boardtable
-		   SET likes = likes + 1
+		UPDATE boardtable 
+		   SET replycnt = replycnt+1 
 		 WHERE bidx = #{bidx}
 	</update>
 	
-<!-- 	좋아요수 카운팅 -1 -->
-	<update id="removeLikeCnt" parameterType="int">
-		UPDATE boardtable
-		   SET likes = likes - 1
+	<update id="removeReplyCnt" parameterType="int">
+		UPDATE boardtable 
+		   SET replycnt = replycnt-1 
 		 WHERE bidx = #{bidx}
 	</update>
 	
 
+	
   </mapper>

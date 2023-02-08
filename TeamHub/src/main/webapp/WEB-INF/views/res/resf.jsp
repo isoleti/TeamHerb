@@ -25,20 +25,20 @@
     <header>    <!--header-->
         <div> <!--로그인 관련-->
              
-          <c:if test = "${login == null}">   
+         <c:if test = "${login == null}">   
             <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
             <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
             <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
-         </c:if><!-- 로그아웃 or 로그인x -->
+        </c:if><!-- 로그아웃 or 로그인x -->
          
         <c:if test = "${login != null}">
             
                <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
-               <p><a href="">관리자 페이지</a></p>
+               <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
                </c:if>
                <c:if test = "${login.usertype eq 'u'}">
-               <p><a href="">마이 페이지</a></p>
+               <p><a href="<%= request.getContextPath() %>/page/mypageRes.do">마이 페이지</a></p>
                </c:if>
                <c:if test = "${login.usertype eq 'c'}">
                <p><a href="">상담사 페이지</a></p>
@@ -62,8 +62,7 @@
      <main>
          <div id="res">
              <h2>예약이 정상적으로 완료되었습니다.</h2>
-             <p>상담 예약일시는 입니다. 예약 날짜에 유의하세요</p>
-             <p>결제 금액 원은 현장에서 결제해주시기 바랍니다.</p>
+             <br><br>
              <button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/'">홈으로 돌아가기</button>
          </div>
      </main>

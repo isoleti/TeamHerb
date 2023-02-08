@@ -39,10 +39,7 @@
         main #review p{margin-left:5%;}
         main #resInfo{width:50%; margin-left:13%; margin-bottom:5%;}
         main #resInfo dt{margin-left:5%;}
-        main #resInfo dl{margin-top:1%;}
-        main #faq{width:50%; margin-left:13%; margin-bottom:5%;}
-        main #faq .faqmenu{width:15%; height:40px;display:inline-block; margin:0; margin-left:-3px; margin-right:-3px; border:1px solid #000; text-align:center;}
-        main #faq .accordion  .accordion-button{width:100%;}
+        main #resInfo dl{margin-top:1%;}       
         main #map{margin-left:25%; }
         main .cal #calendar tr{height:45px;}
         
@@ -146,26 +143,26 @@
     <header>    <!--header-->
       <div> <!--로그인 관련-->
              
-          <c:if test = "${login == null}">   
+      <c:if test = "${login == null}">   
             <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
             <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
             <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
-          </c:if><!-- 로그아웃 or 로그인x -->
+      </c:if><!-- 로그아웃 or 로그인x -->
          
-          <c:if test = "${login != null}">
+      <c:if test = "${login != null}">
             
                <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
-               <p><a href="">관리자 페이지</a></p>
+               <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
                </c:if>
                <c:if test = "${login.usertype eq 'u'}">
-               <p><a href="">마이 페이지</a></p>
+               <p><a href="<%= request.getContextPath() %>/page/mypageRes.do">마이 페이지</a></p>
                </c:if>
                <c:if test = "${login.usertype eq 'c'}">
                <p><a href="">상담사 페이지</a></p>
                </c:if>
                <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
-          </c:if>
+      </c:if>
       </div>         
          <!-- fin 로그인 관련 -->
         <nav class="navbar" style="background-color: #dff6e1;"> <!-- 상단 네비게이션 -->
@@ -287,50 +284,6 @@
             <dt>04 안내
                 <dl>뭘 안내?</dl>
             </dt>
-        </div>
-        <h2>FAQ</h2>
-        <div id="faq">
-            <div class="faqmenu">전체</div>
-            <div class="faqmenu">심리상담</div>
-            <div class="faqmenu">예약/결제</div>
-            <div class="faqmenu">기타</div>
-            <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      faq 질문
-                    </button>
-                  </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <strong></strong><code></code>
-                    </div>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      Accordion Item #2
-                    </button>
-                  </h2>
-                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <strong></strong><code></code>
-                    </div>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                      Accordion Item #3
-                    </button>
-                  </h2>
-                  <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <strong></strong><code></code>
-                    </div>
-                </div>
-              </div>           
         </div>
         <h2>오시는 길</h2>
         <div id="map" style="width:550px;height:400px;"></div>	

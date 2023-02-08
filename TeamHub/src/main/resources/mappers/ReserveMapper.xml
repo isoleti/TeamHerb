@@ -38,7 +38,7 @@
   			insert into reservationtable(
   						 residx
   						,center
-  						,coun
+  						,couns
   						,resdate
   						,restime
   						,rescount  						
@@ -48,7 +48,7 @@
   			)values(
   						 residx_seq.nextval
   						,#{center}
-  						,#{coun}
+  						,#{couns}
   						,#{resdate}
   						,#{restime}
   						,#{rescount}

@@ -14,6 +14,7 @@
      <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
      <link href="<%=request.getContextPath()%>/resources/css/map.css" rel="stylesheet">
     <style>
+    	main h2{margin-left:20%; margin-top:3%; margin-bottom:3.5%;}
         main #map{margin-left:20%; margin-bottom:5%;}
         main .map_wrap{margin-bottom:3%;}
         main .center{width:60%; border:3px solid #dff6e1; border-radius:2ch; margin-left:20%;}
@@ -21,28 +22,31 @@
         main dt dl{display:inline-block; margin-right:5%;}
         main form{width:30%; margin-left:70%; margin-bottom:1.75%;}
         main div p{margin-left:15%; margin-top:1%;}
+        main .center #centerName,
+        main .center #centerAddr,
+        main .center #centerCall{boredr:0px;}
         .form-select{width:30%; display:inline-block;}
         button{margin-left:10%;}
     </style>   
 </head>
 <body>
     <header>    <!--header-->
-       <div> <!--로그인 관련-->
+      <div> <!--로그인 관련-->
              
-          <c:if test = "${login == null}">   
+      <c:if test = "${login == null}">   
             <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
             <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
             <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
-         </c:if><!-- 로그아웃 or 로그인x -->
+      </c:if><!-- 로그아웃 or 로그인x -->
          
-        <c:if test = "${login != null}">
+      <c:if test = "${login != null}">
             
                <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
-               <p><a href="">관리자 페이지</a></p>
+               <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
                </c:if>
                <c:if test = "${login.usertype eq 'u'}">
-               <p><a href="">마이 페이지</a></p>
+               <p><a href="<%= request.getContextPath() %>/page/mypageRes.do">마이 페이지</a></p>
                </c:if>
                <c:if test = "${login.usertype eq 'c'}">
                <p><a href="">상담사 페이지</a></p>
@@ -64,14 +68,7 @@
         </nav> <!-- fin 상단 네비게이션 -->
     </header> <!--fin header-->
     <main>     
-        <form>
-        <select class="form-select" aria-label="Default select example">
-            <option selected>선택</option>
-            <option value="center">상담 기관</option>
-        </select>        
-        <input type="text">
-        <input class="btn btn-outline-success" type="button"  value="검색">
-        </form>
+        <h2>상담소 찾기</h2>
         <div class="map_wrap">
 		    <div id="map" style="width:45%;height:100%;position:relative;overflow:hidden;"></div>
 		
@@ -213,7 +210,7 @@
 			
 			    var el = document.createElement('li'),
 			    itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-			                '<div class="info">' +
+			                '<div class="info" onclick="setSearch(this)">' +
 			                '   <h5>' + places.place_name + '</h5>';
 			
 			    if (places.road_address_name) {
@@ -307,11 +304,40 @@
 			        el.removeChild (el.lastChild);
 			    }
 			}
+			 
+			//지도값 담기
+			function setSearch(obj){
+				
+				var cn = document.getElementById("centerName");
+				var ca = document.getElementById("centerAddr");
+				var cc = document.getElementById("centerCall");
+				
+				var val1 = obj.children[0].innerText;
+				var val2 = obj.children[1].innerText;
+				var val3 = obj.children[3].innerText;
+				alert("val1 = "+val1);
+				console.log("val1 = "+val1);
+				alert("val2 = "+val2);
+				console.log("val2 = "+val2);
+				alert("val3 = "+val3);
+				console.log("val3 = "+val3);
+				
+			/*	
+				alert("cn :"+cn);
+				alert("ca :"+ca);
+				alert("cc :"+cc);
+				console.log("cn :"+cn);
+				console.log("ca :"+ca);
+				console.log("cc :"+cc); 
+			*/
+			
+				cn.getAttribute('value', val1);
+			}
 			</script>
         <div class="center" onclick="location.href='<%=request.getContextPath()%>/res/center.do'"><!--뒤이어 작성-->
-            <p>상담소 : </p>
-            <p>위치 : </p>
-            <p>전문분야 : </p>
+            <p >상담소 : <input type="text" id="centerName" readonly> </p>
+            <p >위치 : <input type="text" id="centerAddr" readonly></p>
+            <p >전화번호 : <input type="text" id="centerCall" readonly></p>
         </div>
     </main>
     <footer> <!-- footer -->
