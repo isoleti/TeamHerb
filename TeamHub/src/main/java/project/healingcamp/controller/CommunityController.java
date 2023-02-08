@@ -46,10 +46,11 @@ public class CommunityController {
 		PageVO pageVO = new PageVO(searchVO,cboardService.total(searchVO));
 		//전체게시글 데이터 요청
 		List<Community_BoardVO> list = cboardService.list(searchVO);
-		
+		List<LikeVO> likeList = likeService.likeList();
 		//데이터를 모델에 담아 화면에 넘김
 		model.addAttribute("pageVO",pageVO);//페이지네이션 전달
 		model.addAttribute("datalist",list);//글목록 전달
+		model.addAttribute("likeList",likeList);//글목록 전달
 		return "community/community_list";
 	}
 	

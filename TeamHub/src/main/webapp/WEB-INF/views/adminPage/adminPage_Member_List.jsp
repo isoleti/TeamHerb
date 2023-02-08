@@ -173,7 +173,6 @@
                 <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_Board_List.do">상담사 게시판 관리</a></li>
                 <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Notice_List.do">공지사항 관리</a></li>
                 <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Faq_List.do">FAQ 관리</a></li>
-                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Report_List.do">신고내역관리</a></li>
             </ul>
        </div><!--e:#left_nav-->
             <div id="search_wrapper">
@@ -229,9 +228,8 @@
         
 	        <div id="delete_btn_wrapper">
 	            <button type="submit" id="deleteBtn" class="btn">탈퇴</button>
-	   </form>
-	            <button onclick="banPopup()" id="banBtn" class="btn">정지</button>
 	        </div>
+	   </form>
 
 	        <!--부트스트랩 페이지네이션-->
 	        <nav aria-label="Page navigation example">
@@ -334,39 +332,6 @@
 	    		}
     			
 	    	});
-     	
-	    	//회원정지팝업
-	    	var checkboxes = document.querySelectorAll(".checkbox");
-	    	$("#banBtn").click(function(){
-	    		var flag = false;
-	    		for(var i = 0; i < checkboxes.length; i++)
-	    		{
-	    			if(checkboxes[i].checked == true) //체크박스에 체크된 경우
-	    			{
-	    				flag = true; //flag true
-	    			}
-	    		}    
-	    		
-	    		//미로그인시
-	    		if(login == ""){
-	    			alert("로그인 후 이용해주세요.");
-	    			return false;
-	    		}else{
-		    		if( flag == false ) //flag false 일경우
-		    		{
-		    			//체크박스 미선택시
-		    			alert("정지시킬 회원을 선택해주세요.");
-		    			return false;
-		    		}else{
-			    		let popOption = "width = 568px, height=402px, scrollbars=no";
-			    		let openUrl = "<%=request.getContextPath()%>/adminPage/adminPage_Shutdown_Period_Popup.do";
-			    		window.open(openUrl,"",popOption);
-		    		}
-	    		}
-	    		
-	    		
-	    	});
-	    	
 		});   
 	    	
 	   

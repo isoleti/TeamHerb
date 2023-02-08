@@ -56,6 +56,10 @@ public class LikeDAO {
 		return cboardVO;
 	}
 	
+	public List<LikeVO> likeList(){
+		return sqlSession.selectList("project.healingcamp.mapper.likeMapper.likeList");
+	}
+	
 
 
 }
