@@ -23,5 +23,13 @@ public class CustomerDao {
 		 return sqlSession.selectOne("project.healingcamp.mapper.customerMapper.total", cri);
 	}
 	
+	//faq ¸ñ·Ï
+	public List<Community_BoardVO> customeFaq(Criteria cri){
+		return sqlSession.selectList("project.healingcamp.mapper.customerMapper.faq_List", cri);
+	} 
+	
+	public int faq_Total(Criteria cri) {
+		return sqlSession.selectOne("project.healingcamp.mapper.customerMapper.faq_Total", cri);
+	}
 	
 }

@@ -12,5 +12,7 @@ public interface customer_centerService {
 
 	public List<Community_BoardVO> notice_getList(Criteria cri);
 	int total(Criteria cri);
+	public List<Community_BoardVO> faq_List(Criteria cri);
+	int faq_Total(Criteria cri);
 	
 }

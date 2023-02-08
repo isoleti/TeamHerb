@@ -28,5 +28,16 @@ public class customer_centerServiceImpl implements customer_centerService{
 		return CustomerDao.total(cri);
 	}
 
+	@Override
+	public List<Community_BoardVO> faq_List(Criteria cri) {
+		List<Community_BoardVO> faq_List = CustomerDao.customeFaq(cri);
+		return faq_List;
+	}
+
+	@Override
+	public int faq_Total(Criteria cri) {
+		return CustomerDao.faq_Total(cri);
+	}
+
 	
 }
