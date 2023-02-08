@@ -80,8 +80,10 @@
 		   ,mail
 		   ,phone
 		   ,usertype
+		   ,center
+		   ,picture
 		   ,edate
-		   
+		  
 		   
 		   
 		)values(
@@ -92,6 +94,8 @@
 			  , #{mail}
 			  , #{phone}  
 			  , #{usertype}
+			  , #{center}
+			  , #{picture}
 			  , sysdate
 				)
 				

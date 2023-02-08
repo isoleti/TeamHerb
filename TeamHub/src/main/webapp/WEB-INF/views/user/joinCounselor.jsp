@@ -223,6 +223,7 @@ $(function(){
         .b input:nth-child(1){width:100px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px;}
         .b input:nth-child(2){width:40px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px;}
         .b input:nth-child(3){width:40px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px;}
+        #picture{border:none;}
         
          #agree input{margin-bottom:20px;}
         #agree h2{position:relative; left:-300px;}
@@ -290,8 +291,10 @@ $(function(){
             <a>아이디  <span>*</span><br> <input type="text" name="id" id="id" onblur="blurId(this)" placeholder=" 아이디"  ></a><button class="btn" type="button" onclick="checkId()">중복확인</button>
             <br>
             <a>이메일 주소  <span>*</span><br> <input type="email" name="mail" id="mail" onblur="blurMail(this)" placeholder=" abc@naver.com"></a><button class="btn" type="button" onclick="checkMail()">중복확인</button> <br>
-            <a>연락처  <span>*</span><br> <input type="number" name="phone" id="phone" placeholder=" 010-0000-0000"></a><!-- <button class="btn" type="button" onclick="requestCert()">인증요청</button><br>
+            <a>연락처  <span>*</span><br> <input type="number" name="phone" id="phone" placeholder=" 01000000000"></a><!-- <button class="btn" type="button" onclick="requestCert()">인증요청</button><br>
             <a>인증번호  <span>*</span><br><input type="text" name="number" id="number" placeholder=" 인증번호"></a><button class="btn" type="button" onclick="checkCert()">인증하기</button> --><br>
+            <a>기관명  <span>*</span><br> <input type="text" name="center" id="center" placeholder=" 기관명"></a><br>
+            <a>상담사 인증 파일  <span>*</span><br> <input type="file" name="picture" id="picture" ></a><br>
             <a>비밀번호  <span>*</span><br> <input type="password" name="pw" id="pw" placeholder=" 비밀번호"></a><br>
             <a>비밀번호 확인  <span>*</span><br> <input type="password" name="pw2" id="pw2" placeholder=" 비밀번호 확인"></a><br>
             </div>
