@@ -14,11 +14,121 @@
 	<title>힐링캠프 고객센터 공지사항</title>
 	<!--부트스트랩, header footer css 연결-->
      <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
-    <link href="<%=request.getContextPath()%>/resources/css/css3.css" rel="stylesheet">
+      <link href="<%=request.getContextPath()%>/resources/css/css3.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	<style>
+	
+</head>
+<body>
+	<header>    <!--header-->
+        <div> <!--로그인 관련-->
+            <p><a href="">로그인</a></p>
+            <p><a href="">회원가입</a></p>
+            <p><a href="">고객센터</a></p>
+        </div> <!-- fin 로그인 관련 -->
+        <nav class="navbar" style="background-color: #dff6e1;"> <!-- 상단 네비게이션 -->
+            <h1><a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath() %>/resources/images/힐링캠프 logo.png" alt="홈버튼"></a></h1>
+            <a href="">치료프로그램</a>
+            <a href="">심리테스트</a>
+            <a href="">커뮤니티</a>  
+            <a href="">상담 예약</a>
+            <a href="">상담사 게시판</a>
+            <section></section>
+        </nav> <!-- fin 상단 네비게이션 -->
+    </header> <!--fin header-->
+	<main><!--메인-->
+		<div class="main_wrap">
+			<div class="customerCenter_area">
+				<div class="left_box"><!--왼쪽 공지사항 박스-->
+					<div class="inner">
+						<h3>고객센터</h3>
+						<div class="option">
+							<a href="<%=request.getContextPath()%>/customerService/customerNotice.do"><button id="notice">공지사항</button></a>
+							<a href="<%=request.getContextPath()%>/customerService/customerFAQ.do"><button id="FAQ">FAQ</button></a>
+						</div><!--option-->
+					</div><!--inner-->
+				</div><!--navbar-->
+				<div class="notice_area">
+					<h2>공지사항</h2>
+					<form id="view_form" actoion="customerNotice.do"> 
+					<div class="notice_place">	
+						<input type="checkbox" id="answer01" name="board_type" value="2">
+        				 	 <c:forEach items="${data}" var="list" varStatus="status">
+	        				 	  <div class="accordion" id="accordionExample">
+						                <div class="accordion-item">
+							                  	<h2 class="accordion-header" id="headingOne">
+							                  		
+								                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${status.index}" aria-expanded="true" aria-controls="collapseOne">
+								                     	 ${list.title}
+								                    </button>
+							                  	</h2>
+							                  	<div id="collapse${status.index}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+								                    <div class="accordion-body">
+								                      	${list.content}  
+								                    </div>
+								                     <div class="accordion-body">
+								                      	${list.wdate.substring(0,10)}  
+								                    </div>
+						                  		</div>
+					                	</div>
+
+					               </div><!-- accordion -->
+				               </c:forEach> 	
+						</form>
+						
+						
+				        <!--부트스트랩 페이지네이션-->
+					        <nav aria-label="Page navigation example">
+					            <ul style="margin-left:251px;" class="pagination justify-content-center">
+					            
+						<!--이전버튼 활성화 -->
+					              <c:if test="${pageMaker.prev}">
+						              <li class="page-item">
+						                <a class="page-link" href="<%=request.getContextPath() %>/customerService/customerNotice.do?page=${(pageMaker.startPage-1)}&perPageNum=${pageMaker.perPageNum}" aria-label="Prev">
+						                  <span aria-hidden="true">&laquo;</span>
+						                </a>
+						              </li>
+						            </c:if>
+					              
+						<!-- Prev 끝 -->
+				        <!-- Page번호 시작 -->
+					           <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage}" var="index">
+						         	<li class="page-item"><a class="page-link <c:if test='${pageMaker.page eq index }'>active</c:if>" href="<%=request.getContextPath() %>/customerService/customerNotice.do?page=${index}">${index}</a></li>
+						       </c:forEach>
+					    <!-- Page번호 끝 -->
+					    <!-- Next 시작 -->
+					          <c:if test="${pageMaker.next}">
+						          <li class="page-item">
+							            <a class="page-link" href="<%=request.getContextPath() %>/customerService/customerNotice.do?page=${(pageMaker.endPage+1)}&perPageNum=${pageMaker.perPageNum}" aria-label="Next">
+							              	<span aria-hidden="true">&raquo;</span>
+							            </a>
+						          </li>
+					          </c:if>	
+					          <!-- Next 끝 -->
+					        </ul>
+				     	 </nav>
+					</div><!--notice_place-->
+				</div><!--notice_area-->
+			</div><!--customer_area-->
+		</div><!--메인 랩-->
+		
+	</main>
+	<footer> <!-- footer -->
+        <div id="bottom">   
+            <br> 
+            <p>(주)&nbsp;힐링캠프</p>
+            <p>Team : 허브</p>
+            <p>이젠 아카데미</p>
+            <br>
+            <address>전라북도 전주시 덕진구 금암1동 667-52</address>
+            <p>전화번호 : 010-0000-0000</p>
+            <p>FAX : 063-000-0000</p>
+        </div>
+	</footer> <!-- end footer -->
+	
+</body>
+<style>
 		h1,h2,h3{
 			margin:0
 		}
@@ -179,128 +289,22 @@
 		}
 
 		nav{
-			position:relative;
-			top:50px;
+			
+			top:0px;
 			right:center;
-			text-align:center;		
+			text-align:center;
+					
 		}
 		
 		nav ul{
 			position:relative;
-			left:-75px;
+			left:-123px;
+			top: 50px;
 		}
 
 	</style>
 
-</head>
-<body>
-	<header>    <!--header-->
-        <div> <!--로그인 관련-->
-            <p><a href="">로그인</a></p>
-            <p><a href="">회원가입</a></p>
-            <p><a href="">고객센터</a></p>
-        </div> <!-- fin 로그인 관련 -->
-        <nav class="navbar" style="background-color: #dff6e1;"> <!-- 상단 네비게이션 -->
-            <h1><a href=""><img src="images/힐링캠프 logo.png" alt="홈버튼"></a></h1>
-            <a href="">치료프로그램</a>
-            <a href="">심리테스트</a>
-            <a href="">커뮤니티</a>  
-            <a href="">상담 예약</a>
-            <a href="">상담사 게시판</a>
-            <section></section>
-        </nav> <!-- fin 상단 네비게이션 -->
-    </header> <!--fin header-->
-	<main><!--메인-->
-		<div class="main_wrap">
-			<div class="customerCenter_area">
-				<div class="left_box"><!--왼쪽 공지사항 박스-->
-					<div class="inner">
-						<h3>고객센터</h3>
-						<div class="option">
-							<a href="<%=request.getContextPath()%>/customerService/customerNotice.do"><button id="notice">공지사항</button></a>
-							<a href="<%=request.getContextPath()%>/customerService/customerFAQ.do"><button id="FAQ">FAQ</button></a>
-						</div><!--option-->
-					</div><!--inner-->
-				</div><!--navbar-->
-				<div class="notice_area">
-					<h2>공지사항</h2>
-					<form id="view_form" actoion="customerNotice.do"> 
-					<div class="notice_place">	
-						<input type="checkbox" id="answer01" name="board_type" value="2">
-        				 	 <c:forEach items="${data}" var="list" varStatus="status">
-	        				 	  <div class="accordion" id="accordionExample">
-						                <div class="accordion-item">
-							                  	<h2 class="accordion-header" id="headingOne">
-							                  		
-								                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${status.index}" aria-expanded="true" aria-controls="collapseOne">
-								                     	 ${list.title}
-								                    </button>
-							                  	</h2>
-							                  	<div id="collapse${status.index}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-								                    <div class="accordion-body">
-								                      	${list.content}  
-								                    </div>
-								                     <div class="accordion-body">
-								                      	${list.wdate.substring(0,10)}  
-								                    </div>
-						                  		</div>
-					                	</div>
 
-					               </div><!-- accordion -->
-				               </c:forEach> 	
-						</form>
-						
-						
-				        <!--부트스트랩 페이지네이션-->
-					        <nav aria-label="Page navigation example">
-					            <ul style="margin-left:251px;" class="pagination justify-content-center">
-					            
-						<!--이전버튼 활성화 -->
-					              <c:if test="${pageMaker.prev}">
-						              <li class="page-item">
-						                <a class="page-link" href="<%=request.getContextPath() %>/customerService/customerNotice.do?page=${(pageMaker.startPage-1)}&perPageNum=${pageMaker.perPageNum}" aria-label="Prev">
-						                  <span aria-hidden="true">&laquo;</span>
-						                </a>
-						              </li>
-						            </c:if>
-					              
-						<!-- Prev 끝 -->
-				        <!-- Page번호 시작 -->
-					           <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage}" var="index">
-						         	<li class="page-item"><a class="page-link <c:if test='${pageMaker.page eq index }'>active</c:if>" href="<%=request.getContextPath() %>/customerService/customerNotice.do?page=${index}">${index}</a></li>
-						       </c:forEach>
-					    <!-- Page번호 끝 -->
-					    <!-- Next 시작 -->
-					          <c:if test="${pageMaker.next}">
-						          <li class="page-item">
-							            <a class="page-link" href="<%=request.getContextPath() %>/customerService/customerNotice.do?page=${(pageMaker.endPage+1)}&perPageNum=${pageMaker.perPageNum}" aria-label="Next">
-							              	<span aria-hidden="true">&raquo;</span>
-							            </a>
-						          </li>
-					          </c:if>	
-					          <!-- Next 끝 -->
-					        </ul>
-				     	 </nav>
-						
-					</div><!--notice_place-->
-				</div><!--notice_area-->
-			</div><!--customer_area-->
-		</div><!--메인 랩-->
-		
-	</main>
-	<footer> <!-- footer -->
-        <div id="bottom">   
-            <br> 
-            <p>(주)&nbsp;힐링캠프</p>
-            <p>Team : 허브</p>
-            <p>이젠 아카데미</p>
-            <br>
-            <address>전라북도 전주시 덕진구 금암1동 667-52</address>
-            <p>전화번호 : 010-0000-0000</p>
-            <p>FAX : 063-000-0000</p>
-        </div>
-	</footer> <!-- end footer -->
-</body>
 </html>
 
 	
