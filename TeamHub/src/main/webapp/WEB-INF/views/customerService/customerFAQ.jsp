@@ -29,14 +29,14 @@
 		main .main_wrap{
 			
 			width:inherit;	
-			height:700px;
+			height:1200px;
 		}
 		main .customerCenter_area{
 			margin:0 7%;
 			width:75%;
 			height:100%;
 			display: flex;
-			
+			margin-bottom:50%;
 			position:relative;
 		}
 		.left_box{
@@ -98,7 +98,7 @@
 			padding: 15px;
 		}
 		.notice_place{
-			
+		
 			height: 80%;
 			width:100%;
 			
