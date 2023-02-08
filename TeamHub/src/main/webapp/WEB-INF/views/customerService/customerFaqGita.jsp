@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %><!-- jstl추가 -->
+<%@ page import="project.healingcamp.vo.Community_BoardVO" %>
+<%List<Community_BoardVO> faq_List = (List<Community_BoardVO>)request.getAttribute("faq_List");%>
+<%@ page session="true" %>            
 <!DOCTYPE html>
 <html lang="ko" style="--vh:5.02px;">
 <head>
@@ -229,13 +234,61 @@
 						<a href="<%=request.getContextPath()%>/customerService/customerFaqReservation.do"><div class="faq_nav" id="reservation">예약결제</div></a><!--예약결제-->
 						<a href="<%=request.getContextPath()%>/customerService/customerFaqGita.do"><div class="faq_nav" id="gita">기타</div></a><!--기타-->
 					</div><!---->
-					<div class="notice_place">
-						<input type="checkbox" id="answer02">
-						<label for="answer02">기타<em><i class="xi-check xi-2x"></i></em></label>
-						<div class="content">
-							<p>기타기타</p>
-						</div><!--content-->
-					</div><!--notice_place-->
+					
+					<form id="view_form" action="customerFAQ.do">
+						<div class="notice_place">
+							<input type="checkbox" id="answer02" name="board_type" value="3">
+							<c:forEach items="${data}" var="list" varStatus="status">
+	        				 	  <div class="accordion" id="accordionExample">
+						                <div class="accordion-item">
+							                  	<h2 class="accordion-header" id="headingOne">	
+								                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${status.index}" aria-expanded="true" aria-controls="collapseOne">
+								                     	 ${list.title}
+								                    </button>
+							                  	</h2>
+							                  	<div id="collapse${status.index}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+								                    <div class="accordion-body">
+								                      	${list.content}  
+								                    </div>
+								                     <div class="accordion-body">
+								                      	${list.wdate.substring(0,10)}  
+								                    </div>
+						                  		</div>
+					                	</div>
+					               </div><!-- accordion -->
+				               </c:forEach> 
+						</div><!--notice_place-->
+					</form>
+					<!--부트스트랩 페이지네이션-->
+					        <nav aria-label="Page navigation example">
+					            <ul style="margin-left:251px;" class="pagination justify-content-center">
+					            
+						<!--이전버튼 활성화 -->
+					              <c:if test="${pageMaker.prev}">
+						              <li class="page-item">
+						                <a class="page-link" href="<%=request.getContextPath() %>/customerService/customerFaqGita.do?page=${(pageMaker.startPage-1)}&perPageNum=${pageMaker.perPageNum}" aria-label="Prev">
+						                  <span aria-hidden="true">&laquo;</span>
+						                </a>
+						              </li>
+						            </c:if>
+					              
+						<!-- Prev 끝 -->
+				        <!-- Page번호 시작 -->
+					           <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage}" var="index">
+						         	<li class="page-item"><a class="page-link <c:if test='${pageMaker.page eq index }'>active</c:if>" href="<%=request.getContextPath() %>/customerService/customerFaqGita.do?page=${index}">${index}</a></li>
+						       </c:forEach>
+					    <!-- Page번호 끝 -->
+					    <!-- Next 시작 -->
+					          <c:if test="${pageMaker.next}">
+						          <li class="page-item">
+							            <a class="page-link" href="<%=request.getContextPath() %>/customerService/customerFaqGita.do?page=${(pageMaker.endPage+1)}&perPageNum=${pageMaker.perPageNum}" aria-label="Next">
+							              	<span aria-hidden="true">&raquo;</span>
+							            </a>
+						          </li>
+					          </c:if>	
+					          <!-- Next 끝 -->
+					        </ul>
+				     	 </nav>
 				</div><!--notice_area-->
 
 			</div><!--customer_area-->

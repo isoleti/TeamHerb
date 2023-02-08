@@ -10,9 +10,11 @@ public interface customer_centerService {
 	
 	/*게시판 목록 */
 
-	public List<Community_BoardVO> notice_getList(Criteria cri);
+	List<Community_BoardVO> notice_getList(Criteria cri);
 	int total(Criteria cri);
-	public List<Community_BoardVO> faq_List(Criteria cri);
-	int faq_Total(Criteria cri);
+	
+	//faq목록
+	List<Community_BoardVO> faq_List(SearchVO searchVO);
+	int faq_Total(SearchVO searchVO);
 	
 }

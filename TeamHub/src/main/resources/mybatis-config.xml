@@ -13,6 +13,7 @@
 		<typeAlias type="project.healingcamp.vo.Criteria" alias="criteria"/>
 		<typeAlias type="project.healingcamp.vo.MyCriteria" alias="myCriteria"/>
 		<typeAlias type="project.healingcamp.vo.LikeVO" alias="likeVO"/>
+		
 	</typeAliases>
 
 

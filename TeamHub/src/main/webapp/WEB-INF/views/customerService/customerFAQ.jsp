@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %><!-- jstl추가 -->
+<%@ page import="project.healingcamp.vo.Community_BoardVO" %>
+<%List<Community_BoardVO> faq_List = (List<Community_BoardVO>)request.getAttribute("faq_List");%>
+<%
+	String cate = (String)request.getAttribute("category");
+	if(cate == null) cate = "";
+%>        
 <!DOCTYPE html>
 <html lang="ko" style="--vh:5.02px;">
 <head>
@@ -12,6 +20,7 @@
     <link href="<%=request.getContextPath()%>/resources/css/css3.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<style>
 		h1,h2,h3{
 			margin:0
@@ -20,14 +29,14 @@
 		main .main_wrap{
 			
 			width:inherit;	
-			height:700px;
+			height:1200px;
 		}
 		main .customerCenter_area{
 			margin:0 7%;
 			width:75%;
 			height:100%;
 			display: flex;
-			
+			margin-bottom:50%;
 			position:relative;
 		}
 		.left_box{
@@ -89,7 +98,7 @@
 			padding: 15px;
 		}
 		.notice_place{
-			
+		
 			height: 80%;
 			width:100%;
 			
@@ -189,6 +198,23 @@
 			transition: 0.5;
 			background-color: #e8e6e6;
 		}
+		
+		nav{
+			
+			top:0px;
+			right:center;
+			text-align:center;
+			point:curser;		
+		}
+		
+		nav ul{
+			position:relative;
+			left:-123px;
+			top: 50px;
+		}
+		nav ul li{
+			cursor: pointer;
+		}
 	</style>
 
 </head>
@@ -223,31 +249,73 @@
 				</div><!--navbar-->
 				<div class="notice_area">
 					<h2>FAQ</h2>
-					<div class="FAQ_select">
-						<a href="<%=request.getContextPath()%>/customerService/customerFAQ.do"><div class="faq_nav" id="all">전체</div></a><!--전체-->
-						<a href="<%=request.getContextPath()%>/customerService/customerFAQ_counselling.do"><div class="faq_nav" id="counselling">심리상담</div></a><!--심리상담-->
-						<a href="<%=request.getContextPath()%>/customerService/customerFaqReservation.do"><div class="faq_nav" id="reservation">예약결제</div></a><!--예약결제-->
-						<a href="<%=request.getContextPath()%>/customerService/customerFaqGita.do"><div class="faq_nav" id="gita">기타</div></a><!--기타-->
-					</div><!---->
-					<div class="notice_place">
-						<input type="checkbox" id="answer01">
-						<label for="answer01">심리상담<em><i class="xi-check xi-2x"></i></em></label>
-						<div class="content">
-							<p>심리상담 심리심리.</p>
-						</div><!--content-->
-						<input type="checkbox" id="answer02">
-						<label for="answer02">예약결제<em><i class="xi-check xi-2x"></i></em></label>
-						<div class="content">
-							<p>예약결제 몰라몰라</p>
-						</div><!--content-->
-						<input type="checkbox" id="answer03">
-						<label for="answer03">기타내용<em><i class="xi-check xi-2x"></i></em></label>
-						<div class="content">
-							<p>기타내용은 기타기타.</p>
-						</div><!--content-->
-						
-						
-					</div><!--notice_place-->
+					<form action="" name="getForm" method="get" onsubmit="return false;">
+						<input type="hidden" name="category" value="">
+						<div class="FAQ_select">
+							<input type="button" class='cate <%= (cate == "" || cate.equals("전체보기")) ? "active" : "" %>' value="전체보기">
+							<input type="button" class='cate <%= (cate.equals("심리상담")) ? "active" : "" %>' value="심리상담">
+							<input type="button" class='cate <%= (cate.equals("예약/결제")) ? "active" : "" %>' value="예약/결제">
+							<input type="button" class='cate <%= (cate.equals("기타")) ? "active" : "" %>' value="기타">
+						</div><!---->
+					</form>
+					<form id="view_form" action="customerFAQ.do">
+						<div class="notice_place">
+							<input type="checkbox" id="answer01" name="board_type" value="3">						
+								<c:forEach items="${faq_List}" var="list" varStatus="status">
+	        				 	  <div class="accordion" id="accordionExample">
+						                <div class="accordion-item">
+							                  	<h2 class="accordion-header" id="headingOne">	
+								                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${status.index}" aria-expanded="true" aria-controls="collapseOne">
+								                     	 ${list.title}
+								                    </button>
+							                  	</h2>
+							                  	<div id="collapse${status.index}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+								                    <div class="accordion-body">
+								                      	${list.content}  
+								                    </div>
+								                     <div class="accordion-body">
+								                      	${list.wdate.substring(0,10)}  
+								                    </div>
+						                  		</div>
+					                	</div>
+					               </div><!-- accordion -->
+				               </c:forEach> 
+						</div><!--notice_place-->
+					</form><!-- view_form -->
+					
+			
+			       	<!--부트스트랩 페이지네이션-->
+			        <nav aria-label="Page navigation example">
+			            <ul style="margin-left:251px;" class="pagination justify-content-center">
+			            
+						<!-- 이전버튼 활성화 -->
+			              <c:if test="${pageVO.prev}">
+				              <li class="page-item">
+				                <a class="page-link" href="<%=request.getContextPath() %>/customerService/customerFAQ.do?pageNum=${pageVO.startPage-1}&amount=${pageVO.amount}<c:if test='${searchVO.category != null}'>&category=${searchVO.category}</c:if>" aria-label="Previous">
+				                  <span aria-hidden="true">&laquo;</span>
+				                </a>
+				              </li>
+				            </c:if>
+			              
+						<!--페이지 번호 -->
+			              <c:forEach var="num" begin="${pageVO.startPage }" end="${pageVO.endPage }">
+				              <li class="page-item">
+					              <a class="page-link ${pageVO.pageNum == num ? "active":"" }' href="<%=request.getContextPath() %>/customerService/customerFAQ.do?pageNum=${num}&amount=${pageVO.amount}&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}<c:if test='${searchVO.category != null}'>&category=${searchVO.category}</c:if>">${num}
+					              </a>
+				              </li>
+				            </c:forEach>
+			              
+						<!-- 다음버튼 활성화 -->
+			              <c:if test="${pageVO.next }">
+				              <li class="page-item">
+					                <a class="page-link" href="<%=request.getContextPath() %>/customerService/customerFAQ.do?pageNum=${pageVO.endPage+1}&amount=${pageVO.amount}<c:if test='${searchVO.category != null}'>&category=${searchVO.category}</c:if>" aria-label="Next">
+					                  	<span aria-hidden="true">&raquo;</span>
+					                </a>
+				              </li>
+							</c:if>			
+			            </ul>
+			          </nav>	
+					
 				</div><!--notice_area-->
 
 			</div><!--customer_area-->
@@ -266,4 +334,25 @@
         </div>
 	</footer> <!-- end footer -->
 </body>
+
+<script>
+	$(function(){	
+		//클릭시 카테고리 변경
+		$(document).on("click",".cate",function(){
+			
+			var cateVal = $("input[name=category]").val($(this).val());
+			if (cateVal.val() == "전체보기")
+			{
+				location.href='customerFAQ.do';
+			}else
+			{
+				var paraStr = "customerFAQ.do?category=" + cateVal.val();
+				location.href=paraStr; 
+			}
+		});
+		
+	});
+</script>
+
+
 </html>
