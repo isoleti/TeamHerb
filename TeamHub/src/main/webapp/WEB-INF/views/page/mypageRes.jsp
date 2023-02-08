@@ -3,8 +3,14 @@
 <%@ page import="java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="project.healingcamp.vo.UserVo" %>
+<%@ page import="project.healingcamp.vo.ReserveVO" %>
 <%@ page session="true" %>    
-    
+
+<% List<ReserveVO> reslist = (List<ReserveVO>)request.getAttribute("reslist"); %>  
+<%
+	String resposition = (String)request.getAttribute("resposition");
+	if(resposition == null) resposition = "";
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,11 +18,13 @@
 <title>마이페이지 메인</title>
 <link href="<%= request.getContextPath() %>/resources/css/bootstrap.css" rel="stylesheet">
 <link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
+ <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
+
 <style>
       main{margin:0 auto;  width:1160px; margint-top:0; }
         main h2{font-size:22px; margin:80px 250px; }
         .bar{width:280px; height:700px; display:inline-block; border:1px solid #e4e4e4; 
-                text-align:center; padding-top: 30px; position:relative; top:-34px;
+                text-align:center; padding-top: 30px; position:relative; top:-13px;
                 padding:40px;}
         .bar a{display:block;}
         .bar a:nth-child(1){font-size:25px; font-weight: bold; padding-bottom:20px;display: block;
@@ -31,7 +39,8 @@
         .btn2{height:35px; font-size:15px; border-radius:5px;  margin-top:20px;}
         .btn2:hover{background:#e4e4e4;}
         .btn3:hover{background:#e4e4e4;}
-        .content{display:inline-block; position: relative; top:150px; left:50px; }
+        .btn4:hover{background:#1ec34c;}
+        .content{display:inline-block; position: relative; top:150px; left:50px;  }
         .content a{ font-size:20px; 
             display:block; margin-top:20px;}
         .content a:nth-child(3){display:inline-block;}
@@ -39,13 +48,15 @@
             background:white; border-radius:5px; margin-right:20px; }
         .content p{display:inline-block; }
         .content input{margin:20px;}
+        .respostion{background:white; border:none;}
         .p{font-weight:bold;}
-        #sb a{font-size:15px; font-style: none;}
+        #sb a{font-size:15px; font-style: none; margin:0;}
         #sb {display:inline-block;}
-        #sb button{background:#0ed145; color:white; margin-left:100px;}
-
-        #tb table{border:1px solid #dff6e1; width:800px; height:200px; text-align:center;}
+        #sb button{background:#1bdb51; color:white; margin-left:100px; position:relative; }
+		#sb button:hover{background:#0ed145;}
+        #tb table{border:1px solid #dff6e1; width:800px;  text-align:center;}
         #tb tr:nth-child(1){font-weight: bold;}
+        td{height:30px;}
         #tb td:nth-child(5){padding:0;}
         #tb tr:nth-child(2n){background-color:#dff6e1;}
         #tb button{width:50px; margin:0;}
@@ -107,25 +118,29 @@
         <div class="content">
             <a class="p">나의 예약</a>
             <a class="p">예약 기간</a>
-            <button class="btn3">1개월</button>
+          <!--   <button class="btn3">1개월</button>
             <button class="btn3">3개월</button>
-            <button class="btn3">6개월</button>
+            <button class="btn3">6개월</button> -->
             <p>기간 입력</p>
             <input type="date" name="date1" id="date1" >
             <p>~</p>
             <input type="date" name="date2" id="date2" >
 
-            <a class="p">예약 상태</a>
+            <!-- <a class="p">예약 상태</a> -->
             <div id="sb">
             <a>
-            <input type="radio" name="sel" id="all">전체
-            <input type="radio" name="sel" id="compl">예약완료
-            <input type="radio" name="sel" id="wait">예약대기
-            <input type="radio" name="sel" id="canc">예약취소
+         
+           <!--  <input type="button"  value="전체보기" id="all" >
+            <input type="button" id="compl"  value="예약완료">
+            <input type="button" id="wait" value="예약대기">
+             -->
+            <!-- <input type="radio" name="sel" id="canc">예약취소 -->
             <button class="btn4">검색</button>
             </a> </div><!--//#sb-->
             <div id="tb">
             <table border="1">
+           		 <form  action="myres_delete.do" method="post">  
+           		
                 <tr>
                     <td>예약 번호</td>
                     <td>병원 및 상담소</td>
@@ -133,38 +148,21 @@
                     <td>처리 현황</td>
                     <td>관리</td>
                 </tr>
+                 
+                 
+
+                 <c:forEach items="${reslist}" var="vo">
+                  <input type="hidden" name="uidx" value="${vo.uidx}">
+           		 <input type="hidden" name="residx" value="${vo.residx}">
                 <tr>
-                    <td>예약 번호</td>
-                    <td>병원 및 상담소</td>
-                    <td>예약 일시</td>
-                    <td>처리 현황</td>
-                    <td><button>수정</button>
-                        <button>취소</button></td>
+                    <td>${vo.residx}</td>
+                    <td>${vo.center}</td>
+                    <td>${vo.resdate.substring(0,10)}</td>
+                    <td>${vo.resposition}</td>
+                    <td><button>취소</button></td>
                 </tr>
-                <tr>
-                    <td>예약 번호</td>
-                    <td>병원 및 상담소</td>
-                    <td>예약 일시</td>
-                    <td>처리 현황</td>
-                    <td><button>수정</button>
-                        <button>취소</button></td>
-                </tr>
-                <tr>
-                    <td>예약 번호</td>
-                    <td>병원 및 상담소</td>
-                    <td>예약 일시</td>
-                    <td>처리 현황</td>
-                    <td><button>수정</button>
-                        <button>취소</button></td>
-                </tr>
-                <tr>
-                    <td>예약 번호</td>
-                    <td>병원 및 상담소</td>
-                    <td>예약 일시</td>
-                    <td>처리 현황</td>
-                    <td><button>수정</button>
-                        <button>취소</button></td>
-                </tr>
+               </c:forEach>  
+                </form>
                
 
             </table>
@@ -174,22 +172,31 @@
     <div id="navi">
     <nav aria-label="Page navigation example">
         <ul class="pagination">
+        <!-- Prev 시작 -->
+          <c:if test="${mypageMaker.prev}"> <!--  -->
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
+            <a class="page-link" href="<%=request.getContextPath() %>/page/mypageRes.do?page=${(mypageMaker.startPage-1)}&perPageNum=${mypageMaker.perPageNum}" aria-label="Prev">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          </c:if>
+          <!-- Prev 끝 -->
+          <!-- Page번호 시작 -->
+           <c:forEach begin="${mypageMaker.startPage }" end="${mypageMaker.endPage}" var="index">
+          <li class="page-item"><a class="page-link <c:if test='${mypageMaker.page eq index }'>active</c:if>" href="<%=request.getContextPath() %>/page/mypageRes.do?page=${index}">${index}</a></li>
+          </c:forEach>
+         <!-- Page번호 끝 -->
+         <!-- Next 시작 -->
+          <c:if test="${mypageMaker.next}">
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
+            <a class="page-link" href="<%=request.getContextPath() %>/page/mypageRes.do?page=${(mypageMaker.endPage+1)}&perPageNum=${mypageMaker.perPageNum}" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
+          </c:if>	
+          <!-- Next 끝 -->
         </ul>
       </nav>
-
      </div><!--#navi-->   
 
     </main>

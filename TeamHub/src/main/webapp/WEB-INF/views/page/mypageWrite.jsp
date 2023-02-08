@@ -62,7 +62,7 @@
         #tb button{width:50px; margin:0;}
         #navi{width:200px; margin-left:300px;}
         #navi a{font-size:15px; color:black;}
-		ul.pagination{position:relative; top:-300px; left:557px;}
+		ul.pagination{position:relative; top:-300px; left:300px;}
    </style>
 </head>
 <body>
@@ -155,6 +155,7 @@
             
     </div><!--#tb-->
 	</div><!-- #content -->
+	<div id="navi">
     <nav aria-label="Page navigation example">
         <ul class="pagination">
         <!-- Prev 시작 -->
