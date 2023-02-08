@@ -45,6 +45,13 @@ public class ReserveController {
 		return "res/center";
 	}
 	
+	//상담기관
+	@RequestMapping(value = "/center.do", method = RequestMethod.POST)
+	public String getCenter() {
+		
+		return "res/center";
+	}
+	
 	//예약페이지
 	@RequestMapping(value = "/respage.do", method = RequestMethod.GET)
 	public String page() {

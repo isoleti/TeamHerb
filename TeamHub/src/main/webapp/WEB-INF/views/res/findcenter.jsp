@@ -17,14 +17,15 @@
     	main h2{margin-left:20%; margin-top:3%; margin-bottom:3.5%;}
         main #map{margin-left:20%; margin-bottom:5%;}
         main .map_wrap{margin-bottom:3%;}
-        main .center{width:60%; border:3px solid #dff6e1; border-radius:2ch; margin-left:20%;}
+        main #frm{margin-left:22%;}
+        main form .center{width:185%; border:3px solid #dff6e1; border-radius:2ch;}
         main dt{width:20%; margin-left:75%; margin-bottom:0.75%;}
         main dt dl{display:inline-block; margin-right:5%;}
         main form{width:30%; margin-left:70%; margin-bottom:1.75%;}
         main div p{margin-left:15%; margin-top:1%;}
         main .center #centerName,
         main .center #centerAddr,
-        main .center #centerCall{boredr:0px;}
+        main .center #centerCall{width:300px;border:hidden;}
         .form-select{width:30%; display:inline-block;}
         button{margin-left:10%;}
     </style>   
@@ -315,30 +316,36 @@
 				var val1 = obj.children[0].innerText;
 				var val2 = obj.children[1].innerText;
 				var val3 = obj.children[3].innerText;
-				alert("val1 = "+val1);
-				console.log("val1 = "+val1);
-				alert("val2 = "+val2);
-				console.log("val2 = "+val2);
-				alert("val3 = "+val3);
-				console.log("val3 = "+val3);
 				
-			/*	
-				alert("cn :"+cn);
-				alert("ca :"+ca);
-				alert("cc :"+cc);
+				
+				
+				console.log("val1 = "+val1);
+				console.log("val2 = "+val2);
+				console.log("val3 = "+val3);				
+			
 				console.log("cn :"+cn);
 				console.log("ca :"+ca);
-				console.log("cc :"+cc); 
-			*/
+				console.log("cc :"+cc);  
+				
 			
-				cn.getAttribute('value', val1);
+				cn.setAttribute('value', val1);
+				ca.setAttribute('value', val2);
+				cc.setAttribute('value', val3);
+			}
+			function center(){
+				var fm = document.getElementById("frm");
+				
+				fm.action = "<%=request.getContextPath()%>/res/center.do?'"
+				fm.submit();
 			}
 			</script>
-        <div class="center" onclick="location.href='<%=request.getContextPath()%>/res/center.do'"><!--뒤이어 작성-->
+		<form method="post" id="frm" name="frm">	
+        <div class="center" onclick="center()"><!--뒤이어 작성-->
             <p >상담소 : <input type="text" id="centerName" readonly> </p>
             <p >위치 : <input type="text" id="centerAddr" readonly></p>
             <p >전화번호 : <input type="text" id="centerCall" readonly></p>
         </div>
+        </form>
     </main>
     <footer> <!-- footer -->
         <div id="bottom">   
