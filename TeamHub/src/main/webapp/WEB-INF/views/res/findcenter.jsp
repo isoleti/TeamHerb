@@ -3,6 +3,8 @@
 <%@ page import="java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
+<%@ page import="project.healingcamp.vo.ReserveVO" %>
+<%ReserveVO vo = (ReserveVO)request.getAttribute("data");%>
 <!DOCTYPE html>
 <html lang="ko" style="--vh:5.02px;">
 <head>
@@ -13,6 +15,7 @@
      <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
      <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
      <link href="<%=request.getContextPath()%>/resources/css/map.css" rel="stylesheet">
+     <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
     <style>
     	main h2{margin-left:20%; margin-top:3%; margin-bottom:3.5%;}
         main #map{margin-left:20%; margin-bottom:5%;}
@@ -309,28 +312,51 @@
 			//지도값 담기
 			function setSearch(obj){
 				
-				var cn = document.getElementById("centerName");
-				var ca = document.getElementById("centerAddr");
-				var cc = document.getElementById("centerCall");
+				var cn = document.getElementById("centername");
+				var ca = document.getElementById("centeraddr");
+				var cc = document.getElementById("centercall");
+				
+				
 				
 				var val1 = obj.children[0].innerText;
 				var val2 = obj.children[1].innerText;
 				var val3 = obj.children[3].innerText;
 				
 				
-				
+				/* 
 				console.log("val1 = "+val1);
 				console.log("val2 = "+val2);
 				console.log("val3 = "+val3);				
 			
 				console.log("cn :"+cn);
 				console.log("ca :"+ca);
-				console.log("cc :"+cc);  
-				
-			
+				console.log("cc :"+cc);
+			    */
+			    
 				cn.setAttribute('value', val1);
 				ca.setAttribute('value', val2);
 				cc.setAttribute('value', val3);
+				
+				var cnval = cn.value;
+				var caval = ca.value;
+				
+				console.log("cnval : "+cnval);
+				console.log("caval : "+caval);
+				
+				var cno = document.getElementById("cnoidx");
+				
+				$.ajax({
+					url:"<%=request.getContextPath()%>/res/cnoidx.do",
+					type:"GET",
+					data:{"centername":cnval,"centeraddr":caval},
+					success:function(data){	
+							
+							cno.setAttribute('value',data.cnoidx);
+						
+					}
+					
+				});
+				
 			}
 			function center(){
 				var fm = document.getElementById("frm");
@@ -339,11 +365,12 @@
 				fm.submit();
 			}
 			</script>
-		<form method="post" id="frm" name="frm">	
-        <div class="center" onclick="center()"><!--뒤이어 작성-->
-            <p >상담소 : <input type="text" id="centerName" readonly> </p>
-            <p >위치 : <input type="text" id="centerAddr" readonly></p>
-            <p >전화번호 : <input type="text" id="centerCall" readonly></p>
+		<form method="post" id="frm" name="frm">
+        <div class="center" onclick="center()"><!--뒤이어 작성-->        	
+            <p >상담소 : <input type="text" name="centername" id="centername" readonly> </p>
+            <p >위치 : <input type="text" name="centeraddr" id="centeraddr" readonly></p>
+            <p >전화번호 : <input type="text" name="centercall" id="centercall" readonly></p>
+            <input type="hidden" id="cnoidx" name="cnoidx">
         </div>
         </form>
     </main>
