@@ -141,16 +141,13 @@
 </head>
 <body>
     <header>    <!--header-->
-      <div> <!--로그인 관련-->
-             
+      <div> <!--로그인 관련-->             
       <c:if test = "${login == null}">   
             <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
             <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
             <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
-      </c:if><!-- 로그아웃 or 로그인x -->
-         
-      <c:if test = "${login != null}">
-            
+      </c:if><!-- 로그아웃 or 로그인x -->         
+      <c:if test = "${login != null}">            
                <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
                <c:if test = "${login.usertype eq 'a'}">
                <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
@@ -185,8 +182,7 @@
         </div>
         <div id="res"><!-- 예약 및 일정-->   
             <p></p><br>   
-            <p>기관설명 기관명</p><br>
-            <p>주요 상담분야</p><br>
+            <p>기관명 :</p><br>            
             <p>주소 :</p><br>
             <P>전화 : </P><br>
             <c:if test = "${login == null}"> 
@@ -226,7 +222,6 @@
         </div>
         <h2>상담사 소개</h2>
         <div class="cou"><!--상담사 설명-->
-            <img src="" alt="">
             <p>상담사 명</p>
             <dt>학력
                 <dl></dl>
@@ -246,13 +241,7 @@
                 <dl></dl>
                 <dl></dl>
                 <dl></dl>
-            </dt>
-            <dt>경력
-                <dl></dl>
-                <dl></dl>
-                <dl></dl>
-                <dl></dl>
-            </dt>
+            </dt>            
         </div>
         <h2>안내말씀</h2>
         <div id="notice">
@@ -287,35 +276,60 @@
         </div>
         <h2>오시는 길</h2>
         <div id="map" style="width:550px;height:400px;"></div>	
-       		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=387e40e57d47d09b22e39f6b21c6fd82"></script>		
+       		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=387e40e57d47d09b22e39f6b21c6fd82&libraries=services"></script>		
 			<script>
 				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 			    mapOption = { 
 			        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 			        level: 3 // 지도의 확대 레벨
 			    };
-	
-				var map = new kakao.maps.Map(mapContainer, mapOption);
-		
-				// 마커가 표시될 위치입니다 
-				var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
-		
-				// 마커를 생성합니다
-				var marker = new kakao.maps.Marker({
-				    position: markerPosition
-				});
-		
-				// 마커가 지도 위에 표시되도록 설정합니다
-				marker.setMap(map);
-		
-				var iwContent = '<div style="padding:5px;">Hello World! <br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-				    iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
-		
-				// 인포윈도우를 생성합니다
-				var infowindow = new kakao.maps.InfoWindow({
-				    position : iwPosition, 
-				    content : iwContent 
-				});
+				
+				// 지도를 생성합니다    
+				var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+				// 장소 검색 객체를 생성합니다
+				var ps = new kakao.maps.services.Places(); 
+
+				// 키워드로 장소를 검색합니다
+				ps.keywordSearch('오은영심리상담센터', placesSearchCB); 
+				
+				// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
+				var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+				
+				// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+				function placesSearchCB (data, status, pagination) {
+				    if (status === kakao.maps.services.Status.OK) {
+
+				        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+				        // LatLngBounds 객체에 좌표를 추가합니다
+				        var bounds = new kakao.maps.LatLngBounds();
+
+				        for (var i=0; i<data.length; i++) {
+				            displayMarker(data[i]);    
+				            bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+				        }       
+
+				        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+				        map.setBounds(bounds);
+				    } 
+				}
+
+				// 지도에 마커를 표시하는 함수입니다
+				function displayMarker(place) {
+				    
+				    // 마커를 생성하고 지도에 표시합니다
+				    var marker = new kakao.maps.Marker({
+				        map: map,
+				        position: new kakao.maps.LatLng(place.y, place.x) 
+				    });
+
+				    // 마커에 클릭이벤트를 등록합니다
+				    kakao.maps.event.addListener(marker, 'click', function() {
+				        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+				        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+				        infowindow.open(map, marker);
+				    });
+				}
 			</script>		
 		<div id="modal" class="modal-overlay">
 	        <div class="modal-window">

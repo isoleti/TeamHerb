@@ -300,14 +300,12 @@
                 </div><!--e:.main-->
                 <div class="footer">
                     <div class="reaction">
-                    
-                        <div class="empathy_wrapper${vo.bidx}">
-                            <img bidx="${vo.bidx}" class="empathy empathy${vo.bidx}" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감">
-                        </div><!--e:#empathy_wrapper-->
-                        
-                        <div class="like${vo.bidx }">${vo.likes }명이 공감</div>
-                        <div class="reply">댓글 ${vo.replyCnt}개</div>
-                        <div class="hit">조회수 ${vo.hit}</div>
+						<div class="empathy_wrapper${vo.bidx}">
+							<img bidx="${vo.bidx}" class="empathy empathy${vo.bidx}" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감">
+						</div><!--e:#empathy_wrapper-->
+						<div class="like${vo.bidx }">${vo.likes }명이 공감</div>
+						<div class="reply">댓글 ${vo.replyCnt}개</div>
+						<div class="hit">조회수 ${vo.hit}</div>
                     </div><!--e:.reaction-->
                     
                     <c:choose>
@@ -379,8 +377,8 @@
 		var likeList = "${likeList}";
 		console.log("로그인:"+login);
 		console.log("게시글 목록:"+list);
-		console.log("댓글목록:"+likeList);
-		
+		console.log("댓글 목록:"+likeList);
+
 		
 		//좋아요
   		$(".empathy").hover(

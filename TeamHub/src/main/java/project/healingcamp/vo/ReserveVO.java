@@ -8,12 +8,24 @@ public class ReserveVO {
 	private String resdate;
 	private String rescount;
 	private String resc;
+	private String resposition;
+	
+	
 	private int uidx;
 	private int clidx;
 	private int likecheck;
 	private int phone;
 	private String mail;
 	private String restime;
+	
+	
+	
+	public String getResposition() {
+		return resposition;
+	}
+	public void setResposition(String resposition) {
+		this.resposition = resposition;
+	}
 	private String id;
 	
 	public int getResidx() {
@@ -99,9 +111,11 @@ public class ReserveVO {
 	@Override
 	public String toString() {
 		return "ReserveVO [residx=" + residx + ", center=" + center + ", couns=" + couns + ", resdate=" + resdate
-				+ ", rescount=" + rescount + ", resc=" + resc + ", uidx=" + uidx + ", clidx=" + clidx + ", likecheck="
-				+ likecheck + ", phone=" + phone + ", mail=" + mail + ", restime=" + restime + ", id=" + id + "]";
+				+ ", rescount=" + rescount + ", resc=" + resc + ", resposition=" + resposition + ", uidx=" + uidx
+				+ ", clidx=" + clidx + ", likecheck=" + likecheck + ", phone=" + phone + ", mail=" + mail + ", restime="
+				+ restime + ", id=" + id + "]";
 	}
+	
 	
 	
 }

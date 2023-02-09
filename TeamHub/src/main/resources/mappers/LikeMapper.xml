@@ -55,6 +55,11 @@
 		  FROM boardtable 
 		 WHERE bidx = #{bidx}
 	</select>
+	
+	<select id="likeList" resultType="likeVO">
+		SELECT id,bidx
+		  FROM liketable
+	</select>
 
 	
 	

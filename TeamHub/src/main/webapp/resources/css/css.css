@@ -9,9 +9,16 @@ header nav p{margin-left:1%; font-size:20px;}
 header nav h1{margin-left:10%;}
 header nav section{margin-left:17.5%;}
 
-main{margin-bottom:10%;}
-
 
 footer{margin:0 auto;}
 #bottom{background: #f7f7f7; height:230px; margin-top:150px; text-align: center;}
 #bottom p{margin:0;}
+
+#img1{background-image:url("./../images/우울증.png"); background-size:cover;}
+#img2{background-image:url("./../images/MBTI 테스트.png"); background-size:cover;}
+#img3{background-image:url("./../images/스트레스 자가진단.png"); background-size:370px 190px;}
+#img4{background-image:url("./../images/번아웃 증후군 테스트.png"); background-size:cover;}
+#img5{background-image:url("./../images/자존감 테스트.png"); background-size:370px 190px;}
+.swiper-slide{cursor:pointer;}
+.image_box img{width:100%; height:100%;}
+#reserve{width:100%; height:100%;}

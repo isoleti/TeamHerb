@@ -23,6 +23,7 @@ import project.healingcamp.service.UserSha256;
 import project.healingcamp.vo.Community_BoardVO;
 import project.healingcamp.vo.Criteria;
 import project.healingcamp.vo.MyCriteria;
+import project.healingcamp.vo.MyRCriteria;
 import project.healingcamp.vo.MypageMaker;
 import project.healingcamp.vo.PageMaker;
 import project.healingcamp.vo.ReserveVO;
@@ -44,11 +45,40 @@ public class PageController {
 	private Community_BoardService cboardService;
 	// 마이페이지
 	@RequestMapping(value = "/mypageRes.do", method = RequestMethod.GET)
-	public String mypageRes() {
+	public String mypageRes(Model model, ReserveVO vo, HttpSession session, MyRCriteria rcri) {
 
+		UserVo login =(UserVo)session.getAttribute("login");
+		
+		rcri.setId(login.getId());
+		rcri.setUidx(login.getUidx());
+		
+		
+		List<ReserveVO> reslist = pageService.reslist(rcri);
+		
+		
+		MypageMaker mypageMaker = new MypageMaker(rcri, pageService.res_total(rcri));
+		
+		 System.out.println("총합계:" + pageService.res_total(rcri));
+		 System.out.println("페이지"+ mypageMaker);
+		 
+		model.addAttribute("reslist", reslist);
+		System.out.println("예약 리스트 : "+reslist);
+		 model.addAttribute("mypageMaker", mypageMaker);
+		
 		return "page/mypageRes";
 	}
+	//마이페이지 예약 취소 
+		@RequestMapping(value="/myres_delete.do",method=RequestMethod.POST)
+		public String delete(ReserveVO vo) { 
+			//db 상세데이터 조회
+			pageService.myres_Delete(vo);
 
+			System.out.println("나의 예약 삭제"+vo.toString());
+		
+			return "redirect:mypageRes.do";
+		
+		}
+		
 	@RequestMapping(value = "/pwConfirm.do", method = RequestMethod.GET)
 	public String pwConfirm() {
 

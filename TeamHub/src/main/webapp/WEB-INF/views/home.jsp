@@ -12,22 +12,22 @@
     <!--부트스트랩, header footer css 연결-->
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
-
+	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
     <!--swiper 연결-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
     <style>
-       main h2{margin-left:15%; margin-bottom:2%;}
-
-       main #test{margin-bottom:5%; width:100%; background-color: aliceblue;}
+       main h2{text-align:center; margin-bottom:5%; font-weight:bold;}
+       main #test{margin-bottom:5%; padding-bottom:3%; width:100%; background-color: aliceblue;}
        main #test div{display:flex;}
-       main #test h2{display:inline-block; margin-left:45%; margin-top:4%; margin-bottom:2%;}
-       main #test div div{width:200px; height:100px; margin-left:8%; margin-top:4%; display:inline-block;}
+       main #test h2{display:inline-block; margin-left:45%; margin-top:3%; margin-bottom:2%;}
+       main #test div div{width:20%; height:100px; padding:5%; display:inline-block; margin: 10px 5px; cursor:pointer;}
+/*        main #test div div{width:200px; height:100px; margin-left:8%; margin-top:4%; display:inline-block;} */
 
-       main #program{margin-bottom:5%;}
+       main #program{margin-bottom:5%; display:flex; justify-content:space-evenly;}
        main #program h2{margin-bottom:4%;}
-       main #program div{display:inline-block; margin-left:10%; font-weight:bold; font-size:20px;}
+       main #program div{display:inline-block;  font-weight:bold; font-size:20px;}
 
-       main #mainbottom{position: relative;}
+       main #mainbottom{position: relative; height:35%;}
 
        main #res{width:20%; margin-left:20%; margin-bottom:5%;}
        main #res h2{margin-bottom:4%;}
@@ -116,66 +116,69 @@
             <section></section>
         </nav> <!-- fin 상단 네비게이션 -->
     </header> <!--fin header-->
-    <main>
-        <div class="swiper bannerSwiper"> <!--banner-->
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">배너 1</div>
-              <div class="swiper-slide">배너 2</div>
-              <div class="swiper-slide">배너 3</div>             
-            </div>
-        </div> <!-- fin banner-->
-        <div class="swiper mySwiper"> <!-- board list-->
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">Slide 1</div>
-              <div class="swiper-slide">Slide 2</div>
-              <div class="swiper-slide">Slide 3</div>
-              <div class="swiper-slide">Slide 4</div>
-              <div class="swiper-slide">Slide 5</div>
-              <div class="swiper-slide">Slide 6</div>
-              <div class="swiper-slide">Slide 7</div>
-              <div class="swiper-slide">Slide 8</div>
-              <div class="swiper-slide">Slide 9</div>
-            </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
-          </div> <!-- fin board list-->
+	<main>
+		<div class="swiper bannerSwiper"> <!--banner-->
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<img alt="상단배너1" src="<%=request.getContextPath() %>/resources/images/상단 배너1.png">
+				</div>
+				<div class="swiper-slide">
+					<img alt="상단배너2" src="<%=request.getContextPath() %>/resources/images/상단 배너2.png">
+				</div>
+				<div class="swiper-slide">
+					<img alt="상단배너3" src="<%=request.getContextPath() %>/resources/images/상단 배너3.png">
+				</div>             
+				<div class="swiper-slide">
+					<img alt="상단배너4" src="<%=request.getContextPath() %>/resources/images/상단 배너4.png">
+				</div>             
+			</div>
+		</div> <!-- fin banner-->
+		<div class="swiper mySwiper"> <!-- board list-->
+			<div class="swiper-wrapper">
+				<div class="swiper-slide" onclick="location.href='<%=request.getContextPath() %>/program.do'">
+					<img alt="치료프로그램" src="<%=request.getContextPath() %>/resources/images/슬라이드 배너 치료프로그램.png">
+				</div>
+				<div class="swiper-slide" onclick="location.href='<%=request.getContextPath() %>/counseller_board/counseller_board_list.do'">
+					<img alt="상담사게시판" src="<%=request.getContextPath() %>/resources/images/슬라이드 배너 상담사게시판.png">
+				</div>
+				<div class="swiper-slide" onclick="location.href='<%=request.getContextPath() %>/res/findcenter.do'">
+					<img alt="상담예약" src="<%=request.getContextPath() %>/resources/images/슬라이드 배너 상담예약.png">
+				</div>
+				<div class="swiper-slide" onclick="location.href='<%=request.getContextPath() %>/community/community_list.do'">
+					<img alt="커뮤니티 게시판" src="<%=request.getContextPath() %>/resources/images/슬라이드 배너 게시판.png">
+				</div>
+			</div>
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-pagination"></div>
+		</div> <!-- fin board list-->
         <div id="test"> <!--심리 테스트-->
             <h2>심리 테스트</h2><br>
             <div>
-               <div><a href="https://testharo.com/16personalities/ko" target="_blank">MBTI 테스트</a></div>
-               <div><a href="https://testharo.com/depression/ko" target="_blank">우울증 테스트</a></div>
-               <div><a href="https://testharo.com/burnout/ko" target="_blank">번아웃 증후군 테스트</a></div>
-               <div><a href="https://testharo.com/16personalities/ko" target="_blank">성격유형 테스트</a></div>
-               <div><a href="https://testharo.com/depression/ko" target="_blank">ADHD 테스트</a></div>     
+               <div id="img1" onclick="window.open('https://testharo.com/depression/ko')"></div>
+               <div id="img2" onclick="window.open('https://testharo.com/16personalities/ko')"></div>
+               <div id="img3" onclick="window.open('https://www.simcong.com/quiz/2')"></div>
+               <div id="img4" onclick="window.open('https://testharo.com/burnout/ko')"></div>
+               <div id="img5" onclick="window.open('https://www.simcong.com/quiz/136')"></div>     
             </div>       
         </div> <!--fin 심리 테스트-->
-        <div id="program"> <!-- 치료 프로그램-->
             <h2>치료 프로그램 설명</h2>
+        <div id="program"> <!-- 치료 프로그램-->
             <div>독서치료란?<br><iframe width="560" height="315" src="https://www.youtube.com/embed/vtx4tD_b6oU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
             <div>인지학습치료란?<br><iframe width="560" height="315" src="https://www.youtube.com/embed/HikrEKEXQko" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
         </div><!-- fin 치료 프로그램-->
         <div id="mainbottom"> <!-- 메인 하단-->
             <div id="res"> <!--상담예약-->
-                <h2>상담 예약</h2>
-                <div>
-                    <p><a href="<%=request.getContextPath()%>/res/findcenter.do">상담 예약하기</a></p>   
-                    <p>예약순서</p>                 
-                    <p>1.상담 선택</p>                 
-                    <p>2.상담사 선택</p>                 
-                    <p>3.상담일자 선택</p>
-                    <p>부담 없이 예약해보세요.</p>                 
-                </div>
-                
+                <h2 class="title">상담예약 순서안내</h2>
+                <div id="reserve" onclick="location.href='<%=request.getContextPath() %>/res/findcenter.do'">
+            		<img alt="" src="<%=request.getContextPath() %>/resources/images/상담예약 순서.png">
+            	</div>
             </div> <!-- fin 상담예약-->
             <div id="healingwords"> <!-- 글귀 -->
-                <h2>힐링워드</h2>
-                <p>글귀1</p>
-                <p>글귀2</p>
-                <p>글귀3</p>            
-                <p>글귀4</p>            
-                <p>글귀5</p>            
-                <p>글귀6</p>            
+                <h2 class="title">힐링워드</h2>
+            	<div class="image_box">
+            		<img alt="" src="<%=request.getContextPath() %>/resources/images/글귀1.jpg">
+            	</div>
             </div><!-- fin 글귀-->
         </div> <!-- fin 메인 하단-->
     </main>
@@ -230,6 +233,11 @@
             prevEl: ".swiper-button-prev",
             },
         });
+     </script>
+     
+     <script>
+     	let randomNumber = Math.floor(Math.random()*4)+1;
+     	document.querySelector(".image_box img").setAttribute("src","./resources/images/글귀"+randomNumber+".jpg");
      </script>
 </body>
 </html>

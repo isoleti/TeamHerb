@@ -10,5 +10,5 @@ public interface LikeService {
 	public Community_BoardVO likeUp(LikeVO likeVO);
 	public Community_BoardVO likeDown(LikeVO likeVO);
 	public int likeCount(LikeVO likeVO);
-
+	public List<LikeVO> likeList();
 }
