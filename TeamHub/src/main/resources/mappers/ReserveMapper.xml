@@ -62,8 +62,8 @@
   		
   		<select id="cnoidx" parameterType="reserveVO" resultType="reserveVO">
   			<![CDATA[
-  				select cnoidx
-  				from reservationtable
+  				select cnoidx , centername , centeraddr
+  				from centertable
   				where centername = #{centername} and centeraddr = #{centeraddr}
   			]]>
   		</select>
