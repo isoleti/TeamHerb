@@ -62,8 +62,15 @@
   			)
   			]]>
   						
-  		</insert>
+  		</insert >
   		
+  		<select id="cnoidx" resultType="reserveVO">
+  			<![CDATA[
+  				select cnoidx
+  				from reservationtable
+  				where centername = #{centerName} and centeraddr = #{centerAddr}
+  			]]>
+  		</select>
   		
   	
   </mapper>

@@ -23,8 +23,8 @@ public class ReserveVO {
 	private String restime;
 	private String id;
 	private int cnoidx; //센터번호
-	private String centername;
-	private String enteraddr;
+	private String centername; //
+	private String centeraddr;
 	private String centercall;
 	private int conidx; //상담사번호
 	private String name;
@@ -158,12 +158,12 @@ public class ReserveVO {
 	}
 	public void setCentername(String centername) {
 		this.centername = centername;
+	}	
+	public String getCenteraddr() {
+		return centeraddr;
 	}
-	public String getEnteraddr() {
-		return enteraddr;
-	}
-	public void setEnteraddr(String enteraddr) {
-		this.enteraddr = enteraddr;
+	public void setCenteraddr(String centeraddr) {
+		this.centeraddr = centeraddr;
 	}
 	public String getCentercall() {
 		return centercall;
@@ -325,7 +325,7 @@ public class ReserveVO {
 				+ ", rescount=" + rescount + ", resc=" + resc + ", resposition=" + resposition + ", fromdate="
 				+ fromdate + ", todate=" + todate + ", counseling=" + counseling + ", uidx=" + uidx + ", clidx=" + clidx
 				+ ", likecheck=" + likecheck + ", phone=" + phone + ", mail=" + mail + ", restime=" + restime + ", id="
-				+ id + ", cnoidx=" + cnoidx + ", centername=" + centername + ", enteraddr=" + enteraddr
+				+ id + ", cnoidx=" + cnoidx + ", centername=" + centername + ", centeraddr=" + centeraddr
 				+ ", centercall=" + centercall + ", conidx=" + conidx + ", name=" + name + ", grade=" + grade
 				+ ", certi1=" + certi1 + ", certi2=" + certi2 + ", certi3=" + certi3 + ", certi4=" + certi4
 				+ ", article1=" + article1 + ", article2=" + article2 + ", article3=" + article3 + ", article4="
