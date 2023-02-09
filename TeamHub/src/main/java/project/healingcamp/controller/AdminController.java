@@ -221,9 +221,8 @@ public class AdminController {
 		
 		System.out.println("공지사항 update 왜 안들어오니.."+cboardVO);
 		
-		int result = adminService.NoticeUpdate_ByBidx(cboardVO);
+		adminService.NoticeUpdate_ByBidx(cboardVO);
 		
-		System.out.println("result"+result);
 		return "redirect:adminPage_Notice_List.do?bidx=" + cboardVO.getBidx();
 	} 
 }
