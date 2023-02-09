@@ -67,7 +67,7 @@
 		<style>
 		   main{margin:0 auto;  width:1160px; }
 		        main h2{font-size:22px; margin:80px 250px; }
-		        .userimfo{width:600px; height:600px; display:block; border:1px solid #e4e4e4; 
+		        .userimfo{width:600px; height:400px; display:block; border:1px solid #e4e4e4; 
 		                 padding-top: 30px; margin-left:250px; border-radius:10px;
 		                padding:40px;}
 		        .p{font-size:25px; margin-bottom:20px;display: block; font-weight:bold;}
@@ -85,12 +85,13 @@
 		        .b input:nth-child(1){width:100px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px;}
 		        .b input:nth-child(2){width:40px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px;}
 		        .b input:nth-child(3){width:40px; height:30px; margin:10px; border:1px solid #e4e4e4; border-radius:10px;}
-		
+					
 		        .ch1{position:relative; left:252px; }
 		        .ch1 input{ margin-right:10px;}
 		        .ch2{position:relative; left:450px; top:-42px;}
 		        .ch2 input{margin-right:10px;}
-		
+				
+				 #center{margin-left:35px;}
 		        .btn{width:180px; height:40px; border-radius:5px; border: none; color:white; 
 		                font-weight:bold; margin-left:80px;cursor: pointer; position:relative; top:130px; font-size:15px;}
 		        .btn:nth-child(2){background: #e4e4e4;}
@@ -140,7 +141,10 @@
             <a class="p">기본정보</a>
             <a>아이디 <input type="text" name="id" id="id" value="${vo.id}" disabled></a><br>
             <a>이메일주소  <input type="text" name="mail" id="mail" value="${vo.mail}"></a><br>
-            <a>연락처 <input type="number" name="phone" id="phone" value="${vo.phone}"></a>
+            <a>연락처 <input type="number" name="phone" id="phone" value="${vo.phone}"></a><br>
+            <c:if test = "${login.usertype eq 'c'}">
+            <a>상담기관 <input type="text" name="center" id="center" value="${login.center}"></a>
+             </c:if>
            <!--  <hr> -->
            <!--  <a class="p">비밀번호 변경</a>
            	 -->

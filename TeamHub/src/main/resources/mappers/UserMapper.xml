@@ -11,6 +11,7 @@
 			 ,pw
 			 ,phone
 			 ,mail
+			 ,center
 			 from usertable
 			 where id = #{id}
 			 and pw = #{pw}
@@ -126,6 +127,7 @@
 		update usertable
 		set mail =#{mail}
 		 ,phone =#{phone}
+		 ,center =#{center}
 		 
 		where uidx = #{uidx} 
 		
