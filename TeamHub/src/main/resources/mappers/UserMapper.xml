@@ -120,7 +120,6 @@
 		  ,phone
 		  from usertable
 		  where uidx=#{uidx}
-	
 	</select>
 	<!-- 회원정보 수정 -->
 	<update id="userModify" parameterType="userVo">
@@ -128,10 +127,9 @@
 		set mail =#{mail}
 		 ,phone =#{phone}
 		 ,center =#{center}
-		 
 		where uidx = #{uidx} 
-		
 	</update>
+	
 	<!-- 비밀번호 변경-->
 	<update id="pwReset" parameterType="userVo">
 		update usertable
