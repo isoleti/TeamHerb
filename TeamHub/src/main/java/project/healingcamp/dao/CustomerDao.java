@@ -26,6 +26,7 @@ public class CustomerDao {
 	
 	//faq ¸ñ·Ï
 	public List<Community_BoardVO> customeFaq(SearchVO searchVO){
+		
 		return sqlSession.selectList("project.healingcamp.mapper.customerMapper.faq_List", searchVO);
 	} 
 	

@@ -51,7 +51,7 @@ public class CustomerController {
 		
 		//페이지네이션
 		PageVO pageVO = new PageVO(searchVO , CsService.faq_Total(searchVO));
-		System.out.println();
+		System.out.println("페이지 넘어왔니"+pageVO);
 		
 		//전체게시글 데이터 요청
 		List<Community_BoardVO> faq_List = CsService.faq_List(searchVO);

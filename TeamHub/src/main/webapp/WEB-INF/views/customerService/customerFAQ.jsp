@@ -300,7 +300,7 @@
 						<!--페이지 번호 -->
 			              <c:forEach var="num" begin="${pageVO.startPage }" end="${pageVO.endPage }">
 				              <li class="page-item">
-					              <a class="page-link ${pageVO.pageNum == num ? "active":"" }' href="<%=request.getContextPath() %>/customerService/customerFAQ.do?pageNum=${num}&amount=${pageVO.amount}&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}<c:if test='${searchVO.category != null}'>&category=${searchVO.category}</c:if>">${num}
+					              <a class="page-link"  href="<%=request.getContextPath() %>/customerService/customerFAQ.do?pageNum=${num}&amount=${pageVO.amount}&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}<c:if test='${searchVO.category != null}'>&category=${searchVO.category}</c:if>">${num}
 					              </a>
 				              </li>
 				            </c:forEach>
