@@ -5,7 +5,13 @@
   <mapper namespace="project.healingcamp.mapper.customerMapper">
   	<!-- 고객센터 게시판 목록-->
 	<select id = "notice_getList" resultType="cboardVO" parameterType="criteria">
-		<![CDATA[
+		SELECT bidx, title, content, wdate
+			FROM boardtable
+			WHERE delyn = 'N' AND board_type = '2'
+			ORDER BY bidx DESC
+			LIMIT 55, 1
+		
+		<!-- <![CDATA[
 	        select *
 	       	  from (
 	       	  		select rownum as rnum, a.* 
@@ -20,8 +26,8 @@
 							     order by bidx desc
 							     )a
 							     )	
-	        					WHERE rnum limit (#{page}-1)*#{perPageNum}+1 #{page}*#{perPageNum}
-		       	]]>
+	        					WHERE rnum BETWEEN (#{page}-1)*#{perPageNum}+1 AND #{page}*#{perPageNum}
+		       	]]> -->
 	  	</select>  <!-- delyn은 글삭제가 안된거 -->
 	  	 <!-- 전체 게시글 수를 구하는 sql문 -->
 	    <select id="total" resultType="int" parameterType="criteria">
@@ -51,7 +57,7 @@
 							      </if>
 							     order by bidx desc)a)
 							  <![CDATA[	
-	        						WHERE rnum limit (#{pageNum}-1)*#{amount}+1 #{pageNum}*#{amount}
+	        						WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
 	        					]]>
 	  	</select>
 	  	

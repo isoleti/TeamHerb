@@ -58,12 +58,9 @@ public class UserController {
 		//암호화 확인
 		System.out.println("userPw:" + vo.getPw());
 		
-		//로그인 메서드
-			
-		
+		//로그인 메서드		
 			UserVo login = userService.login(vo);
 
-		
 			if(login ==null) {
 				
 				return "user/login";
