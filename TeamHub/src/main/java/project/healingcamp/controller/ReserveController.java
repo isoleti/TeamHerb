@@ -38,6 +38,13 @@ public class ReserveController {
 		return "res/findcenter";
 	}
 	
+	//센터pk가져오기
+	@RequestMapping(value = "/cnoidx.do", method = RequestMethod.GET)
+	public String cnoidx(ReserveVO vo) {
+			ReserveVO reserveVO = reserveService.cnodix(vo);
+		return "";
+	}
+	
 	//상담기관
 	@RequestMapping(value = "/center.do", method = RequestMethod.GET)
 	public String center() {

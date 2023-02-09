@@ -24,4 +24,11 @@ public class ReserveDAO {
 		 
 		 return sqlSession.insert("project.healingcamp.mapper.reserveMapper.couF", vo);
 	 }
+	 
+	 public ReserveVO cnoidx(ReserveVO vo) {
+		 
+		 return sqlSession.selectOne("project.healingcamp.mapper.reserveMapper.cnoidx",vo);
+	 }
+	 
+	 
 }

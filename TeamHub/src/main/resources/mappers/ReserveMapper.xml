@@ -64,11 +64,11 @@
   						
   		</insert >
   		
-  		<select id="cnoidx" resultType="reserveVO">
+  		<select id="cnoidx" parameterType="reserveVO" resultType="reserveVO">
   			<![CDATA[
   				select cnoidx
   				from reservationtable
-  				where centername = #{centerName} and centeraddr = #{centerAddr}
+  				where centername = #{centername} and centeraddr = #{centeraddr}
   			]]>
   		</select>
   		
