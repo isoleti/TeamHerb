@@ -13,8 +13,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>힐링캠프 고객센터 공지사항</title>
 	<!--부트스트랩, header footer css 연결-->
-     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
-      <link href="<%=request.getContextPath()%>/resources/css/css3.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/resources/css/css3.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -23,17 +23,35 @@
 <body>
 	<header>    <!--header-->
         <div> <!--로그인 관련-->
-            <p><a href="">로그인</a></p>
-            <p><a href="">회원가입</a></p>
-            <p><a href="">고객센터</a></p>
-        </div> <!-- fin 로그인 관련 -->
+             
+	        <c:if test = "${login == null}">   
+	            <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
+	            <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
+	            <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
+	        </c:if><!-- 로그아웃 or 로그인x -->
+	         
+	        <c:if test = "${login != null}">
+	            
+	            <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
+	            <c:if test = "${login.usertype eq 'a'}">
+				<p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
+				</c:if>
+				<c:if test = "${login.usertype eq 'u'}">
+				<p><a href="<%= request.getContextPath() %>/page/mypageRes.do">마이 페이지</a></p>
+				</c:if>
+				<c:if test = "${login.usertype eq 'c'}">
+				<p><a href="">상담사 페이지</a></p>
+				</c:if>
+				<p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>               				               
+	      </c:if>
+      </div>
         <nav class="navbar" style="background-color: #dff6e1;"> <!-- 상단 네비게이션 -->
             <h1><a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath() %>/resources/images/힐링캠프 logo.png" alt="홈버튼"></a></h1>
-            <a href="">치료프로그램</a>
-            <a href="">심리테스트</a>
-            <a href="">커뮤니티</a>  
-            <a href="">상담 예약</a>
-            <a href="">상담사 게시판</a>
+            <a href="<%=request.getContextPath()%>/program.do">치료프로그램</a>
+            <a href="<%=request.getContextPath()%>/test.do">심리테스트</a>
+            <a href="<%=request.getContextPath()%>/community/community_list.do">커뮤니티</a>
+            <a href="<%=request.getContextPath()%>/res/findcenter.do">상담 예약</a>
+            <a href="<%=request.getContextPath()%>/counseller_board/counseller_board_list.do">상담사 게시판</a>
             <section></section>
         </nav> <!-- fin 상단 네비게이션 -->
     </header> <!--fin header-->
@@ -44,8 +62,8 @@
 					<div class="inner">
 						<h3>고객센터</h3>
 						<div class="option">
-							<a href="<%=request.getContextPath()%>/customerService/customerNotice.do"><button id="notice">공지사항</button></a>
-							<a href="<%=request.getContextPath()%>/customerService/customerFAQ.do"><button id="FAQ">FAQ</button></a>
+							<a id="op1" href="<%=request.getContextPath()%>/customerService/customerNotice.do"><button id="notice">공지사항</button></a>
+							<a id="op2" href="<%=request.getContextPath()%>/customerService/customerFAQ.do"><button id="FAQ">FAQ</button></a>
 						</div><!--option-->
 					</div><!--inner-->
 				</div><!--navbar-->
@@ -179,16 +197,15 @@
 			font-size:15px;
 			padding-left:10px;
 		}
-		button:hover{
+		
+		 #notice{
+			background-color: rgb(250, 223, 223);
+		} 
+		
+		.option #op1{
 			background-color: rgb(250, 223, 223);
 		}
-		#notice{
-			background-color: rgb(250, 223, 223);
-		}
-		#notice:hover{
-			background-color: rgba(254, 173, 173, 0.644);
-			
-		}
+		
 		.notice_area{
 			padding:3%;
 			float:right;
