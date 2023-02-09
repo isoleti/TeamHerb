@@ -14,7 +14,7 @@ public class ReserveVO {
 	private Date fromdate; //검색날짜 
 	private Date todate; //검색날짜 
 	private String counseling; 
-	
+				   
 	private int uidx;
 	private int clidx;
 	private int likecheck;
@@ -53,13 +53,14 @@ public class ReserveVO {
 	
 	
 	
+	
+	
 	public String getCounseling() {
 		return counseling;
 	}
-	public void setCounseling(String counselling) {
+	public void setCounseling(String counseling) {
 		this.counseling = counseling;
 	}
-	
 	public String getResposition() {
 		return resposition;
 	}
@@ -322,9 +323,9 @@ public class ReserveVO {
 	public String toString() {
 		return "ReserveVO [residx=" + residx + ", center=" + center + ", couns=" + couns + ", resdate=" + resdate
 				+ ", rescount=" + rescount + ", resc=" + resc + ", resposition=" + resposition + ", fromdate="
-				+ fromdate + ", todate=" + todate + ", counseling=" + counseling + ", uidx=" + uidx + ", clidx="
-				+ clidx + ", likecheck=" + likecheck + ", phone=" + phone + ", mail=" + mail + ", restime=" + restime
-				+ ", id=" + id + ", cnoidx=" + cnoidx + ", centername=" + centername + ", enteraddr=" + enteraddr
+				+ fromdate + ", todate=" + todate + ", counseling=" + counseling + ", uidx=" + uidx + ", clidx=" + clidx
+				+ ", likecheck=" + likecheck + ", phone=" + phone + ", mail=" + mail + ", restime=" + restime + ", id="
+				+ id + ", cnoidx=" + cnoidx + ", centername=" + centername + ", enteraddr=" + enteraddr
 				+ ", centercall=" + centercall + ", conidx=" + conidx + ", name=" + name + ", grade=" + grade
 				+ ", certi1=" + certi1 + ", certi2=" + certi2 + ", certi3=" + certi3 + ", certi4=" + certi4
 				+ ", article1=" + article1 + ", article2=" + article2 + ", article3=" + article3 + ", article4="
