@@ -75,7 +75,7 @@
 	<![CDATA[
 		insert into usertable(
 			
-		   ,name
+		   name
 		   ,id
 		   ,pw
 		   ,mail
@@ -89,7 +89,7 @@
 		   
 		)values(
 			 
-			  , #{name}
+			   #{name}
 			  , #{id}
 			  , #{pw}
 			  , #{mail}
