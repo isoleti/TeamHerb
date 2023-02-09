@@ -13,7 +13,7 @@ public class ReserveVO {
 	private String resposition;
 	private Date fromdate; //검색날짜 
 	private Date todate; //검색날짜 
-	private String counselling; 
+	private String counseling; 
 	
 	private int uidx;
 	private int clidx;
@@ -53,11 +53,11 @@ public class ReserveVO {
 	
 	
 	
-	public String getCounselling() {
-		return counselling;
+	public String getCounseling() {
+		return counseling;
 	}
-	public void setCounselling(String counselling) {
-		this.counselling = counselling;
+	public void setCounseling(String counselling) {
+		this.counseling = counseling;
 	}
 	
 	public String getResposition() {
@@ -322,7 +322,7 @@ public class ReserveVO {
 	public String toString() {
 		return "ReserveVO [residx=" + residx + ", center=" + center + ", couns=" + couns + ", resdate=" + resdate
 				+ ", rescount=" + rescount + ", resc=" + resc + ", resposition=" + resposition + ", fromdate="
-				+ fromdate + ", todate=" + todate + ", counselling=" + counselling + ", uidx=" + uidx + ", clidx="
+				+ fromdate + ", todate=" + todate + ", counseling=" + counseling + ", uidx=" + uidx + ", clidx="
 				+ clidx + ", likecheck=" + likecheck + ", phone=" + phone + ", mail=" + mail + ", restime=" + restime
 				+ ", id=" + id + ", cnoidx=" + cnoidx + ", centername=" + centername + ", enteraddr=" + enteraddr
 				+ ", centercall=" + centercall + ", conidx=" + conidx + ", name=" + name + ", grade=" + grade
