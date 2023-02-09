@@ -49,8 +49,8 @@
 	<insert id="join" parameterType="userVo" >
 	<![CDATA[
 		insert into usertable(
-			uidx
-		   ,id
+			
+		    id
 		   ,pw
 		   ,mail
 		   ,phone
@@ -58,13 +58,13 @@
 		   ,edate
 		  
 		)values(
-			  uidx_seq.nextval 
-			  , #{id}
+			  
+			    #{id}
 			  , #{pw}
 			  , #{mail}
 			  , #{phone}  
 			  , #{usertype}
-			  , sysdate
+			  , now()
 				)
 				
 				
@@ -74,7 +74,7 @@
 	<insert id="joinCoun" parameterType="userVo" >
 	<![CDATA[
 		insert into usertable(
-			uidx
+			
 		   ,name
 		   ,id
 		   ,pw
@@ -88,7 +88,7 @@
 		   
 		   
 		)values(
-			  uidx_seq.nextval 
+			 
 			  , #{name}
 			  , #{id}
 			  , #{pw}
@@ -97,7 +97,7 @@
 			  , #{usertype}
 			  , #{center}
 			  , #{picture}
-			  , sysdate
+			  , now()
 				)
 				
 				
