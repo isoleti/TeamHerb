@@ -38,21 +38,22 @@
   
   <!-- 마이페이지 나의 예약 목록 -->
    <select id="reslist" resultType="reserveVO" parameterType="myrCriteria">
-   <![CDATA[
-				select * 
+	<![CDATA[
+		select * 
 			from (
 				select rownum as rnum, a. *
-				 from (
-				 	select * 
-				 	from  reservationtable
-				 	 where uidx=#{uidx} and rescancle='N' 
-				  ]]>
-			         	ORDER BY residx DESC)A)
-				 	
-			 		<![CDATA[  
-					WHERE RNUM BETWEEN (#{page}-1)*#{perPageNum}+1 AND #{page}*#{perPageNum}
-					  ]]>
-<!-- 			
+				from (
+					select * 
+					from  reservationtable
+					where uidx=#{uidx} and rescancle='N' 
+					ORDER BY residx DESC
+				)A
+			)
+			WHERE RNUM BETWEEN (#{page}-1)*#{perPageNum}+1 AND #{page}*#{perPageNum}
+	]]>
+<!-- 	
+					
+		
 	select residx
 		  ,center
 		  ,resdate
@@ -65,11 +66,12 @@
 		  
 	</select>
 	
-	  <!-- 전체 예약 수를 구하는 sql문 -->
+	  <!--  예약 수를 구하는 sql문 -->
     <select id="res_total" resultType="int" parameterType="myrCriteria">
         select count(uidx) 
 	        from reservationtable
 	      	  where uidx=#{uidx} and rescancle='N'
+	      	   
 	
     </select>
   

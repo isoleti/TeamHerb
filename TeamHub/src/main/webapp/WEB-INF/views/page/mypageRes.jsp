@@ -122,9 +122,10 @@
             <button class="btn3">3개월</button>
             <button class="btn3">6개월</button> -->
             <p>기간 입력</p>
-            <input type="date" name="date1" id="date1" >
+            <form action="mypageRes.do" method="get">
+            <input type="date" name="fromdate" id="fromdate">
             <p>~</p>
-            <input type="date" name="date2" id="date2" >
+            <input type="date" name="todate" id="todate" >
 
             <!-- <a class="p">예약 상태</a> -->
             <div id="sb">
@@ -137,9 +138,10 @@
             <!-- <input type="radio" name="sel" id="canc">예약취소 -->
             <button class="btn4">검색</button>
             </a> </div><!--//#sb-->
+            </form>
             <div id="tb">
+           		
             <table border="1">
-           		 <form  action="myres_delete.do" method="post">  
            		
                 <tr>
                     <td>예약 번호</td>
@@ -150,7 +152,7 @@
                 </tr>
                  
                  
-
+				 <form  action="myres_delete.do" method="post">  
                  <c:forEach items="${reslist}" var="vo">
                   <input type="hidden" name="uidx" value="${vo.uidx}">
            		 <input type="hidden" name="residx" value="${vo.residx}">

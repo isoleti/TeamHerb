@@ -113,10 +113,10 @@
         <div class="content">
             <a class="p">상담 내역</a>
             <a class="p">상담 기간</a>
-            <button class="btn3">1개월</button>
+           <!--  <button class="btn3">1개월</button>
             <button class="btn3">3개월</button>
-            <button class="btn3">6개월</button>
-            <p>기간 입력</p>
+            <button class="btn3">6개월</button> -->
+            <!-- <p>기간 입력</p> -->
             <input type="date" name="date1" id="date1" >
             <p>~</p>
             <input type="date" name="date2" id="date2" >

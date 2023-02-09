@@ -57,6 +57,7 @@ public class PageController {
 		
 		
 		MypageMaker mypageMaker = new MypageMaker(rcri, pageService.res_total(rcri));
+		System.out.println("getfrom: "+rcri.getFromdate());
 		
 		 System.out.println("총합계:" + pageService.res_total(rcri));
 		 System.out.println("페이지"+ mypageMaker);

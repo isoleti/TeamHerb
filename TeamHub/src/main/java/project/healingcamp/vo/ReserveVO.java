@@ -1,5 +1,7 @@
 package project.healingcamp.vo;
 
+import java.util.Date;
+
 public class ReserveVO {
 	
 	private int residx;
@@ -8,6 +10,11 @@ public class ReserveVO {
 	private String resdate;
 	private String rescount;
 	private String resc;
+	private String resposition;
+	private Date fromdate; //검색날짜 
+	private Date todate; //검색날짜 
+	private String counselling; 
+	
 	private int uidx;
 	private int clidx;
 	private int likecheck;
@@ -31,6 +38,7 @@ public class ReserveVO {
 	private String article3;
 	private String article4;
 	private int cintidx; //기관페이지 번호
+
 	private String con1; //상담종류
 	private String con2;
 	private String con3;
@@ -42,6 +50,22 @@ public class ReserveVO {
 	private int  price4;
 	private int  price5;
 	
+	
+	
+	
+	public String getCounselling() {
+		return counselling;
+	}
+	public void setCounselling(String counselling) {
+		this.counselling = counselling;
+	}
+	
+	public String getResposition() {
+		return resposition;
+	}
+	public void setResposition(String resposition) {
+		this.resposition = resposition;
+	}
 	public int getResidx() {
 		return residx;
 	}
@@ -236,9 +260,11 @@ public class ReserveVO {
 	public void setCon3(String con3) {
 		this.con3 = con3;
 	}
+	
 	public String getCon4() {
 		return con4;
 	}
+	
 	public void setCon4(String con4) {
 		this.con4 = con4;
 	}
@@ -278,20 +304,34 @@ public class ReserveVO {
 	public void setPrice5(int price5) {
 		this.price5 = price5;
 	}
+	
+
+	public Date getFromdate() {
+		return fromdate;
+	}
+	public void setFromdate(Date fromdate) {
+		this.fromdate = fromdate;
+	}
+	public Date getTodate() {
+		return todate;
+	}
+	public void setTodate(Date todate) {
+		this.todate = todate;
+	}
 	@Override
 	public String toString() {
 		return "ReserveVO [residx=" + residx + ", center=" + center + ", couns=" + couns + ", resdate=" + resdate
-				+ ", rescount=" + rescount + ", resc=" + resc + ", uidx=" + uidx + ", clidx=" + clidx + ", likecheck="
-				+ likecheck + ", phone=" + phone + ", mail=" + mail + ", restime=" + restime + ", id=" + id
-				+ ", cnoidx=" + cnoidx + ", centername=" + centername + ", enteraddr=" + enteraddr + ", centercall="
-				+ centercall + ", conidx=" + conidx + ", name=" + name + ", grade=" + grade + ", certi1=" + certi1
-				+ ", certi2=" + certi2 + ", certi3=" + certi3 + ", certi4=" + certi4 + ", article1=" + article1
-				+ ", article2=" + article2 + ", article3=" + article3 + ", article4=" + article4 + ", cintidx="
-				+ cintidx + ", con1=" + con1 + ", con2=" + con2 + ", con3=" + con3 + ", con4=" + con4 + ", con5=" + con5
-				+ ", price1=" + price1 + ", price2=" + price2 + ", price3=" + price3 + ", price4=" + price4
-				+ ", price5=" + price5 + "]";
+				+ ", rescount=" + rescount + ", resc=" + resc + ", resposition=" + resposition + ", fromdate="
+				+ fromdate + ", todate=" + todate + ", counselling=" + counselling + ", uidx=" + uidx + ", clidx="
+				+ clidx + ", likecheck=" + likecheck + ", phone=" + phone + ", mail=" + mail + ", restime=" + restime
+				+ ", id=" + id + ", cnoidx=" + cnoidx + ", centername=" + centername + ", enteraddr=" + enteraddr
+				+ ", centercall=" + centercall + ", conidx=" + conidx + ", name=" + name + ", grade=" + grade
+				+ ", certi1=" + certi1 + ", certi2=" + certi2 + ", certi3=" + certi3 + ", certi4=" + certi4
+				+ ", article1=" + article1 + ", article2=" + article2 + ", article3=" + article3 + ", article4="
+				+ article4 + ", cintidx=" + cintidx + ", con1=" + con1 + ", con2=" + con2 + ", con3=" + con3 + ", con4="
+				+ con4 + ", con5=" + con5 + ", price1=" + price1 + ", price2=" + price2 + ", price3=" + price3
+				+ ", price4=" + price4 + ", price5=" + price5 + "]";
 	}
-	
 	
 	
 }
