@@ -136,14 +136,13 @@
        </div><!--e:#left_nav-->
             
        <div id="write_form_wrapper">
-        <form id="write_form" action="adminPage_Notice_Modify.do?=${vo.bidx}" method="post" >
-        <input type="hidden" name="bidx" value="${vo.bidx}">
-       	console.log{vo.bidx}    
+        <form id="write_form" action="adminPage_Notice_Modify.do" method="post" >
+        <input type="hidden" name="bidx" value="${cboardVO.bidx}">   
             <div id="title_wrapper">
-                <input id="title" type="text" placeholder="제목을 입력하세요." value="${vo.title }">
+                <input id="title" type="text" name="title" placeholder="제목을 입력하세요." value="${cboardVO.title }">
             </div><!--e:#title_wrapper-->
             <div id="content_wrapper">
-                <textarea id="content">${vo.content }</textarea>
+                <textarea id="content" name="content">${cboardVO.content }</textarea>
             </div><!--e:#content_wrapper-->
             <button id="writeAction_btn" value="수정하기">수정하기</button>
         </form><!--e:#write_form-->

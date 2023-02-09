@@ -98,7 +98,7 @@ public class AdminDAO {
 	//공지사항 수정
 	public int NoticeUpdate_ByBidx(Community_BoardVO cboardVO) {
 		System.out.println("공지사항 수정"+cboardVO);
-		return sqlSession.selectOne("project.healingcamp.mapper.adminMapper.NoticeUpdate",cboardVO);
+		return sqlSession.update("project.healingcamp.mapper.adminMapper.NoticeUpdate_ByBidx",cboardVO);
 	}
 	
 }

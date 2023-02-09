@@ -41,7 +41,9 @@ public interface AdminService {
 	List<Community_BoardVO> faq_List(SearchVO searchVO);
 	int faq_Total(SearchVO searchVO);
 	
-	//공지사항 수정 
+	
 	Community_BoardVO Notice_selectBybidx(int bidx); 
+	
+	//공지사항 수정 
 	int NoticeUpdate_ByBidx(Community_BoardVO cboardVO);
 }
