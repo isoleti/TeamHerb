@@ -8,8 +8,7 @@
   		<insert id = "resF" parameterType="reserveVO">
   			<![CDATA[ 
   			insert into reservationtable(
-  						 residx
-  						,center
+  						 center
   						,counseling
   						,couns
   						,resdate
@@ -19,8 +18,7 @@
   						,state
   						,id
   			)values(
-  						 residx_seq.nextval
-  						,#{center}
+  						 #{center}
   						,#{counseling}
   						,#{couns}
   						,#{resdate}
@@ -38,8 +36,7 @@
   		<insert id = "couF" parameterType="reserveVO">
   			<![CDATA[ 
   			insert into reservationtable(
-  						 residx
-  						,center
+  						 center
   						,counseling
   						,couns
   						,resdate
@@ -49,8 +46,7 @@
   						,state
   						,id
   			)values(
-  						 residx_seq.nextval
-  						,#{center}
+  						 #{center}
   						,#{counseling}
   						,#{couns}
   						,#{resdate}
