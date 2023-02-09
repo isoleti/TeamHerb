@@ -82,10 +82,6 @@
 		#FAQ{
 			background-color: rgb(250, 223, 223);
 		}
-		#FAQ:hover{
-			background-color: rgba(254, 173, 173, 0.644);
-			
-		}
 		.notice_area{
 			padding:3%;
 			float:right;
