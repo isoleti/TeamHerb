@@ -20,7 +20,7 @@
 							     order by bidx desc
 							     )a
 							     )	
-	        					WHERE rnum BETWEEN (#{page}-1)*#{perPageNum}+1 AND #{page}*#{perPageNum}
+	        					WHERE rnum limit (#{page}-1)*#{perPageNum}+1 #{page}*#{perPageNum}
 		       	]]>
 	  	</select>  <!-- delyn은 글삭제가 안된거 -->
 	  	 <!-- 전체 게시글 수를 구하는 sql문 -->
@@ -51,7 +51,7 @@
 							      </if>
 							     order by bidx desc)a)
 							  <![CDATA[	
-	        						WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
+	        						WHERE rnum limit (#{pageNum}-1)*#{amount}+1 #{pageNum}*#{amount}
 	        					]]>
 	  	</select>
 	  	
