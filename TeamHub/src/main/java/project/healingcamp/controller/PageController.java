@@ -43,7 +43,7 @@ public class PageController {
 
 	@Autowired
 	private Community_BoardService cboardService;
-	// 마이페이지
+	// 마이페이지 예약내역
 	@RequestMapping(value = "/mypageRes.do", method = RequestMethod.GET)
 	public String mypageRes(Model model, ReserveVO vo, HttpSession session, MyRCriteria rcri) {
 
@@ -57,6 +57,7 @@ public class PageController {
 		
 		
 		MypageMaker mypageMaker = new MypageMaker(rcri, pageService.res_total(rcri));
+		
 		
 		 System.out.println("총합계:" + pageService.res_total(rcri));
 		 System.out.println("페이지"+ mypageMaker);
@@ -78,6 +79,35 @@ public class PageController {
 			return "redirect:mypageRes.do";
 		
 		}
+	// 마이페이지 상담내역
+	@RequestMapping(value = "/mypageCouns.do", method = RequestMethod.GET)
+	public String mypageCouns(Model model, ReserveVO vo, HttpSession session, MyRCriteria rcri) {
+
+		UserVo login =(UserVo)session.getAttribute("login");
+		
+		rcri.setId(login.getId());
+		rcri.setUidx(login.getUidx());
+		
+		
+		List<ReserveVO> counslist = pageService.counslist(rcri);
+		
+		/*
+		 * MypageMaker mypageMaker = new MypageMaker(rcri, pageService.res_total(rcri));
+		 * 
+		 * 
+		 * System.out.println("총합계:" + pageService.res_total(rcri));
+		 * System.out.println("페이지"+ mypageMaker);
+		 */
+		 
+		model.addAttribute("counslist", counslist);
+		System.out.println("상담 리스트 : "+counslist);
+		// model.addAttribute("mypageMaker", mypageMaker);
+		
+		return "page/mypageCouns";
+	}
+	
+		
+		
 		
 	@RequestMapping(value = "/pwConfirm.do", method = RequestMethod.GET)
 	public String pwConfirm() {
@@ -220,17 +250,8 @@ public class PageController {
 
 	}
 
-	@RequestMapping(value = "mypageCouns.do", method = RequestMethod.GET)
-	public String mypageCouns() {
 
-		return "page/mypageCouns";
-	}
 
-	@RequestMapping(value = "mypageCount.do", method = RequestMethod.GET)
-	public String mypageCount() {
-
-		return "page/mypageCount";
-	}
 	
 	//나의 글쓰기 목록
 	@RequestMapping(value="/mypageWrite.do",method=RequestMethod.GET)
@@ -274,11 +295,6 @@ public class PageController {
 		return "page/mypageReview";
 	}
 
-	@RequestMapping(value = "mypageScrap.do", method = RequestMethod.GET)
-	public String mypageScrap() {
-
-		return "page/mypageScrap";
-	}
 
 	// 상담사 페이지
 	@RequestMapping(value = "/counspageRes.do", method = RequestMethod.GET)

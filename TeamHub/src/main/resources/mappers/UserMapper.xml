@@ -11,6 +11,7 @@
 			 ,pw
 			 ,phone
 			 ,mail
+			 ,center
 			 from usertable
 			 where id = #{id}
 			 and pw = #{pw}
@@ -48,8 +49,8 @@
 	<insert id="join" parameterType="userVo" >
 	<![CDATA[
 		insert into usertable(
-			uidx
-		   ,id
+			
+		    id
 		   ,pw
 		   ,mail
 		   ,phone
@@ -57,13 +58,13 @@
 		   ,edate
 		  
 		)values(
-			  uidx_seq.nextval 
-			  , #{id}
+			  
+			    #{id}
 			  , #{pw}
 			  , #{mail}
 			  , #{phone}  
 			  , #{usertype}
-			  , sysdate
+			  , now()
 				)
 				
 				
@@ -73,8 +74,8 @@
 	<insert id="joinCoun" parameterType="userVo" >
 	<![CDATA[
 		insert into usertable(
-			uidx
-		   ,name
+			
+		   name
 		   ,id
 		   ,pw
 		   ,mail
@@ -87,8 +88,8 @@
 		   
 		   
 		)values(
-			  uidx_seq.nextval 
-			  , #{name}
+			 
+			   #{name}
 			  , #{id}
 			  , #{pw}
 			  , #{mail}
@@ -96,7 +97,7 @@
 			  , #{usertype}
 			  , #{center}
 			  , #{picture}
-			  , sysdate
+			  , now()
 				)
 				
 				
@@ -119,17 +120,16 @@
 		  ,phone
 		  from usertable
 		  where uidx=#{uidx}
-	
 	</select>
 	<!-- 회원정보 수정 -->
 	<update id="userModify" parameterType="userVo">
 		update usertable
 		set mail =#{mail}
 		 ,phone =#{phone}
-		 
+		 ,center =#{center}
 		where uidx = #{uidx} 
-		
 	</update>
+	
 	<!-- 비밀번호 변경-->
 	<update id="pwReset" parameterType="userVo">
 		update usertable

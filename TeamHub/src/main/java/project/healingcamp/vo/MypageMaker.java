@@ -14,7 +14,9 @@ public class MypageMaker {
 	   private int total;     //총 게시글 수 
 	   private int page;   //조회하는 페이지 번호
 	   private int perPageNum;    //보여질 데이터개수
+
 	   
+
 	public MypageMaker(MyCriteria cri, int total) {
 		
 		this.page = cri.getPage();
@@ -46,6 +48,8 @@ public class MypageMaker {
 		
 		this.page = rcri.getPage();
 		this.perPageNum = rcri.getPerPageNum();
+	
+		
 		this.total = total;
 		this.rcri = rcri;
 		
@@ -71,10 +75,8 @@ public class MypageMaker {
 	
 	
 	
-	
-	
-	
-   public MyRCriteria getRcri() {
+
+public MyRCriteria getRcri() {
 		return rcri;
 	}
 	public void setRcri(MyRCriteria rcri) {
@@ -139,7 +141,6 @@ public class MypageMaker {
 	}
 
 
-	
 	
 	   
 	   

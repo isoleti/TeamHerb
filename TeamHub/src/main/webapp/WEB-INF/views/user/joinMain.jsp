@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,11 +31,31 @@
 </head>
 <body>
 	 <header>       
-        <div ><p><a href="">로그인</a></p>
-        <p><a href="">회원가입</a></p>
-        <p><a href="">고객센터</a></p></div><!-- 로그인 및 고객센터 관련 버튼--> 
+         <div> <!--로그인 관련-->
+             
+          <c:if test = "${login == null}">   
+            <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
+            <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
+            <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
+         </c:if><!-- 로그아웃 or 로그인x -->
+         
+        <c:if test = "${login != null}">
+            
+               <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
+               <c:if test = "${login.usertype eq 'a'}">
+               <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
+               </c:if>
+               <c:if test = "${login.usertype eq 'u'}">
+               <p><a href="<%= request.getContextPath() %>/page/mypageRes.do">마이 페이지</a></p>
+               </c:if>
+               <c:if test = "${login.usertype eq 'c'}">
+               <p><a href="<%= request.getContextPath() %>/page/counspageRes.do">상담사 페이지</a></p>
+               </c:if>
+               <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
+      </c:if>
+      </div>
         <nav class="navbar" > <!-- 네비게이션 -->
-            <h1><a href=""><img src="resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
+            <h1><a href="<%=request.getContextPath()%>/"><img src="resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
            
             <section></section>
         </nav>

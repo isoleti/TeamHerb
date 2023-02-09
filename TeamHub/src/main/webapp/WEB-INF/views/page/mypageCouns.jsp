@@ -2,7 +2,11 @@
     pageEncoding="UTF-8"%>
     <%@ page import="java.util.*" %>
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+   <%@ page import="project.healingcamp.vo.UserVo" %>
+<%@ page import="project.healingcamp.vo.ReserveVO" %>
    <%@ page session="true" %>
+   
+<% List<ReserveVO> counslist = (List<ReserveVO>)request.getAttribute("counslist"); %>     
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +42,7 @@
         .btn2{height:35px; font-size:15px; border-radius:5px;  margin-top:20px;}
         .btn2:hover{background:#e4e4e4;}
         .btn3:hover{background:#e4e4e4;}
-        .content{display:inline-block; position: relative; top:100px; left:50px; }
+        .content{display:inline-block; position: relative;  left:50px; }
         .content a{ font-size:20px; 
             display:block; margin-top:20px;}
         .content a:nth-child(3){display:inline-block;}
@@ -50,7 +54,7 @@
         #sb a{font-size:15px; font-style: none;}
         #sb {display:inline-block;}
         #sb button{background:#0ed145; color:white; margin-left:100px;}
-
+		td{height:50px;}
         #tb table{border:1px solid #dff6e1; width:800px; height:200px; text-align:center; margin-top:40px;}
         #tb tr:nth-child(1){font-weight: bold;}
         #tb td:nth-child(5){padding:0;}
@@ -104,7 +108,6 @@
                 <button class="btn1" onclick="location.href='<%=request.getContextPath()%>/page/pwConfirm.do'">회원정보</button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageRes.do'">나의 예약 </button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageCouns.do'">상담 예약</button>
-                
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageWrite.do'">내가 쓴 글</button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageReviewList.do'">상담사 후기</button>
                 
@@ -112,15 +115,15 @@
             </div><!--//.bar-->
         <div class="content">
             <a class="p">상담 내역</a>
-            <a class="p">상담 기간</a>
-            <button class="btn3">1개월</button>
+           <!--  <a class="p">상담 기간</a> -->
+           <!--  <button class="btn3">1개월</button>
             <button class="btn3">3개월</button>
-            <button class="btn3">6개월</button>
-            <p>기간 입력</p>
-            <input type="date" name="date1" id="date1" >
+            <button class="btn3">6개월</button> -->
+            <!-- <p>기간 입력</p> -->
+           <!--  <input type="date" name="date1" id="date1" >
             <p>~</p>
             <input type="date" name="date2" id="date2" >
-
+ -->
            
             <div id="tb">
             <table border="1">
@@ -131,44 +134,20 @@
                     <td>상담/검사</td>
                     <td>후기</td>
                 </tr>
+                 <c:forEach items="${counslist}" var="vo">
+            
+                  <input type="hidden" name="uidx" value="${vo.uidx}">
+           		 <input type="hidden" name="residx" value="${vo.residx}">
                 <tr>
-                    <td>상담 번호</td>
-                    <td>상담사</td>
-                    <td>상담 일시</td>
-                    <td>상담/검사</td>
+                    <td>${vo.residx}</td>
+                    <td>${vo.couns}</td>
+                    <td>${vo.resdate.substring(0,10)}</td>
+                    <td>${vo.counseling}</td>
                     <td><button onclick="location.href='<%=request.getContextPath()%>/page/mypageReview.do'">작성하기</button></td>
                 </tr>
-                <tr>
-                    <td>상담 번호</td>
-                    <td>상담사</td>
-                    <td>상담 일시</td>
-                    <td>상담/검사</td>
-                    <td><button>작성하기</button></td>
-                </tr>
-                <tr>
-                    <td>상담 번호</td>
-                    <td>상담사</td>
-                    <td>상담 일시</td>
-                    <td>상담/검사</td>
-                    <td><button>작성하기</button></td>
-                </tr>
-                <tr>
-                    <td>상담 번호</td>
-                    <td>상담사</td>
-                    <td>상담 일시</td>
-                    <td>상담/검사</td>
-                    <td><button>작성하기</button></td>
-                </tr>
-                <tr>
-                    <td>상담 번호</td>
-                    <td>상담사</td>
-                    <td>상담 일시</td>
-                    <td>상담/검사</td>
-                    <td><button>작성하기</button></td>
-                </tr>
-             
+                </c:forEach>  
+                </form>
                
-
             </table>
              
     </div><!--#tb-->

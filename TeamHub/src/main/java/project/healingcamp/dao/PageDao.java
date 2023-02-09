@@ -46,6 +46,9 @@ public class PageDao {
 	public int myres_Delete(ReserveVO vo) {
 			return sqlSession.update("project.healingcamp.mapper.pageMapper.myres_Delete", vo);
 		}
-	
+	//마이페이지 상담 목록
+		public List<ReserveVO> counslist(MyRCriteria rcri){
+			return sqlSession.selectList("project.healingcamp.mapper.pageMapper.counslist",rcri);
+		}
 	 
 }

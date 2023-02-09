@@ -112,4 +112,18 @@ public class AdminServiceImpl implements AdminService {
 	public int faq_Total(SearchVO searchVO) {
 		return adminDAO.faq_Total(searchVO);
 	}
+
+	@Override
+	public Community_BoardVO Notice_selectBybidx(int bidx) {
+		
+		return adminDAO.Notice_selectBybidx(bidx);
+	}
+
+	@Override
+	public int NoticeUpdate_ByBidx(Community_BoardVO cboardVO) {
+		
+		return adminDAO.NoticeUpdate_ByBidx(cboardVO);
+	}
+
+	
 }

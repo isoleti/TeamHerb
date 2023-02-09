@@ -62,4 +62,11 @@ public class PageServiceImpl implements PageService{
 		
 		return pageDao.res_total(rcri);
 	}
+	
+	//마이페이지 상담 목록
+	@Override
+	public List<ReserveVO> counslist(MyRCriteria rcri) {
+		
+		return pageDao.counslist(rcri);
+	}
 }

@@ -246,7 +246,7 @@
                   <input type="checkbox" id="reId" name="reId" />
                   <span>아이디 저장</span>
                   <span><a href="<%=request.getContextPath() %>/user/idFind.do">아이디/비밀번호 찾기</a></span>
-                  <span><a href="<%=request.getContextPath() %>/user/join.do">회원가입</a></span>
+                  <span><a href="<%=request.getContextPath() %>/joinMain.do">회원가입</a></span>
                </div><!---->
             </form>
             <div class="start_login">

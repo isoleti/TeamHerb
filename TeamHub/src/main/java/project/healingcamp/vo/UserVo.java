@@ -10,17 +10,15 @@ public class UserVo {
 	private String edate;
 	private String picture;
 	private String center;
-	private String past;
-	private int pastyear;
-	private int pastmonth;
 	private String usertype;
+	
 	
 	
 	@Override
 	public String toString() {
 		return "UserVo [uidx=" + uidx + ", id=" + id + ", pw=" + pw + ", name=" + name + ", phone=" + phone + ", mail="
-				+ mail + ", edate=" + edate + ", picture=" + picture + ", center=" + center + ", past=" + past
-				+ ", pastyear=" + pastyear + ", pastmonth=" + pastmonth + ", usertype=" + usertype + "]";
+				+ mail + ", edate=" + edate + ", picture=" + picture + ", center=" + center + ", usertype=" + usertype
+				+ "]";
 	}
 	public int getUidx() {
 		return uidx;
@@ -75,24 +73,6 @@ public class UserVo {
 	}
 	public void setCenter(String center) {
 		this.center = center;
-	}
-	public String getPast() {
-		return past;
-	}
-	public void setPast(String past) {
-		this.past = past;
-	}
-	public int getPastyear() {
-		return pastyear;
-	}
-	public void setPastyear(int pastyear) {
-		this.pastyear = pastyear;
-	}
-	public int getPastmonth() {
-		return pastmonth;
-	}
-	public void setPastmonth(int pastmonth) {
-		this.pastmonth = pastmonth;
 	}
 	public String getUsertype() {
 		return usertype;

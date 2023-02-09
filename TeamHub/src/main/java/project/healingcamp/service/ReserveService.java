@@ -9,5 +9,6 @@ public interface ReserveService {
 
 	int resF(ReserveVO vo);
 	int couF(ReserveVO vo);
+	ReserveVO cnodix(ReserveVO vo);
 	
 }
