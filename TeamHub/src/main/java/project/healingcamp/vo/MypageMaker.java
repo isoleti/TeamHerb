@@ -1,7 +1,5 @@
 package project.healingcamp.vo;
 
-import java.util.Date;
-
 public class MypageMaker {
 
 	 private MyCriteria cri; // page, perPageNum 을 가지고 있음
@@ -16,8 +14,7 @@ public class MypageMaker {
 	   private int total;     //총 게시글 수 
 	   private int page;   //조회하는 페이지 번호
 	   private int perPageNum;    //보여질 데이터개수
-	   private Date fromdate;
-	   private Date todate;
+
 	   
 
 	public MypageMaker(MyCriteria cri, int total) {
@@ -51,8 +48,7 @@ public class MypageMaker {
 		
 		this.page = rcri.getPage();
 		this.perPageNum = rcri.getPerPageNum();
-		this.fromdate = rcri.getFromdate();
-		this.todate = rcri.getTodate();
+	
 		
 		this.total = total;
 		this.rcri = rcri;
@@ -79,22 +75,6 @@ public class MypageMaker {
 	
 	
 	
-	
-   public Date getFromdate() {
-			return fromdate;
-		}
-
-		public void setFromdate(Date fromdate) {
-			this.fromdate = fromdate;
-		}
-
-		public Date getTodate() {
-			return todate;
-		}
-
-		public void setTodate(Date todate) {
-			this.todate = todate;
-		}
 
 public MyRCriteria getRcri() {
 		return rcri;
@@ -157,11 +137,10 @@ public MyRCriteria getRcri() {
 	public String toString() {
 		return "MypageMaker [cri=" + cri + ", rcri=" + rcri + ", startPage=" + startPage + ", endPage=" + endPage
 				+ ", prev=" + prev + ", next=" + next + ", total=" + total + ", page=" + page + ", perPageNum="
-				+ perPageNum + ", fromdate=" + fromdate + ", todate=" + todate + "]";
+				+ perPageNum + "]";
 	}
 
-	
-	
+
 	
 	   
 	   

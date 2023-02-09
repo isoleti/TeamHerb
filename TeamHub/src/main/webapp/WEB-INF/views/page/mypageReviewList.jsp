@@ -3,11 +3,12 @@
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
  	<%@ page import="java.util.*" %>
  	<%@ page import="project.healingcamp.vo.ReviewVo" %>
-
+	<%@ page import="project.healingcamp.vo.ReserveVO" %>
  	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  	<%@ page session="true" %>
  	
   	<% List<ReviewVo> list = (List<ReviewVo>)request.getAttribute("list"); %>
+  	<% List<ReserveVO> counslist = (List<ReserveVO>)request.getAttribute("counslist"); %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,9 +36,11 @@
          .btn2:hover{background:#e4e4e4;}
         .btn3:hover{background:#e4e4e4;}
         .content{display:inline-block; position: relative; top:-350px;}
-        .content div{margin-bottom: 20px; background:white; }
+        .content div{margin-bottom: 20px; background:white;}
         .content a{ font-size:20px;  font-weight: bold;
             display:block;  margin-left:70px;}
+            
+        
         #rcontent{width:800px; height:100px; border:1px solid #e4e4e4; position:flex;
          justify-content:space-between; margin-left:70px;}
          .del{float:right; width:50ox; border:none; background:none; margin-right:10px; font-size:20px; color:#ff7f7f;}
@@ -102,11 +105,10 @@
         <div class="content">
 	            <a >상담사 후기</a><br><br>
          		<c:forEach items="${list}" var="vo">
-         		
-	  			          
+	  			       
 	  			<form  action="review_delete.do" method="post">  
-	  			<div id="rcontent">
 	  				
+	  			<div id="rcontent">
 	  				<button  class="del">x</button>
 	  				<input type="hidden" name="ridx" value="${vo.ridx}">
 	  				<c:set var="rdate" value="${vo.rdate }"/>

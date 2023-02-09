@@ -7,10 +7,7 @@
 <%@ page session="true" %>    
 
 <% List<ReserveVO> reslist = (List<ReserveVO>)request.getAttribute("reslist"); %>  
-<%
-	String resposition = (String)request.getAttribute("resposition");
-	if(resposition == null) resposition = "";
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +21,7 @@
       main{margin:0 auto;  width:1160px; margint-top:0; }
         main h2{font-size:22px; margin:80px 250px; }
         .bar{width:280px; height:700px; display:inline-block; border:1px solid #e4e4e4; 
-                text-align:center; padding-top: 30px; position:relative; top:-13px;
+                text-align:center; padding-top: 30px; position:relative; 
                 padding:40px;}
         .bar a{display:block;}
         .bar a:nth-child(1){font-size:25px; font-weight: bold; padding-bottom:20px;display: block;
@@ -40,8 +37,8 @@
         .btn2:hover{background:#e4e4e4;}
         .btn3:hover{background:#e4e4e4;}
         .btn4:hover{background:#1ec34c;}
-        .content{display:inline-block; position: relative; top:150px; left:50px;  }
-        .content a{ font-size:20px; 
+        .content{display:inline-block; position: relative; top:100px; left:50px;  }
+        .content a{ font-size:20px;  position: relative; 
             display:block; margin-top:20px;}
         .content a:nth-child(3){display:inline-block;}
         .content button{margin-top:20px; border:1px solid #e4e4e4; width:100px; height:30px; 
@@ -49,6 +46,7 @@
         .content p{display:inline-block; }
         .content input{margin:20px;}
         .respostion{background:white; border:none;}
+       
         .p{font-weight:bold;}
         #sb a{font-size:15px; font-style: none; margin:0;}
         #sb {display:inline-block;}
@@ -56,13 +54,13 @@
 		#sb button:hover{background:#0ed145;}
         #tb table{border:1px solid #dff6e1; width:800px;  text-align:center;}
         #tb tr:nth-child(1){font-weight: bold;}
-        td{height:30px;}
+        td{height:50px;}
         #tb td:nth-child(5){padding:0;}
         #tb tr:nth-child(2n){background-color:#dff6e1;}
         #tb button{width:50px; margin:0;}
         #navi{width:200px; margin-left:300px;}
         #navi a{font-size:15px; color:black;}
-
+		ul.pagination{position:relative;}
 </style>
 </head>
 <body>
@@ -117,16 +115,16 @@
             </div><!--//.bar-->
         <div class="content">
             <a class="p">나의 예약</a>
-            <a class="p">예약 기간</a>
+            <!-- <a class="p">예약 기간</a> -->
           <!--   <button class="btn3">1개월</button>
             <button class="btn3">3개월</button>
             <button class="btn3">6개월</button> -->
-            <p>기간 입력</p>
-            <form action="mypageRes.do" method="get">
-            <input type="date" name="fromdate" id="fromdate">
+            <!-- <p>기간 입력</p> -->
+            
+           <!--  <input type="date" name="fromdate" id="fromdate">
             <p>~</p>
             <input type="date" name="todate" id="todate" >
-
+ -->
             <!-- <a class="p">예약 상태</a> -->
             <div id="sb">
             <a>
@@ -136,13 +134,17 @@
             <input type="button" id="wait" value="예약대기">
              -->
             <!-- <input type="radio" name="sel" id="canc">예약취소 -->
-            <button class="btn4">검색</button>
+           <!--  <button class="btn4">검색</button> -->
             </a> </div><!--//#sb-->
-            </form>
+            
             <div id="tb">
            		
             <table border="1">
+           		 <form  action="myres_delete.do" method="post">  
            		
+                  <input type="hidden" name="uidx" value="${vo.uidx}">
+           		 <input type="hidden" name="residx" value="${vo.residx}">
+           		 
                 <tr>
                     <td>예약 번호</td>
                     <td>병원 및 상담소</td>
@@ -150,12 +152,8 @@
                     <td>처리 현황</td>
                     <td>관리</td>
                 </tr>
-                 
-                 
-				 <form  action="myres_delete.do" method="post">  
-                 <c:forEach items="${reslist}" var="vo">
-                  <input type="hidden" name="uidx" value="${vo.uidx}">
-           		 <input type="hidden" name="residx" value="${vo.residx}">
+            
+                  <c:forEach items="${reslist}" var="vo">
                 <tr>
                     <td>${vo.residx}</td>
                     <td>${vo.center}</td>

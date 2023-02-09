@@ -13,8 +13,13 @@ public interface PageService {
 	public List<Community_BoardVO> list(MyCriteria cri);
 	UserVo pwCheck(UserVo vo);
 	public List<ReserveVO> list(ReserveVO vo);
-	public List<ReserveVO> reslist(MyRCriteria rcri);
 	int total(MyCriteria cri);
+	
+	//마이페이지 예약(rud)
+	public List<ReserveVO> reslist(MyRCriteria rcri);
 	int res_total(MyRCriteria rcri);
 	int myres_Delete(ReserveVO vo);
+	
+	//마이페이지 상담
+	public List<ReserveVO> counslist(MyRCriteria rcri);
 }

@@ -19,7 +19,7 @@
           main{margin:0 auto;  width:1160px; }
         main h2{font-size:22px; margin:80px 250px; }
         .bar{width:280px; height:700px; display:inline-block; border:1px solid #e4e4e4; 
-                text-align:center; padding-top: 30px; position: relative; top:-90px;
+                text-align:center; padding-top: 30px; position: relative;
                 padding:40px;}
         .bar a{display:block;}
         .bar a:nth-child(1){font-size:25px; font-weight: bold; padding-bottom:20px;display: block; 
@@ -104,7 +104,7 @@
             </div><!--//.bar-->
         <div class="content">
             <a class="p">예약 목록</a>
-            <a class="p">예약 기간</a>
+          <!--   <a class="p">예약 기간</a>
             <button class="btn3">1개월</button>
             <button class="btn3">3개월</button>
             <button class="btn3">6개월</button>
@@ -112,15 +112,15 @@
             <input type="date" name="date1" id="date1" >
             <p>~</p>
             <input type="date" name="date2" id="date2" >
-
-            <a class="p">예약 상태</a>
+ -->
+           <!--  <a class="p">예약 상태</a> -->
             <div id="sb">
             <a>
-            <input type="radio" name="all" id="all">전체
+           <!--  <input type="radio" name="all" id="all">전체
             <input type="radio" name="compl" id="compl">예약완료
             <input type="radio" name="wait" id="wait">예약대기
-            <input type="radio" name="canc" id="canc">예약취소
-            <button class="btn4">검색</button>
+            <input type="radio" name="canc" id="canc">예약취소 -->
+            <!-- <button class="btn4">검색</button> -->
             </a> </div><!--//#sb-->
             <div id="tb">
             <table border="1">

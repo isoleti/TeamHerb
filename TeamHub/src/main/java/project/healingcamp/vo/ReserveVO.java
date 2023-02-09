@@ -11,8 +11,6 @@ public class ReserveVO {
 	private String rescount;
 	private String resc;
 	private String resposition;
-	private Date fromdate; //검색날짜 
-	private Date todate; //검색날짜 
 	private String counseling; 
 				   
 	private int uidx;
@@ -306,33 +304,21 @@ public class ReserveVO {
 		this.price5 = price5;
 	}
 	
-
-	public Date getFromdate() {
-		return fromdate;
-	}
-	public void setFromdate(Date fromdate) {
-		this.fromdate = fromdate;
-	}
-	public Date getTodate() {
-		return todate;
-	}
-	public void setTodate(Date todate) {
-		this.todate = todate;
-	}
 	@Override
 	public String toString() {
 		return "ReserveVO [residx=" + residx + ", center=" + center + ", couns=" + couns + ", resdate=" + resdate
-				+ ", rescount=" + rescount + ", resc=" + resc + ", resposition=" + resposition + ", fromdate="
-				+ fromdate + ", todate=" + todate + ", counseling=" + counseling + ", uidx=" + uidx + ", clidx=" + clidx
-				+ ", likecheck=" + likecheck + ", phone=" + phone + ", mail=" + mail + ", restime=" + restime + ", id="
-				+ id + ", cnoidx=" + cnoidx + ", centername=" + centername + ", centeraddr=" + centeraddr
-				+ ", centercall=" + centercall + ", conidx=" + conidx + ", name=" + name + ", grade=" + grade
-				+ ", certi1=" + certi1 + ", certi2=" + certi2 + ", certi3=" + certi3 + ", certi4=" + certi4
-				+ ", article1=" + article1 + ", article2=" + article2 + ", article3=" + article3 + ", article4="
-				+ article4 + ", cintidx=" + cintidx + ", con1=" + con1 + ", con2=" + con2 + ", con3=" + con3 + ", con4="
-				+ con4 + ", con5=" + con5 + ", price1=" + price1 + ", price2=" + price2 + ", price3=" + price3
-				+ ", price4=" + price4 + ", price5=" + price5 + "]";
+				+ ", rescount=" + rescount + ", resc=" + resc + ", resposition=" + resposition + ", counseling="
+				+ counseling + ", uidx=" + uidx + ", clidx=" + clidx + ", likecheck=" + likecheck + ", phone=" + phone
+				+ ", mail=" + mail + ", restime=" + restime + ", id=" + id + ", cnoidx=" + cnoidx + ", centername="
+				+ centername + ", centeraddr=" + centeraddr + ", centercall=" + centercall + ", conidx=" + conidx
+				+ ", name=" + name + ", grade=" + grade + ", certi1=" + certi1 + ", certi2=" + certi2 + ", certi3="
+				+ certi3 + ", certi4=" + certi4 + ", article1=" + article1 + ", article2=" + article2 + ", article3="
+				+ article3 + ", article4=" + article4 + ", cintidx=" + cintidx + ", con1=" + con1 + ", con2=" + con2
+				+ ", con3=" + con3 + ", con4=" + con4 + ", con5=" + con5 + ", price1=" + price1 + ", price2=" + price2
+				+ ", price3=" + price3 + ", price4=" + price4 + ", price5=" + price5 + "]";
 	}
+	
+
 	
 	
 }
