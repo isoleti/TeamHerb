@@ -168,7 +168,7 @@ public class AdminController {
 		System.out.println("result:"+result);
 		
 		if(bType == 2) {
-			return "redirect:adminPage_Notice_List.do";
+			return "redirect:adminPage_Notice_view.do";
 		}else {
 			return "redirect:adminPage_Faq_List.do";
 		}
@@ -204,4 +204,26 @@ public class AdminController {
 		
 		return "adminPage/adminPage_Report_List";
 	}
+	
+	//공지사항 수정페이지 이동
+	@RequestMapping(value="/adminPage_Notice_Modify.do", method = RequestMethod.GET)
+	public String adminPage_Notice_Modify(int bidx, Model model) {
+		
+		System.out.println("bidx잘 들어왔니"+bidx);
+		Community_BoardVO cboardVO = adminService.Notice_selectBybidx(bidx);
+		model.addAttribute("cboardVO", cboardVO);
+		return "adminPage/adminPage_Notice_Modify";	
+	}
+	
+	//공지사항 수정 됨
+	@RequestMapping(value="/adminPage_Notice_Modify.do", method = RequestMethod.POST)
+	public String adminPage_Notice_Modify(Community_BoardVO cboardVO) {
+		
+		System.out.println("공지사항 update 왜 안들어오니.."+cboardVO);
+		
+		int result = adminService.NoticeUpdate_ByBidx(cboardVO);
+		
+		System.out.println("result"+result);
+		return "redirect:adminPage_Notice_List.do?bidx=" + cboardVO.getBidx();
+	} 
 }

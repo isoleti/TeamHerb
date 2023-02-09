@@ -185,7 +185,6 @@
                     <td>${pageVO.total-(pageVO.total-((pageVO.pageNum-1)*10+status.index)-1)}</td>
                     <td><input type="checkbox" class="checkbox" name="bidx" value="${vo.bidx }"></td>
                     <td><a href="<%=request.getContextPath()%>/adminPage/adminPage_Notice_Modify.do?bidx=${vo.bidx}">${vo.title }</a></td>
-                    <td>${vo.title}</td>
                     <td>${vo.id}</td>
                     <td>${vo.wdate}</td>
                 </tr>
