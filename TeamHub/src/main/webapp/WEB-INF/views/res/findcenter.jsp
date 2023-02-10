@@ -26,10 +26,10 @@
         main dt dl{display:inline-block; margin-right:5%;}
         main form{width:30%; margin-left:70%; margin-bottom:1.75%;}
         main div p{margin-left:15%; margin-top:1%;}
-        main .center #centerName,
-        main .center #centerAddr,
-        main .center #centerCall{width:300px;border:hidden;}
-        .form-select{width:30%; display:inline-block;}
+        main #frm .center p #centername,
+        main #frm .center p #centeraddr,
+        main #frm .center p #centercall{width:300px; border:hidden;}
+        
         button{margin-left:10%;}
     </style>   
 </head>

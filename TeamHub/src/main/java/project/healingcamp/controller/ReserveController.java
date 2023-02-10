@@ -33,7 +33,7 @@ public class ReserveController {
 	//기관찾기
 	@RequestMapping(value = "/findcenter.do", method = RequestMethod.GET)
 	public String findcenter() {
-
+		
 		return "res/findcenter";
 	}
 	
