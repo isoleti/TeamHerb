@@ -297,6 +297,7 @@
 		                 })
 		               } else {
 		                 alert("결제에 실패하였습니다. " + rsp.error_msg);
+		                 return;
 		               }
 		             var fm = document.frm;
 		             
