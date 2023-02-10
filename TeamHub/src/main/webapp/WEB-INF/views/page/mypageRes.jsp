@@ -57,6 +57,7 @@
         td{height:50px;}
         #tb td:nth-child(5){padding:0;}
         #tb tr:nth-child(2n){background-color:#dff6e1;}
+        #tb button #cancle{ width:60px; margin:0 10px;}
         #tb button{width:50px; margin:0;}
         #navi{width:200px; margin-left:300px;}
         #navi a{font-size:15px; color:black;}
@@ -160,7 +161,14 @@
                     <td>${reslist.center}</td>
                     <td>${reslist.resdate.substring(0,10)}</td>
                     <td>${reslist.resposition}</td>
-                    <td><button>취소</button></td>
+                    <td>
+                    <c:if test = "${reslist.resposition eq '예약대기'}">
+                    <button>취소</button>                    
+                    </c:if>
+                    <c:if test = "${reslist.resposition eq '예약취소'}">
+                    <button type="button" id="cancle" style="width:60px;">취소됨</button>                    
+                    </c:if>
+                    </td>
                 </tr>
                </c:forEach>  
                 </form>

@@ -146,9 +146,6 @@
     color:rgb(102, 102, 102);
     text-decoration:none;
     }
-    .empathy{
-    cursor:pointer;
-    }
     .community .footer{
     display: flex;
     justify-content: space-between;
@@ -302,7 +299,7 @@
                 <div class="footer">
                     <div class="reaction">
 						<div class="empathy_wrapper">
-							<img bidx="${vo.bidx}" class="empathy empathy${vo.bidx}" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감">
+							<img bidx="${vo.bidx}" class="empathy empathy${vo.bidx}" src="<%=request.getContextPath()%>/resources/upload/like_color_change.jpg" alt="공감">
 						</div><!--e:#empathy_wrapper-->
 						<div class="like${vo.bidx }">${vo.likes }명이 공감</div>
 						<div class="reply">댓글 ${vo.replyCnt}개</div>
@@ -372,70 +369,70 @@
 	<script>
 	
 		//로그인 정보
-		var login = "${login}"
-		var id = "${login.id}";
-		var list = "${datalist}";
-		var likeList = "${likeList}";
+// 		var login = "${login}"
+// 		var id = "${login.id}";
+// 		var list = "${datalist}";
+// 		var likeList = "${likeList}";
 		
 		//좋아요
-  		$(".empathy").hover(
-	   		function(){//하트 마우스 올라왔을때
-	   			$(this).attr('src','./../resources/upload/like_color_change.jpg');
-	   		},
-	   		function(){//하트 마우스 벗어났을때
-	   			$(this).attr('src','./../resources/upload/like.jpg');
-	   		}
-   		);
+//   		$(".empathy").hover(
+// 	   		function(){//하트 마우스 올라왔을때
+// 	   			$(this).attr('src','./../resources/upload/like_color_change.jpg');
+// 	   		},
+// 	   		function(){//하트 마우스 벗어났을때
+// 	   			$(this).attr('src','./../resources/upload/like.jpg');
+// 	   		}
+//    		);
 		
 		//좋아요 버튼 클릭
-		let num = 0;
-		$(".empathy").on("click",function(e){
-			//클릭한 게시글의 번호
-			var bidx = $(this).attr("bidx"); 
+// 		let num = 0;
+// 		$(".empathy").on("click",function(e){
+// 			//클릭한 게시글의 번호
+// 			var bidx = $(this).attr("bidx"); 
 			
-			if(login == ""){
-				alert("로그인 후 이용해주세요.")
-			}else{
-				$.ajax({
-					url:"likeCount.do",
-					type:"post",
-					data:{"bidx":bidx,"id":id},
-					context:this,
-					success:function(result){
-						if(result == 1){//좋아요 체크시 좋아요 취소
-							$.ajax({
-								url:"likeDown.do",
-								type:"post",
-								data:{"bidx":bidx,"id":id},
-								success:function(data){
-									$(".like"+bidx).text(data.likes+"명이 공감");
-								},error:function(){
-									alert("error");
-								}
-							});
-							$(this).attr('src','./../resources/upload/like.jpg');
-						}else if(result == 0){
-							$.ajax({
-								url:"likeUp.do",
-								type:"post",
-								data:{"bidx":bidx,"id":id},
-								context:this,
-								success:function(data){
-									$(".like"+bidx).text(data.likes+"명이 공감");
-								},error:function(){
-									alert("error");
-								}
-							});
-							$(this).attr('src','./../resources/upload/like_color_change.jpg');
-							$(this).unbind('mouseenter mouseleave'); //좋아요 on 일때 hover기능 unbind
-						}
+// 			if(login == ""){
+// 				alert("로그인 후 이용해주세요.")
+// 			}else{
+// 				$.ajax({
+// 					url:"likeCount.do",
+// 					type:"post",
+// 					data:{"bidx":bidx,"id":id},
+// 					context:this,
+// 					success:function(result){
+// 						if(result == 1){//좋아요 체크시 좋아요 취소
+// 							$.ajax({
+// 								url:"likeDown.do",
+// 								type:"post",
+// 								data:{"bidx":bidx,"id":id},
+// 								success:function(data){
+// 									$(".like"+bidx).text(data.likes+"명이 공감");
+// 								},error:function(){
+// 									alert("error");
+// 								}
+// 							});
+// 							$(this).attr('src','./../resources/upload/like.jpg');
+// 						}else if(result == 0){
+// 							$.ajax({
+// 								url:"likeUp.do",
+// 								type:"post",
+// 								data:{"bidx":bidx,"id":id},
+// 								context:this,
+// 								success:function(data){
+// 									$(".like"+bidx).text(data.likes+"명이 공감");
+// 								},error:function(){
+// 									alert("error");
+// 								}
+// 							});
+// 							$(this).attr('src','./../resources/upload/like_color_change.jpg');
+// 							$(this).unbind('mouseenter mouseleave'); //좋아요 on 일때 hover기능 unbind
+// 						}
 						
-					},error:function(){
-						alert("error");
-					}
-				});
-			}
-		});	
+// 					},error:function(){
+// 						alert("error");
+// 					}
+// 				});
+// 			}
+// 		});	
 			
 
 		

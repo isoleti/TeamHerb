@@ -17,14 +17,11 @@ public class PageDao {
 
 	@Autowired
 	private SqlSession sqlSession;
- 
+	//비밀번호 체크
 	public UserVo pwCheck(UserVo vo) {
 		return sqlSession.selectOne("project.healingcamp.mapper.pageMapper.pwCheck", vo);
 	}
-	//상담사페이지 예약 목록
-	public List<ReserveVO> list(ReserveVO vo){
-			return sqlSession.selectList("project.healingcamp.mapper.reserveMapper.list",vo);
-		}
+	//마이페이지 나의글쓰기 목록
 	public List<Community_BoardVO> list(MyCriteria cri){
 		System.out.println("서비스 리스트: "+cri.toString());
 		return sqlSession.selectList("project.healingcamp.mapper.pageMapper.list", cri);
@@ -50,5 +47,26 @@ public class PageDao {
 		public List<ReserveVO> counslist(MyRCriteria rcri){
 			return sqlSession.selectList("project.healingcamp.mapper.pageMapper.counslist",rcri);
 		}
-	 
+	
+	public int couns_total(MyRCriteria rcri) {
+		
+		 return sqlSession.selectOne("project.healingcamp.mapper.pageMapper.couns_total", rcri);
+	 }
+	//상담사페이지 예약 목록
+		public List<ReserveVO> coun_reslist(MyRCriteria rcri){
+			System.out.println();
+			return sqlSession.selectList("project.healingcamp.mapper.pageMapper.coun_reslist",rcri);
+		}
+	public int counres_total(MyRCriteria rcri) {
+		System.out.println("dao에서 상담사예약 총합: "+rcri.toString());
+		 return sqlSession.selectOne("project.healingcamp.mapper.pageMapper.counres_total", rcri);
+	 }
+	//상담사페이지 예약 취소
+	public int counres_Delete(ReserveVO vo) {
+			return sqlSession.update("project.healingcamp.mapper.pageMapper.counres_Delete", vo);
+		}
+	//상담사페이지 예약 수락
+	public int counres_Check(ReserveVO vo) {
+		return sqlSession.update("project.healingcamp.mapper.pageMapper.counres_Check", vo);
+		}
 }

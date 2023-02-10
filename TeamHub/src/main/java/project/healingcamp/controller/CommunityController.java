@@ -261,7 +261,7 @@ public class CommunityController {
 			sFileInfo += "&bNewLine=true";
 			//img태그의 title 속성을 원본파일명으로 적용시켜주기 위함
 			sFileInfo += "&sFileName="+filename;
-			sFileInfo += "&sFileURL="+"/resources/photo_upload/"+realFileNm;
+			sFileInfo += "&sFileURL="+"/controller/resources/photo_upload/"+realFileNm;
 			PrintWriter print = response.getWriter();
 			print.print(sFileInfo);
 			System.out.println(sFileInfo);

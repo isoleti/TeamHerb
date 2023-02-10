@@ -147,9 +147,6 @@
     background-color: #fff;
     border: 1px solid #ccc; 
 	}
-	.empathy{
-	cursor:pointer;
-	}
 	.page-item.active .page-link {
 	 z-index: 1;
 	 color: #555;
@@ -256,7 +253,7 @@
                 <div class="footer">
                     <div class="reaction">
                         <div class="empathy_wrapper">
-                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감">
+                            <img class="empathy" src="<%=request.getContextPath()%>/resources/upload/like_color_change.jpg" alt="공감">
                         </div><!--e:#empathy_wrapper-->
                         <div class="like">${vo.likes}명이 공감</div>
                         <div class="reply">댓글 ${vo.replyCnt }개</div>
@@ -314,34 +311,34 @@
 	<script>
 
 		//로그인 정보
-		var login = "${login}";
+// 		var login = "${login}";
 		
 		//좋아요 버튼 클릭
-		let num = 0;
-		$(".empathy").on("click",function(e){
-			if(login == ""){
-				alert("로그인 후 이용해주세요.")
-			}else{
-				if(num == 0){ //num이 0일때 좋아요 후  num 1로 변경
-					$(this).attr('src','./../resources/upload/like_color_change.jpg');
-					$(this).unbind('mouseenter mouseleave');//좋아요 on 일때 hover기능 unbind
-					num = 1;
-				}else{//num이 1일때 좋아요 취소 후 num 0으로 변경
-					$(this).attr('src','./../resources/upload/like.jpg');
-					num = 0;
-				}
-			}
-		});	
+// 		let num = 0;
+// 		$(".empathy").on("click",function(e){
+// 			if(login == ""){
+// 				alert("로그인 후 이용해주세요.")
+// 			}else{
+// 				if(num == 0){ //num이 0일때 좋아요 후  num 1로 변경
+// 					$(this).attr('src','./../resources/upload/like_color_change.jpg');
+// 					$(this).unbind('mouseenter mouseleave');//좋아요 on 일때 hover기능 unbind
+// 					num = 1;
+// 				}else{//num이 1일때 좋아요 취소 후 num 0으로 변경
+// 					$(this).attr('src','./../resources/upload/like.jpg');
+// 					num = 0;
+// 				}
+// 			}
+// 		});	
 		
 		//좋아요
-  		$(".empathy").hover(
-	   		function(){//하트 마우스 올라왔을때
-	   			$(this).attr('src','./../resources/upload/like_color_change.jpg');
-	   		},
-	   		function(){//하트 마우스 벗어났을때
-	   			$(this).attr('src','./../resources/upload/like.jpg');
-	   		}
-   		);
+//   		$(".empathy").hover(
+// 	   		function(){//하트 마우스 올라왔을때
+// 	   			$(this).attr('src','./../resources/upload/like_color_change.jpg');
+// 	   		},
+// 	   		function(){//하트 마우스 벗어났을때
+// 	   			$(this).attr('src','./../resources/upload/like.jpg');
+// 	   		}
+//    		);
 			
    		
 		

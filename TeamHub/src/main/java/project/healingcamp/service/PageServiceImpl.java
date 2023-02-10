@@ -17,13 +17,6 @@ public class PageServiceImpl implements PageService{
 
 	@Autowired
 	private PageDao pageDao;
-	
-	//상담사 페이지 예약목록
-	@Override
-	public List<ReserveVO> list(ReserveVO vo) {
-		
-		return pageDao.list(vo);
-	}
 
 	@Override
 	public UserVo pwCheck(UserVo vo) {
@@ -69,4 +62,41 @@ public class PageServiceImpl implements PageService{
 		
 		return pageDao.counslist(rcri);
 	}
+
+	@Override
+	public int couns_total(MyRCriteria rcri) {
+		
+		return pageDao.couns_total(rcri);
+	}
+
+	//상담사페이지 예약 목록
+	@Override
+	public List<ReserveVO> coun_reslist(MyRCriteria rcri) {
+		
+		return pageDao.coun_reslist(rcri);
+	}
+
+
+	@Override
+	public int counres_total(MyRCriteria rcri) {
+		
+		return pageDao.counres_total(rcri);
+	}
+
+	//상담사페이지 예약 취소
+	@Override
+	public int counres_Delete(ReserveVO vo) {
+		
+		return pageDao.counres_Delete(vo);
+	}
+
+
+	@Override
+	public int counres_Check(ReserveVO vo) {
+	
+		return pageDao.counres_Check(vo);
+	}
+
+
+
 }

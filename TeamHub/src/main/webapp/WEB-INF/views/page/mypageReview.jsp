@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+ 	<%@ page import="java.util.*" %>
+ 	<%@ page import="project.healingcamp.vo.ReviewVo" %>
+	<%@ page import="project.healingcamp.vo.ReserveVO" %>
+ 	<%@ page session="true" %>
  	
 <!DOCTYPE html>
 <html>
@@ -40,14 +44,36 @@
 </head>
 <body>
 	  <header>       
-        <div ><p><a href="">로그아웃</a></p><p><a href="">마이페이지</a></p><p><a href="">고객센터</a></p></div><!-- 로그인 및 고객센터 관련 버튼--> 
+        <div> <!--로그인 관련-->
+             
+          <c:if test = "${login == null}">   
+            <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
+            <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
+            <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
+         </c:if><!-- 로그아웃 or 로그인x -->
+         
+        <c:if test = "${login != null}">
+            
+               <p><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></p>
+               <c:if test = "${login.usertype eq 'a'}">
+               <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
+               </c:if>
+               <c:if test = "${login.usertype eq 'u'}">
+               <p><a href="<%= request.getContextPath() %>/page/mypageRes.do">마이 페이지</a></p>
+               </c:if>
+               <c:if test = "${login.usertype eq 'c'}">
+               <p><a href="">상담사 페이지</a></p>
+               </c:if>
+               <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
+      </c:if>
+      </div>
         <nav class="navbar" style="background-color: #dff6e1;"> <!-- 네비게이션 -->
-            <h1><a href=""><img src="../resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
-            <a href="">치료프로그램</a>
-            <a href="">심리테스트</a>
-            <a href="">커뮤니티</a>
-            <a href="">상담 예약</a>
-            <a href="">상담사 게시판</a>
+            <h1><a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
+           <a href="<%=request.getContextPath()%>/program.do">치료프로그램</a>
+            <a href="<%=request.getContextPath()%>/test.do">심리테스트</a>
+            <a href="<%=request.getContextPath()%>/community/community_list.do">커뮤니티</a>
+            <a href="<%=request.getContextPath()%>/res/findcenter.do">상담 예약</a>
+            <a href="<%=request.getContextPath()%>/counseller_board/counseller_board_list.do">상담사 게시판</a>
             <section></section>
         </nav>
     </header> 

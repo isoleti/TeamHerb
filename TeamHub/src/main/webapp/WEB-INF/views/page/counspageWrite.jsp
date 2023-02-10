@@ -118,7 +118,7 @@
              
             <table border="1"> 
             
-                <input type="hidden" name="uidx" value="${cboardVO.uidx}">
+               
                 <tr>
                     <td>글 번호</td>
                     <td>제목</td>
@@ -129,6 +129,7 @@
                 
                  <c:forEach items="${list}" var="cboardVO">
                 <tr>
+                  <input type="hidden" name="uidx" value="${cboardVO.uidx}">
                     <td>${cboardVO.bidx}</td>
                     <td><a href="<%=request.getContextPath()%>/counseller_board/counseller_board_view.do?bidx=${cboardVO.bidx}">${cboardVO.title}</a></td>
                 	<c:set var="wdate" value="${cboardVO.wdate}"/>

@@ -9,10 +9,12 @@ import project.healingcamp.vo.ReserveVO;
 import project.healingcamp.vo.UserVo;
 
 public interface PageService {
-
-	public List<Community_BoardVO> list(MyCriteria cri);
+	
+	//비밀번호 인증
 	UserVo pwCheck(UserVo vo);
-	public List<ReserveVO> list(ReserveVO vo);
+	
+	//마이페이지 나의글쓰기
+	public List<Community_BoardVO> list(MyCriteria cri);
 	int total(MyCriteria cri);
 	
 	//마이페이지 예약(rud)
@@ -22,4 +24,11 @@ public interface PageService {
 	
 	//마이페이지 상담
 	public List<ReserveVO> counslist(MyRCriteria rcri);
+	int couns_total(MyRCriteria rcri);
+	
+	//상담사페이지 예약
+	public List<ReserveVO> coun_reslist(MyRCriteria rcri);
+	int counres_total(MyRCriteria rcri);
+	int counres_Delete(ReserveVO vo);
+	int counres_Check(ReserveVO vo);
 }

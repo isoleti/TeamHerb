@@ -302,7 +302,7 @@
 	    		dataType:"text",
 	    		success:function(data){
 	    			if(data == "success"){
-	    				alert("댓글 작성이 완료되었습니다.");
+	    				//alert("댓글 작성이 완료되었습니다.");
 		    			$("#reply").val("");
 	    				getCommentList();
 	    			}
@@ -337,28 +337,29 @@
    		   					var bidx = result[i].bidx; // 댓글이 달린  게시글 번호
    		   					var reply_Content = result[i].reply_Content; //댓글 내용
    		   					var writer = result[i].id //댓글 작성자
-   							
-   		   					html += "<div class='reply_box'>";
-							html += "<div class='reply_box_wrapper"+reply_Idx+"'><div class='reply_info_wrapper'>";
-							html += "<ul class='reply_info'>";
-							html += "<li class='id'>"+result[i].id+"</li>";
-							html += "<li class='wdate'>"+result[i].reply_Wdate+"</li>";
-   							
-   							if(id == result[i].id){
-   								html += "<li class='commentModify' onclick='commentModify("+reply_Idx+",\""+reply_Content+"\",\""+writer+"\");'>댓글수정</li>";
-   							}else{
-   								html += "<li class='comment'>댓글쓰기</li>";
-   							}
-   							
-   							if(id == result[i].id){
-   								html += "<li class='report'><a href='javascript:void(0);' onclick='javascript:deleteReply("+reply_Idx+","+bidx+");''>삭제</a></li></ul></div>";
-   							}else{
-	   							html += "<li class='report' onclick='reportReply("+reply_Idx+")'>신고</li></ul></div>";
-   							}
-   							
-   							html += "<div class='reply_view_wrapper'>";
-   							html += "<div class='reply_view'>"+result[i].reply_Content+"</div></div>";
-   							html += "</div>";
+   		   				 html += "<div class='reply_box'>";
+   						    html += 	"<div class='reply_box_wrapper"+reply_Idx+"'>"; //댓글 수정 버튼 클릭시 수정 창으로 바뀌는 부분(수정하려는 댓글의 idx)
+   						    html += 		"<div class='reply_info_wrapper'>";
+   						    html += 			"<ul class='reply_info'>";
+   						    html += 				"<li class='id'>"+result[i].id+"</li>";
+   						    html += 				"<li class='wdate'>"+result[i].reply_Wdate+"</li>";
+
+   						    if(id == result[i].id){ //현재 로그인된 아이디일시 댓글수정가능
+   						        html += 			"<li class='commentModify' onclick='commentModify("+reply_Idx+",\""+reply_Content+"\",\""+writer+"\");'>댓글수정</li>";
+   						        html += 			"<li class='delete' onclick='deleteReply("+reply_Idx+","+bidx+");'>삭제</li>";
+   						    }
+//	   						    else{
+//	   						        html += 			"<li class='re_reply' onclick='re_reply("+reply_Idx+","+bidx+")'>답글쓰기</li>";
+//	   						    }
+
+   						    html += 			"</ul>"; //.reply_info
+   						    html += 		"</div>"; //.reply_info_wrapper
+   						    html += 		"<div class='reply_view_wrapper'>";
+   						    html += 			"<div class='reply_view'>"+result[i].reply_Content+"</div>";
+   						    html += 		"</div>"; //.reply_view_wrapper
+   						    html += 	"</div>"; //.reply_box_wrapper
+   						    html += "</div>"; //.reply_box
+   						    html += "<div class='re_reply_area"+reply_Idx+"'></div>"; //답글작성이 들어갈 칸
    						}
    					}else{
    						html += "<div>등록된 댓글이 없습니다.</div>";

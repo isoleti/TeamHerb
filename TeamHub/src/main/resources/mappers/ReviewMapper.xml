@@ -4,19 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="project.healingcamp.mapper.reviewMapper">
+  
+  <!-- 마이페이지 상담사 후기 목록 -->
   <select id="list" resultType="reviewVo" parameterType="criteria" ><!--여기 parameterType에 criteria 넣으면 서버 안열림 -->
-			<![CDATA[
-				select * 
-			from (
-				select rownum as rnum, a. *
-				 from (
-				 	select * 
-				 	from  reviewtable
-				 	 where uidx=${uidx}
-				 	 order by rdate desc
-			 		)a 
-					)
-					WHERE RNUM BETWEEN (#{page}-1)*#{perPageNum}+1 AND #{page}*#{perPageNum}
+	<![CDATA[
+		select * 
+		from  reviewtable
+			where uidx=#{uidx}
+			order by rdate desc
+			limit #{rowStart}, 4	
 			 ]]>
   </select>
   	<!-- 이 구문에서 ; 넣으면 에러 뜸! -->
@@ -39,17 +35,15 @@
   <insert id="insert" parameterType="reviewVo">
 	
 		insert into reviewtable(
-			 ridx
-			,rcontent
+			rcontent
 			,rdate
 			,uidx
 			,id
 			
 			
 		)values(
-			ridx_seq.nextval
-			, #{rcontent}
-			, sysdate
+			#{rcontent}
+			, now()
 			, #{uidx}
 			, #{id}
 			

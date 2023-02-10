@@ -15,17 +15,12 @@
   <!-- 마이페이지 나의 글쓰기 목록 -->
    <select id="list" resultType="cboardVO" parameterType="myCriteria">
 			<![CDATA[
-				select * 
-			from (
-				select rownum as rnum, a. *
-				 from (
-				 	select * 
-				 	from  boardtable
-				 	 where uidx=#{uidx} and delyn='N'
-				 	 order by wdate desc
-			 		)a 
-					)
-					WHERE RNUM limit (#{page}-1)*#{perPageNum}+1 , #{page}*#{perPageNum}
+			 	select * 
+			 	from  boardtable
+			 	 where uidx=#{uidx} and delyn='N'
+			 	 order by wdate desc
+		 		
+				limit #{rowStart}, 7
 			 ]]>
   </select>
   
@@ -40,11 +35,11 @@
    <select id="reslist" resultType="reserveVO" parameterType="myrCriteria">
 	<![CDATA[
 		select * 
-					from  reservationtable
-					where uidx=#{uidx} and rescancle='N' 	
-						order by residx desc
-						
-			  limit #{rowStart}, 7
+			from  reservationtable
+				where uidx=#{uidx} and rescancle='N' 	
+				order by residx desc
+				
+		  		limit #{rowStart}, 7
 	]]>
 	
 	
@@ -102,4 +97,71 @@
 						 limit #{rowStart}, 7
 	]]>
 	</select>
+	
+	
+	  <!--마이페이지 상담 수 조회  -->
+    <select id="couns_total" resultType="int" parameterType="myrCriteria">
+        select count(*) 
+	        from reservationtable
+	      	  where uidx=#{uidx} and rescancle='N' and resposition='예약완료'
+	      	   
+	
+    </select>
+    
+  <!-- 상담사페이지 예약 목록 -->
+   <select id="coun_reslist" resultType="reserveVO" parameterType="myrCriteria">
+	<![CDATA[
+		select a.residx
+				,a.id
+				,a.resdate
+				,a.resposition
+				,a.conidx
+				,b.uidx
+		from 
+			reservationtable a
+		LEFT JOIN
+			counselortable b
+		on
+			a.conidx = b.conidx 
+		where b.uidx=#{uidx} and rescancle='N' and resposition='예약대기'
+		order by residx desc	
+			limit #{rowStart}, 7 
+	]]>
+		<!-- where a.conidx = #{conidx} and rescancle='N' 	
+		 -->
+			<!-- inner join counselortable b
+			on a.conidx = b.conidx 
+			where a.conidx = #{conidx} and rescancle='N' 
+	 -->
+		<!-- 	order by residx desc	
+			limit #{rowStart}, 7 -->
+	</select>
+	
+      <!-- 상담사 예약 수 조회  -->
+    <select id="counres_total" resultType="int" parameterType="myrCriteria">
+        select count(*) 
+	    from 
+	    	reservationtable a
+		LEFT JOIN
+			counselortable b
+		on
+			a.conidx = b.conidx 
+		where b.uidx=#{uidx} and rescancle='N' and resposition='예약대기'
+		order by residx desc	
+	
+    </select>
+    <!-- 상담사페이지 예약 취소 -->
+	<update id="counres_Delete" parameterType="reserveVO">
+      update reservationtable
+         set  resposition='예약취소'
+         where residx=#{residx}
+        
+   </update>
+       <!-- 상담사페이지 예약 수락 -->
+	<update id="counres_Check" parameterType="reserveVO">
+      update reservationtable
+         set  resposition='예약완료'
+         where residx=#{residx}
+        
+   </update>
   </mapper>
