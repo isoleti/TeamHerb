@@ -7,14 +7,9 @@ public class SearchVO extends Community_BoardVO{
 	private int pageNum;
 	private int amount;
 	private String sort;
+	private int startNum;
 	
 	
-	public String getSort() {
-		return sort;
-	}
-	public void setSort(String sort) {
-		this.sort = sort;
-	}
 	public SearchVO() {
 		this(1,10);
 	}
@@ -22,7 +17,18 @@ public class SearchVO extends Community_BoardVO{
 		this.pageNum = pageNum;
 		this.amount = amount;
 	}
-	
+	public int getStartNum() {
+		return (this.pageNum-1)*amount;
+	}
+	public void setStartNum(int startNum) {
+		this.startNum = startNum;
+	}
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
 	public int getPageNum() {
 		return pageNum;
 	}
@@ -47,11 +53,12 @@ public class SearchVO extends Community_BoardVO{
 	public void setSearchVal(String searchVal) {
 		this.searchVal = searchVal;
 	}
-	
 	@Override
 	public String toString() {
-		return "SearchVO [searchType=" + searchType + ", searchVal=" + searchVal + "]";
+		return "SearchVO [searchType=" + searchType + ", searchVal=" + searchVal + ", pageNum=" + pageNum + ", amount="
+				+ amount + ", sort=" + sort + ", startNum=" + startNum + "]";
 	}
+	
 	
 	
 }

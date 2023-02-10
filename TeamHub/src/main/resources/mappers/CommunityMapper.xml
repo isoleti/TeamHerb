@@ -7,46 +7,44 @@
   	
   	<select id="list" resultType="cboardVO" parameterType="searchVO">
   		<![CDATA[
-        SELECT * 
-        FROM(SELECT ROWNUM AS rnum,A.* 
-           FROM(SELECT * FROM boardtable WHERE delyn='N' AND board_type='0'
+        SELECT bidx, title, content, wdate, id, hit, likes, delyn, category, ip, uidx, board_type, hide_id, replycnt
+        	FROM boardtable WHERE delyn='N' AND board_type='0'
         ]]>
             
-         
          <if test="searchType == 'title'">
-            AND title like '%'||#{searchVal}||'%'
+            AND title LIKE CONCAT('%',#{searchVal},'%')
          </if>
          <if test="searchType == 'id'">
-            AND id like '%'||#{searchVal}||'%'
+            AND id LIKE CONCAT('%',#{searchVal},'%')
          </if>
          <if test="searchType == 'content'">
-            AND content like '%'||#{searchVal}||'%'
+            AND content LIKE CONCAT('%',#{searchVal},'%')
          </if>
          
          <if test="category != null">
-         	AND category=#{category}
+         	AND CATEGORY=#{category}
          </if>
          
          <choose>
          	<when test="sort == 'wdate'">
-         		ORDER BY wdate DESC)A)
+         		ORDER BY wdate DESC
          	</when>
          	<when test="sort == 'hit'">
-         		ORDER BY hit DESC)A)
+         		ORDER BY hit DESC
          	</when>
          	<when test="sort == 'likes'">
-         		ORDER BY likes DESC)A)
+         		ORDER BY likes DESC
          	</when>
          	<otherwise>
-         		ORDER BY BIDX DESC)A)
+         		ORDER BY BIDX DESC
          	</otherwise>
          </choose>
-         
-         
-             
-      <![CDATA[      
-      	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
-        ]]>
+
+<!--        	WHERE rnum limit 0 , 10 -->
+<!--      	WHERE rnum Limit (#{pageNum}-1)*#{amount}+1 , #{pageNum}*#{amount}  -->
+	<![CDATA[      
+		Limit #{startNum}, #{amount} 
+	]]>
   	</select>
   	
 <!--   	게시글 총 합 -->
@@ -55,13 +53,13 @@
   		  FROM boardtable
   		 WHERE board_type = '0' AND delyn='N'
   		 <if test="searchType == 'title'">
-            AND title like '%'||#{searchVal}||'%'
+            AND title like concat('%',#{searchVal},'%')
          </if>
          <if test="searchType == 'id'">
-            AND id like '%'||#{searchVal}||'%'
+            AND id like concat('%',#{searchVal},'%')
          </if>
          <if test="searchType == 'content'">
-            AND content like '%'||#{searchVal}||'%'
+            AND content like concat('%',#{searchVal},'%')
          </if>
          <if test="category != null">
          	AND category = #{category}
@@ -89,8 +87,7 @@
 <!--   게시글 작성 -->
   <insert id="insert" parameterType="cboardVO">
   	INSERT INTO boardtable(
-  			 BIDX
-  			,TITLE
+  			 TITLE
   			,CONTENT
   			,WDATE
   			,ID
@@ -106,10 +103,9 @@
   			</if>
   			)
 		VALUES(
-		     bidx_seq.nextval
-		     ,#{title}
+		      #{title}
 		     ,#{content}
-		     ,sysdate
+		     ,now()
 			 ,#{id}		     
 		     ,0
 		     ,0
@@ -163,15 +159,17 @@
 		   </if>
 		      ,title=#{title}
 		      ,content=#{content}
-		 WHERE bidx=#{bidx}
+		 	WHERE bidx=#{bidx}
 	</update>
 	
+<!-- 	댓글 카운팅+1 -->
 	<update id="addReplyCnt" parameterType="int">
 		UPDATE boardtable 
 		   SET replycnt = replycnt+1 
 		 WHERE bidx = #{bidx}
 	</update>
-	
+
+<!-- 	댓글 카운팅-1 -->	
 	<update id="removeReplyCnt" parameterType="int">
 		UPDATE boardtable 
 		   SET replycnt = replycnt-1 

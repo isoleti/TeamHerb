@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.*" %>
 <%@ page import="project.healingcamp.vo.Community_BoardVO" %>
+<%@ page import="project.healingcamp.vo.LikeVO" %>
 <%@ page session="true" %>
 <% List<Community_BoardVO> list = (List<Community_BoardVO>)request.getAttribute("datalist"); %>
 <!DOCTYPE html>
@@ -133,7 +134,7 @@
     text-decoration:none;
     }
     .community .main .content{
-    max-height: 75px;
+    max-height: 73px;
     word-break: break-all;
     overflow: hidden;
     display: -webkit-box;
@@ -300,7 +301,7 @@
                 </div><!--e:.main-->
                 <div class="footer">
                     <div class="reaction">
-						<div class="empathy_wrapper${vo.bidx}">
+						<div class="empathy_wrapper">
 							<img bidx="${vo.bidx}" class="empathy empathy${vo.bidx}" src="<%=request.getContextPath()%>/resources/upload/like.jpg" alt="공감">
 						</div><!--e:#empathy_wrapper-->
 						<div class="like${vo.bidx }">${vo.likes }명이 공감</div>
@@ -375,10 +376,6 @@
 		var id = "${login.id}";
 		var list = "${datalist}";
 		var likeList = "${likeList}";
-		console.log("로그인:"+login);
-		console.log("게시글 목록:"+list);
-		console.log("댓글 목록:"+likeList);
-
 		
 		//좋아요
   		$(".empathy").hover(

@@ -7,38 +7,36 @@
   	
   	<select id="counseller_board_list" resultType="cboardVO" parameterType="searchVO">
   		<![CDATA[
-        SELECT * 
-        FROM(SELECT ROWNUM AS rnum,A.* 
-           FROM(SELECT * FROM boardtable WHERE delyn='N' AND board_type='1'
+         SELECT bidx, title, content, wdate, id, hit, likes, delyn, category, ip, uidx, board_type, hide_id, replycnt
+        	FROM boardtable WHERE delyn='N' AND board_type='1'
         ]]>
             
-         <if test="searchType == 'title'">
-            AND title like '%'||#{searchVal}||'%'
+          <if test="searchType == 'title'">
+            AND title LIKE CONCAT('%',#{searchVal},'%')
          </if>
          <if test="searchType == 'id'">
-            AND id like '%'||#{searchVal}||'%'
+            AND id LIKE CONCAT('%',#{searchVal},'%')
          </if>
          <if test="searchType == 'content'">
-            AND content like '%'||#{searchVal}||'%'
+            AND content LIKE CONCAT('%',#{searchVal},'%')
          </if>
-         
          <choose>
          	<when test="sort == 'wdate'">
-         		ORDER BY wdate DESC)A)
+         		ORDER BY wdate DESC
          	</when>
          	<when test="sort == 'hit'">
-         		ORDER BY hit DESC)A)
+         		ORDER BY hit DESC
          	</when>
          	<when test="sort == 'likes'">
-         		ORDER BY likes DESC)A)
+         		ORDER BY likes DESC
          	</when>
          	<otherwise>
-         		ORDER BY BIDX DESC)A)
+         		ORDER BY BIDX DESC
          	</otherwise>
          </choose>
       
       <![CDATA[      
-      	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
+      	Limit #{startNum}, #{amount} 
         ]]>
   	</select>
   	
@@ -48,13 +46,13 @@
   		  FROM boardtable
   		 WHERE board_type = '1'AND delyn='N'
   		 <if test="searchType == 'title'">
-            AND title like '%'||#{searchVal}||'%'
+            AND title like concat('%',#{searchVal},'%')
          </if>
          <if test="searchType == 'id'">
-            AND id like '%'||#{searchVal}||'%'
+            AND id like concat('%',#{searchVal},'%')
          </if>
          <if test="searchType == 'content'">
-            AND content like '%'||#{searchVal}||'%'
+            AND content like concat('%',#{searchVal},'%')
          </if>
   	</select>
   	
@@ -75,8 +73,7 @@
   	<!--   게시글 작성 -->
 	  <insert id="counseller_board_insert" parameterType="cboardVO">
 	  	INSERT INTO boardtable(
-	  			 BIDX
-	  			,TITLE
+	  			 TITLE
 	  			,CONTENT
 	  			,WDATE
 	  			,ID
@@ -88,10 +85,9 @@
 	  			,BOARD_TYPE
 	  			)
 			VALUES(
-			     bidx_seq.nextval
-			     ,#{title}
+			      #{title}
 			     ,#{content}
-			     ,sysdate
+			     ,now()
 				 ,#{id}		     
 			     ,0
 			     ,0

@@ -8,37 +8,36 @@
 	<select id="member_List" resultType="userVo" parameterType="searchVO">
 	
 	 <![CDATA[
-		SELECT * FROM(
-		SELECT ROWNUM AS rnum,A.*
-  			FROM (SELECT id
-  						,mail
-  						,edate
-  						,uidx
-  				FROM USERTABLE
-  			   WHERE usertype='u'
-  			     AND delyn = 'N'
+		SELECT id
+			  ,mail
+			  ,edate
+			  ,uidx
+		  FROM USERTABLE
+   		  WHERE usertype='u'
+     		AND delyn = 'N'
 	]]>
-  				 <if test="searchType == 'id'">
-  				 	AND id like '%'||#{searchVal}||'%'
-  				 </if>
-  				 <if test="searchType == 'mail'">
-  				 	AND mail like '%'||#{searchVal}||'%'
-  				 </if>			
-  				 
-  				 <choose>
-	         	<when test="sort == 'edate'">
-	         		ORDER BY edate DESC)A)
-	         	</when>
-	         	<when test="sort == 'id'">
-	         		ORDER BY id DESC)A)
-	         	</when>
-	         	<otherwise>
-	         		ORDER BY UIDX DESC)A)
-	         	</otherwise>
-	         </choose>	 
+			<if test="searchType == 'id'">
+				AND id LIKE CONCAT('%',#{searchVal},'%')
+			</if>
+			<if test="searchType == 'mail'">
+				AND mail LIKE CONCAT('%',#{searchVal},'%')
+			</if>		
+ 				 
+		 <choose>
+         	<when test="sort == 'edate'">
+         		ORDER BY edate DESC
+         	</when>
+         	<when test="sort == 'id'">
+         		ORDER BY id DESC
+         	</when>
+         	<otherwise>
+         		ORDER BY UIDX DESC
+         	</otherwise>
+         </choose>	 
 	<![CDATA[
-  				 	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
+		Limit #{startNum}, #{amount} 
 	]]>
+<!--   				 	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount} -->
   				 
 	</select>
 	
@@ -49,12 +48,12 @@
 		 WHERE usertype='u'
 		   AND delyn = 'N'
 		 
-		   <if test="searchType == 'id'">
-			   AND id LIKE '%'||#{searchVal}||'%'
-		   </if>
-		   <if test="searchType == 'mail'">
-  				 	AND mail like '%'||#{searchVal}||'%'
-  		   </if>
+			<if test="searchType == 'id'">
+				AND id LIKE CONCAT('%',#{searchVal},'%')
+			</if>
+			<if test="searchType == 'mail'">
+				AND mail LIKE CONCAT('%',#{searchVal},'%')
+			</if>		
 	</select>
 	
 	<!-- 	회원탈퇴 -->
@@ -68,40 +67,37 @@
 	<!-- 상담사 리스트 -->
 	<select id="counseller_List" resultType="userVo" parameterType="searchVO">
 	<![CDATA[
-		SELECT * FROM(
-		SELECT ROWNUM AS rnum,A.*
-  			FROM (SELECT id
-  						,mail
-  						,edate
-  						,uidx
-  						,name
-  				FROM USERTABLE
-  			   WHERE usertype='c'
-  			     AND delyn = 'N'
+		SELECT id
+			  ,mail
+			  ,edate
+			  ,uidx
+		  FROM USERTABLE
+   		  WHERE usertype='c'
+     		AND delyn = 'N'
 	]]>
-  				 <if test="searchType == 'id'">
-  				 	AND id like '%'||#{searchVal}||'%'
-  				 </if>
-  				 <if test="searchType == 'mail'">
-  				 	AND mail like '%'||#{searchVal}||'%'
-  				 </if>
+  			<if test="searchType == 'id'">
+				AND id LIKE CONCAT('%',#{searchVal},'%')
+			</if>
+			<if test="searchType == 'mail'">
+				AND mail LIKE CONCAT('%',#{searchVal},'%')
+			</if>		
   				 <if test="searchType == 'name'">
-  				 	AND name like '%'||#{searchVal}||'%'
-  				 </if>				
+				AND name LIKE CONCAT('%',#{searchVal},'%')
+			</if>			
   				 
   				 <choose>
 	         	<when test="sort == 'edate'">
-	         		ORDER BY edate DESC)A)
+	         		ORDER BY edate DESC
 	         	</when>
 	         	<when test="sort == 'id'">
-	         		ORDER BY id DESC)A)
+	         		ORDER BY id DESC
 	         	</when>
 	         	<otherwise>
-	         		ORDER BY UIDX DESC)A)
+	         		ORDER BY UIDX DESC
 	         	</otherwise>
 	         </choose>	 
 	<![CDATA[
-  				 	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
+		Limit #{startNum}, #{amount} 
 	]]>
   				 
 	</select>
@@ -114,53 +110,50 @@
 		   AND delyn = 'N'
 		 
 		   <if test="searchType == 'id'">
-			   AND id LIKE '%'||#{searchVal}||'%'
-		   </if>
-		   <if test="searchType == 'mail'">
-			 	AND mail like '%'||#{searchVal}||'%'
-  		   </if>
-  		   <if test="searchType == 'name'">
-			 	AND name like '%'||#{searchVal}||'%'
-  		   </if>
+				AND id LIKE CONCAT('%',#{searchVal},'%')
+			</if>
+			<if test="searchType == 'mail'">
+				AND mail LIKE CONCAT('%',#{searchVal},'%')
+			</if>		
+  				 <if test="searchType == 'name'">
+				AND name LIKE CONCAT('%',#{searchVal},'%')
+			</if>		
 	</select>
 	
 	
 <!-- 	커뮤니티 리스트 -->
 	<select id="community_List" resultType="cboardVO" parameterType="searchVO">
-  		<![CDATA[
-        SELECT * 
-        FROM(SELECT ROWNUM AS rnum,A.* 
-           FROM(SELECT * FROM boardtable WHERE delyn='N' AND board_type='0'
-        ]]>
+		<![CDATA[
+			SELECT bidx, title, content, wdate, id, hit, likes, delyn, category, ip, uidx, board_type, hide_id, replycnt
+				FROM boardtable WHERE delyn='N' AND board_type='0'
+		]]>
             
-         
-         <if test="searchType == 'title'">
-            AND title like '%'||#{searchVal}||'%'
-         </if>
-         <if test="searchType == 'id'">
-            AND id like '%'||#{searchVal}||'%'
-         </if>
+		<if test="searchType == 'title'">
+			AND title LIKE CONCAT('%',#{searchVal},'%')
+		</if>
+		<if test="searchType == 'id'">
+			AND id LIKE CONCAT('%',#{searchVal},'%')
+		</if>
         
-         <choose>
-         	<when test="sort == 'wdate'">
-         		ORDER BY wdate DESC)A)
-         	</when>
-         	<when test="sort == 'id'">
-         		ORDER BY id DESC)A)
-         	</when>
-         	<when test="sort == 'title'">
-         		ORDER BY title DESC)A)
-         	</when>
-         	<otherwise>
-         		ORDER BY BIDX DESC)A)
-         	</otherwise>
-         </choose>
+		<choose>
+			<when test="sort == 'wdate'">
+				ORDER BY wdate DESC
+			</when>
+			<when test="sort == 'id'">
+				ORDER BY id DESC
+			</when>
+			<when test="sort == 'title'">
+				ORDER BY title DESC
+			</when>
+			<otherwise>
+				ORDER BY BIDX DESC
+			</otherwise>
+		</choose>
          
-         
-             
-      <![CDATA[      
-      	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
-        ]]>
+	<![CDATA[
+		Limit #{startNum}, #{amount} 
+	]]>
+  		
   	</select>
   	
 <!--   	커뮤니티 게시글 총 합 -->
@@ -168,12 +161,12 @@
   		SELECT COUNT(bidx) as total
   		  FROM boardtable
   		 WHERE board_type = '0' AND delyn='N'
-  		 <if test="searchType == 'title'">
-            AND title like '%'||#{searchVal}||'%'
-         </if>
-         <if test="searchType == 'id'">
-            AND id like '%'||#{searchVal}||'%'
-         </if>
+  		<if test="searchType == 'title'">
+			AND title LIKE CONCAT('%',#{searchVal},'%')
+		</if>
+		<if test="searchType == 'id'">
+			AND id LIKE CONCAT('%',#{searchVal},'%')
+		</if>
          <if test="category != null">
          	AND category = #{category}
          </if>
@@ -191,37 +184,35 @@
 <!-- 	상담사게시판 리스트 -->
 	<select id="counseller_board_list" resultType="cboardVO" parameterType="searchVO">
   		<![CDATA[
-        SELECT * 
-        FROM(SELECT ROWNUM AS rnum,A.* 
-           FROM(SELECT * FROM boardtable WHERE delyn='N' AND board_type='1'
-        ]]>
+			SELECT bidx, title, content, wdate, id, hit, likes, delyn, category, ip, uidx, board_type, hide_id, replycnt
+				FROM boardtable WHERE delyn='N' AND board_type='1'
+		]]>
             
-         <if test="searchType == 'title'">
-            AND title like '%'||#{searchVal}||'%'
-         </if>
-         <if test="searchType == 'id'">
-            AND id like '%'||#{searchVal}||'%'
-         </if>
-
+		<if test="searchType == 'title'">
+			AND title LIKE CONCAT('%',#{searchVal},'%')
+		</if>
+		<if test="searchType == 'id'">
+			AND id LIKE CONCAT('%',#{searchVal},'%')
+		</if>
+        
+		<choose>
+			<when test="sort == 'wdate'">
+				ORDER BY wdate DESC
+			</when>
+			<when test="sort == 'id'">
+				ORDER BY id DESC
+			</when>
+			<when test="sort == 'title'">
+				ORDER BY title DESC
+			</when>
+			<otherwise>
+				ORDER BY BIDX DESC
+			</otherwise>
+		</choose>
          
-         <choose>
-         	<when test="sort == 'wdate'">
-         		ORDER BY wdate DESC)A)
-         	</when>
-         	<when test="sort == 'id'">
-         		ORDER BY id DESC)A)
-         	</when>
-         	<when test="sort == 'title'">
-         		ORDER BY title DESC)A)
-         	</when>
-         	<otherwise>
-         		ORDER BY BIDX DESC)A)
-         	</otherwise>
-         </choose>
-      
-      <![CDATA[      
-      	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
-        ]]>
+	<![CDATA[
+		Limit #{startNum}, #{amount} 
+	]]>
   	</select>
   	
 <!--  상담사게시판  게시글 총 합 -->
@@ -229,54 +220,51 @@
   		SELECT COUNT(bidx) as total
   		  FROM boardtable
   		 WHERE board_type = '1'AND delyn='N'
-  		 <if test="searchType == 'title'">
-            AND title like '%'||#{searchVal}||'%'
-         </if>
-         <if test="searchType == 'id'">
-            AND id like '%'||#{searchVal}||'%'
-         </if>
+  		<if test="searchType == 'title'">
+			AND title LIKE CONCAT('%',#{searchVal},'%')
+		</if>
+		<if test="searchType == 'id'">
+			AND id LIKE CONCAT('%',#{searchVal},'%')
+		</if>
 
   	</select>
   
 <!--   공지사항 리스트	 -->
-  <select id="notice_List" resultType="cboardVO" parameterType="searchVO">
-  		<![CDATA[
-        SELECT * 
-        FROM(SELECT ROWNUM AS rnum,A.* 
-           FROM(SELECT * FROM boardtable WHERE delyn='N' AND board_type='2'
-        ]]>
+	<select id="notice_List" resultType="cboardVO" parameterType="searchVO">
+		<![CDATA[
+			SELECT bidx, title, content, wdate, id, hit, likes, delyn, category, ip, uidx, board_type, hide_id, replycnt
+				FROM boardtable WHERE delyn='N' AND board_type='2'
+		]]>
             
-         
-         <if test="searchType == 'title'">
-            AND title like '%'||#{searchVal}||'%'
-         </if>
-         <if test="searchType == 'id'">
-            AND id like '%'||#{searchVal}||'%'
-         </if>
-         	ORDER BY BIDX DESC)A)
-      <![CDATA[      
-      	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
-        ]]>
-  	</select>
+		<if test="searchType == 'title'">
+			AND title LIKE CONCAT('%',#{searchVal},'%')
+		</if>
+		<if test="searchType == 'id'">
+			AND id LIKE CONCAT('%',#{searchVal},'%')
+		</if>
+			ORDER BY BIDX DESC
+		<![CDATA[      
+			Limit #{startNum}, #{amount} 
+		]]>
+	</select>
   	
 <!--   공지사항 게시글 총 합 -->
   	<select id="notice_Total" resultType="int" parameterType="searchVO">
   		SELECT COUNT(bidx) as total
   		  FROM boardtable
   		 WHERE board_type = '2' AND delyn='N'
-  		 <if test="searchType == 'title'">
-            AND title like '%'||#{searchVal}||'%'
-         </if>
-         <if test="searchType == 'id'">
-            AND id like '%'||#{searchVal}||'%'
-         </if>
+		<if test="searchType == 'title'">
+			AND title LIKE CONCAT('%',#{searchVal},'%')
+		</if>
+		<if test="searchType == 'id'">
+			AND id LIKE CONCAT('%',#{searchVal},'%')
+		</if>
   	</select>	
   	
   <!--   공지사항/FAQ 작성 -->
   <insert id="admin_Insert" parameterType="cboardVO">
   	INSERT INTO boardtable(
-  			 BIDX
-  			,TITLE
+  			 TITLE
   			,CONTENT
   			,WDATE
   			,ID
@@ -291,10 +279,9 @@
   			</if>
   			)
 		VALUES(
-		     bidx_seq.nextval
-		     ,#{title}
+		      #{title}
 		     ,#{content}
-		     ,sysdate
+		     ,now()
 			 ,#{id}		     
 		     ,0
 		     ,0
@@ -316,25 +303,24 @@
   </select>
   
 <!--   FAQ리스트 -->
-  <select id="faq_List" resultType="cboardVO" parameterType="searchVO">
-  		<![CDATA[
-        SELECT * 
-        FROM(SELECT ROWNUM AS rnum,A.* 
-           FROM(SELECT * FROM boardtable WHERE delyn='N' AND board_type='3'
-        ]]>
+	<select id="faq_List" resultType="cboardVO" parameterType="searchVO">
+		<![CDATA[
+			SELECT bidx, title, content, wdate, id, hit, likes, delyn, category, ip, uidx, board_type, hide_id, replycnt
+				FROM boardtable WHERE delyn='N' AND board_type='3'
+		]]>
             
-         <if test="searchType == 'title'">
-            AND title like '%'||#{searchVal}||'%'
-         </if>
-         <if test="searchType == 'id'">
-            AND id like '%'||#{searchVal}||'%'
-         </if>
+        <if test="searchType == 'title'">
+			AND title LIKE CONCAT('%',#{searchVal},'%')
+		</if>
+		<if test="searchType == 'id'">
+			AND id LIKE CONCAT('%',#{searchVal},'%')
+		</if>
          <if test="category != null">
          	AND category=#{category}
          </if>
-         	ORDER BY BIDX DESC)A)
+         	ORDER BY BIDX DESC
       <![CDATA[      
-      	WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
+      	Limit #{startNum}, #{amount} 
         ]]>
   	</select>
   	
@@ -344,11 +330,11 @@
   		  FROM boardtable
   		 WHERE board_type = '3' AND delyn='N'
   		 <if test="searchType == 'title'">
-            AND title like '%'||#{searchVal}||'%'
-         </if>
-         <if test="searchType == 'id'">
-            AND id like '%'||#{searchVal}||'%'
-         </if>
+			AND title LIKE CONCAT('%',#{searchVal},'%')
+		</if>
+		<if test="searchType == 'id'">
+			AND id LIKE CONCAT('%',#{searchVal},'%')
+		</if>
          <if test="category != null">
          	AND category = #{category}
          </if>
@@ -371,7 +357,7 @@
  		update boardtable
  		   set title = #{title}
  		   	 , content = #{content}
- 		   	 , wdate = sysdate
+ 		   	 , wdate = now()
  		   where bidx = #{bidx} and board_type = '2' AND delyn='N'
  	</update>	
   	

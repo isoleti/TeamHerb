@@ -74,6 +74,9 @@
         padding:10px;
         min-height:450px;
         }
+        #content p{
+        word-break:break-all;
+        }
         .reply_box{
         border-bottom:1px solid #e5e7eb;
         padding:15px 0;

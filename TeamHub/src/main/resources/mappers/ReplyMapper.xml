@@ -8,25 +8,23 @@
 <!--   	댓글 작성 -->
   	<insert id="reply_Insert" parameterType="replyVO">
   		INSERT INTO replytable(
-		  			reply_idx
-		  		   ,reply_content
+		  		   reply_content
 		  		   ,id
 		  		   ,reply_wdate
 		  		   ,reply_ip
 		  		   ,bidx
 		  		   ,uidx
 		  		   ,board_type
-		  		   ,rparent
+<!-- 		  		   ,rparent -->
 		  	)VALUES(
-		  		   reply_idx_seq.nextval
-		  		  ,#{reply_Content}
+		  		  #{reply_Content}
 		  		  ,#{id}
-		  		  ,SYSDATE
+		  		  ,now()
 		  		  ,#{reply_Ip}
 		  		  ,#{bidx}
 		  		  ,#{uidx}
 			  	  ,#{board_type}
-			  	  ,reply_idx_seq.nextval
+<!-- 			  	  ,reply_idx_seq.nextval -->
 		  	)
 		  			
   	</insert>
@@ -41,11 +39,12 @@
 			  ,bidx
 			  ,uidx
 			  ,rdepth
-			  ,rparent
+<!-- 			  ,rparent -->
 		  FROM replytable
 		 WHERE bidx = #{bidx}
 		   AND board_type = 0
-		 ORDER BY rparent asc, reply_wdate asc
+		 ORDER BY reply_wdate asc
+<!-- 		 ORDER BY rparent asc, reply_wdate asc -->
   	</select>
   	
 <!--  상담사게시판 댓글 목록 -->
@@ -63,7 +62,7 @@
 
 <!-- 댓글 삭제 --> 
 	<delete id="deleteByReply" parameterType="replyVO">
-		DELETE replytable 
+		DELETE FROM replytable 
 		 WHERE reply_idx = #{reply_Idx} 
 	</delete>
 
