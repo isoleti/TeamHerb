@@ -322,16 +322,16 @@ public class PageController {
 		return "page/counspageRes";
 	}
 	//상담사페이지 예약 취소 
-			@RequestMapping(value="/counres_delete.do",method=RequestMethod.POST)
-			public String coundelete(ReserveVO vo) { 
-				//db 상세데이터 조회
-				pageService.counres_Delete(vo);
+	@RequestMapping(value="/counres_delete.do",method=RequestMethod.POST)
+	public String coundelete(ReserveVO vo) { 
+		//db 상세데이터 조회
+		pageService.counres_Delete(vo);
 
-				System.out.println("상담사 예약 삭제"+vo.toString());
-			
-				return "redirect:counspageRes.do";
-			
-			}
+		System.out.println("상담사 예약 삭제"+vo.toString());
+	
+		return "redirect:counspageRes.do";
+	
+	}
 	//상담사페이지 예약 수락
 	@RequestMapping(value="/counres_check.do",method=RequestMethod.POST)
 	public String councheck(ReserveVO vo) { 
