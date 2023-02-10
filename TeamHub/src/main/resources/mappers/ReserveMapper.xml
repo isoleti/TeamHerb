@@ -59,14 +59,73 @@
   			]]>
   						
   		</insert >
-  		
+  		<!-- 센터값 찾기 -->
   		<select id="cnoidx" parameterType="reserveVO" resultType="reserveVO">
   			<![CDATA[
   				select cnoidx
-  				from reservationtable
+  					  ,centername
+  					  ,centeraddr
+  				from centertable
   				where centername = #{centername} and centeraddr = #{centeraddr}
   			]]>
   		</select>
   		
-  	
+  		<!-- 상담사찾기 -->
+  		<select id="conidx" parameterType="reserveVO" resultType="reserveVO">
+  			<![CDATA[
+  				select conidx
+  					  ,name
+  					  ,grade
+  					  ,certi1
+  					  ,certi2
+  					  ,certi3
+  					  ,certi4
+  					  ,article1
+  					  ,article2
+  					  ,article3
+  					  ,article4
+  					  ,uidx
+  				from counselortable
+  				where name = #{name}  			
+  			]]>
+  		</select>
+  		
+  		<!-- 상담센터페이지용 테이블 -->
+  		<select id="centerlist" parameterType="reserveVO" resultType="reserveVO">
+  			<![CDATA[
+  				select a.cintidx 
+  					  ,a.conidx
+  					  ,a.cnoidx
+  					  ,a.con1
+  					  ,a.con2
+  					  ,a.con3
+  					  ,a.con4
+  					  ,a.con5
+  					  ,a.price1
+  					  ,a.price2
+  					  ,a.price3
+  					  ,a.price4
+  					  ,a.price5
+  					  ,b.name
+  					  ,b.grade
+  					  ,b.certi1
+  					  ,b.certi2
+  					  ,b.certi3
+  					  ,b.certi4
+  					  ,b.article1
+  					  ,b.article2
+  					  ,b.article3
+  					  ,b.article4
+  					  ,b.uidx
+  					  ,c.centername
+  					  ,c.centeraddr
+  					  ,c.centercall
+				from centerintrotable a
+				inner join counselortable b
+				on a.conidx = b.conidx
+				inner join centertable c
+				on a.cnoidx = c.cnoidx
+				where a.cnoidx = #{cnoidx}; 
+  			]]>
+  		</select>
   </mapper>

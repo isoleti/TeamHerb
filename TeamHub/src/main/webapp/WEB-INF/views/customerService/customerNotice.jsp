@@ -86,7 +86,7 @@
 								                      	${list.content}  
 								                    </div>
 								                     <div class="accordion-body">
-								                      	${list.wdate.substring(0,10)}  
+								                      	${list.wdate}  
 								                    </div>
 						                  		</div>
 					                	</div>

@@ -4,23 +4,21 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	 	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  프로퍼티 지정  name값 변경 불가능 
+		<!-- 
+		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			프로퍼티 지정  name값 변경 불가능
 			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/> 드라이버 지정
 			<property name="url" value="jdbc:oracle:thin:@192.168.0.75:1521:xe"/> 접속 정보 / 오라클 포트번호 확인
 			<property name="username" value="c##apic"/> 오라클 계정
 			<property name="password" value="1234"/> 오라클 비밀번호
-		</bean> -->
-		 
-		 
-		<!-- mysql -->
-       <bean id="dataSource"  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-      <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-      <property name="url" 
-      value="jdbc:mysql://jjezen.cafe24.com:3307/api_20220919_c_a?useSSL=false&amp;serverTimezone=UTC"></property>
-      <property name="username" value="api_c_userA"></property>
-      <property name="password" value="user1234!!"></property>
-      </bean>   
-		
+		</bean> 
+		-->
+		<bean id="dataSource"  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+			<property name="url" value="jdbc:mysql://jjezen.cafe24.com:3307/api_20220919_c_a?useSSL=false&amp;serverTimezone=UTC"></property>
+			<property name="username" value="api_c_userA"></property>
+			<property name="password" value="user1234!!"></property>
+		</bean>	
 		<!-- 마이바티스 객체생성 -->
 		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"><!-- getConnection,close 역할을 자동으로해줌 -->
 			<!-- 연결정보 참조 -->

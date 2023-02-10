@@ -42,7 +42,7 @@
         .btn2{height:35px; font-size:15px; border-radius:5px;  margin-top:20px;}
         .btn2:hover{background:#e4e4e4;}
         .btn3:hover{background:#e4e4e4;}
-        .content{display:inline-block; position: relative;  left:50px; }
+        .content{display:inline-block; position: relative;  left:50px; top:100px; }
         .content a{ font-size:20px; 
             display:block; margin-top:20px;}
         .content a:nth-child(3){display:inline-block;}

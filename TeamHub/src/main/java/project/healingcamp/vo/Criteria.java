@@ -44,11 +44,12 @@ public class Criteria extends ReviewVo{
 				this.perPageNum = PageCount;
 			}
 		}
-		
+		// 페이지 내비게이션 처음 번호
 		public int getRowStart() {
-			rowStart = ((page-1)*perPageNum)+1;
+			rowStart = ((page-1)*perPageNum);
 			return rowStart;
 		}
+		// 페이지 내비게이션 마지막 번호 
 		public int getRowEnd() {
 			rowEnd=rowStart + perPageNum-1;
 			return rowEnd;

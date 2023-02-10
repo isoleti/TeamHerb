@@ -25,7 +25,7 @@
 				 	 order by wdate desc
 			 		)a 
 					)
-					WHERE RNUM BETWEEN (#{page}-1)*#{perPageNum}+1 AND #{page}*#{perPageNum}
+					WHERE RNUM limit (#{page}-1)*#{perPageNum}+1 , #{page}*#{perPageNum}
 			 ]]>
   </select>
   
@@ -39,17 +39,26 @@
   <!-- 마이페이지 나의 예약 목록 -->
    <select id="reslist" resultType="reserveVO" parameterType="myrCriteria">
 	<![CDATA[
-		select * from (
+		select * 
+					from  reservationtable
+					where uidx=#{uidx} and rescancle='N' 	
+						order by residx desc
+						
+			  limit #{rowStart}, 7
+	]]>
+	
+	
+		<!-- select * from (
 			select rownum as rnum, A. *
 				from ( select * 
 					from  reservationtable
 						where uidx=#{uidx} and rescancle='N' 	
 						order by residx desc
 					)a 
-						)
-			
-		WHERE RNUM BETWEEN (#{page}-1)*#{perPageNum}+1 AND #{page}*#{perPageNum}
-	]]>
+						)b
+			 WHERE row_number(limit 1 , 10) -->
+		<!-- WHERE RNUM limit (#{page}-1)*#{perPageNum}+1 , #{page}*#{perPageNum} -->
+		
 <!-- 	
 					
 		
@@ -84,16 +93,13 @@
 	<!-- 마이페이지 상담 예약 목록 -->
    <select id="counslist" resultType="reserveVO" parameterType="myrCriteria">
 	<![CDATA[
-		select * from (
-			select rownum as rnum, A. *
-				from ( select * 
-					from  reservationtable
-						where uidx=#{uidx} and rescancle='N' 	
+	
+		select *
+				from  reservationtable
+						where uidx=#{uidx} and rescancle='N'
 						and resposition='예약완료'
-					)a 
-						)
-			
-		WHERE RNUM BETWEEN (#{page}-1)*#{perPageNum}+1 AND #{page}*#{perPageNum}
+						order by residx desc
+						 limit #{rowStart}, 7
 	]]>
 	</select>
   </mapper>

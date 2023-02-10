@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,15 +33,17 @@ public class ReserveController {
 	//기관찾기
 	@RequestMapping(value = "/findcenter.do", method = RequestMethod.GET)
 	public String findcenter() {
-
+		
 		return "res/findcenter";
 	}
 	
 	//센터pk가져오기
+	@ResponseBody
 	@RequestMapping(value = "/cnoidx.do", method = RequestMethod.GET)
-	public String cnoidx(ReserveVO vo) {
+	public ReserveVO cnoidx(ReserveVO vo) {
 			ReserveVO reserveVO = reserveService.cnodix(vo);
-		return "";
+			
+		return reserveVO;
 	}
 	
 	//상담기관
