@@ -100,13 +100,9 @@
   					  ,a.con1
   					  ,a.con2
   					  ,a.con3
-  					  ,a.con4
-  					  ,a.con5
   					  ,a.price1
   					  ,a.price2
-  					  ,a.price3
-  					  ,a.price4
-  					  ,a.price5
+  					  ,a.price3  					 
   					  ,b.name
   					  ,b.grade
   					  ,b.certi1

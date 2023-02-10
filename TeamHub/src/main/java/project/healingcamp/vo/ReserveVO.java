@@ -40,13 +40,9 @@ public class ReserveVO {
 	private String con1; //상담종류
 	private String con2;
 	private String con3;
-	private String con4;
-	private String con5;
 	private int  price1; //상담가격
 	private int  price2;
 	private int  price3;
-	private int  price4;
-	private int  price5;
 	
 	
 	
@@ -260,19 +256,6 @@ public class ReserveVO {
 		this.con3 = con3;
 	}
 	
-	public String getCon4() {
-		return con4;
-	}
-	
-	public void setCon4(String con4) {
-		this.con4 = con4;
-	}
-	public String getCon5() {
-		return con5;
-	}
-	public void setCon5(String con5) {
-		this.con5 = con5;
-	}
 	public int getPrice1() {
 		return price1;
 	}
@@ -291,18 +274,6 @@ public class ReserveVO {
 	public void setPrice3(int price3) {
 		this.price3 = price3;
 	}
-	public int getPrice4() {
-		return price4;
-	}
-	public void setPrice4(int price4) {
-		this.price4 = price4;
-	}
-	public int getPrice5() {
-		return price5;
-	}
-	public void setPrice5(int price5) {
-		this.price5 = price5;
-	}
 	
 	@Override
 	public String toString() {
@@ -314,8 +285,7 @@ public class ReserveVO {
 				+ ", name=" + name + ", grade=" + grade + ", certi1=" + certi1 + ", certi2=" + certi2 + ", certi3="
 				+ certi3 + ", certi4=" + certi4 + ", article1=" + article1 + ", article2=" + article2 + ", article3="
 				+ article3 + ", article4=" + article4 + ", cintidx=" + cintidx + ", con1=" + con1 + ", con2=" + con2
-				+ ", con3=" + con3 + ", con4=" + con4 + ", con5=" + con5 + ", price1=" + price1 + ", price2=" + price2
-				+ ", price3=" + price3 + ", price4=" + price4 + ", price5=" + price5 + "]";
+				+ ", con3=" + con3 + ", price1=" + price1 + ", price2=" + price2 + ", price3=" + price3 + "]";
 	}
 	
 
