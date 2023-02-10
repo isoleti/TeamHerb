@@ -17,6 +17,8 @@
   						,uidx
   						,state
   						,id
+  						,conidx
+  						,resposition
   			)values(
   						 #{center}
   						,#{counseling}
@@ -27,6 +29,8 @@
   						,#{uidx}
   						,'N'
   						,#{id}
+  						,#{conidx}
+  						,'예약대기'
   			)
   			]]>
   						
@@ -45,6 +49,8 @@
   						,uidx
   						,state
   						,id
+  						,conidx
+  						,resposition
   			)values(
   						 #{center}
   						,#{counseling}
@@ -55,6 +61,8 @@
   						,#{uidx}
   						,'Y'
   						,#{id}
+  						,#{conidx}
+  						,'예약대기'
   			)
   			]]>
   						

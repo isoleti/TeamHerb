@@ -416,7 +416,7 @@
 	            <p>예약일 :<input type="text" name="resdate" id="resdate" readonly> </p>
 	            <p>예약시간 : <input type="text" name="restime" id="restime" readonly> </p>
 	            <p>상담비용 :<input type="number" name="rescount" id="rescount" readonly> </p>
-	            <input type="text" name="conidx" id="conidx" value="" readonly>
+	            <input type="hidden" name="conidx" id="conidx" value="" readonly>
 	            <c:if test = "${login != null}">
 	            	<input type="button" class="btn btn-outline-success" onclick="resf()" value="현장결제">
 	            	<input type="button" class="btn btn-dark" onclick="requestPay(this)" value="지금결제">
