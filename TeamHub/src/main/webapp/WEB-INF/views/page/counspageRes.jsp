@@ -16,7 +16,48 @@
 <link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
  <script src ="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
  <script>
-
+ function counres_check(obj) {
+			
+	 	var fm = document.getElementsByName("frm");
+	 	var res = document.getElementsByName("residx");
+	 	
+	 	var resval = res[0].value;
+	 	console.log("resval :" + resval);
+	 	$.ajax({ 		
+	 	
+			 url : "<%=request.getContextPath() %>/page/counres_check.do",
+			 type : "post",
+			 data : {"residx" : resval},
+			 success:function(data){	
+				
+				 return "redirect:counspageRes.do";
+			}
+		 
+		});
+	 	
+ }
+ 
+ function counres_delete(obj) {
+		
+	 	var fm = document.getElementsByName("frm");
+	 	var res = document.getElementsByName("residx");
+	 	
+	 	var resval = res[0].value;
+	 	console.log("resval :" + resval);
+	 	$.ajax({ 		
+	 	
+			 url : "<%=request.getContextPath()%>/page/counres_delete.do",
+			 type : "post",
+			 data : {"residx" : resval},
+			 success:function(data){	
+				
+				 return "redirect:counspageRes.do";
+			}
+		 
+		});
+	 	
+}
+	
  </script>
 <style>
        
@@ -133,7 +174,7 @@
             </a> </div><!--//#sb-->
             <div id="tb">
             <table border="1">
-            	 <form  action="counres_delete.do" method="post" >  
+            	 <form name="frm">  
             	<tr>
                     <td>예약 번호</td>
                     <td>예약자</td>
@@ -153,8 +194,8 @@
                     <td>${coun_reslist.id}</td>
                     <td>${coun_reslist.resdate.substring(0,10) }</td>
                     <td>${coun_reslist.resposition}</td>
-                    <td><button type="button">수락</button>
-                    <button>거절</button></td>
+                    <td><button type="button" onclick="counres_check(this)">수락</button>
+                    <button type="button" onclick="counres_delete(this)">거절</button></td>
                    
                 </tr>
                 </c:forEach>
