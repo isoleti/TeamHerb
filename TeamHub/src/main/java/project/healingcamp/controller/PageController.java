@@ -91,17 +91,16 @@ public class PageController {
 		
 		List<ReserveVO> counslist = pageService.counslist(rcri);
 		
-		/*
-		 * MypageMaker mypageMaker = new MypageMaker(rcri, pageService.res_total(rcri));
-		 * 
-		 * 
-		 * System.out.println("총합계:" + pageService.res_total(rcri));
-		 * System.out.println("페이지"+ mypageMaker);
-		 */
+
+		MypageMaker mypageMaker = new MypageMaker(rcri, pageService.couns_total(rcri));
+		
+		  System.out.println("총합계:" + pageService.couns_total(rcri));
+		  System.out.println("페이지"+ mypageMaker);
+		 
 		 
 		model.addAttribute("counslist", counslist);
 		System.out.println("상담 리스트 : "+counslist);
-		// model.addAttribute("mypageMaker", mypageMaker);
+		model.addAttribute("mypageMaker", mypageMaker);
 		
 		return "page/mypageCouns";
 	}
@@ -298,22 +297,59 @@ public class PageController {
 
 	// 상담사 페이지
 	@RequestMapping(value = "/counspageRes.do", method = RequestMethod.GET)
-	public String counspageRes(Model model, ReserveVO vo) {
-		/*
-		 * List<ReserveVO> list = pageService.list(vo);
-		 * 
-		 * model.addAttribute("datalist", list);
-		 */
+	public String counspageRes(Model model, ReserveVO vo, HttpSession session, MyRCriteria rcri) {
+		
+		UserVo login =(UserVo)session.getAttribute("login");
+		
+		rcri.setId(login.getId());
+		rcri.setUidx(login.getUidx());
+		
+		
+		List<ReserveVO> coun_reslist = pageService.coun_reslist(rcri);
+		
+		
+		
+		MypageMaker mypageMaker = new MypageMaker(rcri, pageService.counres_total(rcri));
+		
+		
+		 System.out.println("컨트롤러 상담사 예약 총합계:" + pageService.counres_total(rcri));
+		 //System.out.println("페이지"+ mypageMaker);
+		 
+		model.addAttribute("coun_reslist", coun_reslist);
+		System.out.println("예약 리스트 : "+coun_reslist);
+		 model.addAttribute("mypageMaker", mypageMaker);
 
 		return "page/counspageRes";
 	}
+	//상담사페이지 예약 취소 
+			@RequestMapping(value="/counres_delete.do",method=RequestMethod.POST)
+			public String coundelete(ReserveVO vo) { 
+				//db 상세데이터 조회
+				pageService.counres_Delete(vo);
 
+				System.out.println("상담사 예약 삭제"+vo.toString());
+			
+				return "redirect:counspageRes.do";
+			
+			}
+	//상담사페이지 예약 수락
+	@RequestMapping(value="/counres_check.do",method=RequestMethod.POST)
+	public String councheck(ReserveVO vo) { 
+		//db 상세데이터 조회
+		pageService.counres_Check(vo);
+
+		System.out.println("상담사 예약 수락"+vo.toString());
+		return "redirect:counspageRes.do";
+	
+	}
 	@RequestMapping(value = "/counspageCou.do", method = RequestMethod.GET)
 	public String counspageCou() {
 
 		return "page/counspageCou";
 	}
-
+	
+	
+	//상담사 글쓰기 목록
 	@RequestMapping(value = "/counspageWrite.do", method = RequestMethod.GET)
 	public String counspageWrite(Model model, Community_BoardVO cboardVO, HttpSession session, MyCriteria cri) {
 

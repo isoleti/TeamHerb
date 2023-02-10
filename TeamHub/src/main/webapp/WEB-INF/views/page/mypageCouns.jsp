@@ -155,19 +155,29 @@
     <div id="navi">
     <nav aria-label="Page navigation example">
         <ul class="pagination">
+        <!-- Prev 시작 -->
+          <c:if test="${mypageMaker.prev}"> <!--  -->
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
+            <a class="page-link" href="<%=request.getContextPath() %>/page/mypageCouns.do?page=${(mypageMaker.startPage-1)}&perPageNum=${mypageMaker.perPageNum}" aria-label="Prev">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          </c:if>
+          <!-- Prev 끝 -->
+          <!-- Page번호 시작 -->
+           <c:forEach begin="${mypageMaker.startPage }" end="${mypageMaker.endPage}" var="index">
+          <li class="page-item"><a class="page-link <c:if test='${mypageMaker.page eq index }'>active</c:if>" href="<%=request.getContextPath() %>/page/mypageCouns.do?page=${index}">${index}</a></li>
+          </c:forEach>
+         <!-- Page번호 끝 -->
+         <!-- Next 시작 -->
+          <c:if test="${mypageMaker.next}">
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
+            <a class="page-link" href="<%=request.getContextPath() %>/page/mypageCouns.do?page=${(mypageMaker.endPage+1)}&perPageNum=${mypageMaker.perPageNum}" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
+          </c:if>	
+          <!-- Next 끝 -->
         </ul>
       </nav>
 

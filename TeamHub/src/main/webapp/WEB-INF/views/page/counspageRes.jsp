@@ -6,7 +6,7 @@
 <%@ page import="project.healingcamp.vo.ReserveVO" %>
 <%@ page session="true" %>   
 
-<% List<ReserveVO> list = (List<ReserveVO>)request.getAttribute("datalist"); %>
+<% List<ReserveVO> coun_reslist = (List<ReserveVO>)request.getAttribute("coun_reslist"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +14,10 @@
 <title>상담사페이지</title>
 <link href="<%= request.getContextPath() %>/resources/css/bootstrap.css" rel="stylesheet">
 <link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
+ <script src ="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
+ <script>
+
+ </script>
 <style>
        
           main{margin:0 auto;  width:1160px; }
@@ -33,7 +37,7 @@
         .btn1{ height:50px; font-size:18px;  margin:30px 0;font-weight:bold;}
         
         .btn2{height:35px; font-size:15px; border-radius:5px;  margin-top:20px;}
-        .content{display:inline-block; position: relative; top:80px; left:50px; }
+        .content{display:inline-block; position: relative; top:0px; left:50px; }
         .content a{ font-size:20px; 
             display:block; margin-top:20px;}
         .content a:nth-child(3){display:inline-block;}
@@ -45,11 +49,13 @@
         #sb a{font-size:15px; font-style: none;}
         #sb {display:inline-block;}
         #sb button{background:#0ed145; color:white; margin-left:100px;}
-
+		
+		
         #tb table{border:1px solid #dff6e1; width:800px; height:200px; text-align:center;}
         #tb tr:nth-child(1){font-weight: bold;}
-        #tb td:nth-child(5){padding:0;}
         #tb tr:nth-child(2n){background-color:#dff6e1;}
+         td{height:50px;}
+        #tb td:nth-child(5){padding:0;}
         #tb button{width:50px; margin:0;}
         #navi{width:200px; margin-left:300px;}
         #navi a{font-size:15px; color:black;}
@@ -104,26 +110,30 @@
             </div><!--//.bar-->
         <div class="content">
             <a class="p">예약 목록</a>
-          <!--   <a class="p">예약 기간</a>
-            <button class="btn3">1개월</button>
+         <!-- <a class="p">예약 기간</a> -->
+          <!--   <button class="btn3">1개월</button>
             <button class="btn3">3개월</button>
-            <button class="btn3">6개월</button>
-            <p>기간 입력</p>
-            <input type="date" name="date1" id="date1" >
+            <button class="btn3">6개월</button> -->
+            <!-- <p>기간 입력</p> -->
+            
+           <!--  <input type="date" name="fromdate" id="fromdate">
             <p>~</p>
-            <input type="date" name="date2" id="date2" >
+            <input type="date" name="todate" id="todate" >
  -->
-           <!--  <a class="p">예약 상태</a> -->
+            <!-- <a class="p">예약 상태</a> -->
             <div id="sb">
             <a>
-           <!--  <input type="radio" name="all" id="all">전체
-            <input type="radio" name="compl" id="compl">예약완료
-            <input type="radio" name="wait" id="wait">예약대기
-            <input type="radio" name="canc" id="canc">예약취소 -->
-            <!-- <button class="btn4">검색</button> -->
+         
+           <!--  <input type="button"  value="전체보기" id="all" >
+            <input type="button" id="compl"  value="예약완료">
+            <input type="button" id="wait" value="예약대기">
+             -->
+            <!-- <input type="radio" name="sel" id="canc">예약취소 -->
+           <!--  <button class="btn4">검색</button> -->
             </a> </div><!--//#sb-->
             <div id="tb">
             <table border="1">
+            	 <form  action="counres_delete.do" method="post" >  
             	<tr>
                     <td>예약 번호</td>
                     <td>예약자</td>
@@ -133,73 +143,52 @@
                     
                 </tr>
                 
-                <c:forEach items="${datalist}" var="vo">
+                <c:forEach items="${coun_reslist}" var="coun_reslist">
+                
                 <tr>
-                    <td>${vo.residx}</td>
-                    <td>${vo.id}</td>
-                    <td>${vo.resdate }</td>
-                    <td>${vo.state}</td>
-                    <td><button>수락</button>
+                <input type="hidden" name="residx" value="${coun_reslist.residx}">
+                 <input type="hidden" name="uidx" value="${coun_reslist.uidx}">
+                <input type="hidden" name="conidx" value="${coun_reslist.conidx}">
+                    <td>${coun_reslist.residx}</td>
+                    <td>${coun_reslist.id}</td>
+                    <td>${coun_reslist.resdate.substring(0,10) }</td>
+                    <td>${coun_reslist.resposition}</td>
+                    <td><button type="button">수락</button>
                     <button>거절</button></td>
                    
                 </tr>
                 </c:forEach>
-                
-                <tr>
-                    <td>예약 번호</td>
-                    <td>예약자</td>
-                    <td>예약 일시</td>
-                    <td>처리 현황</td>
-                    <td><button>수락</button>
-                        <button>거절</button></td>
-                </tr>
-                <tr>
-                    <td>예약 번호</td>
-                    <td>예약자</td>
-                    <td>예약 일시</td>
-                    <td>처리 현황</td>
-                    <td><button>수락</button>
-                        <button>거절</button></td>
-                </tr>
-                <tr>
-                    <td>예약 번호</td>
-                    <td>예약자</td>
-                    <td>예약 일시</td>
-                    <td>처리 현황</td>
-                    <td><button>수락</button>
-                        <button>거절</button></td>
-                </tr>
-                <tr>
-                    <td>예약 번호</td>
-                    <td>예약자</td>
-                    <td>예약 일시</td>
-                    <td>처리 현황</td>
-                    <td><button>수락</button>
-                        <button>거절</button></td>
-                </tr>
-          
-               
-
+                </form>
             </table>
              
     </div><!--#tb-->
 
     <div id="navi">
-    <nav aria-label="Page navigation example">
+   <nav aria-label="Page navigation example">
         <ul class="pagination">
+        <!-- Prev 시작 -->
+          <c:if test="${mypageMaker.prev}"> <!--  -->
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
+            <a class="page-link" href="<%=request.getContextPath() %>/page/counspageRes.do?page=${(mypageMaker.startPage-1)}&perPageNum=${mypageMaker.perPageNum}" aria-label="Prev">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          </c:if>
+          <!-- Prev 끝 -->
+          <!-- Page번호 시작 -->
+           <c:forEach begin="${mypageMaker.startPage }" end="${mypageMaker.endPage}" var="index">
+          <li class="page-item"><a class="page-link <c:if test='${mypageMaker.page eq index }'>active</c:if>" href="<%=request.getContextPath() %>/page/counspageRes.do?page=${index}">${index}</a></li>
+          </c:forEach>
+         <!-- Page번호 끝 -->
+         <!-- Next 시작 -->
+          <c:if test="${mypageMaker.next}">
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
+            <a class="page-link" href="<%=request.getContextPath() %>/page/counspageRes.do?page=${(mypageMaker.endPage+1)}&perPageNum=${mypageMaker.perPageNum}" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
+          </c:if>	
+          <!-- Next 끝 -->
         </ul>
       </nav>
 
