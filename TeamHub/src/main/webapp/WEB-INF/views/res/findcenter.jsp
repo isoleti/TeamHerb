@@ -361,10 +361,18 @@
 				
 			}
 			function center(){
-				var fm = document.getElementById("frm");
+				var fm = document.getElementById("frm");				
+				var cn = document.getElementById("centername");
 				
-				fm.action = "<%=request.getContextPath()%>/res/center.do?'"
-				fm.submit();
+				if(cnoidx.value == 0){
+					alert("상담센터를 선택해주세요");
+					return;
+				}else{
+					fm.action = "<%=request.getContextPath()%>/res/center.do?'"
+					fm.submit();
+				}
+				
+				
 			}
 			</script>
 		<form method="post" id="frm" name="frm">
@@ -372,7 +380,7 @@
             <p >상담소 : <input type="text" name="centername" id="centername" readonly> </p>
             <p >위치 : <input type="text" name="centeraddr" id="centeraddr" readonly></p>
             <p >전화번호 : <input type="text" name="centercall" id="centercall" readonly></p>
-            <input type="hidden" id="cnoidx" name="cnoidx">
+            <input type="hidden" id="cnoidx" name="cnoidx" value="0">
         </div>
         </form>
     </main>

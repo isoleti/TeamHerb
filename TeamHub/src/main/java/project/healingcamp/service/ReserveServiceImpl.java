@@ -47,6 +47,12 @@ public class ReserveServiceImpl implements ReserveService{
 		
 		return reserveDAO.conidx(vo);
 	}
+
+	@Override
+	public ReserveVO cintidx(ReserveVO vo) {
+		
+		return reserveDAO.cintidx(vo);
+	}
 	
 	
 	

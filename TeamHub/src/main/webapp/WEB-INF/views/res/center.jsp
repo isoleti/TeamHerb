@@ -134,45 +134,30 @@
             <div id="test"> <!--상담 및 검사 안내-->
             <c:if test = "${login == null}">   
                 <table class="table table-striped">
-                <c:forEach items="${centerlist}" var="vo" varStatus="status">
-                <c:if test="${not empty vo.con1}">
-                    <tr><th>${vo.con1 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>
+                <c:if test="${not empty reserve.con1}">
+                    <tr><th>${reserve.con1 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>
                 </c:if>   
-                <c:if test="${not empty vo.con2}">                 
-                    <tr><th>${vo.con2 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
+                <c:if test="${not empty reserve.con2}">                 
+                    <tr><th>${reserve.con2 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
                 </c:if>
-                <c:if test="${not empty vo.con3}">    
-                    <tr><th>${vo.con3 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
+                <c:if test="${not empty reserve.con3}">    
+                    <tr><th>${reserve.con3 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
                 </c:if>
-                <c:if test="${not empty vo.con4}">    
-                    <tr><th>${vo.con4 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
-                </c:if>
-                <c:if test="${not empty vo.con5}">    
-                    <tr><th>${vo.con5 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
-                </c:if>
-                </c:forEach>
                 </table>
             </c:if>    
             <c:if test = "${login != null}">
-            	<c:forEach items="${centerlist}" var="vo" varStatus="status">   
+            	   
                 <table class="table table-striped">
-                	<c:if test="${not empty vo.con1}">
-                    <tr><th>${vo.con1 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>                    
+                	<c:if test="${not empty reserve.con1}">
+                    <tr><th>${reserve.con1 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>                    
                     </c:if>
-                     <c:if test="${not empty vo.con2}">
-                    <tr><th>${vo.con2 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>                    
+                     <c:if test="${not empty reserve.con2}">
+                    <tr><th>${reserve.con2 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>                    
                     </c:if>
-                    <c:if test="${not empty vo.con3}">
-                    <tr><th>${vo.con3 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>                    
+                    <c:if test="${not empty reserve.con3}">
+                    <tr><th>${reserve.con3 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>                    
                     </c:if>
-                     <c:if test="${not empty vo.con4}">
-                    <tr><th>${vo.con4 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>
-                    </c:if>
-                    <c:if test="${not empty vo.con5}">
-                    <tr><th>${vo.con5 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>
-                    </c:if>
-                </table>
-                </c:forEach>
+                </table>              
             </c:if>
             </div><!-- fin test-->
         </div><!--예약 및 일정-->
@@ -185,12 +170,13 @@
         <h2>상담사 소개</h2>
         <div class="cou"><!--상담사 설명-->
             <h3>${vo.name }</h3>
+            <br>
             <dt>
-            	<h3>학력</h3>
+            	<h4>학력</h4>
                 <dl>${vo.grade }</dl>
             </dt>
             <dt>
-            	<h3>자격증</h3>
+            	<h4>자격증</h4>
 	            <c:if test="${not empty vo.certi1}">
 	                <dl>${vo.certi1 }</dl>
 	            </c:if>
@@ -205,7 +191,7 @@
 	            </c:if>
             </dt>
             <dt>
-              <h3>논문 및 저서</h3>
+              <h4>논문 및 저서</h4>
                <c:if test="${not empty vo.article1}">
                 <dl>${vo.article1 }</dl>
                </c:if>

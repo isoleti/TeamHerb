@@ -48,6 +48,15 @@ public class ReserveController {
 		return reserveVO;
 	}
 	
+	//상담사pk가져오기
+	@ResponseBody
+	@RequestMapping(value = "/conidx.do", method = RequestMethod.GET)
+	public ReserveVO conidx(ReserveVO vo) {
+			ReserveVO reserveVO = reserveService.conidx(vo);
+					
+		return reserveVO;
+	}
+	
 	//상담기관
 	@RequestMapping(value = "/center.do", method = RequestMethod.POST)
 	public String getCenter(Model model,ReserveVO vo) {
@@ -55,12 +64,14 @@ public class ReserveController {
 		//데이터 요청
 		List<ReserveVO> centerlist = reserveService.centerlist(vo);
 		ReserveVO reserveVO = reserveService.cnoidx(vo);
+		ReserveVO reserve = reserveService.cintidx(vo); 
 		System.out.println("centerlist :"+centerlist);
 		System.out.println("reserveVO :"+reserveVO);
 		
 		//데이터를 모델에 담아 화면에 넘김
 		model.addAttribute("centerlist",centerlist);
 		model.addAttribute("reserveVO",reserveVO);
+		model.addAttribute("reserve",reserve);
 		
 		return "res/center";
 	}
@@ -72,15 +83,18 @@ public class ReserveController {
 		//데이터 요청
 		List<ReserveVO> centerlist = reserveService.centerlist(vo);
 		ReserveVO reserveVO = reserveService.cnoidx(vo);
+		ReserveVO reserve = reserveService.cintidx(vo); 
 		//System.out.println("centerlist :"+centerlist);
 		//System.out.println("reserveVO :"+reserveVO);
 		
 		//데이터를 모델에 담아 화면에 넘김
 		model.addAttribute("centerlist",centerlist);
 		model.addAttribute("reserveVO",reserveVO);
-			
+		model.addAttribute("reserve",reserve);
+		
 		return "res/respage";
 	}
+	
 	//예약페이지
 	@RequestMapping(value = "/respage.do", method = RequestMethod.POST)
 	public String page(Model model,ReserveVO vo) {
@@ -88,12 +102,16 @@ public class ReserveController {
 		//데이터 요청
 		List<ReserveVO> centerlist = reserveService.centerlist(vo);
 		ReserveVO reserveVO = reserveService.cnoidx(vo);
+		ReserveVO reserve = reserveService.cintidx(vo); 
 		System.out.println("centerlist :"+centerlist);
 		System.out.println("reserveVO :"+reserveVO);
+		System.out.println("reserve :"+reserve);
+		
 		//데이터를 모델에 담아 화면에 넘김
 		model.addAttribute("centerlist",centerlist);
 		model.addAttribute("reserveVO",reserveVO);
-		
+		model.addAttribute("reserve",reserve);
+				
 		return "res/respage";
 	}
 	

@@ -40,8 +40,16 @@ public class ReserveDAO {
 		 return sqlSession.selectOne("project.healingcamp.mapper.reserveMapper.conidx" ,vo);
 	 }
 	 
+	 //센터정보 리스트 뽑기
 	 public List centerlist(ReserveVO vo) {
 		 
 		 return sqlSession.selectList("project.healingcamp.mapper.reserveMapper.centerlist" ,vo);
 	 }
+	 
+	 //센터정보 조회
+	 public ReserveVO cintidx(ReserveVO vo) {
+		 
+		 return sqlSession.selectOne("project.healingcamp.mapper.reserveMapper.cintidx",vo);
+	 }
+	 
 }

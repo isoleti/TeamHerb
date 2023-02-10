@@ -125,4 +125,21 @@
 				where a.cnoidx = #{cnoidx}; 
   			]]>
   		</select>
+  		
+  		<select id="cintidx" parameterType="reserveVO" resultType="reserveVO">
+  			<![CDATA[
+  				select a.cintidx
+  					  ,a.con1
+  					  ,a.con2
+  					  ,a.con3
+  					  ,a.price1
+  					  ,a.price2
+  					  ,a.price3
+  					  ,b.name
+  				from centerintrotable a
+  				inner join counselortable b
+				on a.conidx = b.conidx
+  				where a.cnoidx = #{cnoidx} limit 0,1;
+  			]]>
+  		</select>
   </mapper>
