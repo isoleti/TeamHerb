@@ -9,8 +9,7 @@
 			FROM boardtable
 			WHERE delyn = 'N' AND board_type = '2'
 			ORDER BY bidx DESC
-			LIMIT 55, 1
-		
+			Limit #{rowStart}, 4
 		<!-- <![CDATA[
 	        select *
 	       	  from (
