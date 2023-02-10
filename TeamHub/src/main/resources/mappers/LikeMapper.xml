@@ -28,7 +28,7 @@
 	
 	<!-- 좋아요 -1 -->
 	<delete id="likeDown" parameterType="likeVO">
-		DELETE liketable 
+		DELETE FROM liketable 
 		 WHERE bidx = #{bidx} 
 		   AND id= #{id}
 	</delete>

@@ -15,7 +15,7 @@
 		  		   ,bidx
 		  		   ,uidx
 		  		   ,board_type
-<!-- 		  		   ,rparent -->
+		  		   ,rparent
 		  	)VALUES(
 		  		  #{reply_Content}
 		  		  ,#{id}
@@ -24,7 +24,7 @@
 		  		  ,#{bidx}
 		  		  ,#{uidx}
 			  	  ,#{board_type}
-<!-- 			  	  ,reply_idx_seq.nextval -->
+			  	  ,0
 		  	)
 		  			
   	</insert>
@@ -39,7 +39,7 @@
 			  ,bidx
 			  ,uidx
 			  ,rdepth
-<!-- 			  ,rparent -->
+			  ,rparent
 		  FROM replytable
 		 WHERE bidx = #{bidx}
 		   AND board_type = 0
@@ -65,6 +65,7 @@
 		DELETE FROM replytable 
 		 WHERE reply_idx = #{reply_Idx} 
 	</delete>
+	
 
 <!-- 	댓글 수정 -->
 	<update id="updateByReply" parameterType="replyVO">
@@ -76,8 +77,7 @@
 <!-- 	대댓글 작성 -->
 	<insert id="re_replyInsert" parameterType="replyVO">
 		INSERT into replytable (
-					 reply_idx
-					,reply_content
+					reply_content
 					,id
 					,reply_wdate
 					,reply_ip
@@ -88,10 +88,9 @@
 					,rparent
 					)
 			VALUES (
-					reply_idx_seq.nextval
-					,#{reply_Content}
+					#{reply_Content}
 					,#{id}
-					,SYSDATE
+					,now()
 					,#{reply_Ip}
 					,#{bidx}
 					,#{uidx}

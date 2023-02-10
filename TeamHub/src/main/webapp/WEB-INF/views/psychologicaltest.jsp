@@ -38,11 +38,11 @@
             flex-direction: column;
             justify-content: space-around;
         }
-        #items .item_box:last-child{
-            display:flex;
-            justify-content: center;
-            align-items: center;
-        }
+/*         #items .item_box:last-child{ */
+/*             display:flex; */
+/*             justify-content: center; */
+/*             align-items: center; */
+/*         } */
         #items .item_box .title{
             font-weight: bold;
             margin:10px 0 20px;
@@ -187,7 +187,13 @@
             </div><!--e:.item_box-->
 
             <div class="item_box">
-                <h3 class="title">COMMING SOON</h3>
+                <div class="contents_wrapper">
+                    <h3 class="title">조울증 테스트</h3>
+                    <p class="description">조울증 테스트입니다.</p>
+                </div>
+                <div class="btn_wrapper">
+                    <a class="start_btn" href="https://testharo.com/bpd/ko" target="_blank">시작하기</a>
+                </div>
             </div><!--e:.item_box-->
        </div><!--e:#items-->
     </main>

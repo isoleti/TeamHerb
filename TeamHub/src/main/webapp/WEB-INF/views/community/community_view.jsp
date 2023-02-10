@@ -365,7 +365,7 @@
 
 	   						html += "<div class='reply_area"+rparent+"'>";
 	   						if(reply_Content == ""){ //삭제된 댓글일때
-	   							html += "<div>";
+	   							html += "<div class='reply_box'>";
 	   							html += "<div>삭제된 댓글입니다.</div>"
 	   							html += "</div>";
 	   						}else{
@@ -380,9 +380,10 @@
 		   						    if(id == result[i].id){ //현재 로그인된 아이디일시 댓글수정가능
 		   						        html += 			"<li class='commentModify' onclick='commentModify("+reply_Idx+",\""+reply_Content+"\",\""+writer+"\");'>댓글수정</li>";
 		   						        html += 			"<li class='delete' onclick='deleteReply("+reply_Idx+","+bidx+");'>삭제</li>";
-		   						    }else{
-		   						        html += 			"<li class='re_reply' onclick='re_reply("+reply_Idx+","+bidx+")'>답글쓰기</li>";
 		   						    }
+// 		   						    else{
+// 		   						        html += 			"<li class='re_reply' onclick='re_reply("+reply_Idx+","+bidx+")'>답글쓰기</li>";
+// 		   						    }
 
 		   						    html += 			"</ul>"; //.reply_info
 		   						    html += 		"</div>"; //.reply_info_wrapper
@@ -405,9 +406,10 @@
 		   							if(id == result[i].id){
 			   							html += 		"<li class='commentModify' onclick='commentModify("+reply_Idx+",\""+reply_Content+"\",\""+writer+"\");'>댓글수정</li>";
 		   								html += 		"<li class='delete' onclick='deleteReply("+reply_Idx+","+bidx+");'>삭제</li>";
-		   							}else{
-		   								html += 		"<li class='re_reply' onclick='re_reply("+reply_Idx+","+bidx+")'>답글쓰기</li>";
 		   							}
+// 		   							else{
+// 		   								html += 		"<li class='re_reply' onclick='re_reply("+reply_Idx+","+bidx+")'>답글쓰기</li>";
+// 		   							}
 
 		   							html += 		"</ul>"; //.reply_info
 		   							html += 	"</div>"; //.reply_info_wrapper
