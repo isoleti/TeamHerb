@@ -15,12 +15,10 @@
 	<!-- 좋아요 +1 -->
 	<insert id="likeUp" parameterType="likeVO">
 		INSERT into liketable(
-			like_no,
 			bidx,
 			id,
 			likenum
 		)VALUES(
-			like_no_seq.nextval,
 			#{bidx},
 			#{id},
 			1
@@ -57,7 +55,7 @@
 	</select>
 	
 	<select id="likeList" resultType="likeVO">
-		SELECT id,bidx
+		SELECT *
 		  FROM liketable
 	</select>
 

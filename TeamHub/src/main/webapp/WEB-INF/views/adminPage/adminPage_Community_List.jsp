@@ -208,7 +208,6 @@
                     <th style="width:50%;">제목</th>
                     <th>아이디</th>
                     <th>작성일</th>
-                    <th style="width:7%;">신고</th>
                 </tr>
                 
         <form action="community_delete.do" method="post">
@@ -220,7 +219,6 @@
 	                    <td><a href="<%=request.getContextPath()%>/community/community_view.do?bidx=${vo.bidx}">${vo.title }</a></td>
 	                    <td>${vo.id }</td>
 	                    <td>${vo.wdate }</td>
-	                    <td>0</td>
 	                </tr>
                 </c:forEach>
             </table>

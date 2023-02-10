@@ -74,6 +74,9 @@
         padding:10px;
         min-height:450px;
         }
+        #content p{
+        word-break:break-all;
+        }
         .reply_box{
         border-bottom:1px solid #e5e7eb;
         padding:15px 0;
@@ -222,9 +225,9 @@
 						<i style="color:rgb(187,187,187);" class="xi-ellipsis-h xi-x"></i>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="<%=request.getContextPath()%>/community/community_modify.do?bidx=${vo.bidx}">수정</a></li>
+							<li><a class="dropdown-item" href="<%=request.getContextPath()%>/counseller_board/counseller_board_modify.do?bidx=${vo.bidx}">수정</a></li>
 							<li><button id="deleteBtn" class="dropdown-item" onclick="document.delfrm.submit()">삭제</button></li>
-							<form name="delfrm" action="community_delete.do" method="post">
+							<form name="delfrm" action="counseller_board_delete.do" method="post">
 								<input type="hidden" name="bidx" value="${vo.bidx }">
 							</form>
 						</ul>

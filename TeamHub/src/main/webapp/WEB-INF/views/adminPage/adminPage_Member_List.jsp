@@ -77,7 +77,6 @@
         }
         #filter_option li:nth-child(2){
         border-left:1px solid gray;
-        border-right:1px solid gray;
         }
         #filter_option button{
 		border-style:none;
@@ -197,7 +196,6 @@
                  	아이디오름차순
                 </button>
                 </li>
-                <li>신고 오름차순</li>
            </ul><!--e:#filter_option-->
         </div><!--e:#filter-->
 
@@ -209,7 +207,6 @@
 					<th>아이디</th>
 					<th>이메일</th>
 					<th>가입일</th>
-					<th style="width:10%;">신고</th>
 				</tr>
 		<form action="member_delete.do" method="post">
 		<input type="hidden" name="usertype" value="u">
@@ -220,7 +217,6 @@
 					<td>${vo.id }</td>
 					<td>${vo.mail }</td>
 					<td>${vo.edate }</td>
-					<td>0</td>
 				</tr>
 			</c:forEach>
 			</table>
