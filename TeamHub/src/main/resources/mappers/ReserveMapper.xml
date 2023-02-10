@@ -65,6 +65,7 @@
   				select cnoidx
   					  ,centername
   					  ,centeraddr
+  					  ,centercall
   				from centertable
   				where centername = #{centername} and centeraddr = #{centeraddr}
   			]]>

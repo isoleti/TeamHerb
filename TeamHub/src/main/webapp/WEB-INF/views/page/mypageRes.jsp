@@ -142,8 +142,6 @@
             <table border="1">
            		 <form  action="myres_delete.do" method="post">  
            		
-                  <input type="hidden" name="uidx" value="${vo.uidx}">
-           		 <input type="hidden" name="residx" value="${vo.residx}">
            		 
                 <tr>
                     <td>예약 번호</td>
@@ -153,12 +151,15 @@
                     <td>관리</td>
                 </tr>
             
-                  <c:forEach items="${reslist}" var="vo">
+                  <c:forEach items="${reslist}" var="reslist">
+                    
+                <input type="hidden" name="uidx" value="${reslist.uidx}">
+           		 <input type="hidden" name="residx" value="${reslist.residx}">
                 <tr>
-                    <td>${vo.residx}</td>
-                    <td>${vo.center}</td>
-                    <td>${vo.resdate.substring(0,10)}</td>
-                    <td>${vo.resposition}</td>
+                    <td>${reslist.residx}</td>
+                    <td>${reslist.center}</td>
+                    <td>${reslist.resdate.substring(0,10)}</td>
+                    <td>${reslist.resposition}</td>
                     <td><button>취소</button></td>
                 </tr>
                </c:forEach>  

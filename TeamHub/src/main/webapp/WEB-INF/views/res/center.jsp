@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
 <%@ page import="project.healingcamp.vo.ReserveVO" %>
+<%List<ReserveVO> centerlist = (List<ReserveVO>)request.getAttribute("centerlist");  %>
 <!DOCTYPE html>
 <html lang="ko" style="--vh:5.02px;">
 <head>
@@ -43,72 +44,10 @@
         main #resInfo dl{margin-top:1%;}       
         main #map{margin-left:25%; }
         main .cal #calendar tr{height:45px;}
-        
-        /*modal style*/
-        #modal.modal-overlay {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(1.5px);
-            -webkit-backdrop-filter: blur(1.5px);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-        #modal .modal-window {
-            background: rgba( 255, 255, 255, 0.70 );
-            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-            backdrop-filter: blur( 13.5px );
-            -webkit-backdrop-filter: blur( 13.5px );
-            border-radius: 10px;
-            border: 1px solid rgba( 255, 255, 255, 0.18 );
-            width: 1000px;
-            height: 500px;
-            position: fixed;
-            top: 200px;
-            padding: 10px;
-            z-index:99999;
-        }
-        #modal .title {
-            padding-left: 10px;
-            display: inline;
-            text-shadow: 1px 1px 2px gray;
-            color: white;
-            
-        }
-        #modal .title h2 {
-            display: inline;
-        }
-        #modal .close-area {
-            display: inline;
-            float: right;
-            padding-right: 10px;
-            cursor: pointer;
-            text-shadow: 1px 1px 2px gray;
-            color: white;
-        }
-        
-        #modal .content {
-            margin-top: 20px;
-            padding: 0px 10px;
-            text-shadow: 1px 1px 2px gray;
-            color: white;
-        }
-        
-        .title h2{text-align: center;}
-        .modal-window textarea{margin-left:5%; width:840px; height:250px; resize:none; margin-top:3%; border: 1px solid rgba( 255, 255, 255, 0.18 );}
-        .modal-window input{margin-left:30%;}
     </style>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-     <script src="<%=request.getContextPath()%>/resources/js/index.global.js"></script> 
-	 <script>	
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/index.global.js"></script> 
+	<script>	
 	      document.addEventListener('DOMContentLoaded', function() {
 	    	  
 	        var calendarEl = document.getElementById('calendar');
@@ -138,7 +77,7 @@
 			alert("로그인 후 사용하세요");
 		}
 		
-	 </script>
+	</script>
 </head>
 <body>
     <header>    <!--header-->
@@ -174,45 +113,66 @@
         </nav> <!-- fin 상단 네비게이션 -->
     </header> <!--fin header-->
     <main>
-        <h1>기관명</h1>
+        <h1>${reserveVO.centername}</h1>
         <div id="cp"> <!--기관 사진-->
-            <img src="" alt="">
-            <img src="" alt="">
-            <img src="" alt="">
             <img src="" alt="">
         </div>
         <div id="res"><!-- 예약 및 일정-->   
             <p></p><br>   
-            <p>기관명 :</p><br>            
-            <p>주소 :</p><br>
-            <P>전화 : </P><br>
+            <p>기관명 : ${reserveVO.centername }</p><br>            
+            <p>주소 : ${reserveVO.centeraddr }</p><br>
+            <P>전화 : ${reserveVO.centercall }</P><br>
             <c:if test = "${login == null}"> 
             	<button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button>
             </c:if>
             <c:if test = "${login != null}"> 
-            	<button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do'">예약하기</button>
+            	<button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button>
             </c:if>
-            <button class="btn btn-dark" onclick="modalOn()">문의하기</button>
             <div class="cal"> <!--상담사 상담 일정-->
-                <p>상담사 : </p>
                 <div id='calendar'></div>
             </div><!-- fin 상담사 일정-->
             <div id="test"> <!--상담 및 검사 안내-->
             <c:if test = "${login == null}">   
                 <table class="table table-striped">
-                    <tr><th>상담 종류</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
-                    <tr><th>상담 종류</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
-                    <tr><th>상담 종류</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
-                    <tr><th>상담 종류</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
+                <c:forEach items="${centerlist}" var="vo" varStatus="status">
+                <c:if test="${not empty vo.con1}">
+                    <tr><th>${vo.con1 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>
+                </c:if>   
+                <c:if test="${not empty vo.con2}">                 
+                    <tr><th>${vo.con2 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
+                </c:if>
+                <c:if test="${not empty vo.con3}">    
+                    <tr><th>${vo.con3 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
+                </c:if>
+                <c:if test="${not empty vo.con4}">    
+                    <tr><th>${vo.con4 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
+                </c:if>
+                <c:if test="${not empty vo.con5}">    
+                    <tr><th>${vo.con5 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
+                </c:if>
+                </c:forEach>
                 </table>
             </c:if>    
-            <c:if test = "${login != null}">   
+            <c:if test = "${login != null}">
+            	<c:forEach items="${centerlist}" var="vo" varStatus="status">   
                 <table class="table table-striped">
-                    <tr><th>상담 종류</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do'">예약하기</button></td></tr>                    
-                    <tr><th>상담 종류</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do'">예약하기</button></td></tr>                    
-                    <tr><th>상담 종류</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do'">예약하기</button></td></tr>                    
-                    <tr><th>상담 종류</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do'">예약하기</button></td></tr>                    
+                	<c:if test="${not empty vo.con1}">
+                    <tr><th>${vo.con1 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>                    
+                    </c:if>
+                     <c:if test="${not empty vo.con2}">
+                    <tr><th>${vo.con2 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>                    
+                    </c:if>
+                    <c:if test="${not empty vo.con3}">
+                    <tr><th>${vo.con3 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>                    
+                    </c:if>
+                     <c:if test="${not empty vo.con4}">
+                    <tr><th>${vo.con4 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>
+                    </c:if>
+                    <c:if test="${not empty vo.con5}">
+                    <tr><th>${vo.con5 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>
+                    </c:if>
                 </table>
+                </c:forEach>
             </c:if>
             </div><!-- fin test-->
         </div><!--예약 및 일정-->
@@ -221,29 +181,46 @@
             <div>상담 후기</div>
             <div>상담 안내</div>
         </div>
+        <c:forEach items="${centerlist}" var="vo" varStatus="status">
         <h2>상담사 소개</h2>
         <div class="cou"><!--상담사 설명-->
-            <p>상담사 명</p>
-            <dt>학력
-                <dl></dl>
-                <dl></dl>
-                <dl></dl>
-                <dl></dl>
+            <h3>${vo.name }</h3>
+            <dt>
+            	<h3>학력</h3>
+                <dl>${vo.grade }</dl>
             </dt>
-            <dt>자격증
-                <dl></dl>
-                <dl></dl>
-                <dl></dl>
-                <dl></dl>
+            <dt>
+            	<h3>자격증</h3>
+	            <c:if test="${not empty vo.certi1}">
+	                <dl>${vo.certi1 }</dl>
+	            </c:if>
+	            <c:if test="${not empty vo.certi2}">
+	                <dl>${vo.certi2 }</dl>
+	            </c:if>
+	            <c:if test="${not empty vo.certi3}">
+	                <dl>${vo.certi3 }</dl>
+	            </c:if>
+	            <c:if test="${not empty vo.certi4}">
+	                <dl>${vo.certi4 }</dl>
+	            </c:if>
             </dt>
-            <dt>논문 및 저서
-                <dl></dl>
-                <dl></dl>
-                <dl></dl>
-                <dl></dl>
-                <dl></dl>
+            <dt>
+              <h3>논문 및 저서</h3>
+               <c:if test="${not empty vo.article1}">
+                <dl>${vo.article1 }</dl>
+               </c:if>
+               <c:if test="${not empty vo.article2}">
+                <dl>${vo.article2 }</dl>
+               </c:if>
+               <c:if test="${not empty vo.article3}">
+                <dl>${vo.article3 }</dl>
+               </c:if>
+               <c:if test="${not empty vo.article4}">
+                <dl>${vo.article4 }</dl>
+               </c:if>
             </dt>            
         </div>
+        </c:forEach>
         <h2>안내말씀</h2>
         <div id="notice">
             <p>&nbsp;대충 우리기관 사람들 고오오오오급 인력이에요.<br> 
@@ -272,7 +249,7 @@
                 <dl>현장 결제시 유의 사항 안내</dl>
             </dt>
             <dt>04 안내
-                <dl>뭘 안내?</dl>
+                <dl>더 궁금하신 상황이 있으시다면 문의 전화를 주시기 바랍니다.</dl>
             </dt>
         </div>
         <h2>오시는 길</h2>
@@ -292,7 +269,7 @@
 				var ps = new kakao.maps.services.Places(); 
 
 				// 키워드로 장소를 검색합니다
-				ps.keywordSearch('오은영심리상담센터', placesSearchCB); 
+				ps.keywordSearch('${reserveVO.centername}' , placesSearchCB); 
 				
 				// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 				var infowindow = new kakao.maps.InfoWindow({zIndex:1});
@@ -332,20 +309,6 @@
 				    });
 				}
 			</script>		
-		<div id="modal" class="modal-overlay">
-	        <div class="modal-window">
-	        <form>
-	            <div class="title">
-	                <h2>문의하기</h2>
-	            </div>
-	            <div class="close-area">X</div><br>
-	           	<hr>
-	           	<input type="hidden" name="" value="">
-			    <textarea>문의 내용을 입력하세요</textarea><br>
-			    <input type="button" class="btn btn-outline-success" value="문의하기">
-			</form>
-	        </div>
-    	</div>
     </main>
     <footer> <!-- footer -->
         <div id="bottom">   
@@ -359,31 +322,5 @@
             <p>FAX : 063-000-0000</p>
         </div>
 	</footer> <!-- end footer -->
-	<script>
-	
-		//modal script	
-		var modal = document.getElementById("modal");
-		
-		function modalOn() {
-		    modal.style.display = "flex";
-		}
-		function isModalOn() {
-		    return modal.style.display === "flex";
-		}
-		function modalOff() {
-		    modal.style.display = "none";
-		}
-		const closeBtn = modal.querySelector(".close-area")
-		closeBtn.addEventListener("click", e => {
-		    modal.style.display = "none";
-		})
-		modal.addEventListener("click", e => {
-		const evTarget = e.target
-		if(evTarget.classList.contains("modal-overlay")) {
-		    modal.style.display = "none";
-			}
-		})
-		
-	</script>
 </body>
 </html>

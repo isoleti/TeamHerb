@@ -1,6 +1,7 @@
 package project.healingcamp.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,9 +31,21 @@ public class ReserveServiceImpl implements ReserveService{
 	
 	//상담소 pk찾기
 	@Override
-	public ReserveVO cnodix(ReserveVO vo) {
+	public ReserveVO cnoidx(ReserveVO vo) {
 		
 		return reserveDAO.cnoidx(vo);
+	}
+
+	@Override
+	public List<ReserveVO> centerlist(ReserveVO vo) {
+		
+		return reserveDAO.centerlist(vo);
+	}
+
+	@Override
+	public ReserveVO conidx(ReserveVO vo) {
+		
+		return reserveDAO.conidx(vo);
 	}
 	
 	

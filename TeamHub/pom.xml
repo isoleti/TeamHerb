@@ -170,8 +170,52 @@
 			<artifactId>json-simple</artifactId>
 			<version>2.1.2</version>
 		</dependency>
-		     
+		<!-- 추가 --> 
+       <!-- javax.mail.api -->  
+        <dependency>
+          <groupId>com.sun.mail</groupId>
+          <artifactId>javax.mail</artifactId>
+          <version>1.6.2</version>
+      </dependency>
+              
+      
+      <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>    
+      
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${org.springframework-version}</version>
+        </dependency> 
+       
+
+		<!-- 아임포트  -->
+		<dependency>
+		   <groupId>com.github.iamport</groupId>
+		   <artifactId>iamport-rest-client-java-hc</artifactId>
+		   <version>0.0.2</version>
+		</dependency>
+		
+		
+		<dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>8.0.32</version>
+      </dependency>    
+       
 	</dependencies>
+			
+		 <repositories>
+		   <repository>
+		        <id>jitpack.io</id>
+		         <url>https://jitpack.io</url>
+		   </repository>
+		</repositories>
     <build>
         <plugins>
             <plugin>

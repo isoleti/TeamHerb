@@ -4,7 +4,6 @@
  	<%@ page import="java.util.*" %>
  	<%@ page import="project.healingcamp.vo.ReviewVo" %>
 	<%@ page import="project.healingcamp.vo.ReserveVO" %>
- 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  	<%@ page session="true" %>
  	
   	<% List<ReviewVo> list = (List<ReviewVo>)request.getAttribute("list"); %>
@@ -111,9 +110,8 @@
 	  			<div id="rcontent">
 	  				<button  class="del">x</button>
 	  				<input type="hidden" name="ridx" value="${vo.ridx}">
-	  				<c:set var="rdate" value="${vo.rdate }"/>
 	  				<div class="contents">${vo.rcontent}</div>
-	  				<div class="rdate">${fn:substring(rdate,0,11)}</div>
+	  				<div class="rdate">${vo.rdate.substring(0,10)}</div>
 	  			</div><!--//.rcontent-->
 	         	 </form>
  				</c:forEach>

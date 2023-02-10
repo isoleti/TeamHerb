@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.*" %>
 <%@ page import="project.healingcamp.vo.Community_BoardVO" %>
 <%@ page session="true" %>
@@ -143,8 +142,7 @@
                     <td>${cboardVO.bidx}</td>
                     <td><a href="<%=request.getContextPath()%>/community/community_view.do?bidx=${cboardVO.bidx}">${cboardVO.title}</a></td>
                     <td>${cboardVO.category}</td>
-                    <c:set var="wdate" value="${cboardVO.wdate}"/>
-                    <td>${fn:substring(wdate,0,11)}</td>
+                    <td>${cboardVO.wdate.substring(0,10)}</td>
                     <td><button type="button" onclick="location.href='<%=request.getContextPath()%>/community/community_modify.do?bidx=${cboardVO.bidx}'">수정</button>
                         <!--일단 보류:  <button>삭제</button></td> -->
                 </tr>
