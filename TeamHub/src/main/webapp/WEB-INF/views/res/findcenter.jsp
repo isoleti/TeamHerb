@@ -340,8 +340,10 @@
 				var cnval = cn.value;
 				var caval = ca.value;
 				
+				/* 
 				console.log("cnval : "+cnval);
 				console.log("caval : "+caval);
+				*/
 				
 				var cno = document.getElementById("cnoidx");
 				

@@ -2,11 +2,13 @@ package project.healingcamp.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,28 +43,56 @@ public class ReserveController {
 	@ResponseBody
 	@RequestMapping(value = "/cnoidx.do", method = RequestMethod.GET)
 	public ReserveVO cnoidx(ReserveVO vo) {
-			ReserveVO reserveVO = reserveService.cnodix(vo);
+			ReserveVO reserveVO = reserveService.cnoidx(vo);
 			
 		return reserveVO;
 	}
 	
 	//상담기관
-	@RequestMapping(value = "/center.do", method = RequestMethod.GET)
-	public String center() {
-
-		return "res/center";
-	}
-	
-	//상담기관
 	@RequestMapping(value = "/center.do", method = RequestMethod.POST)
-	public String getCenter() {
+	public String getCenter(Model model,ReserveVO vo) {
+		
+		//데이터 요청
+		List<ReserveVO> centerlist = reserveService.centerlist(vo);
+		ReserveVO reserveVO = reserveService.cnoidx(vo);
+		System.out.println("centerlist :"+centerlist);
+		System.out.println("reserveVO :"+reserveVO);
+		
+		//데이터를 모델에 담아 화면에 넘김
+		model.addAttribute("centerlist",centerlist);
+		model.addAttribute("reserveVO",reserveVO);
 		
 		return "res/center";
 	}
 	
 	//예약페이지
 	@RequestMapping(value = "/respage.do", method = RequestMethod.GET)
-	public String page() {
+	public String res(Model model,ReserveVO vo) {
+			
+		//데이터 요청
+		List<ReserveVO> centerlist = reserveService.centerlist(vo);
+		ReserveVO reserveVO = reserveService.cnoidx(vo);
+		//System.out.println("centerlist :"+centerlist);
+		//System.out.println("reserveVO :"+reserveVO);
+		
+		//데이터를 모델에 담아 화면에 넘김
+		model.addAttribute("centerlist",centerlist);
+		model.addAttribute("reserveVO",reserveVO);
+			
+		return "res/respage";
+	}
+	//예약페이지
+	@RequestMapping(value = "/respage.do", method = RequestMethod.POST)
+	public String page(Model model,ReserveVO vo) {
+		
+		//데이터 요청
+		List<ReserveVO> centerlist = reserveService.centerlist(vo);
+		ReserveVO reserveVO = reserveService.cnoidx(vo);
+		System.out.println("centerlist :"+centerlist);
+		System.out.println("reserveVO :"+reserveVO);
+		//데이터를 모델에 담아 화면에 넘김
+		model.addAttribute("centerlist",centerlist);
+		model.addAttribute("reserveVO",reserveVO);
 		
 		return "res/respage";
 	}
@@ -77,7 +107,7 @@ public class ReserveController {
 	//예약완료
 	@RequestMapping(value = "/resf.do", method = RequestMethod.POST)
 	public String resF(ReserveVO vo) {
-		System.out.println("vo"+ vo);
+		//System.out.println("vo"+ vo);
 			
 		//예약 메서드
 		int resVO = reserveService.resF(vo);
