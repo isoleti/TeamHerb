@@ -43,6 +43,7 @@ public class ReserveController {
 	@ResponseBody
 	@RequestMapping(value = "/cnoidx.do", method = RequestMethod.GET)
 	public ReserveVO cnoidx(ReserveVO vo) {
+		
 			ReserveVO reserveVO = reserveService.cnoidx(vo);
 			
 		return reserveVO;
@@ -52,8 +53,20 @@ public class ReserveController {
 	@ResponseBody
 	@RequestMapping(value = "/conidx.do", method = RequestMethod.GET)
 	public ReserveVO conidx(ReserveVO vo) {
+		
 			ReserveVO reserveVO = reserveService.conidx(vo);
 					
+		return reserveVO;
+	}
+	
+	//예약리스트 가져오기
+	@ResponseBody
+	@RequestMapping(value = "/reslist.do", method = RequestMethod.GET)
+	public List<ReserveVO> reslist(ReserveVO vo) {
+		
+		List<ReserveVO> reserveVO =  reserveService.reslist(vo);
+		System.out.println("list? : "+reserveVO);
+		
 		return reserveVO;
 	}
 	
@@ -65,13 +78,15 @@ public class ReserveController {
 		List<ReserveVO> centerlist = reserveService.centerlist(vo);
 		ReserveVO reserveVO = reserveService.cnoidx(vo);
 		ReserveVO reserve = reserveService.cintidx(vo); 
-		System.out.println("centerlist :"+centerlist);
-		System.out.println("reserveVO :"+reserveVO);
+		List<ReserveVO> reslist =  reserveService.reslist(vo);
+		//System.out.println("centerlist :"+centerlist);
+		//System.out.println("reserveVO :"+reserveVO);
 		
 		//데이터를 모델에 담아 화면에 넘김
 		model.addAttribute("centerlist",centerlist);
 		model.addAttribute("reserveVO",reserveVO);
 		model.addAttribute("reserve",reserve);
+		model.addAttribute("reslist", reslist);
 		
 		return "res/center";
 	}
@@ -84,14 +99,16 @@ public class ReserveController {
 		List<ReserveVO> centerlist = reserveService.centerlist(vo);
 		ReserveVO reserveVO = reserveService.cnoidx(vo);
 		ReserveVO reserve = reserveService.cintidx(vo); 
+		List<ReserveVO> reslist =  reserveService.reslist(vo);
 		//System.out.println("centerlist :"+centerlist);
 		//System.out.println("reserveVO :"+reserveVO);
-		
+				
 		//데이터를 모델에 담아 화면에 넘김
 		model.addAttribute("centerlist",centerlist);
 		model.addAttribute("reserveVO",reserveVO);
 		model.addAttribute("reserve",reserve);
-		
+		model.addAttribute("reslist", reslist);
+				
 		return "res/respage";
 	}
 	
@@ -103,14 +120,15 @@ public class ReserveController {
 		List<ReserveVO> centerlist = reserveService.centerlist(vo);
 		ReserveVO reserveVO = reserveService.cnoidx(vo);
 		ReserveVO reserve = reserveService.cintidx(vo); 
-		System.out.println("centerlist :"+centerlist);
-		System.out.println("reserveVO :"+reserveVO);
-		System.out.println("reserve :"+reserve);
-		
+		List<ReserveVO> reslist =  reserveService.reslist(vo);
+		//System.out.println("centerlist :"+centerlist);
+		//System.out.println("reserveVO :"+reserveVO);
+						
 		//데이터를 모델에 담아 화면에 넘김
 		model.addAttribute("centerlist",centerlist);
 		model.addAttribute("reserveVO",reserveVO);
 		model.addAttribute("reserve",reserve);
+		model.addAttribute("reslist", reslist);
 				
 		return "res/respage";
 	}
@@ -136,7 +154,6 @@ public class ReserveController {
 	//예약완료
 	@RequestMapping(value = "/countf.do", method = RequestMethod.POST)
 	public String countF(ReserveVO vo) {
-		System.out.println("vo"+ vo);
 				
 		//예약 메서드
 		int resVO = reserveService.couF(vo);

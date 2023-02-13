@@ -44,6 +44,8 @@ public class ReserveVO {
 	private int  price2;
 	private int  price3;
 	
+	private String start; //상담시작
+	private String end; //상담 끝
 	
 	
 	
@@ -273,6 +275,18 @@ public class ReserveVO {
 	}
 	public void setPrice3(int price3) {
 		this.price3 = price3;
+	}	
+	public String getStart() {
+		return start;
+	}
+	public void setStart(String start) {
+		this.start = start;
+	}
+	public String getEnd() {
+		return end;
+	}
+	public void setEnd(String end) {
+		this.end = end;
 	}
 	
 	@Override
@@ -285,7 +299,8 @@ public class ReserveVO {
 				+ ", name=" + name + ", grade=" + grade + ", certi1=" + certi1 + ", certi2=" + certi2 + ", certi3="
 				+ certi3 + ", certi4=" + certi4 + ", article1=" + article1 + ", article2=" + article2 + ", article3="
 				+ article3 + ", article4=" + article4 + ", cintidx=" + cintidx + ", con1=" + con1 + ", con2=" + con2
-				+ ", con3=" + con3 + ", price1=" + price1 + ", price2=" + price2 + ", price3=" + price3 + "]";
+				+ ", con3=" + con3 + ", price1=" + price1 + ", price2=" + price2 + ", price3=" + price3 + ", start="
+				+ start + ", end=" + end + "]";
 	}
 	
 

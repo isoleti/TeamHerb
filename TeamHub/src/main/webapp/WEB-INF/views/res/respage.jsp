@@ -6,6 +6,7 @@
 <%@ page session="true" %>
 <%@page import="project.healingcamp.vo.ReserveVO"%>
 <%List<ReserveVO> centerlist = (List<ReserveVO>)request.getAttribute("centerlist");  %>
+<%List<ReserveVO> reslist = (List<ReserveVO>)request.getAttribute("reslist");  %>
 <!DOCTYPE html>
 <html lang="ko" style="--vh:5.02px;">
 <head>
@@ -108,6 +109,9 @@
 		document.addEventListener('DOMContentLoaded', function()
 		{
 			$()
+			
+			var name= document.getElementById("cn").innerHTML;
+			
 			//예약일
 			var rdate = document.getElementsByName("resdate");			
 			
@@ -117,9 +121,9 @@
 					{
 						initialView: 'dayGridMonth',
 						headerToolbar: {
-							start: "prev",
+							start: "prev, dayGridMonth",
 							center: "title",
-							end: "dayGridMonth,next",
+							end: "next",
 						},
 						titleFormat : function(date) { // title 설정
 							return date.date.year +"년 "+(date.date.month +1)+"월";
@@ -157,6 +161,10 @@
 					        }
 					        const closeBtn = modal.querySelector(".close-area")
 					        closeBtn.addEventListener("click", e => {
+					            modal.style.display = "none"					            
+					        })
+					        const closeBtn2 = modal.querySelector(".close-area2")
+					        closeBtn2.addEventListener("click", e => {
 					            modal.style.display = "none"
 					        })
 					        modal.addEventListener("click", e => {
@@ -168,13 +176,29 @@
 					        $(rdate).attr('value',dateClickInfo.dateStr);
 						},
 						
-						
 						navLinks: true,
 						selectable: true,
 						selectMirror: true,
-						allDaySlot: false, // allDay 표시 안함
-					}
-			);
+						allDaySlot: false, // allDay 표시 안함						
+						droppable : true,
+				        editable : true,
+				        events : [
+				                   <%if (reslist != null) {%>
+				                   <%for (ReserveVO vo : reslist) {%>
+				                   	{
+				                   	title : '<%=vo.getCouns() %>',
+				                    start : '<%=vo.getStart() %>',
+				                    end : '<%=vo.getEnd() %>',
+				                    color : '#' + Math.round(Math.random() * 0xffffff).toString(16)
+				                  	},
+				        			<%}
+				        			}%>
+				        		]
+				        				
+				        			
+				          
+					
+			});
 			calendar.render();					
 		});		
 		//예약시간
@@ -380,7 +404,7 @@
         </nav> <!-- fin 상단 네비게이션 -->
     </header> <!--fin header-->
     <main>
-        <h1>상담기관명</h1>
+        <h1 id="cn">${param.centername}</h1>
         <div id="resS"> <!-- 예약 순서 -->
             <div id="s1">상담/검사선택</div>
             <div id="s2">상담사 선택</div>
@@ -409,7 +433,7 @@
         <div id="res">
             <h2>예약상세</h2>
             <form name="frm" id="frm">
-            	<input type="hidden" name="center" id="center" value="${center}+test">
+            	<input type="hidden" name="center" id="center" value="${param.centername}">
                	<input type="hidden" name="uidx" id="uidx" value="${login.uidx }">
             	<input type="hidden" name="id" id="id" value="${login.id }">
 	            <p>상담/검사 :<input type="text" name="counseling" id="counseling" readonly> </p>
@@ -438,7 +462,8 @@
 	            <input type="radio" name="reserve" class="content" value="09:00 ~ 12:00" onclick="modalClick1(this)"><label>09:00 ~ 12:00</label><br>
 	            <input type="radio" name="reserve" class="content" value="12:00 ~ 15:00" onclick="modalClick2(this)"><label>12:00 ~ 15:00</label><br>
 	            <input type="radio" name="reserve" class="content" value="15:00 ~ 18:00" onclick="modalClick3(this)"><label>15:00 ~ 18:00</label><br>
-	            <input type="radio" name="reserve" class="content" value="18:00 ~ 21:00" onclick="modalClick4(this)"><label>18:00 ~ 21:00</label>
+	            <input type="radio" name="reserve" class="content" value="18:00 ~ 21:00" onclick="modalClick4(this)"><label>18:00 ~ 21:00</label><br>
+	            <br><div class="close-area2">확인</div>
 	        </div>
     	</div>        
     </main>

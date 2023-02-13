@@ -52,4 +52,10 @@ public class ReserveDAO {
 		 return sqlSession.selectOne("project.healingcamp.mapper.reserveMapper.cintidx",vo);
 	 }
 	 
+	 //예약목록보기
+	 public List reslist(ReserveVO vo) {
+		 
+		 return sqlSession.selectList("project.healingcamp.mapper.reserveMapper.reslist",vo);
+	 }
+	 
 }

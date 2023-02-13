@@ -150,4 +150,14 @@
   				where a.cnoidx = #{cnoidx} limit 0,1;
   			]]>
   		</select>
+  		
+  		<select id="reslist" parameterType="reserveVO" resultType="reserveVO">
+  			<![CDATA[
+  				select  couns
+  					   ,concat(resdate," ",left(restime,5)) as start 
+  					   ,concat(resdate," ",substring(restime, 9, 5)) as end
+				from reservationtable
+				where center=#{centername};
+  			]]>
+  		</select>
   </mapper>

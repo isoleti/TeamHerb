@@ -20,5 +20,6 @@ public interface ReserveService {
 	ReserveVO conidx(ReserveVO vo);
 	//센터정보 PK 조회
 	ReserveVO cintidx(ReserveVO vo);
-	
+	//예약정보 조회
+	List <ReserveVO> reslist(ReserveVO vo);
 }

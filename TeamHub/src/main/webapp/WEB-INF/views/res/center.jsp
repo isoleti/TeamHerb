@@ -5,6 +5,7 @@
 <%@ page session="true" %>
 <%@ page import="project.healingcamp.vo.ReserveVO" %>
 <%List<ReserveVO> centerlist = (List<ReserveVO>)request.getAttribute("centerlist");  %>
+<%List<ReserveVO> reslist = (List<ReserveVO>)request.getAttribute("reslist");  %>
 <!DOCTYPE html>
 <html lang="ko" style="--vh:5.02px;">
 <head>
@@ -21,6 +22,7 @@
         main h1{margin-left:15%; margin-bottom:2%;}
         main h2{margin-left:15%; margin-bottom:2%;}
         main #cp{width:50%; height:400px; margin-left:13%; display:inline-block; margin-bottom:3%;}
+        main #cp img{width:75%;}
         main #res{width:30%; height:100%; display:inline-block; background-color: azure; position:absolute; right:5%;}
         main #res p{margin-top:5%; margin-left:10%; display:inline-block;}
         main #res #res1{margin-top:25%; margin-left:15%;}
@@ -49,16 +51,19 @@
     <script src="<%=request.getContextPath()%>/resources/js/index.global.js"></script> 
 	<script>	
 	      document.addEventListener('DOMContentLoaded', function() {
-	    	  
+	    	var name= document.getElementById("cn").innerHTML;
+	    	
 	        var calendarEl = document.getElementById('calendar');
 	        var calendar = new FullCalendar.Calendar(calendarEl, {
-	            initialView: 'timeGridWeek',
-	            slotDuration: '03:00:00',	
+	            initialView: 'dayGridMonth',
+	            slotDuration: '03:00:00',
+	            minTime: '09:00:00',
+	            maxTime: '21:00:00',	
 	            headerToolbar:{
 	                start: "",
 	                center: "title",
 	                end: "timeGridWeek dayGridDay",
-	            },  
+	            }, 
 	            titleFormat : function(date) { // title 설정
 	            	  return date.date.year +"년 "+(date.date.month +1)+"월"; 
 	            	  }, 
@@ -66,17 +71,46 @@
 	            	  let weekList = ["일", "월", "화", "수", "목", "금", "토"];
 	            	  return weekList[date.dow];
 	            		},
-	            navLinks: true,
+	            navLinks: true,  // can click day/week names to navigate views
 	            selectable: true,
 	            selectMirror: true,	    
-	            allDaySlot: false, // allDay 표시 안함	
+	            allDaySlot: false, // allDay 표시 안함
+	            
+	         
+	            droppable : true,
+	        	editable : true,
+	        	events : [
+	                    <%if (reslist != null) {%>
+	                    <%for (ReserveVO vo : reslist) {%>
+	                    	{
+	                    	title : '<%=vo.getCouns() %>',
+	                        start : '<%=vo.getStart() %>',
+	                        end : '<%=vo.getEnd() %>',
+	                        color : '#' + Math.round(Math.random() * 0xffffff).toString(16)
+	                     	},
+	        			<%}
+	        			}%>
+	        				]
+	        				
+	        			
 	          });
 	        calendar.render();
 	      });
 		function respage(){
 			alert("로그인 후 사용하세요");
 		}
-		
+		function admin(){
+			alert("페이지 관리 잘 부탁드립니다.");
+		}
+		function couns(){
+			alert("좋은 상담해주세요.");
+		}
+		function nextpage(){
+			var fm = document.frm;
+			
+			fm.action= "<%=request.getContextPath()%>/res/respage.do"
+			fm.submit();
+		}
 	</script>
 </head>
 <body>
@@ -113,9 +147,9 @@
         </nav> <!-- fin 상단 네비게이션 -->
     </header> <!--fin header-->
     <main>
-        <h1>${reserveVO.centername}</h1>
+        <h1 id="cn">${reserveVO.centername}</h1>
         <div id="cp"> <!--기관 사진-->
-            <img src="" alt="">
+            <img src="<%=request.getContextPath()%>/resources/images/상담소.jpg" alt="상담소 이미지">
         </div>
         <div id="res"><!-- 예약 및 일정-->   
             <p></p><br>   
@@ -125,8 +159,14 @@
             <c:if test = "${login == null}"> 
             	<button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button>
             </c:if>
-            <c:if test = "${login != null}"> 
-            	<button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button>
+            <c:if test = "${login.usertype eq 'u'}"> 
+            	<button class="btn btn-outline-success" onclick="nextpage()">예약하기</button>
+            </c:if>
+            <c:if test = "${login.usertype eq 'a'}"> 
+            	<button class="btn btn-outline-success" onclick="admin()">예약하기</button>
+            </c:if>
+            <c:if test = "${login.usertype eq 'c'}"> 
+            	<button class="btn btn-outline-success" onclick="couns()">예약하기</button>
             </c:if>
             <div class="cal"> <!--상담사 상담 일정-->
                 <div id='calendar'></div>
@@ -136,26 +176,48 @@
                 <table class="table table-striped">
                 <c:if test="${not empty reserve.con1}">
                     <tr><th>${reserve.con1 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>
-                </c:if>   
-                <c:if test="${not empty reserve.con2}">                 
-                    <tr><th>${reserve.con2 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
-                </c:if>
-                <c:if test="${not empty reserve.con3}">    
-                    <tr><th>${reserve.con3 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
                 </c:if>
                 </table>
             </c:if>    
-            <c:if test = "${login != null}">
+            <c:if test = "${login.usertype eq 'u'}">
             	   
                 <table class="table table-striped">
                 	<c:if test="${not empty reserve.con1}">
-                    <tr><th>${reserve.con1 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>                    
+                    <tr><th>${reserve.con1 }</th><td><button class="btn btn-outline-success" onclick="nextpage()">예약하기</button></td></tr>                    
                     </c:if>
                      <c:if test="${not empty reserve.con2}">
-                    <tr><th>${reserve.con2 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>                    
+                    <tr><th>${reserve.con2 }</th><td><button class="btn btn-outline-success" onclick="nextpage()">예약하기</button></td></tr>                    
                     </c:if>
                     <c:if test="${not empty reserve.con3}">
-                    <tr><th>${reserve.con3 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>                    
+                    <tr><th>${reserve.con3 }</th><td><button class="btn btn-outline-success" onclick="nextpage()">예약하기</button></td></tr>                    
+                    </c:if>
+                </table>              
+            </c:if>
+            <c:if test = "${login.usertype eq 'a'}">
+            	   
+                <table class="table table-striped">
+                	<c:if test="${not empty reserve.con1}">
+                    <tr><th>${reserve.con1 }</th><td><button class="btn btn-outline-success" onclick="admin()">예약하기</button></td></tr>                    
+                    </c:if>
+                     <c:if test="${not empty reserve.con2}">
+                    <tr><th>${reserve.con2 }</th><td><button class="btn btn-outline-success" onclick="admin()">예약하기</button></td></tr>                    
+                    </c:if>
+                    <c:if test="${not empty reserve.con3}">
+                    <tr><th>${reserve.con3 }</th><td><button class="btn btn-outline-success" onclick="admin()">예약하기</button></td></tr>                    
+                    </c:if>
+                </table>              
+            </c:if>
+            <c:if test = "${login.usertype eq 'c'}">
+            	   
+                <table class="table table-striped">
+                	<c:if test="${not empty reserve.con1}">
+                    <tr><th>${reserve.con1 }</th><td><button class="btn btn-outline-success" onclick="couns()">예약하기</button></td></tr>                    
+                    </c:if>
+                     <c:if test="${not empty reserve.con2}">
+                    <tr><th>${reserve.con2 }</th><td><button class="btn btn-outline-success" onclick="couns()">예약하기</button></td></tr>                    
+                    </c:if>
+                    <c:if test="${not empty reserve.con3}">
+                    <tr><th>${reserve.con3 }</th><td><button class="btn btn-outline-success" onclick="couns()">예약하기</button></td></tr>                    
                     </c:if>
                 </table>              
             </c:if>
@@ -294,7 +356,11 @@
 				        infowindow.open(map, marker);
 				    });
 				}
-			</script>		
+			</script>
+			<form name="frm" method="post">
+				<input type="text" name="centername" value="${reserveVO.centername }">
+				<input type="text" name="cnoidx" value="${reserveVO.cnoidx }">
+			</form>		
     </main>
     <footer> <!-- footer -->
         <div id="bottom">   
