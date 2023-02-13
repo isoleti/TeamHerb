@@ -30,7 +30,9 @@
 			 data : {"residx" : resval},
 			 success:function(data){	
 				
-				 return "redirect:counspageRes.do";
+				 alert("예약을 수락하였습니다.");
+				 location.href = "<%=request.getContextPath() %>/page/counspageRes.do"
+				 
 			}
 		 
 		});
