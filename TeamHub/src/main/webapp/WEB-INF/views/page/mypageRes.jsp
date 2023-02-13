@@ -166,7 +166,7 @@
                     <button>취소</button>                    
                     </c:if>
                     <c:if test = "${reslist.resposition eq '예약취소'}">
-                    <button type="button" id="cancle" style="width:60px;">취소됨</button>                    
+                    	취소됨
                     </c:if>
                     </td>
                 </tr>

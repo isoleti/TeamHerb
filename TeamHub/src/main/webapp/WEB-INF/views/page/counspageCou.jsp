@@ -3,7 +3,10 @@
         <%@ page import="java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="project.healingcamp.vo.UserVo" %>
+<%@ page import="project.healingcamp.vo.ReserveVO" %>
 <%@ page session="true" %>
+
+<% List<ReserveVO> councou_list = (List<ReserveVO>)request.getAttribute("councou_list"); %>     
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +19,7 @@
  <style>
        
 
-          main{margin:0 auto;  width:1160px; }
+          main{margin:0 auto;  width:1160px; position: relative; }
         main h2{font-size:22px; margin:80px 250px; }
         .bar{width:280px; height:700px; display:inline-block; border:1px solid #e4e4e4; 
                 text-align:center; padding-top: 30px; position: relative; 
@@ -32,8 +35,8 @@
         .btn1{ height:50px; font-size:18px;  margin:30px 0;font-weight:bold;}
         
         .btn2{height:35px; font-size:15px; border-radius:5px;  margin-top:20px;}
-        .content{display:inline-block; position: relative; top:80px; left:50px; }
-        .content a{ font-size:20px; 
+        .content{display:inline-block; position: absolute; top:80px; left:350px; }
+        .content a{ font-size:20px; margin-bottom:30px;
             display:block; margin-top:20px;}
         .content a:nth-child(3){display:inline-block;}
         .content button{margin-top:20px; border:1px solid #e4e4e4; width:100px; height:30px; 
@@ -45,7 +48,8 @@
         #sb {display:inline-block;}
         #sb button{background:#0ed145; color:white; margin-left:100px;}
 
-        #tb table{border:1px solid #dff6e1; width:800px; height:200px; text-align:center;}
+        #tb table{border:1px solid #dff6e1; width:800px; text-align:center;}
+        #tb td{height:50px;}
         #tb tr:nth-child(1){font-weight: bold;}
         #tb td:nth-child(5){padding:0;}
         #tb tr:nth-child(2n){background-color:#dff6e1;}
@@ -105,14 +109,14 @@
             </div><!--//.bar-->
         <div class="content">
             <a class="p">상담 내역</a>
-            <a class="p">상담 기간</a>
+         <!--    <a class="p">상담 기간</a>
             <button class="btn3">1개월</button>
             <button class="btn3">3개월</button>
             <button class="btn3">6개월</button>
             <p>기간 입력</p>
             <input type="date" name="date1" id="date1" >
             <p>~</p>
-            <input type="date" name="date2" id="date2" >
+            <input type="date" name="date2" id="date2" > -->
 
             <div id="tb">
             <table border="1">
@@ -121,45 +125,22 @@
                     <td>내담자</td>
                     <td>상담 일시</td>
                     <td>상담/검사</td>
-                    <td>후기</td>
-                </tr>
-                <tr>
-                    <td>상담 번호</td>
-                    <td>내담자</td>
-                    <td>상담 일시</td>
-                    <td>상담/검사</td>
-                    <td><button>상담 후기</button></td>
-                </tr>
-                <tr>
-                    <td>상담 번호</td>
-                    <td>내담자</td>
-                    <td>상담 일시</td>
-                    <td>상담/검사</td>
-                    <td><button>상담 후기</button></td>
-                </tr>
-                <tr>
-                    <td>상담 번호</td>
-                    <td>내담자</td>
-                    <td>상담 일시</td>
-                    <td>상담/검사</td>
-                    <td><button>상담 후기</button></td>
-                </tr>
-                <tr>
-                    <td>상담 번호</td>
-                    <td>내담자</td>
-                    <td>상담 일시</td>
-                    <td>상담/검사</td>
-                    <td><button>상담 후기</button></td>
-                </tr>
-                <tr>
-                    <td>상담 번호</td>
-                    <td>내담자</td>
-                    <td>상담 일시</td>
-                    <td>상담/검사</td>
-                    <td><button>상담 후기</button></td>
+                  <!--   <td>후기</td> -->
                 </tr>
                 
-
+                <c:forEach items="${councou_list}" var="councou_list">
+                
+                <tr>
+                 <input type="hidden" name="residx" value="${councou_list.residx}">
+                 <input type="hidden" name="uidx" value="${councou_list.uidx}">
+                <input type="hidden" name="conidx" value="${councou_list.conidx}">
+                    <td>${councou_list.residx}</td>
+                    <td>${councou_list.id}</td>
+                    <td>${councou_list.resdate.substring(0,10)}</td>
+                    <td>${councou_list.counseling}</td>
+                   <!--  <td><button>상담 후기</button></td> -->
+                </tr>
+                </c:forEach>
             </table>
              
     </div><!--#tb-->
@@ -167,19 +148,29 @@
     <div id="navi">
     <nav aria-label="Page navigation example">
         <ul class="pagination">
+        <!-- Prev 시작 -->
+          <c:if test="${mypageMaker.prev}"> <!--  -->
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
+            <a class="page-link" href="<%=request.getContextPath() %>/page/counspageCou.do?page=${(mypageMaker.startPage-1)}&perPageNum=${mypageMaker.perPageNum}" aria-label="Prev">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          </c:if>
+          <!-- Prev 끝 -->
+          <!-- Page번호 시작 -->
+           <c:forEach begin="${mypageMaker.startPage }" end="${mypageMaker.endPage}" var="index">
+          <li class="page-item"><a class="page-link <c:if test='${mypageMaker.page eq index }'>active</c:if>" href="<%=request.getContextPath() %>/page/counspageCou.do?page=${index}">${index}</a></li>
+          </c:forEach>
+         <!-- Page번호 끝 -->
+         <!-- Next 시작 -->
+          <c:if test="${mypageMaker.next}">
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
+            <a class="page-link" href="<%=request.getContextPath() %>/page/counspageCou.do?page=${(mypageMaker.endPage+1)}&perPageNum=${mypageMaker.perPageNum}" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
+          </c:if>	
+          <!-- Next 끝 -->
         </ul>
       </nav>
 

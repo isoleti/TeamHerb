@@ -98,5 +98,19 @@ public class PageServiceImpl implements PageService{
 	}
 
 
+	@Override
+	public List<ReserveVO> councou_list(MyRCriteria rcri) {
+		
+		return pageDao.councou_list(rcri);
+	}
+
+
+	@Override
+	public int councou_total(MyRCriteria rcri) {
+		
+		return pageDao.councou_total(rcri);
+	}
+
+
 
 }

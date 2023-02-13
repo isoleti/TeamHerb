@@ -63,7 +63,7 @@
  </script>
 <style>
        
-          main{margin:0 auto;  width:1160px; }
+          main{margin:0 auto;  width:1160px; position: relative;}
         main h2{font-size:22px; margin:80px 250px; }
         .bar{width:280px; height:700px; display:inline-block; border:1px solid #e4e4e4; 
                 text-align:center; padding-top: 30px; position: relative;
@@ -80,7 +80,7 @@
         .btn1{ height:50px; font-size:18px;  margin:30px 0;font-weight:bold;}
         
         .btn2{height:35px; font-size:15px; border-radius:5px;  margin-top:20px;}
-        .content{display:inline-block; position: relative; top:0px; left:50px; }
+        .content{display:inline-block; position: absolute; top:100px; left:350px; }
         .content a{ font-size:20px; 
             display:block; margin-top:20px;}
         .content a:nth-child(3){display:inline-block;}
@@ -94,7 +94,7 @@
         #sb button{background:#0ed145; color:white; margin-left:100px;}
 		
 		
-        #tb table{border:1px solid #dff6e1; width:800px; height:200px; text-align:center;}
+        #tb table{border:1px solid #dff6e1; width:800px; text-align:center;}
         #tb tr:nth-child(1){font-weight: bold;}
         #tb tr:nth-child(2n){background-color:#dff6e1;}
          td{height:50px;}

@@ -85,7 +85,7 @@
          where residx=#{residx}
         
    </update>
-	<!-- 마이페이지 상담 예약 목록 -->
+	<!-- 마이페이지 상담 목록 -->
    <select id="counslist" resultType="reserveVO" parameterType="myrCriteria">
 	<![CDATA[
 	
@@ -164,4 +164,41 @@
          where residx=#{residx}
         
    </update>
+   <!-- 상담사페이지 상담 목록 -->
+   <select id="councou_list" resultType="reserveVO" parameterType="myrCriteria">
+	<![CDATA[
+		select a.residx
+				,a.id
+				,a.resdate
+				,a.conidx
+				,a.counseling
+				,a.resposition
+				,b.uidx
+		from 
+			reservationtable a
+		LEFT JOIN
+			counselortable b
+		on
+			a.conidx = b.conidx 
+		where b.uidx=#{uidx} and rescancle='N' and resposition='예약완료'
+		order by residx desc	
+			limit #{rowStart}, 7 
+	
+	]]>
+	</select>
+	
+	  <!--마이페이지 상담 수 조회  -->
+    <select id="councou_total" resultType="int" parameterType="myrCriteria">
+    	  select count(*) 
+	    	from 
+	    	reservationtable a
+			LEFT JOIN
+			counselortable b
+			on
+			a.conidx = b.conidx 
+			where b.uidx=#{uidx} and rescancle='N' and resposition='예약완료'
+		order by residx desc	
+	
+    </select>
+	
   </mapper>
