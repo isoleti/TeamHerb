@@ -195,7 +195,8 @@
    <!--회원탈퇴 -->
    <update id="userDelete" parameterType="userVo">
       update usertable
-         set delyn = 'Y'
+         set delyn = 'Y' , bdate = now()
+         
          where pw =#{pw}
          and id =#{id}
          and uidx=#{uidx}

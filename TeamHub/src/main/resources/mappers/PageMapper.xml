@@ -10,7 +10,7 @@
   		select pw
   			from usertable
   			where pw=#{pw}
- 
+ 			and uidx=#{uidx}
   	</select>
   <!-- 마이페이지 나의 글쓰기 목록 -->
    <select id="list" resultType="cboardVO" parameterType="myCriteria">
