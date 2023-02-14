@@ -72,9 +72,10 @@
 					<form id="view_form" actoion="customerNotice.do"> 
 					<div class="notice_place">	
 						<input type="checkbox" id="answer01" name="board_type" value="2">
-        				 	 <c:forEach items="${data}" var="list" varStatus="status">
-	        				 	  <div class="accordion" id="accordionExample">
-						                <div class="accordion-item">
+        				 	 <c:forEach items="${data}" var="list" varStatus="status" >
+        				 	 	
+	        				 	  <div class="accordion" id="accordionExample" >
+						                <div class="accordion-item" >
 							                  	<h2 class="accordion-header" id="headingOne">
 							                  		
 								                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${status.index}" aria-expanded="true" aria-controls="collapseOne">
@@ -92,6 +93,7 @@
 					                	</div>
 
 					               </div><!-- accordion -->
+					             
 				               </c:forEach> 	
 						</form>
 						
@@ -150,7 +152,8 @@
 		h1,h2,h3{
 			margin:0
 		}
-		
+		main{position:relative;
+			height:1000px;}
 		main .main_wrap{
 			
 			width:inherit;	
@@ -212,7 +215,7 @@
 			
 			width:100%;
 			height:100%;
-
+			position:relative;
 		}
 		h2{
 			font-size:27px;
