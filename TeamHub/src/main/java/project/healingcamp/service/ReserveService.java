@@ -20,8 +20,10 @@ public interface ReserveService {
 	ReserveVO conidx(ReserveVO vo);
 	//센터정보 PK 조회
 	ReserveVO cintidx(ReserveVO vo);
-	//예약정보 조회
+	//예약List 조회
 	List <ReserveVO> reslist(ReserveVO vo);
 	//후기 리스트 조회
 	List <ReserveVO> reviewlist(ReserveVO vo);
+	//예약된 값 확인
+	ReserveVO rescheck(ReserveVO vo);
 }

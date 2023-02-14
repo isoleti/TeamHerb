@@ -58,6 +58,16 @@ public class ReserveController {
 					
 		return reserveVO;
 	}	
+	//상담유무체크
+	@ResponseBody
+	@RequestMapping(value="/rescheck.do", method = RequestMethod.GET)
+	public ReserveVO rescheck(ReserveVO vo) {
+		
+		ReserveVO rescheck = reserveService.rescheck(vo);
+		
+		return rescheck;
+	}
+	
 	
 	//상담기관
 	@RequestMapping(value = "/center.do", method = RequestMethod.POST)
@@ -93,7 +103,7 @@ public class ReserveController {
 		List<ReserveVO> reslist =  reserveService.reslist(vo);
 		//System.out.println("centerlist :"+centerlist);
 		//System.out.println("reserveVO :"+reserveVO);
-				
+		
 		//데이터를 모델에 담아 화면에 넘김
 		model.addAttribute("centerlist",centerlist);
 		model.addAttribute("reserveVO",reserveVO);
@@ -114,12 +124,12 @@ public class ReserveController {
 		List<ReserveVO> reslist =  reserveService.reslist(vo);
 		//System.out.println("centerlist :"+centerlist);
 		//System.out.println("reserveVO :"+reserveVO);
-						
+				
 		//데이터를 모델에 담아 화면에 넘김
 		model.addAttribute("centerlist",centerlist);
 		model.addAttribute("reserveVO",reserveVO);
 		model.addAttribute("reserve",reserve);
-		model.addAttribute("reslist", reslist);
+		model.addAttribute("reslist", reslist);					
 				
 		return "res/respage";
 	}

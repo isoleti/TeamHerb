@@ -254,6 +254,7 @@
 		   var co  = document.querySelector("#couns").value;
 		   var cou = document.querySelector("#counseling").value;
 		   var ct = document.querySelector("#rescount").value;
+		   var cen = document.querySelector("#center").value;
 		   Number(ct);
 		   
 		   
@@ -302,12 +303,12 @@
 		           buyer_name : '${login.id}',
 		           buyer_tel : '${login.phone}'
 		       }, function (rsp) { // callback
-		    	     
+			    	 
 		             if (rsp.success) {
 		            	 
 		            	// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
 		                 // jQuery로 HTTP 요청
-		                 jQuery.ajax({
+		                 $.ajax({
 		                   url: "<%=request.getContextPath() %>/res/countf.do", //가맹점 서버 
 		                   method: "POST",
 		                   headers: { "Content-Type": "application/json" },
@@ -317,7 +318,7 @@
 		                     
 		                   }
 		                 }).done(function (data) {		                	
-		                   // 가맹점 서버 결제 API 성공시 로직	
+		                   // 가맹점 서버 결제 API 성공시 로직
 		                 })
 		               } else {
 		                 alert("결제에 실패하였습니다. " + rsp.error_msg);

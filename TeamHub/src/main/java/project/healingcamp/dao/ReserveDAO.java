@@ -63,4 +63,10 @@ public class ReserveDAO {
 		 
 		 return sqlSession.selectList("project.healingcamp.mapper.reserveMapper.reviewlist",vo);
 	 }
+	 
+	 public ReserveVO rescheck(ReserveVO vo) {
+		 
+		 return sqlSession.selectOne("project.healingcamp.mapper.reserveMapper.rescheck",vo);
+	 }
+	 
 }

@@ -69,6 +69,14 @@ public class ReserveServiceImpl implements ReserveService{
 		
 		return reserveDAO.reviewlist(vo);
 	}
+
+	@Override
+	public ReserveVO rescheck(ReserveVO vo) {
+		
+		return reserveDAO.rescheck(vo);
+	}
+
+	
 	
 	
 	

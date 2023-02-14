@@ -50,6 +50,8 @@ public class ReserveVO {
 	private int ridx;
 	private String rcontent; //후기 내용
 	
+	private int count; //예약개수 확인
+	
 	
 	
 	public String getCounseling() {
@@ -300,6 +302,12 @@ public class ReserveVO {
 	}
 	public void setRcontent(String rcontent) {
 		this.rcontent = rcontent;
+	}	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
 	}
 	
 	@Override
@@ -313,7 +321,7 @@ public class ReserveVO {
 				+ certi3 + ", certi4=" + certi4 + ", article1=" + article1 + ", article2=" + article2 + ", article3="
 				+ article3 + ", article4=" + article4 + ", cintidx=" + cintidx + ", con1=" + con1 + ", con2=" + con2
 				+ ", con3=" + con3 + ", price1=" + price1 + ", price2=" + price2 + ", price3=" + price3 + ", start="
-				+ start + ", end=" + end + ", ridx=" + ridx + ", rcontent=" + rcontent + "]";
+				+ start + ", end=" + end + ", ridx=" + ridx + ", rcontent=" + rcontent + ", count=" + count + "]";
 	}
 	
 

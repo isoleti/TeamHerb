@@ -171,4 +171,12 @@
   				order by a.ridx desc limit 0,3;
   			]]>
   		</select>
+  		
+  		<select id="rescheck" parameterType="reserveVO" resultType="reserveVO">
+  			<![CDATA[
+  				select count(resdate) as count
+  				from reservationtable
+  				where center = #{center} and resdate = #{resdate}  and restime = #{restime} and rescancle = 'N';
+  			]]>
+  		</select>
   </mapper>
