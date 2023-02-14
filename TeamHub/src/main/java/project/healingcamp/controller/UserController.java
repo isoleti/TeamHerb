@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import project.healingcamp.service.UserService;
 import project.healingcamp.service.UserSha256;
+import project.healingcamp.vo.ReserveVO;
 import project.healingcamp.vo.UserVo;
 
 @RequestMapping("/user")
@@ -217,11 +218,7 @@ public class UserController {
 	
 	//상담사회원가입
 	@RequestMapping(value="/joinCounselor.do", method=RequestMethod.POST)
-	public String joinCoun(UserVo vo, Model model, HttpServletRequest request,
-			MultipartHttpServletRequest mpRequest)throws Exception  {
-		
-		
-		
+	public String joinCoun(UserVo vo, Model model, HttpServletRequest request,ReserveVO reserveVO, MultipartHttpServletRequest mpRequest)throws Exception  {
 		//암호확인
 		System.out.println("첫번째"+vo.getPw());
 				
@@ -233,7 +230,9 @@ public class UserController {
 		System.out.println("두번째"+vo.getPw());
 		
 		
-		int joinCounVo = userService.joinCoun(vo, mpRequest );//3. 저장된 객체 그대로 데이터로 보낸다.
+		int joinCounVo = userService.joinCoun(vo, mpRequest);//3. 저장된 객체 그대로 데이터로 보낸다.
+		
+		int Coun_certiVo = userService.Coun_certi(reserveVO);
 		
 		return "user/joinComplete";
 	}

@@ -65,6 +65,18 @@ $(function(){ //회원가입페이지가 로드됐을때 function실행
 			alert("연락처를 입력하세요.");
 			return false;
 		}
+		else if(checkIdFlag && checkMailFlag && $("#center").val() == ""){
+			alert("기관명을 입력하세요.");
+			return false;
+		}
+		else if(checkIdFlag && checkMailFlag && $("#grade").val() == ""){
+			alert("학력을 입력하세요.");
+			return false;
+		}
+		else if(checkIdFlag && checkMailFlag && $("#grade").val().includes('대학교'){
+			alert("대학명이 올바르지 않습니다.");
+			return false;
+		} 
 		else if(checkIdFlag && checkMailFlag && $("#pw").val() == ""){
 			alert("비밀번호를 입력하세요.");
 			return false;
@@ -77,6 +89,8 @@ $(function(){ //회원가입페이지가 로드됐을때 function실행
 			alert("비밀번호가 일치하지 않습니다.");
 			return false;
 		}
+		
+		
 		else if(checkIdFlag && checkMailFlag && $("#agree1").is(":checked") == false){
             alert("이용 약관에 동의 하셔야 회원가입이 가능합니다.");
             return false;
@@ -295,6 +309,7 @@ $(function(){
             <a>연락처  <span>*</span><br> <input type="number" name="phone" id="phone" placeholder=" 01000000000"></a><!-- <button class="btn" type="button" onclick="requestCert()">인증요청</button><br>
             <a>인증번호  <span>*</span><br><input type="text" name="number" id="number" placeholder=" 인증번호"></a><button class="btn" type="button" onclick="checkCert()">인증하기</button> --><br>
             <a>기관명  <span>*</span><br> <input type="text" name="center" id="center" placeholder=" 기관명"></a><br>
+            <a>학력  <span>*</span><br> <input type="text" name="grade" id="grade" placeholder=" 00대학교 00학과"></a><br>
             <a>상담사 인증 파일  <span>*</span><br> <input type="file" name="file" id="picture" ></a><br>
             <a>비밀번호  <span>*</span><br> <input type="password" name="pw" id="pw" placeholder=" 비밀번호"></a><br>
             <a>비밀번호 확인  <span>*</span><br> <input type="password" name="pw2" id="pw2" placeholder=" 비밀번호 확인"></a><br>

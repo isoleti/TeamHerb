@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import project.healingcamp.dao.UserDao;
 import project.healingcamp.util.FileUtils;
+import project.healingcamp.vo.ReserveVO;
 import project.healingcamp.vo.UserVo;
 
 @Service
@@ -123,6 +124,12 @@ public class UserServiceImpl implements UserService {
 	return userDao.pwUpdate(vo);
 	}
 
+	@Override
+	public int Coun_certi(ReserveVO reserveVO) {
+		
+		return userDao.Coun_certi(reserveVO);
+	}
+	
 	
 		
 }

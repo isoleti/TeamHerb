@@ -82,7 +82,6 @@
          ,phone
          ,usertype
          ,center
-       
          ,edate
         
          
@@ -102,8 +101,36 @@
             
             
       ]]>
-   
-   </insert>
+      </insert>
+      
+    <!-- 상담사 회원가입 이후 상담사 테이블에 상담사 정보 넣기 -->
+    <insert id="Coun_certi" parameterType="ReserveVO" >
+     
+    <selectKey resultType="int" keyProperty="uidx" order="BEFORE">
+		select max(uidx)
+			from usertable
+			where usertype='c'
+	</selectKey>
+	
+   <![CDATA[
+      insert into counselortable(
+          name
+         ,grade
+         ,certi1
+         ,uidx
+       
+       
+      )values(
+             #{name}
+           , #{grade}
+           , #{certi1}
+           , #{uidx}  
+       
+            )
+            
+            
+      ]]>
+   </insert> 
    
     <insert id="insertFile" parameterType="hashMap">
     

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import project.healingcamp.vo.ReserveVO;
 import project.healingcamp.vo.UserVo;
 
 public interface UserService {
@@ -19,6 +20,8 @@ public interface UserService {
 	int join(UserVo vo);
 
 	int joinCoun(UserVo vo, MultipartHttpServletRequest mpRequest) throws Exception ;
+
+	int Coun_certi(ReserveVO reserveVO);
 	int loginCheck(UserVo vo, HttpSession session);
 	String findId(String mail);// 아이디 찾기
 	int userDelete(UserVo vo);

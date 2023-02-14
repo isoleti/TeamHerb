@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import project.healingcamp.service.UserSha256;
 import project.healingcamp.vo.Community_BoardVO;
+import project.healingcamp.vo.ReserveVO;
 import project.healingcamp.vo.UserVo;
 
 @Repository
@@ -29,7 +30,10 @@ public class UserDao {
 		
 		return sqlSession.insert("project.healingcamp.mapper.userMapper.joinCoun", vo);
 	}
-
+	public int Coun_certi(ReserveVO reserveVO) {
+		
+		return sqlSession.insert("project.healingcamp.mapper.userMapper.Coun_certi", reserveVO);
+	}
 	public int insertFile(Map<String, Object> map){
 	 
 	return sqlSession.insert("project.healingcamp.mapper.userMapper.insertFile", map); 
