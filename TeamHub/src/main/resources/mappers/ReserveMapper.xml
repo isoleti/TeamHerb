@@ -160,4 +160,15 @@
 				where center=#{centername};
   			]]>
   		</select>
+  		
+  		<select id="reviewlist" parameterType="reserveVO" resultType="reserveVO">
+  			<![CDATA[
+  				select a.ridx , a.rcontent, a.rdate, a.cnoidx 
+  				from reviewtable a
+  				inner join centertable b
+  				on a.cnoidx = b.cnoidx   
+  				where a.cnoidx = #{cnoidx}
+  				order by a.ridx desc limit 0,3;
+  			]]>
+  		</select>
   </mapper>

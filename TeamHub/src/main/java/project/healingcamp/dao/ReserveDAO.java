@@ -58,4 +58,9 @@ public class ReserveDAO {
 		 return sqlSession.selectList("project.healingcamp.mapper.reserveMapper.reslist",vo);
 	 }
 	 
+	 //후기리스트
+	 public List reviewlist(ReserveVO vo) {
+		 
+		 return sqlSession.selectList("project.healingcamp.mapper.reserveMapper.reviewlist",vo);
+	 }
 }

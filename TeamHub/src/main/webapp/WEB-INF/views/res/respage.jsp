@@ -24,7 +24,7 @@
        
         main #resS{width:50%; height:75px; margin:0; margin-left:13%;  margin-bottom:4%; border:2px solid #000; border-radius:15px;}
         main #resS div{display:inline-block; margin-left:10%; margin-top:1.75%; font-size:20px;}
-        main #resS #s1{margin-left:5%;}
+        main #resS #s1{margin-left:5%; font-weight:bold;}
         main #resS #s1,
         main #resS #s2{margin-right:15%;}
         
@@ -493,7 +493,12 @@
 	var date = document.getElementsByName("resdate");
 	var count = document.getElementsByName("rescount");
 	
+	var s11 = document.getElementById("s1");
+	var s22 = document.getElementById("s2");
+	var s33 = document.getElementById("s3");
+	
 	var con = document.getElementById("conidx");
+		
 	
 	function click11(obj){
 	
@@ -516,6 +521,10 @@
 		$(obj).parent().html("<button class='btn btn-outline-success' onclick='fix11(this)'>수정</button>");	
 	
 		$(coun).attr('value',val1Text+val2Text);
+		
+		s11.style.fontWeight = "normal";
+		s22.style.fontWeight = "bold";
+		s33.style.fontWeight = "normal";
 	
 	}
 
@@ -539,6 +548,10 @@
 		$(obj).parent().html("<button class='btn btn-outline-success' onclick='fix12(this)'>수정</button>");	
 	
 		$(coun).attr('value',val1Text+val2Text);
+		
+		s11.style.fontWeight = "normal";
+		s22.style.fontWeight = "bold";
+		s33.style.fontWeight = "normal";
 	
 	}
 
@@ -562,7 +575,11 @@
 	
 		$(obj).parent().html("<button class='btn btn-outline-success' onclick='fix13(this)'>수정</button>");	
 	
-		$(coun).attr('value',val1Text+val2Text);   		
+		$(coun).attr('value',val1Text+val2Text);   
+		
+		s11.style.fontWeight = "normal";
+		s22.style.fontWeight = "bold";
+		s33.style.fontWeight = "normal";
 	
 	}
 
@@ -575,7 +592,11 @@
 		$(obj).parent().html("<button class='btn btn-outline-success' onclick='click11(this)'>선택</button>");
 	
 		$(coun).attr('value', "");
-	
+		
+		s11.style.fontWeight = "bold"
+		s22.style.fontWeight = "normal";
+		s33.style.fontWeight = "normal";
+		
 	}
 
 	function fix12(obj) {
@@ -587,6 +608,10 @@
 		$(obj).parent().html("<button class='btn btn-outline-success' onclick='click12(this)'>선택</button>");
 	
 		$(coun).attr('value', "");
+		
+		s11.style.fontWeight = "bold"
+		s22.style.fontWeight = "normal";
+		s33.style.fontWeight = "normal";
 	
 	}
 
@@ -599,6 +624,11 @@
 		$(obj).parent().html("<button class='btn btn-outline-success' onclick='click13(this)'>선택</button>");
 	
 		$(coun).attr('value', "");
+		
+		s11.style.fontWeight = "bold"
+		s22.style.fontWeight = "normal";
+		s33.style.fontWeight = "normal";
+		
 	}
 
 	function click20(obj){
@@ -639,6 +669,10 @@
 			}
 			
 		});
+		
+		s11.style.fontWeight = "normal"
+		s22.style.fontWeight = "normal";
+		s33.style.fontWeight = "bold";
 	}
 	
 	function click21(obj){    		
@@ -677,6 +711,10 @@
 			}
 			
 		});
+		
+		s11.style.fontWeight = "normal"
+		s22.style.fontWeight = "normal";
+		s33.style.fontWeight = "bold";
 	
 	}
 
@@ -718,6 +756,10 @@
 			
 		});
 		
+		s11.style.fontWeight = "normal"
+		s22.style.fontWeight = "normal";
+		s33.style.fontWeight = "bold";
+		
 	}
 
 	function fix20(obj) {
@@ -732,6 +774,10 @@
 	
 		$(counseler).attr('value', "");
 		$(count).attr('value', "");
+		
+		s11.style.fontWeight = "normal"
+		s22.style.fontWeight = "bold";
+		s33.style.fontWeight = "normal";
 	
 	}
 
@@ -745,6 +791,10 @@
 	
 		$(counseler).attr('value', "");
 		$(count).attr('value', "");
+		
+		s11.style.fontWeight = "normal"
+		s22.style.fontWeight = "bold";
+		s33.style.fontWeight = "normal";
 	
 	}
 
@@ -758,6 +808,10 @@
 	
 		$(counseler).attr('value', "");
 		$(count).attr('value', "");
+		
+		s11.style.fontWeight = "normal"
+		s22.style.fontWeight = "bold";
+		s33.style.fontWeight = "normal";
 	
 	}
 </script>    

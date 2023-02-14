@@ -6,6 +6,7 @@
 <%@ page import="project.healingcamp.vo.ReserveVO" %>
 <%List<ReserveVO> centerlist = (List<ReserveVO>)request.getAttribute("centerlist");  %>
 <%List<ReserveVO> reslist = (List<ReserveVO>)request.getAttribute("reslist");  %>
+<%List<ReserveVO> reviewlist = (List<ReserveVO>)request.getAttribute("reviewlist");  %>
 <!DOCTYPE html>
 <html lang="ko" style="--vh:5.02px;">
 <head>
@@ -36,7 +37,7 @@
         main .btn-dark{width:32.5%; margin-top:5%; margin-left:10%; margin-bottom:5%;}
         main .cou{width:50%; margin-left:13%; margin-bottom:5%;}
         main .cou p{margin-left:25%;}
-        main #cenN{width:50%; margin-left:13%; margin-bottom:5%;}
+        main #cenN{width:50%; margin-left:13%; margin-top:5%; margin-bottom:5%; font-weight:bold;}
         main #cenN div{display:inline-block;margin-left:10%; margin-right:10%; }
         main #notice p{margin-left:15%; margin-bottom:3%;}
         main #review{width:50%; margin-left:13%; margin-bottom:5%;}
@@ -55,7 +56,7 @@
 	    	
 	        var calendarEl = document.getElementById('calendar');
 	        var calendar = new FullCalendar.Calendar(calendarEl, {
-	            initialView: 'dayGridMonth',
+	            initialView: 'timeGridWeek',
 	            slotDuration: '03:00:00',
 	            minTime: '09:00:00',
 	            maxTime: '21:00:00',	
@@ -224,9 +225,8 @@
             </div><!-- fin test-->
         </div><!--예약 및 일정-->
         <div id="cenN"><!-- 센터 책갈피-->
-            <div>기관 소개</div>
-            <div>상담 후기</div>
-            <div>상담 안내</div>
+            <div><a href="#review2">상담후기</a></div>
+            <div><a href="#resInfo2">예약 안내</a></div>
         </div>
         <c:forEach items="${centerlist}" var="vo" varStatus="status">
         <h2>상담사 소개</h2>
@@ -276,16 +276,20 @@
             상담이 필요하시다면 부담 갖지 말고 상담신청해주세요.
             </p>
         </div>
-        <h2>상담 후기</h2>
+        <h2 id="review2">상담 후기</h2>
         <div id="review"><!-- 상담후기 -->
+             <c:forEach items="${reviewlist}" var="vo" varStatus="status">
             <dt>
+            	<c:if test="${not empty vo.rcontent}">
                 <dl>
-                    <p><i class="xi-user xi-2x"></i> 내담자</p>
-                    <p>상담이 섬세하고 상담사님이 친절해요.</p>
+                    <p><i class="xi-user xi-2x"></i> 익명</p>
+                    <p>${vo.rcontent }</p>
                 </dl>
+                </c:if>
             </dt>
+            </c:forEach>
         </div>
-        <h2>예약 안내</h2>
+        <h2 id="resInfo2">예약 안내</h2>
         <div id="resInfo"> <!--예약관련 아내-->
             <dt>01 예약 환불안내
                 <dl>100프로 환불 시점 및 그 이후에 관한 안내</dl>
@@ -358,8 +362,8 @@
 				}
 			</script>
 			<form name="frm" method="post">
-				<input type="text" name="centername" value="${reserveVO.centername }">
-				<input type="text" name="cnoidx" value="${reserveVO.cnoidx }">
+				<input type="hidden" name="centername" value="${reserveVO.centername }">
+				<input type="hidden" name="cnoidx" value="${reserveVO.cnoidx }">
 			</form>		
     </main>
     <footer> <!-- footer -->

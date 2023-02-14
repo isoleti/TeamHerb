@@ -63,6 +63,12 @@ public class ReserveServiceImpl implements ReserveService{
 		
 		return reserveDAO.reslist(vo);
 	}
+
+	@Override
+	public List<ReserveVO> reviewlist(ReserveVO vo) {
+		
+		return reserveDAO.reviewlist(vo);
+	}
 	
 	
 	

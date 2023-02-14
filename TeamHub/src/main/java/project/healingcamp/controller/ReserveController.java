@@ -57,18 +57,7 @@ public class ReserveController {
 			ReserveVO reserveVO = reserveService.conidx(vo);
 					
 		return reserveVO;
-	}
-	
-	//예약리스트 가져오기
-	@ResponseBody
-	@RequestMapping(value = "/reslist.do", method = RequestMethod.GET)
-	public List<ReserveVO> reslist(ReserveVO vo) {
-		
-		List<ReserveVO> reserveVO =  reserveService.reslist(vo);
-		System.out.println("list? : "+reserveVO);
-		
-		return reserveVO;
-	}
+	}	
 	
 	//상담기관
 	@RequestMapping(value = "/center.do", method = RequestMethod.POST)
@@ -79,6 +68,7 @@ public class ReserveController {
 		ReserveVO reserveVO = reserveService.cnoidx(vo);
 		ReserveVO reserve = reserveService.cintidx(vo); 
 		List<ReserveVO> reslist =  reserveService.reslist(vo);
+		List<ReserveVO> reviewlist =  reserveService.reviewlist(vo);
 		//System.out.println("centerlist :"+centerlist);
 		//System.out.println("reserveVO :"+reserveVO);
 		
@@ -87,6 +77,7 @@ public class ReserveController {
 		model.addAttribute("reserveVO",reserveVO);
 		model.addAttribute("reserve",reserve);
 		model.addAttribute("reslist", reslist);
+		model.addAttribute("reviewlist", reviewlist);
 		
 		return "res/center";
 	}

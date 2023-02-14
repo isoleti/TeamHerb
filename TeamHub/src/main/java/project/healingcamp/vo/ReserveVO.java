@@ -47,7 +47,8 @@ public class ReserveVO {
 	private String start; //상담시작
 	private String end; //상담 끝
 	
-	
+	private int ridx;
+	private String rcontent; //후기 내용
 	
 	
 	
@@ -287,6 +288,18 @@ public class ReserveVO {
 	}
 	public void setEnd(String end) {
 		this.end = end;
+	}	
+	public int getRidx() {
+		return ridx;
+	}
+	public void setRidx(int ridx) {
+		this.ridx = ridx;
+	}
+	public String getRcontent() {
+		return rcontent;
+	}
+	public void setRcontent(String rcontent) {
+		this.rcontent = rcontent;
 	}
 	
 	@Override
@@ -300,7 +313,7 @@ public class ReserveVO {
 				+ certi3 + ", certi4=" + certi4 + ", article1=" + article1 + ", article2=" + article2 + ", article3="
 				+ article3 + ", article4=" + article4 + ", cintidx=" + cintidx + ", con1=" + con1 + ", con2=" + con2
 				+ ", con3=" + con3 + ", price1=" + price1 + ", price2=" + price2 + ", price3=" + price3 + ", start="
-				+ start + ", end=" + end + "]";
+				+ start + ", end=" + end + ", ridx=" + ridx + ", rcontent=" + rcontent + "]";
 	}
 	
 
