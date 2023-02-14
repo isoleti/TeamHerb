@@ -237,13 +237,14 @@ $(function(){
 		.modal_content1, .modal_content2, .modal_content3, .modal_content4{
 		  width:600px; height:500px; padding:10px;
 		  background:#fff; border-radius:10px;
-		  position:relative; top:50%; left:50%;
+		  position:relative; top:40%; left:45%;
 		  margin-top:-100px; margin-left:-200px;
 		  text-align:center;
-		  box-sizing:border-box; padding:74px 0;
+		  box-sizing:border-box; padding:74px 30px;
 		  line-height:23px; cursor:pointer;
 		
 		}
+		.modal_content3{ height:600px;}
  </style>
 </head>
 <body>
