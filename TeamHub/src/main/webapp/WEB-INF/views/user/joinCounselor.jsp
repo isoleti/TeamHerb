@@ -69,14 +69,10 @@ $(function(){ //회원가입페이지가 로드됐을때 function실행
 			alert("기관명을 입력하세요.");
 			return false;
 		}
-		else if(checkIdFlag && checkMailFlag && $("#grade").val() == ""){
+		else if(checkIdFlag && checkMailFlag &&$("#grade").val() == ""){
 			alert("학력을 입력하세요.");
 			return false;
 		}
-		else if(checkIdFlag && checkMailFlag && $("#grade").val().includes('대학교'){
-			alert("대학명이 올바르지 않습니다.");
-			return false;
-		} 
 		else if(checkIdFlag && checkMailFlag && $("#pw").val() == ""){
 			alert("비밀번호를 입력하세요.");
 			return false;
@@ -89,8 +85,6 @@ $(function(){ //회원가입페이지가 로드됐을때 function실행
 			alert("비밀번호가 일치하지 않습니다.");
 			return false;
 		}
-		
-		
 		else if(checkIdFlag && checkMailFlag && $("#agree1").is(":checked") == false){
             alert("이용 약관에 동의 하셔야 회원가입이 가능합니다.");
             return false;
