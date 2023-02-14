@@ -212,8 +212,12 @@
 		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD",[]);
 		let content = document.getElementById("content").value ;
 		let title = $("#title").val();
+		let category = $("select[name='category']").val();
 		
-		if(title == ""){
+		if(category == "선택"){
+			alert("카테고리를 선택해주세요.");
+			return false;
+		}else if(title == ""){
 			alert("제목을 입력해주세요.");
 			return false;
 		}else if(content == "<p>&nbsp;</p>"){ 
