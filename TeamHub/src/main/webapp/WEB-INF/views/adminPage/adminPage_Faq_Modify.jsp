@@ -141,7 +141,7 @@
        <div id="form_wrapper">
         <form id="select_form">
             <div id="category_wrapper">
-                <select id="category_type">
+                <select id="category_type" name="category">
                     <option>선택</option>
                     <option>심리상담</option>
                     <option>예약/결제</option>
@@ -154,10 +154,10 @@
         <form id="write_form" action="adminPage_Faq_Modify.do" method="post">
         <input type="hidden" name="bidx" value="${cboardVO.bidx}">   
             <div id="title_wrapper">
-                <input id="title" type="text" name="title" placeholder="제목을 입력하세요." value="${cboardVO.title }">
+                <input id="title" type="text" name="title" placeholder="제목을 입력하세요." value="${cboardVO.title}">
             </div><!--e:#title_wrapper-->
             <div id="content_wrapper">
-                <textarea id="content" name="content">${cboardVO.content }</textarea>
+                <textarea id="content" name="content">${cboardVO.content}</textarea>
             </div><!--e:#content_wrapper-->
             <button id="writeAction_btn">수정하기</button>
         </form><!--e:#write_form-->
