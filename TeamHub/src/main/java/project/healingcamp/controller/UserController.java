@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.healingcamp.service.UserService;
@@ -160,7 +161,7 @@ public class UserController {
 	
 	//회원가입 컨트롤러
 	@RequestMapping(value="/join.do", method=RequestMethod.POST)
-	public String join(UserVo vo, Model model,HttpServletRequest request ) {
+	public String join(UserVo vo, Model model,HttpServletRequest request) {
 		
 		//암호확인
 		System.out.println("첫번째"+vo.getPw());
@@ -216,7 +217,10 @@ public class UserController {
 	
 	//상담사회원가입
 	@RequestMapping(value="/joinCounselor.do", method=RequestMethod.POST)
-	public String joinCoun(UserVo vo,Model model,HttpServletRequest request ) {
+	public String joinCoun(UserVo vo, Model model, HttpServletRequest request,
+			MultipartHttpServletRequest mpRequest)throws Exception  {
+		
+		
 		
 		//암호확인
 		System.out.println("첫번째"+vo.getPw());
@@ -228,7 +232,8 @@ public class UserController {
 				
 		System.out.println("두번째"+vo.getPw());
 		
-		int joinCounVo = userService.joinCoun(vo);//3. 저장된 객체 그대로 데이터로 보낸다.
+		
+		int joinCounVo = userService.joinCoun(vo, mpRequest );//3. 저장된 객체 그대로 데이터로 보낸다.
 		
 		return "user/joinComplete";
 	}

@@ -2,20 +2,27 @@ package project.healingcamp.service;
 
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import project.healingcamp.dao.UserDao;
+import project.healingcamp.util.FileUtils;
 import project.healingcamp.vo.UserVo;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+	@Resource(name="fileUtils")
+	private FileUtils fileUtils;
+	
 	@Autowired
 	private UserDao userDao;
 	
@@ -32,8 +39,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int joinCoun(UserVo vo) {
+	public int joinCoun(UserVo vo, MultipartHttpServletRequest mpRequest) throws Exception{
+
 		
+		  List<Map<String,Object>> list = fileUtils.parseInsertFileInfo(vo, mpRequest);
+		  int size = list.size(); for(int i=0; i<size; i++){
+		  userDao.insertFile(list.get(i)); }
+	
 		return userDao.joinCoun(vo);
 	}
 	
@@ -111,7 +123,6 @@ public class UserServiceImpl implements UserService {
 	return userDao.pwUpdate(vo);
 	}
 
-	
 	
 		
 }

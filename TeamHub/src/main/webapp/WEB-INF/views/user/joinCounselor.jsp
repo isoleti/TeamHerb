@@ -285,7 +285,7 @@ $(function(){
 
     <main>
         <h2>회원가입</h2>
-        <form id="frm" action="joinCounselor.do" method="post">
+        <form id="frm" action="joinCounselor.do" method="post" enctype="multipart/form-data">
             <div class="t">
              <input type="hidden" name="usertype" id="usertype" value="c" > 
             <a>이름 <span>*</span><br> <input type="text" name="name" id="name" placeholder=" 이름" ></a><br> 
@@ -295,7 +295,7 @@ $(function(){
             <a>연락처  <span>*</span><br> <input type="number" name="phone" id="phone" placeholder=" 01000000000"></a><!-- <button class="btn" type="button" onclick="requestCert()">인증요청</button><br>
             <a>인증번호  <span>*</span><br><input type="text" name="number" id="number" placeholder=" 인증번호"></a><button class="btn" type="button" onclick="checkCert()">인증하기</button> --><br>
             <a>기관명  <span>*</span><br> <input type="text" name="center" id="center" placeholder=" 기관명"></a><br>
-            <a>상담사 인증 파일  <span>*</span><br> <input type="file" name="picture" id="picture" ></a><br>
+            <a>상담사 인증 파일  <span>*</span><br> <input type="file" name="file" id="picture" ></a><br>
             <a>비밀번호  <span>*</span><br> <input type="password" name="pw" id="pw" placeholder=" 비밀번호"></a><br>
             <a>비밀번호 확인  <span>*</span><br> <input type="password" name="pw2" id="pw2" placeholder=" 비밀번호 확인"></a><br>
             </div>
