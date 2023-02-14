@@ -166,7 +166,7 @@
        <div id="left_nav">
             <h3>관리자 페이지</h3>
             <ul>
-                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">회원관리</a></li>
+                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do" style="font-weight:bold;">회원관리</a></li>
                 <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_List.do">상담사관리</a></li>
                 <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Community_List.do">커뮤니티관리</a></li>
                 <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_Board_List.do">상담사 게시판 관리</a></li>

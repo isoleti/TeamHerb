@@ -141,9 +141,8 @@
         border-radius:15px;
         display: inline-flex;
         padding:0 5px;
-/*         float:right; */
         align-items: center;
-        margin-bottom:10px;
+        margin:20px 0 10px 0;
         }
         .postbtn div{
         padding:2px;
@@ -173,10 +172,10 @@
                <p><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">관리자 페이지</a></p>
                </c:if>
                <c:if test = "${login.usertype eq 'u'}">
-               <p><a href="">마이 페이지</a></p>
+               <p><a href="<%= request.getContextPath() %>/page/mypageRes.do">마이 페이지</a></p>
                </c:if>
                <c:if test = "${login.usertype eq 'c'}">
-               <p><a href="">상담사 페이지</a></p>
+               <p><a href="<%= request.getContextPath() %>/page/counspageRes.do">상담사 페이지</a></p>
                </c:if>
                <p><a href="<%=request.getContextPath() %>/customerService/customerNotice.do">고객센터</a></p>
       </c:if>
@@ -361,7 +360,6 @@
 	   					var reply_Idx = result[i].reply_Idx; //댓글번호
 	   					var bidx = result[i].bidx; // 댓글이 달린  게시글 번호
 	   					var reply_Content = result[i].reply_Content.replaceAll("\r\n","<br>"); //댓글 내용
-	   					console.log("댓글내용:"+reply_Content);
 	   					var writer = result[i].id //댓글 작성자
 	   					var rdepth = result[i].rdepth //댓글깊이
 	   					var rparent = result[i].rparent;
@@ -462,23 +460,20 @@
 
    		//댓글 수정창띄우기
 		function commentModify(reply_Idx,reply_Content,writer){
-// 			 var reply_Content = reply_Content.split("<br>").join("\r\n");
-			 var reply_Content = reply_Content.replaceAll("<br>","\r\n");
-// 			 var reply_ContentW = reply_Content.replaceAll("\r\n","<br>");
-				var comment = ""
-					comment +="<div class='reply_info_wrapper' >";
-					comment +=	"<ul class='reply_info'>";
-					comment +=		"<li class='id'>"+writer+"</li>";
-// 					comment +=		"<li class='commentModify' onclick='updateBtn("+reply_Idx+",\""+reply_ContentW+"\");'>댓글수정</li>";
-					comment +=		"<li class='commentModify' onclick='updateBtn("+reply_Idx+");'>댓글수정</li>";
-					comment +=		"<li class='cancel' onclick='getCommentList();'>취소</li>";//취소버튼 클릭시 댓글 목록리스트 함수 실행
-					comment +=	"</ul>";
-					comment +="</div>";
-					comment +="<div class='reply_view_wrapper'>";
-					comment +=	"<textarea id='reply_Edit_Content' name='reply_Content' style='width:100%;'>"+reply_Content+"</textarea>";
-					comment +="</div>";
+			var reply_Content = reply_Content.replaceAll("<br>","\r\n");
+			var comment = ""
+				comment +="<div class='reply_info_wrapper' >";
+				comment +=	"<ul class='reply_info'>";
+				comment +=		"<li class='id'>"+writer+"</li>";
+				comment +=		"<li class='commentModify' onclick='updateBtn("+reply_Idx+");'>댓글수정</li>";
+				comment +=		"<li class='cancel' onclick='getCommentList();'>취소</li>";//취소버튼 클릭시 댓글 목록리스트 함수 실행
+				comment +=	"</ul>";
+				comment +="</div>";
+				comment +="<div class='reply_view_wrapper'>";
+				comment +=	"<textarea id='reply_Edit_Content' name='reply_Content' style='width:100%;'>"+reply_Content+"</textarea>";
+				comment +="</div>";
 
-					$(".reply_box_wrapper"+reply_Idx).replaceWith(comment);
+				$(".reply_box_wrapper"+reply_Idx).replaceWith(comment);
 					
 // 				var comment_tl = `<div class='reply_info_wrapper' >
 // 	<ul class='reply_info'>
@@ -535,12 +530,9 @@
 
 
    		//댓글 수정
-//    		function updateBtn(reply_Idx,reply_ContentW){
    		function updateBtn(reply_Idx){
-//    			console.log("댓글수정내용:"+reply_ContentW)
    			var reply_Content = $("textarea[name='reply_Content']").val(); //수정된 댓글 내용
-   			var reply_ContentW = reply_Content.replaceAll("\r\n","<br>");
-   			console.log("수정댓글:"+reply_Content);
+   			var reply_ContentW = reply_Content.replace(/(?:\r\n|\r|\n)/g, '<br>');
    			if(reply_ContentW == ""){
    				alert("내용을 입력해주세요.");
    			}else{

@@ -179,7 +179,7 @@
 	                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Community_List.do">커뮤니티관리</a></li>
 	                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_Board_List.do">상담사 게시판 관리</a></li>
 	                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Notice_List.do">공지사항 관리</a></li>
-	                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Faq_List.do">FAQ 관리</a></li>
+	                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Faq_List.do" style="font-weight:bold;">FAQ 관리</a></li>
 				</ul>
 			</div><!--e:#left_nav-->
 	       
