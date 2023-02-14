@@ -16,7 +16,7 @@ import project.healingcamp.vo.UserVo;
 
 @Component("fileUtils")
 public class FileUtils {
-	private static final String filePath = "/TeamHub/src/main/webapp/WEB-INF/views/file/"; // 파일이 저장될 위치
+	private static final String filePath = "C:\\Users\\763\\git\\TeamHerb\\TeamHub\\src\\main\\webapp\\WEB-INF\\views\\file\\"; // 파일이 저장될 위치
 	
 	public List<Map<String, Object>> parseInsertFileInfo(UserVo vo, 
 			MultipartHttpServletRequest mpRequest) throws Exception{
