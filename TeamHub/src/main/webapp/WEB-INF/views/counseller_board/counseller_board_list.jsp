@@ -114,7 +114,7 @@
     text-decoration:none;
     }
     .community .main .content{
-    max-height: 73px;
+    max-height: 71px;
     word-break: break-all;
     overflow: hidden;
     display: -webkit-box;
@@ -123,6 +123,17 @@
     font-size:15px;
     color:rgb(102, 102, 102);
     text-decoration:none;
+    }
+    .community .main .content a  *{
+    font-weight:normal !important;
+    font-style:normal !important;
+    font-size:15px !important;
+    font-weight:normal !important;
+    color:rgb(102, 102, 102) !important;
+    text-decoration:none !important;
+    font-family:Segoe UI !important;
+    background:white;
+    margin-bottom: unset;
     }
     .community .footer{
     display: flex;

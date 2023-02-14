@@ -68,7 +68,7 @@
         border-bottom:2px solid rgb(112,173,71);
         margin-bottom:20px;
         width:100%;
-        height:500px;
+        height:auto;
         }
         #content_wrapper #content{
         padding:10px;
@@ -76,6 +76,7 @@
         }
         #content p{
         word-break:break-all;
+        margin-bottom:unset;
         }
         .reply_box{
         border-bottom:1px solid #e5e7eb;
@@ -140,8 +141,9 @@
         border-radius:15px;
         display: inline-flex;
         padding:0 5px;
-        float:right;
+/*         float:right; */
         align-items: center;
+        margin-bottom:10px;
        }
        .postbtn div{
         padding:2px;

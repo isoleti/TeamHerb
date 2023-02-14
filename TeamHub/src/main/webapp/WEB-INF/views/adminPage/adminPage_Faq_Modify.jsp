@@ -12,6 +12,8 @@
     <title>힐링캠프</title>
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>   
     <style>
        
         main{
@@ -41,8 +43,11 @@
             height:32px;
             border-radius:5px;
         }
+        #form_wrapper{
+	        display:flex;
+	        flex-direction: column;
+        }
         #write_form_wrapper{
-            display: flex;
             margin-top:10px;
         }
         #write_form_wrapper form{
@@ -126,7 +131,7 @@
         </nav> <!-- fin 상단 네비게이션 -->
     </header> <!--fin header-->
     
-    <main>
+	<main>
        <div id="left_nav">
             <h3>관리자 페이지</h3>
             <ul>
@@ -137,32 +142,86 @@
                 <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Notice_List.do">공지사항 관리</a></li>
                 <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Faq_List.do">FAQ 관리</a></li>
             </ul>
-       </div><!--e:#left_nav-->
-       <div id="form_wrapper">
-        <form id="select_form">
-            <div id="category_wrapper">
-                <select id="category_type" name="category">
-                    <option>선택</option>
-                    <option>심리상담</option>
-                    <option>예약/결제</option>
-                    <option>기타</option>
-                </select><!--e:#category_type-->
-            </div><!--e:#category_wrapper-->
-        </form>
-    </div><!--e:#form_wrapper-->    
-       <div id="write_form_wrapper">
-        <form id="write_form" action="adminPage_Faq_Modify.do" method="post">
-        <input type="hidden" name="bidx" value="${cboardVO.bidx}">   
-            <div id="title_wrapper">
-                <input id="title" type="text" name="title" placeholder="제목을 입력하세요." value="${cboardVO.title}">
-            </div><!--e:#title_wrapper-->
-            <div id="content_wrapper">
-                <textarea id="content" name="content">${cboardVO.content}</textarea>
-            </div><!--e:#content_wrapper-->
-            <button id="writeAction_btn">수정하기</button>
-        </form><!--e:#write_form-->
-    </div><!--e:#write_form_wrapper-->
+		</div><!--e:#left_nav-->
+		<div id="form_wrapper">
+		<form id="write_form" action="adminPage_Faq_Modify.do" method="post" onsubmit="return submitPost();">
+			<div id="category_wrapper">
+				<select id="category_type" name="category">
+				<c:forEach items="categoryList" var="categoryList ">
+					<!--해당하는 카테고리 선택됨 -->
+					<option value="${cboardVO.category}" <c:if test="${categoryList == cboardVO.category}">selected</c:if>>${cboardVO.category}</option>
+				</c:forEach>
+					<option>선택</option>
+					<option>심리상담</option>
+					<option>예약/결제</option>
+					<option>기타</option>
+				</select><!--e:#category_type-->
+			</div><!--e:#category_wrapper-->
+			<div id="write_form_wrapper">
+			<input type="hidden" name="bidx" value="${cboardVO.bidx}">   
+				<div id="title_wrapper">
+					<input id="title" type="text" name="title" placeholder="제목을 입력하세요." value="${cboardVO.title}">
+				</div><!--e:#title_wrapper-->
+				<div id="content_wrapper">
+					<textarea id="content" name="content">${cboardVO.content}</textarea>
+				</div><!--e:#content_wrapper-->
+				<button id="writeAction_btn">수정하기</button>
+			</div><!--e:#write_form_wrapper-->
+		</form><!--e:#write_form-->
+		</div><!--e:#form_wrapper-->    
     </main>
+    
+     <script>
+        	let oEditors = []
+        	
+        	smartEitor = function(){
+	     		console.log("smarteditor!!");
+        		
+	        	nhn.husky.EZCreator.createInIFrame({
+	        	   oAppRef: oEditors,
+	        	   elPlaceHolder: "content",
+	        	   sSkinURI: "<%=request.getContextPath()%>/resources/smarteditor/SmartEditor2Skin.html",
+	        	   fCreator: "createSEditor2",
+	        	      htParams : {
+	        	         // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+	        	         bUseToolbar : true,
+	        	         // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+	        	         bUseVerticalResizer : false,
+	        	         // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+	        	         bUseModeChanger : true, 
+	        	      }
+	        		
+	        		});
+        	};
+        	
+        	$(document).ready(function(){
+        		smartEitor();
+        	});
+
+        	function submitPost()
+        	{ 
+        		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD",[]);
+        		let content = document.getElementById("content").value ;
+        		let title = $("#title").val();
+        		let category = $("select[name='category']").val();
+        		
+        		if(category == "선택"){
+        			alert("카테고리를 선택해주세요.");
+        			return false;
+        		}else if(title == ""){
+        			alert("제목을 입력해주세요.");
+        			return false;
+        		}else if(content == "<p>&nbsp;</p>"){ 
+        			alert("내용을 입력해주세요.");
+        			oEditors.getById["content"].exec("FOCUS");
+        			return false;
+        		}
+        		return true;
+        	}
+        
+
+        </script>
+    
     <footer>
         <div id="bottom">   
             <br> 
@@ -176,4 +235,7 @@
         </div>
     </footer>
 </body>
+
+
+
 </html>

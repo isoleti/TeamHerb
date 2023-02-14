@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.healingcamp.service.AdminService;
+import project.healingcamp.service.Community_BoardService;
 import project.healingcamp.service.UserSha256;
 import project.healingcamp.vo.Community_BoardVO;
 import project.healingcamp.vo.PageVO;
@@ -27,6 +28,9 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private Community_BoardService cboardService;
 	
 	//회원 관리페이지 이동
 	@RequestMapping(value="/adminPage_Member_List.do",method=RequestMethod.GET)
@@ -197,7 +201,11 @@ public class AdminController {
 		
 		System.out.println("bidx잘 들어왔니"+bidx);
 		Community_BoardVO cboardVO = adminService.faq_selectBybidx(bidx);
+		List<Community_BoardVO> categoryList = cboardService.categoryList();
+		
 		model.addAttribute("cboardVO", cboardVO);
+		model.addAttribute("categoryList",categoryList);
+		
 		return "adminPage/adminPage_Faq_Modify";	
 	}
 	//Faq수정 수정 됨

@@ -347,6 +347,7 @@
  			  ,wdate
  			  ,bidx
  			  ,uidx
+ 			  ,category
  		from boardtable
  		where bidx = #{bidx} and board_type = '3' AND delyn='N'
  	</select>
