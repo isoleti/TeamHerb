@@ -71,6 +71,7 @@
 			  ,mail
 			  ,edate
 			  ,uidx
+			  ,name
 		  FROM USERTABLE
    		  WHERE usertype='c'
      		AND delyn = 'N'
