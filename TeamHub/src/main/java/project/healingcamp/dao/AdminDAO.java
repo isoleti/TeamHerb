@@ -88,7 +88,16 @@ public class AdminDAO {
 	public int faq_Total(SearchVO searchVO) {
 		return sqlSession.selectOne("project.healingcamp.mapper.adminMapper.faq_Total",searchVO);
 	}
-	
+	//FAQ 조회
+		public Community_BoardVO faq_selectBybidx(int bidx) {
+			
+			return sqlSession.selectOne("project.healingcamp.mapper.adminMapper.faq_selectBybidx",bidx);	
+		}
+	//FAQ 수정
+	public int FaqUpdate_ByBidx(Community_BoardVO cboardVO) {
+		
+		return sqlSession.update("project.healingcamp.mapper.adminMapper.FaqUpdate_ByBidx",cboardVO);
+	}
 	//공지사항 조회
 	public Community_BoardVO Notice_selectBybidx(int bidx) {
 		System.out.println("공지사항 조회"+bidx);

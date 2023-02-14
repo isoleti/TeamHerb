@@ -125,5 +125,17 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.NoticeUpdate_ByBidx(cboardVO);
 	}
 
+	@Override
+	public Community_BoardVO faq_selectBybidx(int bidx) {
+		
+		return adminDAO.faq_selectBybidx(bidx);
+	}
+
+	@Override
+	public int FaqUpdate_ByBidx(Community_BoardVO cboardVO) {
+		
+		return adminDAO.FaqUpdate_ByBidx(cboardVO);
+	}
+
 	
 }

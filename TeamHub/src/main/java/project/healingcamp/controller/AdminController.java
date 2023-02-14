@@ -191,7 +191,25 @@ public class AdminController {
 		
 		return "adminPage/adminPage_Faq_List";
 	}
-	
+	//Faq수정 페이지 이동
+	@RequestMapping(value="/adminPage_Faq_Modify.do", method = RequestMethod.GET)
+	public String adminPage_Faq_Modify(int bidx, Model model) {
+		
+		System.out.println("bidx잘 들어왔니"+bidx);
+		Community_BoardVO cboardVO = adminService.faq_selectBybidx(bidx);
+		model.addAttribute("cboardVO", cboardVO);
+		return "adminPage/adminPage_Faq_Modify";	
+	}
+	//Faq수정 수정 됨
+	@RequestMapping(value="/adminPage_Faq_Modify.do", method = RequestMethod.POST)
+	public String adminPage_Faq_Modify(Community_BoardVO cboardVO) {
+		
+		System.out.println("공지사항 update 왜 안들어오니.."+cboardVO);
+		
+		adminService.FaqUpdate_ByBidx(cboardVO);
+		
+		return "redirect:adminPage_Faq_List.do?bidx=" + cboardVO.getBidx();
+	} 
 	//FAQ작성 페이지 이동
 	@RequestMapping(value="/adminPage_Faq_Write.do",method=RequestMethod.GET)
 	public String adminPage_Faq_Write() {

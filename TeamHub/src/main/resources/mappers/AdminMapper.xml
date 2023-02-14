@@ -340,7 +340,26 @@
          </if>
          
   	</select>
- 
+ <!--  FAQ 게시글 조회 -->
+ 	<select id="faq_selectBybidx" parameterType="int" resultType="cboardVO">
+ 		select title
+ 			  ,content
+ 			  ,wdate
+ 			  ,bidx
+ 			  ,uidx
+ 		from boardtable
+ 		where bidx = #{bidx} and board_type = '3' AND delyn='N'
+ 	</select>
+ 	
+ <!--  FAQ 수정 업데이트 --> 
+ 	<update id="FaqUpdate_ByBidx" parameterType="cboardVO">
+ 		update boardtable
+ 		   set title = #{title}
+ 		   	 , content = #{content}
+ 		   	 , wdate = now()
+ 		   where bidx = #{bidx} and board_type = '3' AND delyn='N'
+ 	</update>	
+ 	
  <!-- 공지사항 게시글 조회 -->
  	<select id="Notice_selectBybidx" parameterType="int" resultType="cboardVO">
  		select title

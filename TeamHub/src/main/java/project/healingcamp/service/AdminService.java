@@ -40,7 +40,8 @@ public interface AdminService {
 	//FAQ
 	List<Community_BoardVO> faq_List(SearchVO searchVO);
 	int faq_Total(SearchVO searchVO);
-	
+	Community_BoardVO faq_selectBybidx(int bidx); 
+	int FaqUpdate_ByBidx(Community_BoardVO cboardVO);
 	
 	Community_BoardVO Notice_selectBybidx(int bidx); 
 	
