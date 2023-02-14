@@ -16,11 +16,54 @@
 <link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
  <script src ="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
  <script>
-
+ function counres_check(obj) {
+			
+	 	var fm = document.getElementsByName("frm");
+	 	var res = document.getElementsByName("residx");
+	 	
+	 	var resval = res[0].value;
+	 	console.log("resval :" + resval);
+	 	$.ajax({ 		
+	 	
+			 url : "<%=request.getContextPath() %>/page/counres_check.do",
+			 type : "post",
+			 data : {"residx" : resval},
+			 success:function(data){	
+				
+				 alert("예약을 수락하였습니다.");
+				 location.href = "<%=request.getContextPath() %>/page/counspageRes.do"
+				 
+			}
+		 
+		});
+	 	
+ }
+ 
+ function counres_delete(obj) {
+		
+	 	var fm = document.getElementsByName("frm");
+	 	var res = document.getElementsByName("residx");
+	 	
+	 	var resval = res[0].value;
+	 	console.log("resval :" + resval);
+	 	$.ajax({ 		
+	 	
+			 url : "<%=request.getContextPath()%>/page/counres_delete.do",
+			 type : "post",
+			 data : {"residx" : resval},
+			 success:function(data){	
+				
+				 return "redirect:counspageRes.do";
+			}
+		 
+		});
+	 	
+}
+	
  </script>
 <style>
        
-          main{margin:0 auto;  width:1160px; }
+          main{margin:0 auto;  width:1160px; position: relative;}
         main h2{font-size:22px; margin:80px 250px; }
         .bar{width:280px; height:700px; display:inline-block; border:1px solid #e4e4e4; 
                 text-align:center; padding-top: 30px; position: relative;
@@ -37,7 +80,7 @@
         .btn1{ height:50px; font-size:18px;  margin:30px 0;font-weight:bold;}
         
         .btn2{height:35px; font-size:15px; border-radius:5px;  margin-top:20px;}
-        .content{display:inline-block; position: relative; top:0px; left:50px; }
+        .content{display:inline-block; position: absolute; top:100px; left:350px; }
         .content a{ font-size:20px; 
             display:block; margin-top:20px;}
         .content a:nth-child(3){display:inline-block;}
@@ -51,7 +94,7 @@
         #sb button{background:#0ed145; color:white; margin-left:100px;}
 		
 		
-        #tb table{border:1px solid #dff6e1; width:800px; height:200px; text-align:center;}
+        #tb table{border:1px solid #dff6e1; width:800px; text-align:center;}
         #tb tr:nth-child(1){font-weight: bold;}
         #tb tr:nth-child(2n){background-color:#dff6e1;}
          td{height:50px;}
@@ -133,7 +176,7 @@
             </a> </div><!--//#sb-->
             <div id="tb">
             <table border="1">
-            	 <form  action="counres_delete.do" method="post" >  
+            	 <form name="frm">  
             	<tr>
                     <td>예약 번호</td>
                     <td>예약자</td>
@@ -153,8 +196,8 @@
                     <td>${coun_reslist.id}</td>
                     <td>${coun_reslist.resdate.substring(0,10) }</td>
                     <td>${coun_reslist.resposition}</td>
-                    <td><button type="button">수락</button>
-                    <button>거절</button></td>
+                    <td><button type="button" onclick="counres_check(this)">수락</button>
+                    <button type="button" onclick="counres_delete(this)">거절</button></td>
                    
                 </tr>
                 </c:forEach>

@@ -5,6 +5,8 @@
 <%@ page session="true" %>
 <%@ page import="project.healingcamp.vo.ReserveVO" %>
 <%List<ReserveVO> centerlist = (List<ReserveVO>)request.getAttribute("centerlist");  %>
+<%List<ReserveVO> reslist = (List<ReserveVO>)request.getAttribute("reslist");  %>
+<%List<ReserveVO> reviewlist = (List<ReserveVO>)request.getAttribute("reviewlist");  %>
 <!DOCTYPE html>
 <html lang="ko" style="--vh:5.02px;">
 <head>
@@ -21,6 +23,7 @@
         main h1{margin-left:15%; margin-bottom:2%;}
         main h2{margin-left:15%; margin-bottom:2%;}
         main #cp{width:50%; height:400px; margin-left:13%; display:inline-block; margin-bottom:3%;}
+        main #cp img{width:75%;}
         main #res{width:30%; height:100%; display:inline-block; background-color: azure; position:absolute; right:5%;}
         main #res p{margin-top:5%; margin-left:10%; display:inline-block;}
         main #res #res1{margin-top:25%; margin-left:15%;}
@@ -34,7 +37,7 @@
         main .btn-dark{width:32.5%; margin-top:5%; margin-left:10%; margin-bottom:5%;}
         main .cou{width:50%; margin-left:13%; margin-bottom:5%;}
         main .cou p{margin-left:25%;}
-        main #cenN{width:50%; margin-left:13%; margin-bottom:5%;}
+        main #cenN{width:50%; margin-left:13%; margin-top:5%; margin-bottom:5%; font-weight:bold;}
         main #cenN div{display:inline-block;margin-left:10%; margin-right:10%; }
         main #notice p{margin-left:15%; margin-bottom:3%;}
         main #review{width:50%; margin-left:13%; margin-bottom:5%;}
@@ -49,16 +52,19 @@
     <script src="<%=request.getContextPath()%>/resources/js/index.global.js"></script> 
 	<script>	
 	      document.addEventListener('DOMContentLoaded', function() {
-	    	  
+	    	var name= document.getElementById("cn").innerHTML;
+	    	
 	        var calendarEl = document.getElementById('calendar');
 	        var calendar = new FullCalendar.Calendar(calendarEl, {
 	            initialView: 'timeGridWeek',
-	            slotDuration: '03:00:00',	
+	            slotDuration: '03:00:00',
+	            minTime: '09:00:00',
+	            maxTime: '21:00:00',	
 	            headerToolbar:{
 	                start: "",
 	                center: "title",
 	                end: "timeGridWeek dayGridDay",
-	            },  
+	            }, 
 	            titleFormat : function(date) { // title 설정
 	            	  return date.date.year +"년 "+(date.date.month +1)+"월"; 
 	            	  }, 
@@ -66,17 +72,46 @@
 	            	  let weekList = ["일", "월", "화", "수", "목", "금", "토"];
 	            	  return weekList[date.dow];
 	            		},
-	            navLinks: true,
+	            navLinks: true,  // can click day/week names to navigate views
 	            selectable: true,
 	            selectMirror: true,	    
-	            allDaySlot: false, // allDay 표시 안함	
+	            allDaySlot: false, // allDay 표시 안함
+	            
+	         
+	            droppable : true,
+	        	editable : true,
+	        	events : [
+	                    <%if (reslist != null) {%>
+	                    <%for (ReserveVO vo : reslist) {%>
+	                    	{
+	                    	title : '<%=vo.getCouns() %>',
+	                        start : '<%=vo.getStart() %>',
+	                        end : '<%=vo.getEnd() %>',
+	                        color : '#' + Math.round(Math.random() * 0xffffff).toString(16)
+	                     	},
+	        			<%}
+	        			}%>
+	        				]
+	        				
+	        			
 	          });
 	        calendar.render();
 	      });
 		function respage(){
 			alert("로그인 후 사용하세요");
 		}
-		
+		function admin(){
+			alert("페이지 관리 잘 부탁드립니다.");
+		}
+		function couns(){
+			alert("좋은 상담해주세요.");
+		}
+		function nextpage(){
+			var fm = document.frm;
+			
+			fm.action= "<%=request.getContextPath()%>/res/respage.do"
+			fm.submit();
+		}
 	</script>
 </head>
 <body>
@@ -113,9 +148,9 @@
         </nav> <!-- fin 상단 네비게이션 -->
     </header> <!--fin header-->
     <main>
-        <h1>${reserveVO.centername}</h1>
+        <h1 id="cn">${reserveVO.centername}</h1>
         <div id="cp"> <!--기관 사진-->
-            <img src="" alt="">
+            <img src="<%=request.getContextPath()%>/resources/images/상담소.jpg" alt="상담소 이미지">
         </div>
         <div id="res"><!-- 예약 및 일정-->   
             <p></p><br>   
@@ -125,8 +160,14 @@
             <c:if test = "${login == null}"> 
             	<button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button>
             </c:if>
-            <c:if test = "${login != null}"> 
-            	<button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button>
+            <c:if test = "${login.usertype eq 'u'}"> 
+            	<button class="btn btn-outline-success" onclick="nextpage()">예약하기</button>
+            </c:if>
+            <c:if test = "${login.usertype eq 'a'}"> 
+            	<button class="btn btn-outline-success" onclick="admin()">예약하기</button>
+            </c:if>
+            <c:if test = "${login.usertype eq 'c'}"> 
+            	<button class="btn btn-outline-success" onclick="couns()">예약하기</button>
             </c:if>
             <div class="cal"> <!--상담사 상담 일정-->
                 <div id='calendar'></div>
@@ -136,35 +177,56 @@
                 <table class="table table-striped">
                 <c:if test="${not empty reserve.con1}">
                     <tr><th>${reserve.con1 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>
-                </c:if>   
-                <c:if test="${not empty reserve.con2}">                 
-                    <tr><th>${reserve.con2 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
-                </c:if>
-                <c:if test="${not empty reserve.con3}">    
-                    <tr><th>${reserve.con3 }</th><td><button class="btn btn-outline-success" onclick="respage()">로그인 후 사용하세요</button></td></tr>                    
                 </c:if>
                 </table>
             </c:if>    
-            <c:if test = "${login != null}">
+            <c:if test = "${login.usertype eq 'u'}">
             	   
                 <table class="table table-striped">
                 	<c:if test="${not empty reserve.con1}">
-                    <tr><th>${reserve.con1 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>                    
+                    <tr><th>${reserve.con1 }</th><td><button class="btn btn-outline-success" onclick="nextpage()">예약하기</button></td></tr>                    
                     </c:if>
                      <c:if test="${not empty reserve.con2}">
-                    <tr><th>${reserve.con2 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>                    
+                    <tr><th>${reserve.con2 }</th><td><button class="btn btn-outline-success" onclick="nextpage()">예약하기</button></td></tr>                    
                     </c:if>
                     <c:if test="${not empty reserve.con3}">
-                    <tr><th>${reserve.con3 }</th><td><button class="btn btn-outline-success" onclick="location.href='<%=request.getContextPath()%>/res/respage.do?cnoidx=${reserveVO.cnoidx }'">예약하기</button></td></tr>                    
+                    <tr><th>${reserve.con3 }</th><td><button class="btn btn-outline-success" onclick="nextpage()">예약하기</button></td></tr>                    
+                    </c:if>
+                </table>              
+            </c:if>
+            <c:if test = "${login.usertype eq 'a'}">
+            	   
+                <table class="table table-striped">
+                	<c:if test="${not empty reserve.con1}">
+                    <tr><th>${reserve.con1 }</th><td><button class="btn btn-outline-success" onclick="admin()">예약하기</button></td></tr>                    
+                    </c:if>
+                     <c:if test="${not empty reserve.con2}">
+                    <tr><th>${reserve.con2 }</th><td><button class="btn btn-outline-success" onclick="admin()">예약하기</button></td></tr>                    
+                    </c:if>
+                    <c:if test="${not empty reserve.con3}">
+                    <tr><th>${reserve.con3 }</th><td><button class="btn btn-outline-success" onclick="admin()">예약하기</button></td></tr>                    
+                    </c:if>
+                </table>              
+            </c:if>
+            <c:if test = "${login.usertype eq 'c'}">
+            	   
+                <table class="table table-striped">
+                	<c:if test="${not empty reserve.con1}">
+                    <tr><th>${reserve.con1 }</th><td><button class="btn btn-outline-success" onclick="couns()">예약하기</button></td></tr>                    
+                    </c:if>
+                     <c:if test="${not empty reserve.con2}">
+                    <tr><th>${reserve.con2 }</th><td><button class="btn btn-outline-success" onclick="couns()">예약하기</button></td></tr>                    
+                    </c:if>
+                    <c:if test="${not empty reserve.con3}">
+                    <tr><th>${reserve.con3 }</th><td><button class="btn btn-outline-success" onclick="couns()">예약하기</button></td></tr>                    
                     </c:if>
                 </table>              
             </c:if>
             </div><!-- fin test-->
         </div><!--예약 및 일정-->
         <div id="cenN"><!-- 센터 책갈피-->
-            <div>기관 소개</div>
-            <div>상담 후기</div>
-            <div>상담 안내</div>
+            <div><a href="#review2">상담후기</a></div>
+            <div><a href="#resInfo2">예약 안내</a></div>
         </div>
         <c:forEach items="${centerlist}" var="vo" varStatus="status">
         <h2>상담사 소개</h2>
@@ -209,21 +271,25 @@
         </c:forEach>
         <h2>안내말씀</h2>
         <div id="notice">
-            <p>&nbsp;대충 우리기관 사람들 고오오오오급 인력이에요.<br> 
-            힐링되고 피가되고 살이되는 말이라는 내용의 말들로 힐링해드리는중<br>
-            암튼 오면 잘해드림ㅇㅇㅇ 일단 부담없이 꺼먼꺼먼
+            <p>&nbsp; 마음에 안식을 드리고픈${reserveVO.centername }입니다.<br> 
+            세상에 살면서 몸이 힘든 것만 아니라 정신이 힘든 것, 사람때문에 힘든 것도 상처입니다.<br>
+            상담이 필요하시다면 부담 갖지 말고 상담신청해주세요.
             </p>
         </div>
-        <h2>상담 후기</h2>
+        <h2 id="review2">상담 후기</h2>
         <div id="review"><!-- 상담후기 -->
+             <c:forEach items="${reviewlist}" var="vo" varStatus="status">
             <dt>
+            	<c:if test="${not empty vo.rcontent}">
                 <dl>
-                    <p><i class="xi-user xi-2x"></i> 내담자</p>
-                    <p>상담이 섬세하고 상담사님이 친절해요.</p>
+                    <p><i class="xi-user xi-2x"></i> 익명</p>
+                    <p>${vo.rcontent }</p>
                 </dl>
+                </c:if>
             </dt>
+            </c:forEach>
         </div>
-        <h2>예약 안내</h2>
+        <h2 id="resInfo2">예약 안내</h2>
         <div id="resInfo"> <!--예약관련 아내-->
             <dt>01 예약 환불안내
                 <dl>100프로 환불 시점 및 그 이후에 관한 안내</dl>
@@ -294,7 +360,11 @@
 				        infowindow.open(map, marker);
 				    });
 				}
-			</script>		
+			</script>
+			<form name="frm" method="post">
+				<input type="hidden" name="centername" value="${reserveVO.centername }">
+				<input type="hidden" name="cnoidx" value="${reserveVO.cnoidx }">
+			</form>		
     </main>
     <footer> <!-- footer -->
         <div id="bottom">   

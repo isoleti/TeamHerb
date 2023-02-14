@@ -4,145 +4,168 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="project.healingcamp.mapper.userMapper">
 
-	<select id="login" parameterType="userVo" resultType="userVo">
-		select uidx
-			 , id
-			 , usertype
-			 ,pw
-			 ,phone
-			 ,mail
-			 ,center
-			 from usertable
-			 where id = #{id}
-			 and pw = #{pw}
-			 and delyn ='N'
-	</select>	
-	
-	<select id="selectById" parameterType="String" resultType="int">
-		select count(*)
-		 from usertable
-		 where id= #{id}
-	</select>
-	
-	<select id="selectByMail" parameterType="String" resultType="int"> 
-	select count(*)
-		from usertable
-		where mail = #{mail}
-	</select>	
-	
-	<select id="selectByPhone" parameterType="int" resultType="int"> 
-	select count(*)
-		from usertable
-		where phone = #{phone}
-	</select>	
-	
-	<!-- 아이디 찾기 -->
-	<select id="findId" parameterType="String" resultType="String">
-		select id 
-		 from usertable
-		 where mail = #{mail}
-	</select>
-	
-	
-	
-	
-	<insert id="join" parameterType="userVo" >
-	<![CDATA[
-		insert into usertable(
-			
-		    id
-		   ,pw
-		   ,mail
-		   ,phone
-		   ,usertype
-		   ,edate
-		  
-		)values(
-			  
-			    #{id}
-			  , #{pw}
-			  , #{mail}
-			  , #{phone}  
-			  , #{usertype}
-			  , now()
-				)
-				
-				
-		]]>
-	
-	</insert>
-	<insert id="joinCoun" parameterType="userVo" >
-	<![CDATA[
-		insert into usertable(
-			
-		   name
-		   ,id
-		   ,pw
-		   ,mail
-		   ,phone
-		   ,usertype
-		   ,center
-		   ,picture
-		   ,edate
-		  
-		   
-		   
-		)values(
-			 
-			   #{name}
-			  , #{id}
-			  , #{pw}
-			  , #{mail}
-			  , #{phone}  
-			  , #{usertype}
-			  , #{center}
-			  , #{picture}
-			  , now()
-				)
-				
-				
-		]]>
-	
-	</insert>
-	
-	<!-- 아이디 비번  -->
-	<select id="loginCheck" resultType="int">
-		select count(id) as count
+   <select id="login" parameterType="userVo" resultType="userVo">
+      select uidx
+          , id
+          , usertype
+          ,pw
+          ,phone
+          ,mail
+          ,center
+          from usertable
+          where id = #{id}
+          and pw = #{pw}
+          and delyn ='N'
+   </select>   
+   
+   <select id="selectById" parameterType="String" resultType="int">
+      select count(*)
+       from usertable
+       where id= #{id}
+   </select>
+   
+   <select id="selectByMail" parameterType="String" resultType="int"> 
+   select count(*)
+      from usertable
+      where mail = #{mail}
+   </select>   
+   
+   <select id="selectByPhone" parameterType="int" resultType="int"> 
+   select count(*)
+      from usertable
+      where phone = #{phone}
+   </select>   
+   
+   <!-- 아이디 찾기 -->
+   <select id="findId" parameterType="String" resultType="String">
+      select id 
+       from usertable
+       where mail = #{mail}
+   </select>
+   
+   
+   
+   
+   <insert id="join" parameterType="userVo" >
+   <![CDATA[
+      insert into usertable(
+         
+          id
+         ,pw
+         ,mail
+         ,phone
+         ,usertype
+         ,edate
+        
+      )values(
+           
+             #{id}
+           , #{pw}
+           , #{mail}
+           , #{phone}  
+           , #{usertype}
+           , now()
+            )
+            
+            
+      ]]>
+   
+   </insert>
+   <insert id="joinCoun" parameterType="userVo" >
+   <![CDATA[
+      insert into usertable(
+         
+         name
+         ,id
+         ,pw
+         ,mail
+         ,phone
+         ,usertype
+         ,center
+       
+         ,edate
+        
+         
+         
+      )values(
+          
+            #{name}
+           , #{id}
+           , #{pw}
+           , #{mail}
+           , #{phone}  
+           , #{usertype}
+           , #{center}
+          
+           , now()
+            )
+            
+            
+      ]]>
+   
+   </insert>
+   
+    <insert id="insertFile" parameterType="hashMap">
+    
+    <selectKey resultType="int" keyProperty="uidx" order="BEFORE">
+		select max(uidx)
 			from usertable
-			where id = #{id} and pw = #{pw}
+	</selectKey>	
+    
+		INSERT INTO MP_FILE(
+			
+			uidx,
+			ORG_FILE_NAME,
+			STORED_FILE_NAME,
+			FILE_SIZE
+		)VALUES(
+			
+			#{uidx},
+			#{ORG_FILE_NAME},
+			#{STORED_FILE_NAME},
+			#{FILE_SIZE}
+		)
+		
+    </insert>
+    
+   <!-- 아이디 비번  -->
+   <select id="loginCheck" resultType="int">
+      select count(id) as count
+         from usertable
+         where id = #{id} and pw = #{pw}
 
-	</select>
-	<!-- uidx별로 한개의 회원정보 조회 -->
-	<select id="selectByUidx" parameterType="int" resultType="userVo">
-	select uidx
-		  ,id
-		  ,mail
-		  ,phone
-		  from usertable
-		  where uidx=#{uidx}
-	</select>
-	<!-- 회원정보 수정 -->
-	<update id="userModify" parameterType="userVo">
-		update usertable
-		set mail =#{mail}
-		 ,phone =#{phone}
-		 ,center =#{center}
-		where uidx = #{uidx} 
-	</update>
-	
-	<!-- 비밀번호 변경-->
-	<update id="pwReset" parameterType="userVo">
-		update usertable
-		set mail =#{mail}
-		 ,phone =#{phone}
-		 ,pw =#{pw}
-		 
-		where uidx = #{uidx} 
-		
-		
-	</update>
-	
-	<!--회원탈퇴 -->
+   </select>
+   <!-- uidx별로 한개의 회원정보 조회 -->
+   <select id="selectByUidx" parameterType="int" resultType="userVo">
+   select uidx
+        ,id
+        ,mail
+        ,phone
+        from usertable
+        where uidx=#{uidx}
+   </select>
+   <!-- 회원정보 수정 -->
+   <update id="userModify" parameterType="userVo">
+      update usertable
+      set mail =#{mail}
+       ,phone =#{phone}
+       ,center =#{center}
+      where uidx = #{uidx} 
+   </update>
+   
+   <!-- 비밀번호 변경-->
+   <update id="pwReset" parameterType="userVo">
+      update usertable
+      set mail =#{mail}
+       ,phone =#{phone}
+       ,pw =#{pw}
+       
+      where uidx = #{uidx} 
+      
+      
+   </update>
+   
+   <!--회원탈퇴 -->
    <update id="userDelete" parameterType="userVo">
       update usertable
          set delyn = 'Y'
@@ -150,18 +173,18 @@
          and id =#{id}
          and uidx=#{uidx}
    </update>
-	<!-- 회원정보 조회 -->
-	<select id="selectJoin" parameterType="String" resultType="userVo">
-		select *
-			from usertable
-			where mail = #{mail}
-	</select>
-	
-	<!-- 패스워드 변경 -->
-	<update id = "pwUpdate" parameterType="userVo">
-		update usertable
-			set pw = #{pw}
-			where mail = #{mail}
-	</update>	
-	
+   <!-- 회원정보 조회 -->
+   <select id="selectJoin" parameterType="String" resultType="userVo">
+      select *
+         from usertable
+         where mail = #{mail}
+   </select>
+   
+   <!-- 패스워드 변경 -->
+   <update id = "pwUpdate" parameterType="userVo">
+      update usertable
+         set pw = #{pw}
+         where mail = #{mail}
+   </update>   
+   
 </mapper>

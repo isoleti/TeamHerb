@@ -31,4 +31,10 @@ public interface PageService {
 	int counres_total(MyRCriteria rcri);
 	int counres_Delete(ReserveVO vo);
 	int counres_Check(ReserveVO vo);
+	
+	//상담사페이지 상담
+	public List<ReserveVO> councou_list(MyRCriteria rcri);
+	int councou_total(MyRCriteria rcri);
+	
+	
 }

@@ -1,6 +1,7 @@
 package project.healingcamp.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,12 @@ public class UserDao {
 		
 		return sqlSession.insert("project.healingcamp.mapper.userMapper.joinCoun", vo);
 	}
+
+	public int insertFile(Map<String, Object> map){
+	 
+	return sqlSession.insert("project.healingcamp.mapper.userMapper.insertFile", map); 
+	}
+	
 	public int selectById(String id) {
 		return sqlSession.selectOne("project.healingcamp.mapper.userMapper.selectById",id);
 	}

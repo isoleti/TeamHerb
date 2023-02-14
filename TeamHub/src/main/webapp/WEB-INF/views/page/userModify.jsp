@@ -15,51 +15,32 @@
 		<script>
 		$(function(){ //회원가입페이지가 로드됐을때 function실행 
 			$("form").submit(function(){ 
-				alert("call");
+				
 				var mailval = $("#mail").val();
 				var phoneval = $("#phone").val();
-		
-				var npwval = $("#npw").val();
-				var pwcval = $("#pwc").val();
+				var centerval =$("#center").val();
 				
-				alert(	  "mailval : "	+ mailval	+ "\n"
-						+ "phoneval : "	+ phoneval	+ "\n"
-						//+ "opwval : "	+ opwval	+ "\n"
-						+ "npwval : "	+ npwval	+ "\n"
-						+ "pwcval : "	+ pwcval	+ "\n"
-						+ "mail : ${vo.mail}"		+ "\n"
-						+ "phone : ${vo.phone}");
-		
-				if ( mailval != "${vo.mail}" || phoneval != "${vo.phone}" )
+				if ( mailval  == "" )
 				{
-					alert("개인정보 수정");
-					// 이메일이나 전화번호 업데이트 처리
+					alert("이메일주소가 입력되지 않았습니다.");
+					return false
+				}
+				else if( phoneval =="" )
+				{
+					alert("핸드폰번호가 입력되지 않았습니다.");
+						return false;
+				}
+				else if( centerval =="")
+				{
+					alert("상담기관이 입력되지 않았습니다.");
+						
+				} 
+				else
+				{
 					form.action="<%=request.getContextPath() %>/page/userModify.do";
 					form.method="POST";
 					form.submit();
-					
-				}
-				if ( npwval != null )
-				{
-					alert("개인 정보와 비번 수정");
-					if( npwval != pwcval )
-					{
-						// 새 비번과 비번확인이 같지 않으므로, 사용자에게 메세지를 보내고, submit을 중단하고, 회원정보 페이지로 되돌린다
-						alert("변경된 비밀번호가 일치하지 않습니다.");
-						return false;
-					}else if( npwval == pwcval )
-					{
-						alert("새로운 비번으로 설정");
-						
-						// 기존 비밀번호가 올바른지 DB랑 통신을 한다
-						// case 1 : 비번이 올바르면 새 비밀번호를 DB에 업데이트 한다
-						// case 2 : 기존 비번이 올바르지 않으니, 사옹자에게 알리고, 회원정보 페이지로 되돌린다.
-						form.action ="pwReset.do";
-						form.method="POST"; //감춰져서 넘기는 방식 Post
-						form.submit();
-						
-					} //else if
-				} //else if ( npwval != null )
+				}	
 			})
 		});
 		

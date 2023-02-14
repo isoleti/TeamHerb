@@ -24,7 +24,7 @@
         header nav h1{margin-left:10%;}
         header nav section{margin-left:17.5%;}
 
-          main{margin:0 auto;  width:1160px; }
+          main{margin:0 auto;  width:1160px; position:relative;}
         main h2{font-size:22px; margin:80px 250px; }
         .bar{width:280px; height:700px; display:inline-block; border:1px solid #e4e4e4; 
                 text-align:center; padding-top: 30px; 
@@ -42,7 +42,7 @@
         .btn2{height:35px; font-size:15px; border-radius:5px;  margin-top:20px;}
         .btn2:hover{background:#e4e4e4;}
         .btn3:hover{background:#e4e4e4;}
-        .content{display:inline-block; position: relative;  left:50px; top:100px; }
+        .content{display:inline-block; position: relative;  left:350px; top:100px; position:absolute;}
         .content a{ font-size:20px; 
             display:block; margin-top:20px;}
         .content a:nth-child(3){display:inline-block;}

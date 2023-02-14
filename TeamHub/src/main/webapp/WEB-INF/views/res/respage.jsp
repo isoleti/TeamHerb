@@ -6,6 +6,7 @@
 <%@ page session="true" %>
 <%@page import="project.healingcamp.vo.ReserveVO"%>
 <%List<ReserveVO> centerlist = (List<ReserveVO>)request.getAttribute("centerlist");  %>
+<%List<ReserveVO> reslist = (List<ReserveVO>)request.getAttribute("reslist");  %>
 <!DOCTYPE html>
 <html lang="ko" style="--vh:5.02px;">
 <head>
@@ -23,7 +24,7 @@
        
         main #resS{width:50%; height:75px; margin:0; margin-left:13%;  margin-bottom:4%; border:2px solid #000; border-radius:15px;}
         main #resS div{display:inline-block; margin-left:10%; margin-top:1.75%; font-size:20px;}
-        main #resS #s1{margin-left:5%;}
+        main #resS #s1{margin-left:5%; font-weight:bold;}
         main #resS #s1,
         main #resS #s2{margin-right:15%;}
         
@@ -108,6 +109,9 @@
 		document.addEventListener('DOMContentLoaded', function()
 		{
 			$()
+			
+			var name= document.getElementById("cn").innerHTML;
+			
 			//예약일
 			var rdate = document.getElementsByName("resdate");			
 			
@@ -117,9 +121,9 @@
 					{
 						initialView: 'dayGridMonth',
 						headerToolbar: {
-							start: "prev",
+							start: "prev, dayGridMonth",
 							center: "title",
-							end: "dayGridMonth,next",
+							end: "next",
 						},
 						titleFormat : function(date) { // title 설정
 							return date.date.year +"년 "+(date.date.month +1)+"월";
@@ -157,6 +161,10 @@
 					        }
 					        const closeBtn = modal.querySelector(".close-area")
 					        closeBtn.addEventListener("click", e => {
+					            modal.style.display = "none"					            
+					        })
+					        const closeBtn2 = modal.querySelector(".close-area2")
+					        closeBtn2.addEventListener("click", e => {
 					            modal.style.display = "none"
 					        })
 					        modal.addEventListener("click", e => {
@@ -168,13 +176,29 @@
 					        $(rdate).attr('value',dateClickInfo.dateStr);
 						},
 						
-						
 						navLinks: true,
 						selectable: true,
 						selectMirror: true,
-						allDaySlot: false, // allDay 표시 안함
-					}
-			);
+						allDaySlot: false, // allDay 표시 안함						
+						droppable : true,
+				        editable : true,
+				        events : [
+				                   <%if (reslist != null) {%>
+				                   <%for (ReserveVO vo : reslist) {%>
+				                   	{
+				                   	title : '<%=vo.getCouns() %>',
+				                    start : '<%=vo.getStart() %>',
+				                    end : '<%=vo.getEnd() %>',
+				                    color : '#' + Math.round(Math.random() * 0xffffff).toString(16)
+				                  	},
+				        			<%}
+				        			}%>
+				        		]
+				        				
+				        			
+				          
+					
+			});
 			calendar.render();					
 		});		
 		//예약시간
@@ -297,6 +321,7 @@
 		                 })
 		               } else {
 		                 alert("결제에 실패하였습니다. " + rsp.error_msg);
+		                 return;
 		               }
 		             var fm = document.frm;
 		             
@@ -379,7 +404,7 @@
         </nav> <!-- fin 상단 네비게이션 -->
     </header> <!--fin header-->
     <main>
-        <h1>상담기관명</h1>
+        <h1 id="cn">${param.centername}</h1>
         <div id="resS"> <!-- 예약 순서 -->
             <div id="s1">상담/검사선택</div>
             <div id="s2">상담사 선택</div>
@@ -408,7 +433,7 @@
         <div id="res">
             <h2>예약상세</h2>
             <form name="frm" id="frm">
-            	<input type="hidden" name="center" id="center" value="${center}+test">
+            	<input type="hidden" name="center" id="center" value="${param.centername}">
                	<input type="hidden" name="uidx" id="uidx" value="${login.uidx }">
             	<input type="hidden" name="id" id="id" value="${login.id }">
 	            <p>상담/검사 :<input type="text" name="counseling" id="counseling" readonly> </p>
@@ -416,7 +441,7 @@
 	            <p>예약일 :<input type="text" name="resdate" id="resdate" readonly> </p>
 	            <p>예약시간 : <input type="text" name="restime" id="restime" readonly> </p>
 	            <p>상담비용 :<input type="number" name="rescount" id="rescount" readonly> </p>
-	            <input type="text" name="conidx" id="conidx" value="" readonly>
+	            <input type="hidden" name="conidx" id="conidx" value="" readonly>
 	            <c:if test = "${login != null}">
 	            	<input type="button" class="btn btn-outline-success" onclick="resf()" value="현장결제">
 	            	<input type="button" class="btn btn-dark" onclick="requestPay(this)" value="지금결제">
@@ -437,7 +462,8 @@
 	            <input type="radio" name="reserve" class="content" value="09:00 ~ 12:00" onclick="modalClick1(this)"><label>09:00 ~ 12:00</label><br>
 	            <input type="radio" name="reserve" class="content" value="12:00 ~ 15:00" onclick="modalClick2(this)"><label>12:00 ~ 15:00</label><br>
 	            <input type="radio" name="reserve" class="content" value="15:00 ~ 18:00" onclick="modalClick3(this)"><label>15:00 ~ 18:00</label><br>
-	            <input type="radio" name="reserve" class="content" value="18:00 ~ 21:00" onclick="modalClick4(this)"><label>18:00 ~ 21:00</label>
+	            <input type="radio" name="reserve" class="content" value="18:00 ~ 21:00" onclick="modalClick4(this)"><label>18:00 ~ 21:00</label><br>
+	            <br><div class="close-area2">확인</div>
 	        </div>
     	</div>        
     </main>
@@ -467,7 +493,12 @@
 	var date = document.getElementsByName("resdate");
 	var count = document.getElementsByName("rescount");
 	
+	var s11 = document.getElementById("s1");
+	var s22 = document.getElementById("s2");
+	var s33 = document.getElementById("s3");
+	
 	var con = document.getElementById("conidx");
+		
 	
 	function click11(obj){
 	
@@ -490,6 +521,10 @@
 		$(obj).parent().html("<button class='btn btn-outline-success' onclick='fix11(this)'>수정</button>");	
 	
 		$(coun).attr('value',val1Text+val2Text);
+		
+		s11.style.fontWeight = "normal";
+		s22.style.fontWeight = "bold";
+		s33.style.fontWeight = "normal";
 	
 	}
 
@@ -513,6 +548,10 @@
 		$(obj).parent().html("<button class='btn btn-outline-success' onclick='fix12(this)'>수정</button>");	
 	
 		$(coun).attr('value',val1Text+val2Text);
+		
+		s11.style.fontWeight = "normal";
+		s22.style.fontWeight = "bold";
+		s33.style.fontWeight = "normal";
 	
 	}
 
@@ -536,7 +575,11 @@
 	
 		$(obj).parent().html("<button class='btn btn-outline-success' onclick='fix13(this)'>수정</button>");	
 	
-		$(coun).attr('value',val1Text+val2Text);   		
+		$(coun).attr('value',val1Text+val2Text);   
+		
+		s11.style.fontWeight = "normal";
+		s22.style.fontWeight = "bold";
+		s33.style.fontWeight = "normal";
 	
 	}
 
@@ -549,7 +592,11 @@
 		$(obj).parent().html("<button class='btn btn-outline-success' onclick='click11(this)'>선택</button>");
 	
 		$(coun).attr('value', "");
-	
+		
+		s11.style.fontWeight = "bold"
+		s22.style.fontWeight = "normal";
+		s33.style.fontWeight = "normal";
+		
 	}
 
 	function fix12(obj) {
@@ -561,6 +608,10 @@
 		$(obj).parent().html("<button class='btn btn-outline-success' onclick='click12(this)'>선택</button>");
 	
 		$(coun).attr('value', "");
+		
+		s11.style.fontWeight = "bold"
+		s22.style.fontWeight = "normal";
+		s33.style.fontWeight = "normal";
 	
 	}
 
@@ -573,6 +624,11 @@
 		$(obj).parent().html("<button class='btn btn-outline-success' onclick='click13(this)'>선택</button>");
 	
 		$(coun).attr('value', "");
+		
+		s11.style.fontWeight = "bold"
+		s22.style.fontWeight = "normal";
+		s33.style.fontWeight = "normal";
+		
 	}
 
 	function click20(obj){
@@ -613,6 +669,10 @@
 			}
 			
 		});
+		
+		s11.style.fontWeight = "normal"
+		s22.style.fontWeight = "normal";
+		s33.style.fontWeight = "bold";
 	}
 	
 	function click21(obj){    		
@@ -651,6 +711,10 @@
 			}
 			
 		});
+		
+		s11.style.fontWeight = "normal"
+		s22.style.fontWeight = "normal";
+		s33.style.fontWeight = "bold";
 	
 	}
 
@@ -692,6 +756,10 @@
 			
 		});
 		
+		s11.style.fontWeight = "normal"
+		s22.style.fontWeight = "normal";
+		s33.style.fontWeight = "bold";
+		
 	}
 
 	function fix20(obj) {
@@ -706,6 +774,10 @@
 	
 		$(counseler).attr('value', "");
 		$(count).attr('value', "");
+		
+		s11.style.fontWeight = "normal"
+		s22.style.fontWeight = "bold";
+		s33.style.fontWeight = "normal";
 	
 	}
 
@@ -719,6 +791,10 @@
 	
 		$(counseler).attr('value', "");
 		$(count).attr('value', "");
+		
+		s11.style.fontWeight = "normal"
+		s22.style.fontWeight = "bold";
+		s33.style.fontWeight = "normal";
 	
 	}
 
@@ -732,6 +808,10 @@
 	
 		$(counseler).attr('value', "");
 		$(count).attr('value', "");
+		
+		s11.style.fontWeight = "normal"
+		s22.style.fontWeight = "bold";
+		s33.style.fontWeight = "normal";
 	
 	}
 </script>    

@@ -69,4 +69,11 @@ public class PageDao {
 	public int counres_Check(ReserveVO vo) {
 		return sqlSession.update("project.healingcamp.mapper.pageMapper.counres_Check", vo);
 		}
+	//상담사페이지 상담 목록
+	public List<ReserveVO> councou_list(MyRCriteria rcri){
+		return sqlSession.selectList("project.healingcamp.mapper.pageMapper.councou_list",rcri);
+	}
+	public int councou_total(MyRCriteria rcri) {
+		 return sqlSession.selectOne("project.healingcamp.mapper.pageMapper.councou_total", rcri);
+	 }
 }

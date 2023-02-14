@@ -322,16 +322,16 @@ public class PageController {
 		return "page/counspageRes";
 	}
 	//상담사페이지 예약 취소 
-			@RequestMapping(value="/counres_delete.do",method=RequestMethod.POST)
-			public String coundelete(ReserveVO vo) { 
-				//db 상세데이터 조회
-				pageService.counres_Delete(vo);
+	@RequestMapping(value="/counres_delete.do",method=RequestMethod.POST)
+	public String coundelete(ReserveVO vo) { 
+		//db 상세데이터 조회
+		pageService.counres_Delete(vo);
 
-				System.out.println("상담사 예약 삭제"+vo.toString());
-			
-				return "redirect:counspageRes.do";
-			
-			}
+		System.out.println("상담사 예약 삭제"+vo.toString());
+	
+		return "redirect:counspageRes.do";
+	
+	}
 	//상담사페이지 예약 수락
 	@RequestMapping(value="/counres_check.do",method=RequestMethod.POST)
 	public String councheck(ReserveVO vo) { 
@@ -342,8 +342,29 @@ public class PageController {
 		return "redirect:counspageRes.do";
 	
 	}
+	//상담사페이지 상담 목록
 	@RequestMapping(value = "/counspageCou.do", method = RequestMethod.GET)
-	public String counspageCou() {
+	public String counspageCou(Model model, ReserveVO vo, HttpSession session, MyRCriteria rcri) {
+		
+		UserVo login =(UserVo)session.getAttribute("login");
+		
+		rcri.setId(login.getId());
+		rcri.setUidx(login.getUidx());
+		
+		
+		List<ReserveVO> councou_list = pageService.councou_list(rcri);
+		
+		
+		
+		MypageMaker mypageMaker = new MypageMaker(rcri, pageService.councou_total(rcri));
+		
+		
+		 System.out.println("컨트롤러 상담사 상담 총합계:" + pageService.councou_total(rcri));
+		 System.out.println("페이지"+ mypageMaker);
+		 
+		model.addAttribute("councou_list", councou_list);
+		System.out.println("상담 리스트 : "+councou_list);
+		 model.addAttribute("mypageMaker", mypageMaker);
 
 		return "page/counspageCou";
 	}

@@ -377,7 +377,7 @@
 			</script>
 		<form method="post" id="frm" name="frm">
         <div class="center" onclick="center()"><!--뒤이어 작성-->        	
-            <p >상담소 : <input type="text" name="centername" id="centername" readonly> </p>
+            <p >상담소 : <input type="text" name="centername" id="centername" readonly value="원하시는 상담소를 선택해주세요"> </p>
             <p >위치 : <input type="text" name="centeraddr" id="centeraddr" readonly></p>
             <p >전화번호 : <input type="text" name="centercall" id="centercall" readonly></p>
             <input type="hidden" id="cnoidx" name="cnoidx" value="0">

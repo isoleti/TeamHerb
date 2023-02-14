@@ -18,10 +18,10 @@
  <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
 
 <style>
-      main{margin:0 auto;  width:1160px; margint-top:0; }
+      main{margin:0 auto;  width:1160px; margint-top:0; position:relative; }
         main h2{font-size:22px; margin:80px 250px; }
         .bar{width:280px; height:700px; display:inline-block; border:1px solid #e4e4e4; 
-                text-align:center; padding-top: 30px; position:relative; 
+                text-align:center; padding-top: 30px; 
                 padding:40px;}
         .bar a{display:block;}
         .bar a:nth-child(1){font-size:25px; font-weight: bold; padding-bottom:20px;display: block;
@@ -37,7 +37,7 @@
         .btn2:hover{background:#e4e4e4;}
         .btn3:hover{background:#e4e4e4;}
         .btn4:hover{background:#1ec34c;}
-        .content{display:inline-block; position: relative; top:100px; left:50px;  }
+        .content{display:inline-block; position: absolute; top:100px; left:350px;  }
         .content a{ font-size:20px;  position: relative; 
             display:block; margin-top:20px;}
         .content a:nth-child(3){display:inline-block;}
@@ -166,7 +166,7 @@
                     <button>취소</button>                    
                     </c:if>
                     <c:if test = "${reslist.resposition eq '예약취소'}">
-                    <button type="button" id="cancle" style="width:60px;">취소됨</button>                    
+                    	취소됨
                     </c:if>
                     </td>
                 </tr>

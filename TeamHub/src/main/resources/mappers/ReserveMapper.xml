@@ -17,6 +17,8 @@
   						,uidx
   						,state
   						,id
+  						,conidx
+  						,resposition
   			)values(
   						 #{center}
   						,#{counseling}
@@ -27,6 +29,8 @@
   						,#{uidx}
   						,'N'
   						,#{id}
+  						,#{conidx}
+  						,'예약대기'
   			)
   			]]>
   						
@@ -45,6 +49,8 @@
   						,uidx
   						,state
   						,id
+  						,conidx
+  						,resposition
   			)values(
   						 #{center}
   						,#{counseling}
@@ -55,6 +61,8 @@
   						,#{uidx}
   						,'Y'
   						,#{id}
+  						,#{conidx}
+  						,'예약대기'
   			)
   			]]>
   						
@@ -140,6 +148,27 @@
   				inner join counselortable b
 				on a.conidx = b.conidx
   				where a.cnoidx = #{cnoidx} limit 0,1;
+  			]]>
+  		</select>
+  		
+  		<select id="reslist" parameterType="reserveVO" resultType="reserveVO">
+  			<![CDATA[
+  				select  couns
+  					   ,concat(resdate," ",left(restime,5)) as start 
+  					   ,concat(resdate," ",substring(restime, 9, 5)) as end
+				from reservationtable
+				where center=#{centername};
+  			]]>
+  		</select>
+  		
+  		<select id="reviewlist" parameterType="reserveVO" resultType="reserveVO">
+  			<![CDATA[
+  				select a.ridx , a.rcontent, a.rdate, a.cnoidx 
+  				from reviewtable a
+  				inner join centertable b
+  				on a.cnoidx = b.cnoidx   
+  				where a.cnoidx = #{cnoidx}
+  				order by a.ridx desc limit 0,3;
   			]]>
   		</select>
   </mapper>
