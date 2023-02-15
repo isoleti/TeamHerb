@@ -40,18 +40,21 @@
 		}
 		.img_place{
 			position:relative;
-			width:100%;
-			height:300px;
+			width:95%;
+			height:273px;
 			text-align: center;
 			
 		}
 		.img_place img{
-			position:absolute;
-			width:28%;
-			top:-8%;
-			left:36%;
-			cursor: pointer;
-			
+			position: absolute;
+		    width: 24%;
+		    top: -2%;
+		    left: 40%;
+		    cursor: pointer;
+		}
+		
+		#p1{
+			margin-bottom:50px;
 		}
 
 		#p1,#p2{
@@ -84,7 +87,8 @@
 		#id{
 			margin-bottom:30px;
 			text-align: center;
-			background-color:rgb(240, 147, 42);
+			background-color:#fff;
+			border:2px solid green;
 		}
 		#btn{
 			width:410px;
@@ -100,13 +104,12 @@
 			<div class="img_place">
 				<img src="../resources/images/check.png"/>
 			</div><!--img_place-->
-			<p id="p1">입력하는 정보와 일치하는 결과입니다.</p>
-			<p id="p2">개인정보를 위해 <br>아이디 또는 이메일 일부만 제공해 드립니다.</p>
+			<p id="p1">입력하는 정보와 <br>일치하는 결과입니다.</p>
 			<div class="id_check">
 					<input type="text" id="id" name="id" value="${id}" readonly>
 				<br>
 				<a href="<%=request.getContextPath() %>/user/login.do">
-					<input type="button"  value="로그인 하러가기" id="btn" >
+					<input type="button" value="로그인 하러가기" id="btn" >
 				</a>
 			</div>
 		</div><!--idMatch_place-->

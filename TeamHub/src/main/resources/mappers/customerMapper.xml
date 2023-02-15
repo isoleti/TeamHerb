@@ -28,28 +28,7 @@
 				AND category=#{category}
 			</if>
 			ORDER BY bidx DESC
-			Limit #{pageNum}, 4
-			
-			<!-- <![CDATA[
-	        select *
-	       	  from (
-	       	  		select rownum as rnum, a.* 
-	       	  		  from ( 
-	       	  		  select bidx
-						    ,title
-						    ,content
-						    ,wdate
-						  
-							from boardtable
-							     where delyn='N' and board_type= '3'
-							     ]]>
-							      <if test="category != null">
-							         	AND category=#{category}
-							      </if>
-							     order by bidx desc)a)
-							  <![CDATA[	
-	        						WHERE rnum BETWEEN (#{pageNum}-1)*#{amount}+1 AND #{pageNum}*#{amount}
-	        					]]> -->
+			Limit #{startNum}, #{amount}
 	  	</select>
 	  	
 	  	<!-- faq 게시글 총합 -->

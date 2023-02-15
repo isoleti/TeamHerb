@@ -96,7 +96,8 @@
 		}
 		form #btn{
 			width:404px;
-			font-size:23px; 
+			font-size:17px;
+			height:41px; 
 			border:none;
 			cursor: pointer;
 			background-color:rgba(115, 198, 121, 0.947);
@@ -116,17 +117,13 @@
 			</div><!--logo-->
 			
 			<form id="frm" method="post" action="findId.do" name="findform">
-			
 				<ul>
-					
 					<li><a href="<%=request.getContextPath() %>/user/idFind.do"><p id="idcheck">아이디찾기</p></a></li>
 					<li><a href="<%=request.getContextPath() %>/user/pwFind.do"><p id="pwcheck">비밀번호 찾기</p></a></li>
 				</ul>
-				
 				<input type="text" id="mail" name="mail" autocomplete="off" required placeholder="이메일을 입력해주세요. ex)hogildong@naver.com">
 				<br>
-				<button>아이디찾기</button>
-			<!-- 	<input type="button" id="btn"  value="아이디 찾기"> -->
+				<button id="btn">아이디찾기</button>
 			</form><!--frm-->
 			
 		</div><!--idCheck_box-->

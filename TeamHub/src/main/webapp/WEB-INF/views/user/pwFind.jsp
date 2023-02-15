@@ -9,8 +9,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>힐링캠프 비밀번호찾기</title>
 	<link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
 	<title>힐링캠프 아이디찾기</title>
+
 	<style>
 		*{
 			margin:0;
@@ -106,10 +108,11 @@
 		}
 		form #btn{
 			width:404px;
-			font-size:23px; 
+			font-size:17px;
+			height:41px; 
 			border:none;
 			cursor: pointer;
-			background-color: rgba(115, 198, 121, 0.947);
+			background-color:rgba(115, 198, 121, 0.947);
 		}
 		
 
@@ -119,7 +122,9 @@
 	<div class="idCheck_Area">
 		<div class="idCheck_box">
 			<div class="logo">
-				<img src="../resources/images/힐링캠프 logo2.png">
+				<a href="<%=request.getContextPath()%>/">
+					<img src="<%=request.getContextPath() %>/resources/images/힐링캠프 logo2.png">
+				</a>	
 			</div><!--logo-->
 			<form id="frm"  class="content" action="pw_auth.do" method="post">
 				<ul>

@@ -41,13 +41,12 @@
 	            		alert("아이디나 비밀번호가 일치하지 않습니다.");
 	            		idval = "";
 	            		pwval = "";
-	            	}else if( data == 1)
-	            	{
-	            		//alert("넘어옴");
-			            fm.action ="<%=request.getContextPath() %>/user/login.do";
-			            fm.method="post"; //감춰져서 넘기는 방식 Post
-			            fm.submit();
+	            		
 	            	}
+	            	//alert("넘어옴");
+		            fm.action ="<%=request.getContextPath() %>/user/login.do";
+		            fm.method="post"; //감춰져서 넘기는 방식 Post
+		            fm.submit();
             	},
             	error: function(request,status,error)
             	{
@@ -164,7 +163,7 @@
       form  div span {
          position:absolute;
          font-size:14px;
-         top:5px;
+         top:24px;
          cursor: pointer;
       }
       #checking{
@@ -172,11 +171,11 @@
       }
       
       #checking :nth-child(2){
-         left:133px;
+         left:232px;
       }
 
       #checking :nth-child(3){
-         left:249px;
+         left:442px;
       }
 
       #checking :nth-child(4){
@@ -216,16 +215,17 @@
          top:2px;
          right:5px;
       }
-
-      .start_naver,
-      .start_kakao{
-         position:relative;
-         font-size:18px;
-         margin-bottom:10px;
-         top:-6px;
-         left:3px;
-         
+      
+      .Login_btn{
+      	 position:relative;
+         width:400px;
+         height:50px;
+         top:2px;
+         right:5px;
+         font-size:17px;
+      
       }
+      
    </style>
 </head>
 <body>
@@ -234,8 +234,7 @@
             <div class="logo">
                <a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath() %>/resources/images/힐링캠프 logo2.png"></a>
             </div><!--logo-->
-            <form name="frm" id="frm">
-                    
+            <form name="frm" id="frm">      
                <input type="text" id="id" name="id" autocomplete="off" required placeholder="아이디" "/>
                <br>
                <input type="password" id="pw" name="pw" autocomplete="off" required placeholder="비밀번호">
@@ -244,31 +243,12 @@
                <button type="button" class="Login_btn" onclick="loginCheck()">로그인</button>
                <br>
                <div id="checking">
-                  <input type="checkbox" id="reId" name="reId" />
-                  <span>아이디 저장</span>
+                  <span></span>
                   <span><a href="<%=request.getContextPath() %>/user/idFind.do">아이디/비밀번호 찾기</a></span>
                   <span><a href="<%=request.getContextPath() %>/joinMain.do">회원가입</a></span>
                </div><!---->
             </form>
-            <div class="start_login">
-               <button type="button" class="naver">
-                  <span class="btn_content">
-                     <a href=""><img src="<%=request.getContextPath() %>/resources/images/naverLogo.png"></a>
-                  </span><!--btn_content-->
-                  <span class="start_naver">네이버로 시작하기</span>
-               </button><!--naver-->
-               <button type="button" class="kakao">
-                  <span class="btn_content2">
-                     <a href=""><img src="<%=request.getContextPath() %>/resources/images/kakao.png"></a>
-                  </span><!--btn_content2-->
-                  <span class="start_kakao">카카오로 시작하기</span>
-               </button><!--kakao   -->
-            </div><!--start_login-->
-
          </div><!--login_box-->
       </div><!--login_box-->
-
-   
-
 </body>
 </html>

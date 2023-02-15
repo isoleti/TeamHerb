@@ -8,7 +8,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>비밀번호찾기 재설정</title>
+	<title>인증번호</title>
 	<script src = "<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
 	<link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
 	<script>
@@ -17,11 +17,13 @@
 			
 			var fm = document.frm;
 			var email_injeung = $("#email_injeung").val();
-			
-			alert("함수가 작동하나요?");
-			
-			if(fm.email_injeung.value != fm.num.value){//내가 쓴 이메일 인증 값 == 네이버 메일로 보낸 random num의 값
-				alert("인증번호가 맞지 않아요");
+				
+				if(fm.email_injeung.value == ""){
+					alert("인증번호를 입력해주세요.");
+				}
+								
+			else if(fm.email_injeung.value != fm.num.value){//내가 쓴 이메일 인증 값 == 네이버 메일로 보낸 random num의 값
+				alert("올바른 인증번호가 아니에요.");
 			}
 			
 		}
@@ -68,7 +70,7 @@
 			position:absolute;
 			width:150px;
 			top:34%;
-			left:36%;
+			left:42%;
 			cursor: pointer;
 			
 		}
