@@ -13,6 +13,7 @@
     <!--부트스트랩, header footer css 연결-->
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
     <style>
         main #res{width:40%; height:45%; margin:auto; margin-top:10%; border:3px solid #dff6e1; text-align: center; border-radius:15px;}
        main #res h2{margin-top:3%;}
@@ -54,7 +55,7 @@
            <a href="<%=request.getContextPath()%>/program.do">치료프로그램</a>
             <a href="<%=request.getContextPath()%>/test.do">심리테스트</a>
             <a href="<%=request.getContextPath()%>/community/community_list.do">커뮤니티</a>
-            <a href="<%=request.getContextPath()%>/res/findcenter.do">상담 예약</a>
+            <a href="<%=request.getContextPath()%>/res/findcenter.do" style="font-weight:bold;">상담 예약</a>
             <a href="<%=request.getContextPath()%>/counseller_board/counseller_board_list.do">상담사 게시판</a>
             <section></section>
         </nav> <!-- fin 상단 네비게이션 -->

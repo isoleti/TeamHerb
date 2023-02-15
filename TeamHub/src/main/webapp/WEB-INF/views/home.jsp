@@ -12,6 +12,7 @@
     <!--부트스트랩, header footer css 연결-->
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
     <!--swiper 연결-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>

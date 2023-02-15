@@ -14,6 +14,7 @@
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/community.css" rel="stylesheet">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
     <script src="<%=request.getContextPath()%>/resources/js/bootstrap.bundle.js"></script>
     <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
     <style>
@@ -187,7 +188,7 @@
             <h1><a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
            <a href="<%=request.getContextPath()%>/program.do">치료프로그램</a>
             <a href="<%=request.getContextPath()%>/test.do">심리테스트</a>
-            <a href="<%=request.getContextPath()%>/community/community_list.do">커뮤니티</a>
+            <a href="<%=request.getContextPath()%>/community/community_list.do" style="font-weight:bold;">커뮤니티</a>
             <a href="<%=request.getContextPath()%>/res/findcenter.do">상담 예약</a>
             <a href="<%=request.getContextPath()%>/counseller_board/counseller_board_list.do">상담사 게시판</a>
             <section></section>

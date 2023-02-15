@@ -18,6 +18,7 @@
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
     <style>
         main{position: relative;}
         main h1{margin-left:15%; margin-bottom:2%;}
@@ -150,7 +151,7 @@
     <main>
         <h1 id="cn">${reserveVO.centername}</h1>
         <div id="cp"> <!--기관 사진-->
-            <img src="<%=request.getContextPath()%>/resources/images/상담소.jpg" alt="상담소 이미지">
+            <img src="<%=request.getContextPath()%>/resources/images/상담소2.jpg" alt="상담소 이미지">
         </div>
         <div id="res"><!-- 예약 및 일정-->   
             <p></p><br>   
@@ -234,11 +235,11 @@
             <h3>${vo.name }</h3>
             <br>
             <dt>
-            	<h4>학력</h4>
+            	<h4>학력</h4><br>
                 <dl>${vo.grade }</dl>
-            </dt>
+            </dt><br>
             <dt>
-            	<h4>자격증</h4>
+            	<h4>자격증</h4><br>
 	            <c:if test="${not empty vo.certi1}">
 	                <dl>${vo.certi1 }</dl>
 	            </c:if>
@@ -251,9 +252,9 @@
 	            <c:if test="${not empty vo.certi4}">
 	                <dl>${vo.certi4 }</dl>
 	            </c:if>
-            </dt>
+            </dt><br>
             <dt>
-              <h4>논문 및 저서</h4>
+              <h4>논문 및 저서</h4><br>
                <c:if test="${not empty vo.article1}">
                 <dl>${vo.article1 }</dl>
                </c:if>
@@ -271,8 +272,8 @@
         </c:forEach>
         <h2>안내말씀</h2>
         <div id="notice">
-            <p>&nbsp; 마음에 안식을 드리고픈${reserveVO.centername }입니다.<br> 
-            세상에 살면서 몸이 힘든 것만 아니라 정신이 힘든 것, 사람때문에 힘든 것도 상처입니다.<br>
+            <p>&nbsp; 마음에 안식을 드리고픈 ${reserveVO.centername }입니다.<br> 
+            세상에 살면서 몸이 힘든 것만 아니라 정신이 힘든 것, 사람 때문에 힘든 것도 상처입니다.<br>
             상담이 필요하시다면 부담 갖지 말고 상담신청해주세요.
             </p>
         </div>
@@ -291,17 +292,24 @@
         </div>
         <h2 id="resInfo2">예약 안내</h2>
         <div id="resInfo"> <!--예약관련 아내-->
-            <dt>01 예약 환불안내
-                <dl>100프로 환불 시점 및 그 이후에 관한 안내</dl>
-            </dt>
-            <dt>02 예약 후 방문 안내
-                <dl>예약 후 방문에 관한 안내</dl>
-            </dt>
-            <dt>03 현장 결제 안내
-                <dl>현장 결제시 유의 사항 안내</dl>
-            </dt>
-            <dt>04 안내
-                <dl>더 궁금하신 상황이 있으시다면 문의 전화를 주시기 바랍니다.</dl>
+            <dt>
+            	<h4>01 예약 환불안내</h4><br>
+                <dl>100% 환불 : 상담 전날까지</dl>
+                <dl>당일 환불 : 50%환불</dl>
+                <dl>예약 후 상담 시간에 오지 않으실 경우 환불이 불가하오니 주의하여 주시기 바랍니다</dl>
+                <dl>현장 결제 당일 노쇼의 경우, 사이트 이용에 불이익이 생길 수 있으니 주의하시기 바랍니다.</dl>
+            </dt><br>
+            <dt>
+            	<h4>02 예약 후 방문 안내</h4><br>
+                <dl>예약 후 방문은 상담소로 오시면 되며, 궁금하신 사항이 있으신 경우 전화로 문의하실 수 있습니다.</dl>
+            </dt><br>
+            <dt>
+            	<h4>03 현장 결제 안내</h4><br>
+                <dl>현장 결제시 예약시간과 상담사님을 말해주시고 결제바랍니다.</dl>
+            </dt><br>
+            <dt>
+            	<h4>04 안내</h4><br>
+                <dl>더 궁금하신 상황이 있으시다면 상담소로 문의 전화를 주시기 바랍니다.</dl>
             </dt>
         </div>
         <h2>오시는 길</h2>

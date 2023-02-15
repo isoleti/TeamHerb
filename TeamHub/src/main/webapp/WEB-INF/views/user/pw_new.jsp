@@ -8,6 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>비밀번호찾기 재설정</title>
 	<script src = "<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
+	<link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
 	<script type="text/javascript">
 
 

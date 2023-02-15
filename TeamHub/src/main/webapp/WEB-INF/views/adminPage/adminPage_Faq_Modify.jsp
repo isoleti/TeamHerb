@@ -12,6 +12,7 @@
     <title>힐링캠프</title>
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>   
     <style>
@@ -140,7 +141,7 @@
                 <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Community_List.do">커뮤니티관리</a></li>
                 <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_Board_List.do">상담사 게시판 관리</a></li>
                 <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Notice_List.do">공지사항 관리</a></li>
-                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Faq_List.do">FAQ 관리</a></li>
+                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Faq_List.do" style="font-weight:bold;">FAQ 관리</a></li>
             </ul>
 		</div><!--e:#left_nav-->
 		<div id="form_wrapper">

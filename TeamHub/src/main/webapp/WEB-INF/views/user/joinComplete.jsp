@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>회원가입 완료</title>
 <link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
 <style>
   main{margin:0 auto;  width:1160px; }
         
