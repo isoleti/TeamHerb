@@ -38,6 +38,7 @@
 				} 
 				else
 				{
+					alert("회원정보 수정이 완료되었습니다.")
 					form.action="<%=request.getContextPath() %>/page/userModify.do";
 					form.method="POST";
 					form.submit();
