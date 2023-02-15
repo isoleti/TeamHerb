@@ -11,6 +11,7 @@
 		<meta charset="UTF-8">
 		<title>회원정보수정</title>
 		<link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
+		<link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
 		<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
 		<script>
 		$(function(){ //회원가입페이지가 로드됐을때 function실행 

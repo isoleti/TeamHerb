@@ -15,6 +15,7 @@
 <title>마이페이지 상담사후기</title>
 <link href="<%= request.getContextPath() %>/resources/css/bootstrap.css" rel="stylesheet">
 <link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
 <style>
       main{margin:0 auto;  width:1160px; }
         main h2{font-size:22px; margin:80px 250px; }

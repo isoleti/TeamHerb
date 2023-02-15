@@ -18,6 +18,7 @@
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
     <style>
         main{position: relative;}
         main h1{margin-left:15%; margin-bottom:2%;}
@@ -142,7 +143,7 @@
            <a href="<%=request.getContextPath()%>/program.do">치료프로그램</a>
             <a href="<%=request.getContextPath()%>/test.do">심리테스트</a>
             <a href="<%=request.getContextPath()%>/community/community_list.do">커뮤니티</a>
-            <a href="<%=request.getContextPath()%>/res/findcenter.do">상담 예약</a>
+            <a href="<%=request.getContextPath()%>/res/findcenter.do" style="font-weight:bold;">상담 예약</a>
             <a href="<%=request.getContextPath()%>/counseller_board/counseller_board_list.do">상담사 게시판</a>
             <section></section>
         </nav> <!-- fin 상단 네비게이션 -->

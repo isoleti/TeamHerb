@@ -16,6 +16,7 @@
     <link href="<%=request.getContextPath()%>/resources/css/bootstrap.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/resources/css/css3.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+	<link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	
@@ -77,12 +78,11 @@
 	        				 	  <div class="accordion" id="accordionExample" >
 						                <div class="accordion-item" >
 							                  	<h2 class="accordion-header" id="headingOne">
-							                  		
-								                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${status.index}" aria-expanded="true" aria-controls="collapseOne">
+								                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${status.index}" aria-expanded="true" aria-controls="collapse${status.index}">
 								                     	 ${list.title}
 								                    </button>
 							                  	</h2>
-							                  	<div id="collapse${status.index}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+							                  	<div id="collapse${status.index}" class="accordion-collapse collapse" aria-labelledby="heading${status.index}" data-bs-parent="#accordionExample">
 								                    <div class="accordion-body">
 								                      	${list.content}  
 								                    </div>
@@ -91,7 +91,7 @@
 								                    </div>
 						                  		</div>
 					                	</div>
-
+<%-- 										    <div id="collapse${status.index}" class="${status.index eq 0 ?'accordion-collapse collapse show':'accordion-collapse collapse' }" aria-labelledby="heading${status.index}" data-bs-parent="#accordionExample"> --%>
 					               </div><!-- accordion -->
 					             
 				               </c:forEach> 	
@@ -323,6 +323,12 @@
 		}
 
 	</style>
+	<script>
+		$(".accordion-button").click(function(){
+			var nextt = $(this).find("div");
+			console.log(nextt);
+		});
+	</script>
 
 
 </html>
