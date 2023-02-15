@@ -168,21 +168,30 @@ public class PageController {
 	@RequestMapping(value = "/userModify.do", method = RequestMethod.POST)
 	public String userModify(UserVo vo, HttpSession session, Model model, HttpServletRequest request) {
 		System.out.println("/userModify.do POST : " + vo.toString());
-
+		
 		/*
 		 * //비밀번호 암호화 String userPw = vo.getPw(); vo.setPw(UserSha256.encrypt(userPw));
 		 * 
 		 * 
 		 * //암호화 확인 System.out.println("userPw:" + vo.getPw());
 		 */
-
+		
+		String usertype = vo.getUsertype();
+		
 		if (userService.userModify(vo) != 1) {
-			System.out.println("/userModify.do POST : error ");
-			return "redirect:userModify.do?uidx=" + vo.getUidx();
+		System.out.println("/userModify.do POST : error ");
+		return "redirect:userModify.do?uidx=" + vo.getUidx();
 		}
 		System.out.println("/userModify.do POST : done ");
-		session.invalidate();
-		return "redirect:/";
+		
+			
+		if(usertype.equals("u")) {		
+			System.out.println("유저타입뭔지"+vo.getUsertype());
+			return "redirect:mypageRes.do";
+			}
+		else {
+			return "redirect:counspageRes.do";
+		}
 	}
 
 	// 비밀번호 변경(결국 못함)

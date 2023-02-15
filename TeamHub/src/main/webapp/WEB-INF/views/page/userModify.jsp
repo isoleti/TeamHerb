@@ -11,6 +11,7 @@
 		<meta charset="UTF-8">
 		<title>회원정보수정</title>
 		<link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
+		<link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
 		<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
 		<script>
 		$(function(){ //회원가입페이지가 로드됐을때 function실행 
@@ -107,7 +108,7 @@
       </div>
    
         <nav class="navbar" > <!-- 네비게이션 -->
-            <h1><a href=""><img src="../resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
+            <h1><a href="<%=request.getContextPath()%>/"><img src="../resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
            
             <section></section>
         </nav>
@@ -117,6 +118,7 @@
         
 		<form method="POST"> <!-- onsubmit="return DoSubmit();" --> 
 			<input type="hidden" id="uidx" name="uidx" value="${login.uidx}">
+			<input type="hidden" id="usertype" name="usertype" value="${login.usertype}">
          <div class="userimfo">
             <div class="basic">
             <a class="p">기본정보</a>
