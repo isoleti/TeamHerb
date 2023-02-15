@@ -111,7 +111,7 @@
       </div>
    
         <nav class="navbar" > <!-- 네비게이션 -->
-            <h1><a href=""><img src="../resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
+            <h1><a href="<%=request.getContextPath()%>/"><img src="../resources/upload/힐링캠프 logo.png" alt="홈버튼"></a></h1>
            
             <section></section>
         </nav>
@@ -121,6 +121,7 @@
         
 		<form method="POST"> <!-- onsubmit="return DoSubmit();" --> 
 			<input type="hidden" id="uidx" name="uidx" value="${login.uidx}">
+			<input type="hidden" id="usertype" name="usertype" value="${login.usertype}">
          <div class="userimfo">
             <div class="basic">
             <a class="p">기본정보</a>
