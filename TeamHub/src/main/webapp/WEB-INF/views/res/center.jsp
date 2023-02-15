@@ -51,6 +51,7 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="<%=request.getContextPath()%>/resources/js/index.global.js"></script> 
+    <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
 	<script>	
 	      document.addEventListener('DOMContentLoaded', function() {
 	    	var name= document.getElementById("cn").innerHTML;
@@ -117,7 +118,10 @@
 </head>
 <body>
     <header>    <!--header-->
-      <div> <!--로그인 관련-->             
+      <div> <!--로그인 관련-->   
+      <c:if test = "${login != null}">
+      <p>[&nbsp ${login.id }&nbsp]님 환영합니다.</p>
+      </c:if>          
       <c:if test = "${login == null}">   
             <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
             <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
