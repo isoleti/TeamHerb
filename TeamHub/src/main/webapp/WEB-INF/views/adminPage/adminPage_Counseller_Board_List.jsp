@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="project.healingcamp.vo.Community_BoardVO" %>
 <%@ page session="true" %>
 <%List<Community_BoardVO> counseller_board_list = (List<Community_BoardVO>)request.getAttribute("counseller_board_list");%>
@@ -92,6 +93,7 @@
         text-align: center;
         background-color: #EBF1E9;
         margin-bottom:20px;
+        table-layout:fixed;
         }
         #list table tr{
         border-bottom:1px solid white;
@@ -101,6 +103,9 @@
         }
         #list table tr th,td{
         padding:5px;
+        text-overflow: ellipsis;
+    	overflow: hidden;
+    	white-space: nowrap;
         }
         #delete_btn_wrapper{
         display: flex;
@@ -221,7 +226,8 @@
 	                    <td><input type="checkbox" class="checkbox" name="bidx" value="${vo.bidx }"></td>
 	                    <td><a href="<%=request.getContextPath()%>/counseller_board/counseller_board_view.do?bidx=${vo.bidx}">${vo.title }</a></td>
 	                    <td>${vo.id }</td>
-	                    <td>${vo.wdate }</td>
+	                    <c:set var="wdate" value="${vo.wdate }"/>
+	                    <td>${fn:substring(wdate,0,11)}</td>
 	                </tr>
                 </c:forEach>
             </table>
