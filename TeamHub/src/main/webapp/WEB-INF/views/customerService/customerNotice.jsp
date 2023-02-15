@@ -162,7 +162,7 @@
 			height:700px;
 		}
 		main .customerCenter_area{
-			margin:0 7%;
+			margin:0 auto;
 			width:75%;
 			height:100%;
 			display: flex;
