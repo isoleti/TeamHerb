@@ -169,6 +169,8 @@
         ,mail
         ,phone
         ,usertype
+        ,name
+        ,center
         from usertable
         where uidx=#{uidx}
    </select>
@@ -178,7 +180,7 @@
       set mail =#{mail}
        ,phone =#{phone}
        ,center =#{center}
-       
+       ,name =#{name}
       where uidx = #{uidx} 
    </update>
    
