@@ -215,7 +215,6 @@
                     <th>이름</th>
                     <th>이메일</th>
                     <th>가입일</th>
-                    <th style="width:10%;">승인</th>
                 </tr>
 	<form action="member_delete.do" method="post">
 	<input type="hidden" name="usertype" value="c">
@@ -227,7 +226,6 @@
                     <td>${vo.name }</td>
                     <td>${vo.mail }</td>
                     <td>${vo.edate }</td>
-                    <td>승인</td>
                 </tr>
 				</c:forEach>
             </table>
@@ -235,7 +233,6 @@
         <div id="delete_btn_wrapper">
             <button type="submit" id="deleteBtn2"  class="btn">탈퇴</button>
     </form>
-            <button onclick="banPopup()" id="banBtn" class="btn">승인</button>
         </div>
        
 

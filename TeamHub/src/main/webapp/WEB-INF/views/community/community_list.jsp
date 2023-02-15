@@ -135,7 +135,7 @@
     text-decoration:none;
     }
     .community .main .content{
-    max-height: 71px;
+    max-height: 69px;
     word-break: break-all;
     overflow: hidden;
     display: -webkit-box;

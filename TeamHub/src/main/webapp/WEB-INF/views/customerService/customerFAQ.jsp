@@ -221,6 +221,10 @@
 		nav ul li{
 			cursor: pointer;
 		}
+		.active{
+			background:white;
+			font-weight:bold;
+		}
 	</style>
 
 </head>
