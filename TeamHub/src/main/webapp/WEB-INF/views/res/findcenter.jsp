@@ -29,8 +29,8 @@
         main div p{margin-left:15%; margin-top:1%;}
         main #frm .center p #centername,
         main #frm .center p #centeraddr,
-        main #frm .center p #centercall{width:300px; border:hidden;}
-        
+        main #frm .center p #centercall{width:300px; border:hidden; cursor:pointer;}
+         main #frm .center{cursor:pointer;}
         button{margin-left:10%;}
     </style>   
 </head>
