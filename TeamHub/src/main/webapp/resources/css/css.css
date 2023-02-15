@@ -2,8 +2,12 @@
 
 * a{text-decoration-line:none; color: inherit;}
 header{margin-bottom:5%;}
-header div p{display: inline-block; margin-left:5%;}
-header div{margin-left:80%; margin-top:1%;}
+header div p{display: inline-block; padding:0 10px;}
+header div p:last-child{margin-right:80px;}
+/* header div p{display: inline-block; margin-left:5%;} */
+header div{margin-top:1%; float:right;}
+/* header div{margin-left:80%; margin-top:1%;} */
+.navbar{clear:both;}
 
 header nav p{margin-left:1%; font-size:20px;}
 header nav h1{margin-left:10%;}
