@@ -16,6 +16,9 @@ header div p:last-child{margin-right:80px;}
 header div{margin-top:1%; float:right;}
 /* header div{margin-left:80%; margin-top:1%;} */
 .navbar{clear:both;}
+#loginBar{display:flex;}
+#xeicon{font-size:25px;}
+#loginId{padding:0 10px 0 0;}
 
 header nav p{margin-left:1%; font-size:20px;}
 header nav h1{margin-left:10%;}

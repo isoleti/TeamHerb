@@ -230,10 +230,11 @@
 </head>
 <body>
 	<header>    <!--header-->
-        <div> <!--로그인 관련-->
-            <c:if test = "${login != null}">
-	        <p>[&nbsp ${login.id }&nbsp]님 환영합니다.</p>
-	        </c:if> 
+        <div id="loginBar"> <!--로그인 관련-->
+          <c:if test = "${login != null}">
+          <i id="xeicon" class="xi-profile-o"></i>
+          <p id="loginId">${login.id }님 환영합니다.</p>
+	       </c:if> 
 	        <c:if test = "${login == null}">   
 	            <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
 	            <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
