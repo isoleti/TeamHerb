@@ -74,6 +74,7 @@
 		        .ch2{position:relative; left:450px; top:-42px;}
 		        .ch2 input{margin-right:10px;}
 				
+				 #name{margin-left:67px;}
 				 #center{margin-left:35px;}
 		        .btn{width:180px; height:40px; border-radius:5px; border: none; color:white; 
 		                font-weight:bold; margin-left:80px;cursor: pointer; position:relative; top:130px; font-size:15px;}
@@ -126,6 +127,9 @@
          <div class="userimfo">
             <div class="basic">
             <a class="p">기본정보</a>
+            <c:if test = "${login.usertype eq 'c'}">
+            <a>이름 <input type="text" name="name" id="name" value="${vo.name}" readonly></a><br>
+             </c:if>
             <a>아이디 <input type="text" name="id" id="id" value="${vo.id}" disabled></a><br>
             <a>이메일주소  <input type="text" name="mail" id="mail" value="${vo.mail}"></a><br>
             <a>연락처 <input type="number" name="phone" id="phone" value="${vo.phone}"></a><br>
