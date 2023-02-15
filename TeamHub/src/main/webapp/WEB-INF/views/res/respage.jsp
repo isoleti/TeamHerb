@@ -42,6 +42,7 @@
         main #res .btn-dark{margin-left:4%;}       
         
         main input {border:none; background:#f0ffff;}
+        .close-area2{cursor:pointer;}
         
         /*modal style*/
         #modal.modal-overlay {

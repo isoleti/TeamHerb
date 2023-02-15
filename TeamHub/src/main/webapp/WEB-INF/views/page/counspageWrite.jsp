@@ -33,7 +33,7 @@
         .btn1{ height:50px; font-size:18px;  margin:30px 0;font-weight:bold;}
         
         .btn2{height:35px; font-size:15px; border-radius:5px;  margin-top:20px;}
-        .content{display:inline-block; position: relative; top:-300px; left:50px; }
+        .content{display:inline-block; position: relative; top:-305px; left:50px; }
         .p{ font-size:20px; 
             display:block; margin-top:20px;}
         .content a:nth-child(3){display:inline-block;}
