@@ -18,8 +18,7 @@
 <style>
 
         header{margin-bottom:5%;}
-        header div p{display: inline-block; margin-left:5%;}
-        header div{margin-left:80%; margin-top:1%;}
+        header div{margin-top:1%;}
 
         header nav p{margin-left:1%; font-size:20px;}
         header nav h1{margin-left:10%;}
@@ -69,7 +68,9 @@
 <body>
 	 <header>       
          <div> <!--로그인 관련-->
-             
+          <c:if test = "${login != null}">
+	      <p>[&nbsp ${login.id }&nbsp]님 환영합니다.</p>
+	      </c:if>  
           <c:if test = "${login == null}">   
             <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
             <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
