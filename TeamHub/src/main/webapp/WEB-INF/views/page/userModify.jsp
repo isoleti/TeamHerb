@@ -152,7 +152,7 @@
             <button type="button" class="btn" onclick="location.href='<%=request.getContextPath()%>/page/mypageRes.do'">취소</button>
             </c:if>
             <c:if test = "${login.usertype eq 'c'}">
-            <button type="button" class="btn" onclick="location.href='<%=request.getContextPath()%>/page/countspageRes.do'">취소</button>
+            <button type="button" class="btn" onclick="location.href='<%=request.getContextPath()%>/page/counspageRes.do'">취소</button>
             </c:if>
             <button class="btn">저장</button>
             </div><!-- #bar -->
