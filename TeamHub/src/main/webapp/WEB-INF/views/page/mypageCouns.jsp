@@ -55,7 +55,7 @@
         #sb {display:inline-block;}
         #sb button{background:#0ed145; color:white; margin-left:100px;}
 		td{height:50px;}
-        #tb table{border:1px solid #dff6e1; width:800px; height:200px; text-align:center; margin-top:40px;}
+        #tb table{border:1px solid #dff6e1; width:800px; text-align:center; margin-top:40px;}
         #tb tr:nth-child(1){font-weight: bold;}
         #tb td:nth-child(5){padding:0;}
         #tb tr:nth-child(2n){background-color:#dff6e1;}
