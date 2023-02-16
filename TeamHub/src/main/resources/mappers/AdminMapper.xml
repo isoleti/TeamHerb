@@ -381,6 +381,48 @@
  		   	 , content = #{content}
  		   	 , wdate = now()
  		   where bidx = #{bidx} and board_type = '2' AND delyn='N'
- 	</update>	
+ 	</update>
+ 	
+ 	<!-- 예약내역 리스트 -->
+ 	<select id="reserveList" resultType="reserveVO" parameterType="searchVO">
+ 		select residx, center, couns, resdate, rescount, rescancle, uidx, counseling, conidx, state, id, restime, resposition
+ 		  from reservationtable
+ 		  
+ 		<if test="searchType == 'center'">
+			WHERE center LIKE CONCAT('%',#{searchVal},'%')
+		</if>
+		<if test="searchType == 'couns'">
+			WHERE couns LIKE CONCAT('%',#{searchVal},'%')
+		</if>
+		<if test="searchType == 'id'">
+			WHERE id LIKE CONCAT('%',#{searchVal},'%')
+		</if>
+		<if test="resposition != null">
+			WHERE resposition = #{resposition}
+		</if>
+		ORDER BY residx DESC
+      	Limit #{startNum}, #{amount} 
+ 	</select>	
+ 	
+ 	<!-- 예약내역 총 합 -->
+	<select id="reserve_Total" resultType="int" parameterType="searchVO">
+		SELECT COUNT(residx) as total
+  		  FROM reservationtable
+  		  
+		<if test="searchType == 'center'">
+			WHERE center LIKE CONCAT('%',#{searchVal},'%')
+		</if>
+		<if test="searchType == 'couns'">
+			WHERE couns LIKE CONCAT('%',#{searchVal},'%')
+		</if>
+		<if test="searchType == 'id'">
+			WHERE id LIKE CONCAT('%',#{searchVal},'%')
+		</if>
+		<if test="resposition != null">
+			WHERE resposition = #{resposition}
+		</if>
+			
+         
+  	</select>
   	
 </mapper>

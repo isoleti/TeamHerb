@@ -7,7 +7,7 @@
   	
   	<select id="counseller_board_list" resultType="cboardVO" parameterType="searchVO">
   		<![CDATA[
-         SELECT bidx, title, content, wdate, id, hit, likes, delyn, category, ip, uidx, board_type, hide_id, replycnt
+         SELECT bidx, title, content, wdate, id, hit, likes, delyn, category, ip, uidx, board_type, hide_id, replycnt,name
         	FROM boardtable WHERE delyn='N' AND board_type='1'
         ]]>
             
@@ -66,6 +66,7 @@
   			  ,hit
   			  ,bidx
   			  ,likes
+  			  ,name
   		 FROM boardtable
   		WHERE bidx=#{bidx}
   	</select>
@@ -83,6 +84,8 @@
 	  			,IP
 	  			,UIDX
 	  			,BOARD_TYPE
+	  			,NAME
+	  			,replycnt
 	  			)
 			VALUES(
 			      #{title}
@@ -95,6 +98,8 @@
 			     ,#{ip}
 			     ,#{uidx}
 			     ,1
+			     ,#{name}
+			     ,0
 			     )
 	  </insert>
 	  

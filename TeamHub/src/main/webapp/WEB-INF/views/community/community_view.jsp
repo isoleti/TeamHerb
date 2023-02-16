@@ -333,6 +333,7 @@
 	    		dataType:"text",
 	    		success:function(data){
 	    			if(data == "success"){
+	    				console.log(data);
 		    			$("#reply").val("");
 	    				getCommentList(); //댓글 작성 완료시 댓글 목록함수 호출
 	    			}
@@ -369,6 +370,8 @@
 	   					var rdepth = result[i].rdepth //댓글깊이
 	   					var rparent = result[i].rparent;
 	   					var wdate = result[i].reply_Wdate;
+	   					var name = result[i].name;
+		   				var usertype = result[i].usertype;
 
 	   						html += "<div class='reply_area"+rparent+"'>";
 	   						if(reply_Content == ""){ //삭제된 댓글일때
@@ -381,7 +384,11 @@
 		   						    html += 	"<div class='reply_box_wrapper"+reply_Idx+"'>"; //댓글 수정 버튼 클릭시 수정 창으로 바뀌는 부분(수정하려는 댓글의 idx)
 		   						    html += 		"<div class='reply_info_wrapper'>";
 		   						    html += 			"<ul class='reply_info'>";
-		   						    html += 				"<li class='id'>"+writer+"</li>";
+		   						 	if(usertype == "u"){
+			   						    html += 				"<li class='id'>"+writer+"</li>";
+		   						    }else{
+		   						    	html += 				"<li class='id'>"+name+" 상담사</li>";
+		   						    }
 		   						    html += 				"<li class='wdate'>"+wdate+"</li>";
 
 		   						    if(id == writer){ //현재 로그인된 아이디일시 댓글수정가능

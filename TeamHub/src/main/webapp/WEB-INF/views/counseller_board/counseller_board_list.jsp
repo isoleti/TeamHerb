@@ -276,7 +276,7 @@
                         <div class="reply">댓글 ${vo.replyCnt }개</div>
                         <div class="hit">조회수 ${vo.hit}</div>
                     </div><!--e:.reaction-->
-                    <div class="user_id">${vo.id}</div>
+                    <div class="user_id">${vo.name} 상담사</div>
                 </div><!--e:.footer-->
             </div><!--e:.community-->          
         </c:forEach>

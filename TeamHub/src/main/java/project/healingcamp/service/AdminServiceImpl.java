@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import project.healingcamp.dao.AdminDAO;
 import project.healingcamp.vo.Community_BoardVO;
+import project.healingcamp.vo.ReserveVO;
 import project.healingcamp.vo.SearchVO;
 import project.healingcamp.vo.UserVo;
 
@@ -135,6 +136,18 @@ public class AdminServiceImpl implements AdminService {
 	public int FaqUpdate_ByBidx(Community_BoardVO cboardVO) {
 		
 		return adminDAO.FaqUpdate_ByBidx(cboardVO);
+	}
+
+	//예약내역 리스트
+	@Override
+	public List<ReserveVO> reserveList(SearchVO searchVO) {
+		List<ReserveVO> reserveList = adminDAO.reserveList(searchVO);
+		return reserveList;
+	}
+	//예약내역 총 갯수
+	@Override
+	public int reserve_Total(SearchVO searchVO) {
+		return adminDAO.reserve_Total(searchVO);
 	}
 
 	

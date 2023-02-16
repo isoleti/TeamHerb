@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ page import="project.healingcamp.vo.Community_BoardVO" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="project.healingcamp.vo.ReserveVO" %>
 <%@ page session="true" %>
-<%List<Community_BoardVO> counseller_board_list = (List<Community_BoardVO>)request.getAttribute("counseller_board_list");%>
+<%List<ReserveVO> reserveList  = (List<ReserveVO>)request.getAttribute("reserveList ");%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,35 +18,34 @@
     <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
     <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-  	<style>
-       
+    <style>
         main{
-            width:80%;
-            margin:0 auto;
-            min-height: 350px;
+        width:80%;
+        margin:0 auto;
+        min-height: 350px;
         }
         main #left_nav{
-            background-color: rgb(183,214,163);
-            border-radius: 10px;
-            padding:20px;
-            display: inline-flex;
-            flex-direction: column;
-            float:left;
-            margin-right:30px;
+        background-color: rgb(183,214,163);
+        border-radius: 10px;
+        padding:20px;
+        display: inline-flex;
+        flex-direction: column;
+        float:left;
+        margin-right:30px;
         }
         main #left_nav h3{
-            font-weight: bold;
+        font-weight: bold;
         }
         main #left_nav ul{
-            margin-bottom:0rem;
+        margin-bottom:0rem;
         }
         main #left_nav li{
-            padding:10px 0;
-            font-size: 17px;
+        padding:10px 0;
+        font-size: 17px;
         }
         #search_wrapper{
-            display: flex;
-            margin-bottom:15px;
+        display: flex;
+        margin-bottom:15px;
         }
         #search_wrapper #searchType{
         height:32px;
@@ -78,10 +77,10 @@
         #filter_option li{
         padding:0 10px;
         list-style:none;
-        }
-        #filter_option li:nth-child(2){
         border-left:1px solid gray;
-        border-right:1px solid gray;
+        }
+        #filter_option li:first-child{
+        border-style:none;
         }
         #filter_option button{
 		border-style:none;
@@ -90,12 +89,13 @@
         #list{
         display:flex;
         margin-top:15px;
+        flex-wrap:wrap;
+        justify-content:center;
         }
         #list table{
         text-align: center;
         background-color: #EBF1E9;
         margin-bottom:20px;
-        table-layout:fixed;
         }
         #list table tr{
         border-bottom:1px solid white;
@@ -105,21 +105,21 @@
         }
         #list table tr th,td{
         padding:5px;
-        text-overflow: ellipsis;
-    	overflow: hidden;
-    	white-space: nowrap;
         }
         #delete_btn_wrapper{
         display: flex;
         flex-direction: row-reverse;
         }
-        #deleteBtn{
+        .btn{
         height:32px;
         border-style: none;
         padding:0 20px;
         background-color: rgb(183,214,163);
         border-radius: 5px;
         font-weight: bold;
+        }
+        .btn:nth-child(1){
+        margin-left:10px;
         }
         .sortActive{
         font-weight: bold;
@@ -133,7 +133,7 @@
           <c:if test = "${login != null}">
           <i id="xeicon" class="xi-profile-o"></i>
           <p id="loginId">${login.id }님 환영합니다.</p>
-          </c:if> 
+          </c:if>   
           <c:if test = "${login == null}">   
             <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
             <p><a href="<%= request.getContextPath() %>/joinMain.do">회원가입</a></p>
@@ -169,87 +169,94 @@
         </nav> <!-- fin 상단 네비게이션 -->
     </header> <!--fin header-->
     
-     <main>
-       <div id="left_nav">
-            <h3>관리자 페이지</h3>
-            <ul>
-                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">회원관리</a></li>
-                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_List.do">상담사관리</a></li>
-                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Community_List.do">커뮤니티관리</a></li>
-                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_Board_List.do" style="font-weight:bold;">상담사 게시판 관리</a></li>
-                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Notice_List.do">공지사항 관리</a></li>
-                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Faq_List.do">FAQ 관리</a></li>
-                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Reserve_List.do">예약 내역 관리</a></li>
-            </ul>
-       </div><!--e:#left_nav-->
-        <div id="search_wrapper">
-                <form action="adminPage_Counseller_Board_List.do" method="get">
+	<main>
+		<div id="left_nav">
+			<h3>관리자 페이지</h3>
+			<ul>
+				<li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Member_List.do">회원관리</a></li>
+				<li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_List.do">상담사관리</a></li>
+				<li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Community_List.do">커뮤니티관리</a></li>
+				<li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_Board_List.do">상담사 게시판 관리</a></li>
+				<li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Notice_List.do">공지사항 관리</a></li>
+				<li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Faq_List.do">FAQ 관리</a></li>
+				<li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Reserve_List.do" style="font-weight:bold;">예약 내역 관리</a></li>
+			</ul>
+		</div><!--e:#left_nav-->
+            <div id="search_wrapper">
+                <form action="adminPage_Reserve_List.do" method="get">
                     <select name="searchType" id="searchType">
-                        <option value="title" <c:if test="${param.searchType eq 'title' }">selected</c:if>>제목</option>
-                        <option value="id" <c:if test="${param.searchType eq 'id' }">selected</c:if>>아이디</option>
+                        <option value="center" <c:if test="${param.searchType eq 'center' }">selected</c:if>>상담기관</option>
+                        <option value="couns" <c:if test="${param.searchType eq 'couns' }">selected</c:if>>상담사</option>
+                        <option value="id" <c:if test="${param.searchType eq 'id' }">selected</c:if>>상담자</option>
                     </select>
                     <input type="text" name="searchVal" id="searchVal" value="${param.searchVal }">
                     <button id="search_btn">검색</button>
-                </form>
             </div><!--e:#seasrch_wrapper-->
         <div id="filter">
-          <ul id="filter_option">
-                <li>
-                <button class="<c:if test="${searchVO.sort eq 'edate' }">sortActive</c:if>" type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Counseller_Board_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=edate'">
-                 	최신순
+           <ul id="filter_option">
+           		<li>
+                <button class="<c:if test="${searchVO.resposition eq null }">sortActive</c:if>" type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Reserve_List.do'">
+                 	전체
                 </button>
                 </li>
                 <li>
-                <button class="<c:if test="${searchVO.sort eq 'id' }">sortActive</c:if>" type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Counseller_Board_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=id'">
-                 	아이디오름차순
+                <button class="<c:if test="${searchVO.resposition eq '예약취소' }">sortActive</c:if>" type="button" value="예약취소" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Reserve_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&resposition=예약취소'">
+                 	예약취소
                 </button>
                 </li>
                 <li>
-                <button class="<c:if test="${searchVO.sort eq 'title' }">sortActive</c:if>" type="button" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Counseller_Board_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&sort=title'">
-                 	제목 오름차순
+                <button class="<c:if test="${searchVO.resposition eq '예약완료' }">sortActive</c:if>" type="button" value="예약완료" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Reserve_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&resposition=예약완료'">
+                 	예약완료
+                </button>
+                </li>
+                <li>
+                <button class="<c:if test="${searchVO.resposition eq '예약대기' }">sortActive</c:if>" type="button" value="예약대기" onclick="location.href='<%=request.getContextPath()%>/adminPage/adminPage_Reserve_List.do?&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}&resposition=예약대기'">
+                 	예약대기
                 </button>
                 </li>
            </ul><!--e:#filter_option-->
         </div><!--e:#filter-->
+                </form>
 
-        <div id="list">
-            <table style="width: 100%;">
-                <tr>
-                    <th style="width:5%;">NO</th>
-                    <th style="width:5%;"><input type="checkbox" id="check_all" name="check_all"></th>
-                    <th style="width:50%;">제목</th>
-                    <th>아이디</th>
-                    <th>작성일</th>
-                </tr>
-                
-         <form action="community_delete.do" method="post">
-         <input type="hidden" name="board_type" value="1">
-                <c:forEach items="${counseller_board_list}" var="vo" varStatus="status">
-	                <tr>
-	                    <td>${pageVO.total-(pageVO.total-((pageVO.pageNum-1)*10+status.index)-1) }</td>
-	                    <td><input type="checkbox" class="checkbox" name="bidx" value="${vo.bidx }"></td>
-	                    <td><a href="<%=request.getContextPath()%>/counseller_board/counseller_board_view.do?bidx=${vo.bidx}">${vo.title }</a></td>
-	                    <td>${vo.id }</td>
-	                    <c:set var="wdate" value="${vo.wdate }"/>
-	                    <td>${fn:substring(wdate,0,11)}</td>
-	                </tr>
-                </c:forEach>
-            </table>
-        </div><!--e:#list-->
-        <div id="delete_btn_wrapper">
-            <button type="submit" id="deleteBtn" class="btn">삭제</button>
-        </div>
-        </form>
-       
+		<div id="list">
+			<table style="width: 100%;">
+				<tr>
+					<th style="width:5%;">NO</th>
+					<th>상담기관</th>
+					<th>상담사</th>
+					<th style="width:10%;">상담일자</th>
+					<th style="width:10%;">상담시간</th>
+					<th>상담가격</th>
+					<th>상담내역</th>
+					<th>상담자</th>
+					<th style="width:6%;">결제여부</th>
+					<th style="width:10%;">예약상태</th>
+				</tr>
+			<c:forEach items="${reserveList}" var="vo" varStatus="status">
+				<tr id="memberList_wrapper">
+					<td>${pageVO.total-(pageVO.total-((pageVO.pageNum-1)*10+status.index)-1) }</td>
+					<td>${vo.center }</td>
+					<td>${vo.couns }</td>
+					<td>${vo.resdate }</td>
+					<td>${vo.restime }</td>
+					<td>${vo.rescount }</td>
+					<td>${vo.counseling }</td>
+					<td>${vo.id }</td>
+					<td>${vo.state }</td>
+					<td>${vo.resposition }</td>
+				</tr>
+			</c:forEach>
+			</table>
+		</div><!--e:#list-->
 
-        <!--부트스트랩 페이지네이션-->
+	        <!--부트스트랩 페이지네이션-->
 	        <nav aria-label="Page navigation example">
 	            <ul style="margin-left:251px;" class="pagination justify-content-center">
 	            
 	<!--          이전버튼 활성화 -->
 	              <c:if test="${pageVO.prev }">
 		              <li class="page-item">
-		                <a class="page-link" href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_Board_List.do?pageNum=${pageVO.startPage-1}&amount=${pageVO.amount}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>" aria-label="Previous">
+		                <a class="page-link" href="<%=request.getContextPath() %>/adminPage/adminPage_Reserve_List.do?pageNum=${pageVO.startPage-1}&amount=${pageVO.amount}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>" aria-label="Previous">
 		                  <span aria-hidden="true">&laquo;</span>
 		                </a>
 		              </li>
@@ -258,7 +265,7 @@
 	<!--          페이지 번호 -->
 	              <c:forEach var="num" begin="${pageVO.startPage }" end="${pageVO.endPage }">
 		              <li class="page-item">
-		              <a class="page-link ${pageVO.pageNum == num ? "active":"" }" href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_Board_List.do?pageNum=${num}&amount=${pageVO.amount}&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>">${num}
+		              <a class="page-link ${pageVO.pageNum == num ? "active":"" }" href="<%=request.getContextPath() %>/adminPage/adminPage_Reserve_List.do?pageNum=${num}&amount=${pageVO.amount}&searchType=${searchVO.searchType}&searchVal=${searchVO.searchVal}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>">${num}
 		              </a>
 		              </li>
 		            </c:forEach>
@@ -266,15 +273,16 @@
 	<!--          다음버튼 활성화 -->
 	              <c:if test="${pageVO.next }">
 		              <li class="page-item">
-		                <a class="page-link" href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_Board_List.do?pageNum=${pageVO.endPage+1}&amount=${pageVO.amount}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>" aria-label="Next">
+		                <a class="page-link" href="<%=request.getContextPath() %>/adminPage/adminPage_Reserve_List.do?pageNum=${pageVO.endPage+1}&amount=${pageVO.amount}<c:if test='${searchVO.sort != null}'>&sort=${searchVO.sort}</c:if>" aria-label="Next">
 		                  <span aria-hidden="true">&raquo;</span>
 		                </a>
 		              </li>
 					</c:if>			
 	            </ul>
 	          </nav>
-	          
+        
     </main>
+    
     <footer>
         <div id="bottom">   
             <br> 
@@ -290,7 +298,7 @@
 </body>
 
 <script>
-	 	$(function(){	 		
+	 	$(function(){
 	 		
 	 		//로그인 정보
 	 		var login = "${login}";
@@ -298,15 +306,17 @@
 		   //전체선택
 	 		$("#check_all").click(function(){ //전체 체크 클릭시
 					if($("#check_all").prop("checked")){ //체크된 경우
-						$("input[name=bidx]").prop("checked",true); //전체 선택
+						$("input[name=uidx]").prop("checked",true); //전체 선택
 					}else{
-						$("input[name=bidx]").prop("checked",false); //전체 해제
+						$("input[name=uidx]").prop("checked",false); //전체 해제
 					}
 	 		});
-	 	
-		   //게시물 삭제
+	 		
+		   //회원탈퇴
 	     	var checkboxes = document.querySelectorAll(".checkbox");
 	    	$("#deleteBtn").click(function(){
+	    		
+	    		//체크박스 체크여부
 	    		var flag = false;
 	    		for(var i = 0; i < checkboxes.length; i++)
 	    		{
@@ -323,7 +333,8 @@
 		    			return false;
 		    		}
 	    			
-	    			alert("삭제할 게시물을 선택해주세요.");
+	    			//체크박스 미선택시
+	    			alert("탈퇴시킬 회원을 선택해주세요.");
 	    			return false;
 	    		}
 	    		
@@ -331,15 +342,18 @@
 	    		if(login == ""){
 	    			alert("로그인 후 이용해주세요.");
 	    			return false;
-	    		}else if(!confirm("게시물을 삭제 하시겠습니까?")){
+	    		}else if(!confirm("회원 탈퇴 하시겠습니까?")){
 	    			return false;
 	    		}else{
-	    			alert("게시물 삭제가 완료되었습니다.");
+	    			alert("탈퇴 처리가 완료되었습니다.");
 	    			return true;
 	    		}
+    			
 	    	});
-	 	});
-     	
+		});   
+	    	
+	   
+	  
     </script>
 
 </html>

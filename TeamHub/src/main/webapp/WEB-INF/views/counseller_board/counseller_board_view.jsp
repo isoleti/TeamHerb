@@ -209,7 +209,7 @@
                 <div id="title">${vo.title }</div>
                 <div id="write_info_wrapper">
                     <ul id="write_info">
-	                    <li class="id">${vo.id }</li>
+	                    <li class="id">${vo.name } 상담사</li>
                         <li class="wdate">${vo.wdate }</li>
                         <li class="hit">조회수 ${vo.hit}</li>
                     </ul><!--e:#write_info-->
@@ -343,12 +343,18 @@
    		   					var reply_Content = result[i].reply_Content.replaceAll("\r\n","<br>"); //댓글 내용
    		   					var writer = result[i].id //댓글 작성자
    		   					var wdate = result[i].reply_Wdate;
+   		   					var name = result[i].name;
+   		   					var usertype = result[i].usertype;
    		   					
    		   				 html += "<div class='reply_box'>";
    						    html += 	"<div class='reply_box_wrapper"+reply_Idx+"'>"; //댓글 수정 버튼 클릭시 수정 창으로 바뀌는 부분(수정하려는 댓글의 idx)
    						    html += 		"<div class='reply_info_wrapper'>";
    						    html += 			"<ul class='reply_info'>";
-   						    html += 				"<li class='id'>"+writer+"</li>";
+   						    if(usertype == "u"){
+	   						    html += 				"<li class='id'>"+writer+"</li>";
+   						    }else{
+   						    	html += 				"<li class='id'>"+name+" 상담사</li>";
+   						    }
    						    html += 				"<li class='wdate'>"+wdate+"</li>";
 
    						    if(id == result[i].id){ //현재 로그인된 아이디일시 댓글수정가능

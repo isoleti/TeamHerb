@@ -12,6 +12,7 @@
           ,phone
           ,mail
           ,center
+          ,name
           from usertable
           where id = #{id}
           and pw = #{pw}

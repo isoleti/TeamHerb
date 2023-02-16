@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import project.healingcamp.vo.Community_BoardVO;
+import project.healingcamp.vo.ReserveVO;
 import project.healingcamp.vo.SearchVO;
 import project.healingcamp.vo.UserVo;
 
@@ -108,6 +109,15 @@ public class AdminDAO {
 	public int NoticeUpdate_ByBidx(Community_BoardVO cboardVO) {
 		System.out.println("공지사항 수정"+cboardVO);
 		return sqlSession.update("project.healingcamp.mapper.adminMapper.NoticeUpdate_ByBidx",cboardVO);
+	}
+	
+	//예약내역 리스트
+	public List<ReserveVO> reserveList(SearchVO searchVO){
+		return sqlSession.selectList("project.healingcamp.mapper.adminMapper.reserveList",searchVO);
+	}
+	//예약내역 총 갯수
+	public int reserve_Total(SearchVO searchVO) {
+		return sqlSession.selectOne("project.healingcamp.mapper.adminMapper.reserve_Total", searchVO);
 	}
 	
 }

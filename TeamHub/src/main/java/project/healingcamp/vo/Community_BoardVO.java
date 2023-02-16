@@ -18,9 +18,16 @@ public class Community_BoardVO {
 	private int uidx;
 	private String hide_id;
 	private int replyCnt;
+	private String name;
 	
 	
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public int getReplyCnt() {
 		return replyCnt;
 	}
@@ -122,8 +129,9 @@ public class Community_BoardVO {
 		return "Community_BoardVO [bidx=" + bidx + ", title=" + title + ", content=" + content + ", wdate=" + wdate
 				+ ", id=" + id + ", hit=" + hit + ", likes=" + likes + ", delyn=" + delyn + ", category=" + category
 				+ ", filename=" + filename + ", report=" + report + ", ip=" + ip + ", board_type=" + board_type
-				+ ", uidx=" + uidx + ", hide_id=" + hide_id + ", replyCnt=" + replyCnt + "]";
+				+ ", uidx=" + uidx + ", hide_id=" + hide_id + ", replyCnt=" + replyCnt + ", name=" + name + "]";
 	}
+	
 	
 	
 	

@@ -3,6 +3,7 @@ package project.healingcamp.service;
 import java.util.List;
 
 import project.healingcamp.vo.Community_BoardVO;
+import project.healingcamp.vo.ReserveVO;
 import project.healingcamp.vo.SearchVO;
 import project.healingcamp.vo.UserVo;
 
@@ -47,4 +48,9 @@ public interface AdminService {
 	
 	//공지사항 수정 
 	int NoticeUpdate_ByBidx(Community_BoardVO cboardVO);
+	
+	//예약내역리스트
+	public List<ReserveVO> reserveList(SearchVO searchVO);
+	//예약내역 총 갯수
+	public int reserve_Total(SearchVO searchVO);
 }

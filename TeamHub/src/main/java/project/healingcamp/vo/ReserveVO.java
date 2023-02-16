@@ -12,6 +12,7 @@ public class ReserveVO {
 	private String resc;
 	private String resposition;
 	private String counseling; 
+	private String state;
 				   
 	private int uidx;
 	private int clidx;
@@ -54,6 +55,12 @@ public class ReserveVO {
 	
 	
 	
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	public String getCounseling() {
 		return counseling;
 	}

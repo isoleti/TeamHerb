@@ -8,6 +8,8 @@ public class SearchVO extends Community_BoardVO{
 	private int amount;
 	private String sort;
 	private int startNum;
+	private String resposition;
+	
 	
 	
 	public SearchVO() {
@@ -16,6 +18,14 @@ public class SearchVO extends Community_BoardVO{
 	public SearchVO(int pageNum, int amount) {
 		this.pageNum = pageNum;
 		this.amount = amount;
+	}
+	
+	
+	public String getResposition() {
+		return resposition;
+	}
+	public void setResposition(String resposition) {
+		this.resposition = resposition;
 	}
 	public int getStartNum() {
 		return (this.pageNum-1)*amount;

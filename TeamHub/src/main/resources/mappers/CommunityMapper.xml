@@ -98,6 +98,7 @@
   			,IP
   			,UIDX
   			,BOARD_TYPE
+  			,replycnt
   			 <if test="hide_id !=null"><!-- hide_id가 null인 경우 데이터 삽입 -->
   			,HIDE_ID
   			</if>
@@ -114,6 +115,7 @@
 		     ,#{ip}
 		     ,#{uidx}
 		     ,#{board_type}
+		     ,0
 		     <if test="hide_id !=null"><!-- hide_id가 null인 경우 데이터 삽입 -->
 		     ,#{hide_id}
 		     </if>

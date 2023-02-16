@@ -19,8 +19,9 @@
     <style>
        
         main{
-            width:1024px;
+            width:80%;
             margin:0 auto;
+            min-height: 350px;
         }
         main #left_nav{
             background-color: rgb(183,214,163);
@@ -146,6 +147,7 @@
                 <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Counseller_Board_List.do">상담사 게시판 관리</a></li>
                 <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Notice_List.do">공지사항 관리</a></li>
                 <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Faq_List.do" style="font-weight:bold;">FAQ 관리</a></li>
+                <li><a href="<%=request.getContextPath() %>/adminPage/adminPage_Reserve_List.do">예약 내역 관리</a></li>
             </ul>
 		</div><!--e:#left_nav-->
 		<div id="form_wrapper">
