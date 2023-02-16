@@ -302,8 +302,7 @@ $(function(){
             <a>아이디  <span>*</span><br> <input type="text" name="id" id="id" onblur="blurId(this)" placeholder=" 아이디"  ></a><button class="btn" type="button" onclick="checkId()">중복확인</button>
             <br>
             <a>이메일 주소  <span>*</span><br> <input type="email" name="mail" id="mail" onblur="blurMail(this)" placeholder=" abc@naver.com"></a><button class="btn" type="button" onclick="checkMail()">중복확인</button> <br>
-            <a>연락처  <span>*</span><br> <input type="number" name="phone" id="phone" placeholder=" 01000000000"></a><!-- <button class="btn" type="button" onclick="requestCert()">인증요청</button><br>
-            <a>인증번호  <span>*</span><br><input type="text" name="number" id="number" placeholder=" 인증번호"></a><button class="btn" type="button" onclick="checkCert()">인증하기</button> --><br>
+            <a>연락처  <span>*</span><br> <input type="number" name="phone" id="phone" placeholder=" 01000000000"></a><br>
             <a>기관명  <span>*</span><br> <input type="text" name="center" id="center" placeholder=" 기관명"></a><br>
             <a>학력  <span>*</span><br> <input type="text" name="grade" id="grade" placeholder=" 00대학교 00학과"></a><br>
             <a>상담사 인증 파일  <span>*</span><br> <input type="file" name="file" id="picture" ></a><br>
