@@ -28,6 +28,7 @@
       }
       
       else {
+    	  alert("회원탈퇴가 완료되었습니다.");
          return true;
       }
       })
