@@ -42,11 +42,11 @@
             display:block;  margin-left:70px;}
             
         
-        #rcontent{width:800px; height:100px; border:1px solid #e4e4e4; position:flex;
+        #rcontent{width:800px; height:100px; border:1px solid #e4e4e4; position:relative;
          justify-content:space-between; margin-left:70px;}
          .del{float:right; width:50ox; border:none; background:none; margin-right:10px; font-size:20px; color:#ff7f7f;}
-         .contents{display:inline-block; float:left;}
-        .rdate{display:inline-block; float:right; margin-right:20px; margin-top:70px;color:#afafaf;}
+         .contents{display:inline-block; float:left; width:750px;}
+        .rdate{display:inline-block; float:right; margin-top:70px;color:#afafaf; position:absolute; left:700px;}
         /*  .content button{display: block; border: none; width: 100px; 
             height:30px; margin-top: 20px; border-radius:10px; background:#ff7f7f; font-weight:bold; color:white;
             position: relative; left:700px;}*/
