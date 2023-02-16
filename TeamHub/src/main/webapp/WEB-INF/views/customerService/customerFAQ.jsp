@@ -30,7 +30,7 @@
 		main .main_wrap{
 			
 			width:inherit;	
-			height:1200px;
+			height:14000px;
 		}
 		main .customerCenter_area{
 			margin:0 7%;
