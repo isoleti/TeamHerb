@@ -218,14 +218,21 @@
       
       .Login_btn{
       	 position:relative;
-         width:400px;
+         width:410px;
          height:50px;
          top:2px;
-         right:5px;
+         right:0px;
          font-size:17px;
-      
+         background:#dff6e1;
+         border:none;
+      	 cursor:pointer;
+      	 color:black;
+      	 border:1px solid #c3f6c7;
       }
-      
+      .Login_btn:hover{
+      background:#a3f6aa; 
+      color:black;
+      border:1px solid #34e644; }
    </style>
 </head>
 <body>
