@@ -9,7 +9,7 @@
 			FROM boardtable
 			WHERE delyn = 'N' AND board_type = '2'
 			ORDER BY bidx DESC
-			Limit #{rowStart}, 4
+			Limit #{rowStart}, 2
 	  	</select>  <!-- delyn은 글삭제가 안된거 -->
 	  	
 	  	 <!-- 전체 게시글 수를 구하는 sql문 -->

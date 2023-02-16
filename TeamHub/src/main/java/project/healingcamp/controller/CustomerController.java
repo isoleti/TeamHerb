@@ -27,17 +27,17 @@ public class CustomerController {
 	@RequestMapping(value="/customerNotice.do")
 	public String customerNotice_list(Model model, Criteria cri, Community_BoardVO cboardVO) {
 	
-		System.out.println("페이지번호는?"+ cri.getPage());
-		System.out.println("화면에 출력할 갯수는?"+ cri.getPerPageNum());
-		System.out.println();
+		//System.out.println("페이지번호는?"+ cri.getPage());
+		//System.out.println("화면에 출력할 갯수는?"+ cri.getPerPageNum());
+		//System.out.println();
 		
 		// 전체게시글 데이터 요청
 		List<Community_BoardVO> notice_getList = CsService.notice_getList(cri);
-		System.out.println("notice_getList--> "+notice_getList); 
+		//System.out.println("notice_getList--> "+notice_getList); 
 		
 		PageMaker pageMaker = new PageMaker(cri,CsService.total(cri));
-		 System.out.println("총합계:" + CsService.total(cri));
-		 System.out.println("페이지"+ pageMaker);
+		 //System.out.println("총합계:" + CsService.total(cri));
+		 //System.out.println("페이지"+ pageMaker);
 		
 		//데이터를 모델에 담아 화면에 넘김.
 		model.addAttribute("data",notice_getList);
@@ -51,7 +51,7 @@ public class CustomerController {
 		
 		//페이지네이션
 		PageVO pageVO = new PageVO(searchVO , CsService.faq_Total(searchVO));
-		System.out.println("페이지 넘어왔니"+pageVO);
+		//System.out.println("페이지 넘어왔니"+pageVO);
 		
 		//전체게시글 데이터 요청
 		List<Community_BoardVO> faq_List = CsService.faq_List(searchVO);

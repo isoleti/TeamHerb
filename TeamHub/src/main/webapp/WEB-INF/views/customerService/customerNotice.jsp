@@ -155,12 +155,12 @@
 		h1,h2,h3{
 			margin:0
 		}
-		main{position:relative;
-			height:1000px;}
+		main{
+		position:relative;
+			}
 		main .main_wrap{
-			
 			width:inherit;	
-			height:700px;
+			height:3000px;
 		}
 		main .customerCenter_area{
 			margin:0 auto;
@@ -251,9 +251,7 @@
 			position:relative;
 		}
 		input[id*="answer"] + label em i{
-			position:absolute;
-			top:50%;
-			right:10px;
+
 			width:30px;
 			height:30px;
 			margin-top:-15px;
@@ -324,7 +322,9 @@
 			left:-123px;
 			top: 50px;
 		}
-
+		
+		
+		
 	</style>
 	<script>
 		$(".accordion-button").click(function(){
