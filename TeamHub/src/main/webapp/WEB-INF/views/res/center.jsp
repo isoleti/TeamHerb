@@ -40,7 +40,8 @@
         main .cou p{margin-left:25%;}
         main #cenN{width:50%; margin-left:13%; margin-top:5%; margin-bottom:5%; font-weight:bold;}
         main #cenN div{display:inline-block;margin-left:10%; margin-right:10%; }
-        main #notice p{margin-left:15%; margin-bottom:3%;}
+        main #notice{width:50%; margin-left:13%;}
+        main #notice p{width:100%; margin-bottom:3%;}
         main #review{width:50%; margin-left:13%; margin-bottom:5%;}
         main #review p{margin-left:5%;}
         main #resInfo{width:50%; margin-left:13%; margin-bottom:5%;}
@@ -233,9 +234,10 @@
         <div id="cenN"><!-- 센터 책갈피-->
             <div><a href="#review2">상담후기</a></div>
             <div><a href="#resInfo2">예약 안내</a></div>
+            <hr>
         </div>
-        <c:forEach items="${centerlist}" var="vo" varStatus="status">
         <h2>상담사 소개</h2>
+        <c:forEach items="${centerlist}" var="vo" varStatus="status">
         <div class="cou"><!--상담사 설명-->
             <h3>${vo.name }</h3>
             <br>
@@ -272,15 +274,17 @@
                <c:if test="${not empty vo.article4}">
                 <dl>${vo.article4 }</dl>
                </c:if>
-            </dt>            
+            </dt>
+        <hr>            
         </div>
         </c:forEach>
         <h2>안내말씀</h2>
         <div id="notice">
             <p>&nbsp; 마음에 안식을 드리고픈 ${reserveVO.centername }입니다.<br> 
-            세상에 살면서 몸이 힘든 것만 아니라 정신이 힘든 것, 사람 때문에 힘든 것도 상처입니다.<br>
-            상담이 필요하시다면 부담 갖지 말고 상담신청해주세요.
-            </p>
+		            세상에 살면서 몸이 힘든 것만 아니라 정신이 힘든 것, 사람 때문에 힘든 것도 상처입니다.<br>
+		            상담이 필요하시다면 부담 갖지 말고 상담신청해주세요.
+            </p>          
+            <hr>  
         </div>
         <h2 id="review2">상담 후기</h2>
         <div id="review"><!-- 상담후기 -->
@@ -294,19 +298,21 @@
                 </c:if>
             </dt>
             </c:forEach>
+            <hr>
         </div>
         <h2 id="resInfo2">예약 안내</h2>
         <div id="resInfo"> <!--예약관련 아내-->
             <dt>
             	<h4>01 예약 환불안내</h4><br>
                 <dl>100% 환불 : 상담 전날까지</dl>
-                <dl>당일 환불 : 50%환불</dl>
+                <dl>당일 환불 : 50% 환불</dl>
                 <dl>예약 후 상담 시간에 오지 않으실 경우 환불이 불가하오니 주의하여 주시기 바랍니다</dl>
-                <dl>현장 결제 당일 노쇼의 경우, 사이트 이용에 불이익이 생길 수 있으니 주의하시기 바랍니다.</dl>
+                <dl>현장 결제시 당일 상담을 안오실 경우, 사이트 이용에 불이익이 생길 수 있으니 주의하시기 바랍니다.</dl>
             </dt><br>
             <dt>
             	<h4>02 예약 후 방문 안내</h4><br>
                 <dl>예약 후 방문은 상담소로 오시면 되며, 궁금하신 사항이 있으신 경우 전화로 문의하실 수 있습니다.</dl>
+                <dl>문의 전화 : ${reserveVO.centercall }</dl>
             </dt><br>
             <dt>
             	<h4>03 현장 결제 안내</h4><br>
@@ -316,6 +322,7 @@
             	<h4>04 안내</h4><br>
                 <dl>더 궁금하신 상황이 있으시다면 상담소로 문의 전화를 주시기 바랍니다.</dl>
             </dt>
+            <hr>
         </div>
         <h2>오시는 길</h2>
         <div id="map" style="width:550px;height:400px;"></div>	
