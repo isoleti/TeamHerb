@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="project.healingcamp.vo.Community_BoardVO" %>
 <%@ page session="true" %>
 <%List<Community_BoardVO> notice_List = (List<Community_BoardVO>)request.getAttribute("notice_List");%>
@@ -16,6 +17,7 @@
     <link href="<%=request.getContextPath()%>/resources/css/css.css" rel="stylesheet">
     <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
     <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     <style>
        
         main{
@@ -79,6 +81,7 @@
         text-align: center;
         background-color: #EBF1E9;
         margin-bottom:20px;
+        table-layout:fixed;
         }
         #list table tr{
         border-bottom:1px solid white;
@@ -88,6 +91,9 @@
         }
         #list table tr th,td{
         padding:5px;
+        text-overflow: ellipsis;
+    	overflow: hidden;
+    	white-space: nowrap;
         }
         #delete_btn_wrapper{
         display: flex;
@@ -106,9 +112,10 @@
 </head>
 <body>
      <header>    <!--header-->
-        <div> <!--로그인 관련-->
+        <div id="loginBar"> <!--로그인 관련-->
           <c:if test = "${login != null}">
-          <p>[&nbsp ${login.id }&nbsp]님 환영합니다.</p>
+          <i id="xeicon" class="xi-profile-o"></i>
+          <p id="loginId">${login.id }님 환영합니다.</p>
           </c:if>    
           <c:if test = "${login == null}">   
             <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
@@ -189,7 +196,8 @@
                     <td><input type="checkbox" class="checkbox" name="bidx" value="${vo.bidx }"></td>
                     <td><a href="<%=request.getContextPath()%>/adminPage/adminPage_Notice_Modify.do?bidx=${vo.bidx}">${vo.title }</a></td>
                     <td>${vo.id}</td>
-                    <td>${vo.wdate}</td>
+                    <c:set var="wdate" value="${vo.wdate }"/>
+	                <td>${fn:substring(wdate,0,11)}</td>
                 </tr>
                 </c:forEach>
             </table>

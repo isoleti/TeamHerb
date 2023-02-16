@@ -15,6 +15,7 @@
 <link href="<%= request.getContextPath() %>/resources/css/bootstrap.css" rel="stylesheet">
 <link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
   <style>
 
           main{margin:0 auto;  width:1160px; }
@@ -59,9 +60,10 @@
 </head>
 <body>
    <header>       
-       <div> <!--로그인 관련-->
+       <div id="loginBar"> <!--로그인 관련-->
           <c:if test = "${login != null}">
-	      <p>[&nbsp ${login.id }&nbsp]님 환영합니다.</p>
+          <i id="xeicon" class="xi-profile-o"></i>
+          <p id="loginId">${login.id }님 환영합니다.</p>
 	      </c:if>   
           <c:if test = "${login == null}">   
             <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>

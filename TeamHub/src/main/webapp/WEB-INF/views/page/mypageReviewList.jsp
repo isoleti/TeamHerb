@@ -16,6 +16,7 @@
 <link href="<%= request.getContextPath() %>/resources/css/bootstrap.css" rel="stylesheet">
 <link href="<%= request.getContextPath() %>/resources/css/css2.css" rel="stylesheet">
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <style>
       main{margin:0 auto;  width:1160px; }
         main h2{font-size:22px; margin:80px 250px; }
@@ -41,11 +42,11 @@
             display:block;  margin-left:70px;}
             
         
-        #rcontent{width:800px; height:100px; border:1px solid #e4e4e4; position:flex;
+        #rcontent{width:800px; height:100px; border:1px solid #e4e4e4; position:relative;
          justify-content:space-between; margin-left:70px;}
          .del{float:right; width:50ox; border:none; background:none; margin-right:10px; font-size:20px; color:#ff7f7f;}
-         .contents{display:inline-block; float:left;}
-        .rdate{display:inline-block; float:right; margin-right:20px; margin-top:70px;color:#afafaf;}
+         .contents{display:inline-block; float:left; width:750px;}
+        .rdate{display:inline-block; float:right; margin-top:70px;color:#afafaf; position:absolute; left:700px;}
         /*  .content button{display: block; border: none; width: 100px; 
             height:30px; margin-top: 20px; border-radius:10px; background:#ff7f7f; font-weight:bold; color:white;
             position: relative; left:700px;}*/
@@ -57,9 +58,10 @@
 </head>
 <body>
 	 <header>       
-         <div> <!--로그인 관련-->
+         <div id="loginBar"> <!--로그인 관련-->
           <c:if test = "${login != null}">
-	      <p>[&nbsp ${login.id }&nbsp]님 환영합니다.</p>
+          <i id="xeicon" class="xi-profile-o"></i>
+          <p id="loginId">${login.id }님 환영합니다.</p>
 	      </c:if>   
           <c:if test = "${login == null}">   
             <p><a href="<%=request.getContextPath() %>/user/login.do">로그인</a></p>
