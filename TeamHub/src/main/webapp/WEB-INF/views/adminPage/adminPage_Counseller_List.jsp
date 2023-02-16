@@ -21,7 +21,7 @@
         main{
             width:80%;
             margin:0 auto;
-            min-height: 350px;
+            min-height: 500px
         }
         main #left_nav{
             background-color: rgb(183,214,163);
@@ -212,7 +212,7 @@
 
         <div id="list">
             <table style="width: 100%;">
-                <tr>
+                <tr style="height: 50px;">
                     <th style="width:5%;">NO</th>
                     <th style="width:5%;"><input type="checkbox" id="check_all" name="check_all"></th>
                     <th>아이디</th>

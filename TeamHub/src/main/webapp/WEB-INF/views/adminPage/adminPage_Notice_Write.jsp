@@ -21,7 +21,7 @@
         main{
             width:80%;
             margin:0 auto;
-            min-height: 350px;
+            min-height: 500px;
         }
         main #left_nav{
             background-color: rgb(183,214,163);

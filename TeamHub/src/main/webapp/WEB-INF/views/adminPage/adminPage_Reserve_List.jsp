@@ -22,7 +22,7 @@
         main{
         width:80%;
         margin:0 auto;
-        min-height: 350px;
+        min-height: 500px;
         }
         main #left_nav{
         background-color: rgb(183,214,163);
@@ -220,7 +220,7 @@
 
 		<div id="list">
 			<table style="width: 100%;">
-				<tr>
+				<tr style="height: 70px;">
 					<th style="width:5%;">NO</th>
 					<th>상담기관</th>
 					<th>상담사</th>
@@ -233,7 +233,7 @@
 					<th style="width:10%;">예약상태</th>
 				</tr>
 			<c:forEach items="${reserveList}" var="vo" varStatus="status">
-				<tr id="memberList_wrapper">
+				<tr id="memberList_wrapper" style="height: 50px;">
 					<td>${pageVO.total-(pageVO.total-((pageVO.pageNum-1)*10+status.index)-1) }</td>
 					<td>${vo.center }</td>
 					<td>${vo.couns }</td>
