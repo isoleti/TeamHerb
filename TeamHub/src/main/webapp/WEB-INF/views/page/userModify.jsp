@@ -49,6 +49,7 @@
 		
 		</script>
 		<style>
+			header a:hover{color: #0d6efd;}
 		   main{margin:0 auto;  width:1160px; }
 		        main h2{font-size:22px; margin:80px 250px; }
 		        .userimfo{width:600px; height:400px; display:block; border:1px solid #e4e4e4; 
