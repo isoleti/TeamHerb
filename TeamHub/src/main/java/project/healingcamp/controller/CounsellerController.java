@@ -103,6 +103,7 @@ public class CounsellerController {
 		UserVo login = (UserVo)session.getAttribute("login");
 		cboardVO.setId(login.getId());
 		cboardVO.setUidx(login.getUidx());
+		cboardVO.setName(login.getName());
 		cboardVO.setIp(request.getRemoteAddr());
 		
 		int result = cboardService.counseller_board_insert(cboardVO);
@@ -149,6 +150,8 @@ public class CounsellerController {
 		replyVO.setUidx(login.getUidx()); //댓글작성자 번호
 		replyVO.setId(login.getId()); //댓글작성자 아이디
 		replyVO.setBidx(cboardVO.getBidx()); //작성한댓글의 게시글 번호
+		replyVO.setName(login.getName()); //작성자 이름
+		replyVO.setUsertype(login.getUsertype()); //작성자 유형
 		replyVO.setReply_Ip(request.getRemoteAddr()); // 아이피
 		
 		//댓글작성 후 삽입

@@ -12,7 +12,8 @@ public class ReplyVO {
 	private int board_type;
 	private int rdepth;
 	private int rparent;
-	
+	private String name;
+	private String usertype;
 	
 	
 	
@@ -20,12 +21,20 @@ public class ReplyVO {
 	public String toString() {
 		return "ReplyVO [reply_Idx=" + reply_Idx + ", reply_Content=" + reply_Content + ", id=" + id + ", reply_Wdate="
 				+ reply_Wdate + ", reply_Ip=" + reply_Ip + ", bidx=" + bidx + ", uidx=" + uidx + ", board_type="
-				+ board_type + ", rdepth=" + rdepth + ", rparent=" + rparent + ", getRdepth()=" + getRdepth()
-				+ ", getRparent()=" + getRparent() + ", getBoard_type()=" + getBoard_type() + ", getReply_Idx()="
-				+ getReply_Idx() + ", getReply_Content()=" + getReply_Content() + ", getReply_Wdate()="
-				+ getReply_Wdate() + ", getReply_Ip()=" + getReply_Ip() + ", getUidx()=" + getUidx() + ", getId()="
-				+ getId() + ", getBidx()=" + getBidx() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+				+ board_type + ", rdepth=" + rdepth + ", rparent=" + rparent + ", name=" + name + ", usertype="
+				+ usertype + "]";
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getUsertype() {
+		return usertype;
+	}
+	public void setUsertype(String usertype) {
+		this.usertype = usertype;
 	}
 	public int getRdepth() {
 		return rdepth;
