@@ -160,7 +160,7 @@
 			}
 		main .main_wrap{
 			width:inherit;	
-			height:14000px;
+			height:2400px;
 		}
 		main .customerCenter_area{
 			margin:0 auto;
