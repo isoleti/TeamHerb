@@ -141,7 +141,7 @@
            <a href="<%=request.getContextPath()%>/program.do">치료프로그램</a>
             <a href="<%=request.getContextPath()%>/test.do">심리테스트</a>
             <a href="<%=request.getContextPath()%>/community/community_list.do">커뮤니티</a>
-            <a href="<%=request.getContextPath()%>/res/findcenter.do">상담 내역</a>
+            <a href="<%=request.getContextPath()%>/res/findcenter.do">상담 예약</a>
             <a href="<%=request.getContextPath()%>/counseller_board/counseller_board_list.do">상담사 게시판</a>
             <section></section>
         </nav>

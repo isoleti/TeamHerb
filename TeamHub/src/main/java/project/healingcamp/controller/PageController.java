@@ -250,7 +250,7 @@ public class PageController {
 			}
 			return "page/userDel";
 		} else {
-
+			
 			userService.userDelete(vo);
 			session.invalidate();
 			return "redirect:/";

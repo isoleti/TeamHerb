@@ -74,6 +74,10 @@ $(function(){ //회원가입페이지가 로드됐을때 function실행
 			alert("학력을 입력하세요.");
 			return false;
 		}
+		else if(checkIdFlag && checkMailFlag &&$("#picture").val() == ""){
+			alert("인증파일을 등록하지 않았습니다.");
+			return false;
+		}
 		else if(checkIdFlag && checkMailFlag && $("#pw").val() == ""){
 			alert("비밀번호를 입력하세요.");
 			return false;
