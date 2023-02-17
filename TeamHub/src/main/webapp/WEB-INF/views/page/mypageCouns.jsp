@@ -99,7 +99,7 @@
            <a href="<%=request.getContextPath()%>/program.do">치료프로그램</a>
             <a href="<%=request.getContextPath()%>/test.do">심리테스트</a>
             <a href="<%=request.getContextPath()%>/community/community_list.do">커뮤니티</a>
-            <a href="<%=request.getContextPath()%>/res/findcenter.do">상담 내역</a>
+            <a href="<%=request.getContextPath()%>/res/findcenter.do">상담 예약</a>
             <a href="<%=request.getContextPath()%>/counseller_board/counseller_board_list.do">상담사 게시판</a>
             <section></section>
         </nav>
@@ -111,7 +111,7 @@
                <a><input type="text" id="id" name="id" value="${login.id}" readonly></a>
                 <button class="btn1" onclick="location.href='<%=request.getContextPath()%>/page/pwConfirm.do'">회원정보</button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageRes.do'">나의 예약 </button>
-                <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageCouns.do'">상담 예약</button>
+                <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageCouns.do'">상담 내역</button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageWrite.do'">내가 쓴 글</button>
                 <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/page/mypageReviewList.do'">상담사 후기</button>
                 
