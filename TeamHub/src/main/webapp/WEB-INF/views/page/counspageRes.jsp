@@ -24,7 +24,7 @@
 	 	var res = document.getElementsByName("residx");
 	 	
 	 	 var resval =  $(obj).parent().prev().prev().prev().prev().text();
-	 	/* var resval = res[0].value; */
+	 	
 	 	console.log("resval :" + resval);
 	 	$.ajax({ 		
 	 	
