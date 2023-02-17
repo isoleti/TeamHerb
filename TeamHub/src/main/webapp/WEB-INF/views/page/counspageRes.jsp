@@ -23,7 +23,8 @@
 	 	var fm = document.getElementsByName("frm");
 	 	var res = document.getElementsByName("residx");
 	 	
-	 	var resval = res[0].value;
+	 	 var resval =  $(obj).parent().prev().prev().prev().prev().text();
+	 	/* var resval = res[0].value; */
 	 	console.log("resval :" + resval);
 	 	$.ajax({ 		
 	 	
@@ -46,7 +47,7 @@
 	 	var fm = document.getElementsByName("frm");
 	 	var res = document.getElementsByName("residx");
 	 	
-	 	var resval = res[0].value;
+	 	var resval =  $(obj).parent().prev().prev().prev().prev().text();
 	 	console.log("resval :" + resval);
 	 	$.ajax({ 		
 	 	
@@ -54,7 +55,7 @@
 			 type : "post",
 			 data : {"residx" : resval},
 			 success:function(data){	
-				
+				 alert("예약을 거절하였습니다.");
 				 return "redirect:counspageRes.do";
 			}
 		 
