@@ -59,7 +59,7 @@ public class UserController {
 		vo.setPw(UserSha256.encrypt(userPw));
 		
 		//암호화 확인
-		//system.out.println("userPw:" + vo.getPw());
+		////system.out.println("userPw:" + vo.getPw());
 		
 		//로그인 메서드		
 			UserVo login = userService.login(vo);
@@ -69,7 +69,7 @@ public class UserController {
 				return "user/login";
 			} else{
 				session.setAttribute("login", login);
-				//system.out.println(login.toString());
+				////system.out.println(login.toString());
 				return "redirect:/";
 			}
 		
@@ -89,7 +89,7 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value="/loginCheck.do", method=RequestMethod.POST)
 	public int loginCheck(UserVo vo, Model model, HttpSession session,HttpServletResponse response ) {
-		//system.out.println("id : " + vo.getId()); 
+		////system.out.println("id : " + vo.getId()); 
 		//system.out.println("pw : " + vo.getPw());
 
 		//비밀번호 암호화
@@ -306,7 +306,7 @@ public class UserController {
 						{
 							out = response.getWriter();
 							//system.out.println("out: "+ out);
-							out.println("<script>alert('일치하는 아이디가 존재하지 않습니다.'); history.go(-1);</script>");
+							out.println("<script>alert('일치하는 아이디나 이메일이 없습니다.'); history.go(-1);</script>");
 							out.close();
 							return null;
 						} 
