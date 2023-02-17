@@ -18,6 +18,33 @@
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/images/icons8-clover-16.png">
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.min.js"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+
+<script>
+
+function myres_delete(obj) {
+		
+	 	var fm = document.getElementsByName("frm");
+	 	var res = document.getElementsByName("residx");
+	 	
+	 	var resval =  $(obj).parent().prev().prev().prev().prev().text();
+	 	console.log("resval :" + resval);
+	 	$.ajax({ 		
+	 	
+			 url : "<%=request.getContextPath()%>/page/myres_delete.do",
+			 type : "post",
+			 data : {"residx" : resval},
+			 success:function(data){	
+				 alert("예약을 취소하였습니다.");
+				 location.href = "<%=request.getContextPath() %>/page/mypageRes.do"
+			}
+		 
+		});
+	 	
+}
+	
+</script>
+
+
 <style>
       main{margin:0 auto;  width:1160px; margint-top:0; position:relative; }
         main h2{font-size:22px; margin:80px 250px; }
@@ -145,8 +172,8 @@
             <div id="tb">
            		
             <table border="1">
-           		 <form  action="myres_delete.do" method="post">  
-           		
+           		 <!-- <form action="myres_delete.do" method="post">   -->
+           		 <form name="frm">  
            		 
                 <tr>
                     <td>예약 번호</td>
@@ -167,7 +194,7 @@
                     <td>${reslist.resposition}</td>
                     <td>
                     <c:if test = "${reslist.resposition eq '예약대기'}">
-                    <button>취소</button>                    
+                    <button type="button" onclick="myres_delete(this)">취소</button>                    
                     </c:if>
                     <c:if test = "${reslist.resposition eq '예약취소'}">
                     	취소됨
