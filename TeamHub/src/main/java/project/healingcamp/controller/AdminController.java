@@ -166,11 +166,11 @@ public class AdminController {
 		cboardVO.setUidx(login.getUidx());
 		cboardVO.setIp(request.getRemoteAddr());
 		int bType = cboardVO.getBoard_type();
-		System.out.println("bType:"+bType);
+		//System.out.println("bType:"+bType);
 		
 		//게시글 작성
 		int result = adminService.admin_Insert(cboardVO);
-		System.out.println("result:"+result);
+		//System.out.println("result:"+result);
 		
 		if(bType == 2) {
 			return "redirect:adminPage_Notice_view.do";
@@ -200,7 +200,7 @@ public class AdminController {
 	@RequestMapping(value="/adminPage_Faq_Modify.do", method = RequestMethod.GET)
 	public String adminPage_Faq_Modify(int bidx, Model model) {
 		
-		System.out.println("bidx잘 들어왔니"+bidx);
+		//System.out.println("bidx잘 들어왔니"+bidx);
 		Community_BoardVO cboardVO = adminService.faq_selectBybidx(bidx);
 		List<Community_BoardVO> categoryList = cboardService.categoryList();
 		
@@ -213,7 +213,7 @@ public class AdminController {
 	@RequestMapping(value="/adminPage_Faq_Modify.do", method = RequestMethod.POST)
 	public String adminPage_Faq_Modify(Community_BoardVO cboardVO) {
 		
-		System.out.println("공지사항 update 왜 안들어오니.."+cboardVO);
+		//System.out.println("공지사항 update 왜 안들어오니.."+cboardVO);
 		
 		adminService.FaqUpdate_ByBidx(cboardVO);
 		
@@ -236,7 +236,7 @@ public class AdminController {
 	@RequestMapping(value="/adminPage_Notice_Modify.do", method = RequestMethod.GET)
 	public String adminPage_Notice_Modify(int bidx, Model model) {
 		
-		System.out.println("bidx잘 들어왔니"+bidx);
+		//System.out.println("bidx잘 들어왔니"+bidx);
 		Community_BoardVO cboardVO = adminService.Notice_selectBybidx(bidx);
 		model.addAttribute("cboardVO", cboardVO);
 		return "adminPage/adminPage_Notice_Modify";	
@@ -246,7 +246,7 @@ public class AdminController {
 	@RequestMapping(value="/adminPage_Notice_Modify.do", method = RequestMethod.POST)
 	public String adminPage_Notice_Modify(Community_BoardVO cboardVO) {
 		
-		System.out.println("공지사항 update 왜 안들어오니.."+cboardVO);
+		//System.out.println("공지사항 update 왜 안들어오니.."+cboardVO);
 		
 		adminService.NoticeUpdate_ByBidx(cboardVO);
 		

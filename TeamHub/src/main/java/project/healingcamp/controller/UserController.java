@@ -39,6 +39,7 @@ public class UserController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
+	
 	//로그인
 	@RequestMapping(value="/login.do", method= RequestMethod.GET)
 	public String login() {
@@ -49,7 +50,7 @@ public class UserController {
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
 	public String login(UserVo vo, HttpSession session, Model model, HttpServletRequest request) {
 		//vo값 넘어왔는지 확인
-		//System.out.println("vo : " + vo.toString());
+		////system.out.println("vo : " + vo.toString());
 	
 		
 		
@@ -58,7 +59,7 @@ public class UserController {
 		vo.setPw(UserSha256.encrypt(userPw));
 		
 		//암호화 확인
-		//System.out.println("userPw:" + vo.getPw());
+		//system.out.println("userPw:" + vo.getPw());
 		
 		//로그인 메서드		
 			UserVo login = userService.login(vo);
@@ -68,11 +69,13 @@ public class UserController {
 				return "user/login";
 			} else{
 				session.setAttribute("login", login);
-				//System.out.println(login.toString());
+				//system.out.println(login.toString());
 				return "redirect:/";
 			}
 		
 	}
+	
+	
 	
 	//로그아웃
 	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
@@ -86,14 +89,14 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value="/loginCheck.do", method=RequestMethod.POST)
 	public int loginCheck(UserVo vo, Model model, HttpSession session,HttpServletResponse response ) {
-		//System.out.println("id : " + vo.getId()); 
-		//System.out.println("pw : " + vo.getPw());
+		//system.out.println("id : " + vo.getId()); 
+		//system.out.println("pw : " + vo.getPw());
 
 		//비밀번호 암호화
 		String s_pw = UserSha256.encrypt(vo.getPw()); 
 		vo.setPw(s_pw);
 		//암호화 확인
-		//System.out.println("s_pw:" + s_pw);
+		//system.out.println("s_pw:" + s_pw);
 		//DB에서 ID와 s_pw가 일치하는 계정이 있는지 확인
 		int count = userService.loginCheck(vo, session);
 		if( count == 1 )
@@ -105,6 +108,7 @@ public class UserController {
 			return 0;
 		}
 	}
+	//
 	
 	// 아이디 찾기 페이지로 이동
 	@RequestMapping(value="/idFind.do", method=RequestMethod.GET)
@@ -117,12 +121,12 @@ public class UserController {
 	//아이디 찾기 실행
 	@RequestMapping(value="/findId.do", method=RequestMethod.POST)
 	public String findId(HttpServletResponse response, String mail, Model model) {
-		System.out.println("mail:" +mail);
+		//system.out.println("mail:" +mail);
 		
 		String user = userService.findId(mail); 
 			if(user != null) 
 			{	
-				System.out.println("id:"+mail );
+				////system.out.println("id:"+mail );
 				model.addAttribute("id", user);
 				return "user/idMatch";
 			}
@@ -138,6 +142,7 @@ public class UserController {
 					out.close();
 					
 				} 
+				
 				
 				catch (IOException e) 
 				{	
@@ -166,19 +171,19 @@ public class UserController {
 	public String join(UserVo vo, Model model,HttpServletRequest request) {
 		
 		//암호확인
-		System.out.println("첫번째"+vo.getPw());
+		//system.out.println("첫번째"+vo.getPw());
 		
 		//비밀번호 암호화(sha256
 		String encryPassword = UserSha256.encrypt(vo.getPw());//1.받아온 값을 암호화한다.
 	
 		vo.setPw(encryPassword);//2. 그값을 저장
 		
-		System.out.println("두번째"+vo.getPw());
+		//system.out.println("두번째"+vo.getPw());
 		
 		//회원가입 메서드
 		int joinVo = userService.join(vo);//3. 저장된 객체 그대로 데이터로 보낸다.
 	
-		//인증 메일 보내기 메서드 
+	 
 		
 		return "user/joinComplete";
 		
@@ -221,14 +226,14 @@ public class UserController {
 	@RequestMapping(value="/joinCounselor.do", method=RequestMethod.POST)
 	public String joinCoun(UserVo vo, Model model, HttpServletRequest request,ReserveVO reserveVO, MultipartHttpServletRequest mpRequest)throws Exception  {
 		//암호확인
-		System.out.println("첫번째"+vo.getPw());
+		//system.out.println("첫번째"+vo.getPw());
 				
 		//비밀번호 암호화(sha256
 		String encryPassword = UserSha256.encrypt(vo.getPw());//1.받아온 값을 암호화한다.
 			
 		vo.setPw(encryPassword);//2. 그값을 저장
 				
-		System.out.println("두번째"+vo.getPw());
+		//system.out.println("두번째"+vo.getPw());
 		
 		
 		int joinCounVo = userService.joinCoun(vo, mpRequest);//3. 저장된 객체 그대로 데이터로 보낸다.
@@ -251,11 +256,11 @@ public class UserController {
 		String mail = (String)request.getParameter("mail");
 		String id = (String)request.getParameter("id");
 			
-		//System.out.println("mail: "+mail);
-		//System.out.println("id: "+id);
+		//system.out.println("mail: "+mail);
+		//system.out.println("id: "+id);
 			
 		UserVo vo = userService.selectJoin(mail); //userService의 seletJoin Mapper에서 메일 값을 받아와 vo에 넣어놓는다.
-		//System.out.println("vo: "+vo);	
+		//system.out.println("vo: "+vo);	
 			
 			if(vo != null) { //vo값이 null이아니면  ->mapper의 mail값이 db안에 있는 값과 일치
 			Random r = new Random(); 
@@ -284,7 +289,7 @@ public class UserController {
 						} 
 					catch (Exception e) 
 						{
-							//System.out.println(e.getMessage());
+							//system.out.println(e.getMessage());
 						}
 			
 					ModelAndView mv = new ModelAndView();
@@ -300,7 +305,7 @@ public class UserController {
 						try 
 						{
 							out = response.getWriter();
-							//System.out.println("out: "+ out);
+							//system.out.println("out: "+ out);
 							out.println("<script>alert('일치하는 아이디가 존재하지 않습니다.'); history.go(-1);</script>");
 							out.close();
 							return null;
@@ -323,7 +328,7 @@ public class UserController {
 						try 
 						{
 							out = response.getWriter();
-							//System.out.println("out: "+ out);
+							//system.out.println("out: "+ out);
 							out.println("<script>alert('일치하는 아이디나 이메일이 없습니다.'); history.go(-1);</script>");
 							out.close();
 							return null;
@@ -347,7 +352,7 @@ public class UserController {
 					@RequestParam(value = "num") String num, HttpServletResponse response) throws IOException{
 				
 
-				//System.out.println("num: "+num);
+				////system.out.println("num: "+num);
 				if(email_injeung.equals(num))
 				{
 					return "user/pw_new";
@@ -363,14 +368,14 @@ public class UserController {
 			public String pw_new(UserVo vo, HttpSession session)throws IOException{
 			
 			int result = userService.pwUpdate(vo);
-			//System.out.println("result: "+result);
+			//system.out.println("result: "+result);
 			
 			if(result == 1) {
 				return "user/login";
 				
 			}
 			else {
-				//System.out.println("pw_update"+result);
+				//system.out.println("pw_update"+result);
 				return "user/pw_new";
 			}
 			

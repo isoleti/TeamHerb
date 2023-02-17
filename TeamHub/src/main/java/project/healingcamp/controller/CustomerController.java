@@ -55,7 +55,7 @@ public class CustomerController {
 		
 		//전체게시글 데이터 요청
 		List<Community_BoardVO> faq_List = CsService.faq_List(searchVO);
-		System.out.println(" 리스트?"+faq_List);
+		//System.out.println(" 리스트?"+faq_List);
 		//데이터를 모델에 담아 화면에 넘김.
 		model.addAttribute("pageVO",pageVO);//페이지네이션 전달
 		model.addAttribute("faq_List",faq_List);//글전달
