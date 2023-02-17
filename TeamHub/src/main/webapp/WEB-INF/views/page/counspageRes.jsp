@@ -56,7 +56,7 @@
 			 data : {"residx" : resval},
 			 success:function(data){	
 				 alert("예약을 거절하였습니다.");
-				 return "redirect:counspageRes.do";
+				 location.href = "<%=request.getContextPath() %>/page/counspageRes.do"
 			}
 		 
 		});
