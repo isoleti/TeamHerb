@@ -22,9 +22,9 @@
 					alert("인증번호를 입력해주세요.");
 				}
 								
-			else if(fm.email_injeung.value != fm.num.value){//내가 쓴 이메일 인증 값 == 네이버 메일로 보낸 random num의 값
+			/* else if(fm.email_injeung.value != fm.num.value){ //내가 쓴 이메일 인증 값 == 네이버 메일로 보낸 random num의 값
 				alert("올바른 인증번호가 아니에요.");
-			}
+			} */
 			
 		}
 	 

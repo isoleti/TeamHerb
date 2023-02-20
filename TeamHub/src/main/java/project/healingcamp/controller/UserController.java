@@ -351,16 +351,18 @@ public class UserController {
 			public String pw_set(@RequestParam(value="email_injeung")String email_injeung,
 					@RequestParam(value = "num") String num, HttpServletResponse response) throws IOException{
 				
-
-				////system.out.println("num: "+num);
+						
+				//system.out.println("num: "+num);
 				if(email_injeung.equals(num))
 				{
+					System.out.println("num"+num);
 					return "user/pw_new";
 				}
 				else 
 				{		
 					return "user/pw_auth";
 				}
+			
 			}
 		
 		//db비밀번호 업데이트
