@@ -173,7 +173,7 @@ public class AdminController {
 		//System.out.println("result:"+result);
 		
 		if(bType == 2) {
-			return "redirect:adminPage_Notice_view.do";
+			return "redirect:adminPage_Notice_List.do";
 		}else {
 			return "redirect:adminPage_Faq_List.do";
 		}
