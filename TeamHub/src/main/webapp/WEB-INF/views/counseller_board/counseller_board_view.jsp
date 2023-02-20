@@ -211,7 +211,7 @@
                     <ul id="write_info">
 	                    <li class="id">${vo.name } 상담사</li>
                         <li class="wdate">${vo.wdate }</li>
-                        <li class="hit">조회수 ${vo.hit}</li>
+<%--                         <li class="hit">조회수 ${vo.hit}</li> --%>
                     </ul><!--e:#write_info-->
                 </div><!--e:#write_info_wrapper-->
             </div><!--e:#title_wrapper-->
