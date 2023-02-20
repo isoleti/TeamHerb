@@ -55,7 +55,7 @@
         #tb button{width:50px; margin:0;}
         #navi{width:200px; margin-left:300px;}
         #navi a{font-size:15px; color:black;}
-		ul.pagination{position:relative; top:-250px; left:557px;}
+		ul.pagination{position:relative; top:-250px; left:624px;}
    </style>
 </head>
 <body>
