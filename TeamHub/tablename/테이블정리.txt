@@ -1,0 +1,323 @@
+usertable 이용자 테이블
+
+uidx  유저 고유번호
+id 
+pw
+NAME  이름
+phone 전화번호
+mail  메일
+edate  가입일
+bdate 
+picture 상담사 인증사진
+center 소속 상담기관
+usertype 사용자 등급 
+write_delyn
+delyn
+
+boardtable 게시판 테이블
+
+bidx
+title
+content
+wdate
+id
+hit
+LIKES
+delyn
+category
+filename
+report
+ip
+uidx
+reply_idx
+board_type
+hide_id
+replycnt
+name
+
+centerinterotable
+
+cintidx
+conidx
+cnoidx
+con1
+con2
+con3
+price1
+price2
+price3
+
+centertable
+
+cnoidx
+centername
+centeraddr
+centercall
+
+counselortable
+
+conidx
+NAME
+grade
+certi1
+certi2
+certi3
+certi4
+article1
+article2
+article3
+article4
+uidx
+
+customerservicetable
+
+csidx
+cstype
+cstitle
+cswdate
+cscontent
+csmdate
+csdelyn
+cswriter
+uidx
+
+liketable
+
+LIKE_NO
+LIKENUM
+BIDX
+ID
+
+mp_file
+
+FILE_NO
+uidx
+ORG_FILE_NAME
+STORED_FILE_NAME
+FILE_SIZE
+REGDATE
+DEL_GB
+
+replytable
+
+reply_idx
+reply_content
+id
+reply_wdate
+reply_ip
+bidx
+uidx
+board_type
+rdepth
+rparent
+name
+usertype
+
+reservationtable
+
+residx
+center
+couns
+resdate
+rescount
+rescancle
+uidx
+counseling
+conidx
+state
+id
+restime
+resposition
+
+reviewtable
+
+rcontent
+rdate
+id
+uidx
+cnoidx
+conidx
+
+usertable
+
+uidx
+id
+pw
+NAME
+phone
+mail
+edate
+bdate
+picture
+center
+usertype
+write_delyn
+delyn
+
+CREATE TABLE `usertable` (
+  `uidx` int NOT NULL AUTO_INCREMENT,
+  `id` varchar(12) NOT NULL,
+  `pw` varchar(100) NOT NULL,
+  `NAME` varchar(10) DEFAULT NULL,
+  `phone` int NOT NULL,
+  `mail` varchar(40) NOT NULL,
+  `edate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `bdate` datetime DEFAULT NULL,
+  `picture` varchar(100) DEFAULT NULL,
+  `center` varchar(50) DEFAULT NULL,
+  `usertype` varchar(20) NOT NULL,
+  `write_delyn` char(1) DEFAULT NULL,
+  `delyn` char(1) NOT NULL DEFAULT 'N',
+  PRIMARY KEY (`uidx`)
+)
+
+CREATE TABLE `boardtable` (
+  `bidx` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `content` blob,
+  `wdate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id` varchar(12) NOT NULL,
+  `hit` int NOT NULL,
+  `LIKES` int NOT NULL,
+  `delyn` char(1) DEFAULT 'N',
+  `category` varchar(20) DEFAULT NULL,
+  `filename` varchar(100) DEFAULT NULL,
+  `report` int DEFAULT NULL,
+  `ip` varchar(20) NOT NULL,
+  `uidx` int NOT NULL,
+  `reply_idx` int DEFAULT NULL,
+  `board_type` varchar(1) NOT NULL,
+  `hide_id` varchar(10) DEFAULT NULL,
+  `replycnt` int DEFAULT NULL,
+  `name` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`bidx`),
+  KEY `uidx` (`uidx`),
+  KEY `reply_idx` (`reply_idx`),
+  CONSTRAINT `boardtable_ibfk_1` FOREIGN KEY (`uidx`) REFERENCES `usertable` (`uidx`) ON DELETE CASCADE,
+  CONSTRAINT `boardtable_ibfk_2` FOREIGN KEY (`reply_idx`) REFERENCES `replytable` (`uidx`) ON DELETE CASCADE
+)
+
+CREATE TABLE `replytable` (
+  `reply_idx` int NOT NULL AUTO_INCREMENT,
+  `reply_content` varchar(1000) NOT NULL,
+  `id` varchar(12) NOT NULL,
+  `reply_wdate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `reply_ip` varchar(20) NOT NULL,
+  `bidx` int NOT NULL,
+  `uidx` int NOT NULL,
+  `board_type` varchar(1) DEFAULT NULL,
+  `rdepth` int DEFAULT NULL,
+  `rparent` int DEFAULT NULL,
+  `name` varchar(10) DEFAULT NULL,
+  `usertype` varchar(20) NOT NULL,
+  PRIMARY KEY (`reply_idx`),
+  KEY `uidx` (`uidx`),
+  CONSTRAINT `replytable_ibfk_1` FOREIGN KEY (`uidx`) REFERENCES `usertable` (`uidx`) ON DELETE CASCADE
+)
+
+CREATE TABLE `mp_file` (
+  `FILE_NO` int NOT NULL AUTO_INCREMENT,
+  `uidx` int NOT NULL,
+  `ORG_FILE_NAME` varchar(260) NOT NULL,
+  `STORED_FILE_NAME` varchar(36) NOT NULL,
+  `FILE_SIZE` int DEFAULT NULL,
+  `REGDATE` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `DEL_GB` char(1) NOT NULL DEFAULT 'N',
+  PRIMARY KEY (`FILE_NO`)
+)
+
+CREATE TABLE `reservationtable` (
+  `residx` int NOT NULL AUTO_INCREMENT,
+  `center` varchar(100) DEFAULT NULL,
+  `couns` varchar(20) DEFAULT NULL,
+  `resdate` date NOT NULL,
+  `rescount` varchar(10) DEFAULT NULL,
+  `rescancle` varchar(2) DEFAULT 'N',
+  `uidx` int NOT NULL,
+  `counseling` varchar(100) DEFAULT NULL,
+  `conidx` int DEFAULT NULL,
+  `state` varchar(50) DEFAULT NULL,
+  `id` varchar(12) DEFAULT NULL,
+  `restime` varchar(16) DEFAULT NULL,
+  `resposition` char(20) DEFAULT NULL,
+  PRIMARY KEY (`residx`),
+  KEY `uidx` (`uidx`),
+  KEY `conidx` (`conidx`),
+  CONSTRAINT `reservationtable_ibfk_1` FOREIGN KEY (`uidx`) REFERENCES `usertable` (`uidx`) ON DELETE CASCADE,
+  CONSTRAINT `reservationtable_ibfk_2` FOREIGN KEY (`conidx`) REFERENCES `counselortable` (`conidx`) ON DELETE CASCADE
+)
+
+CREATE TABLE `reviewtable` (
+  `ridx` int NOT NULL AUTO_INCREMENT,
+  `rcontent` varchar(1000) NOT NULL,
+  `rdate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id` varchar(12) NOT NULL,
+  `uidx` int NOT NULL,
+  `cnoidx` int DEFAULT NULL,
+  `conidx` int DEFAULT NULL,
+  PRIMARY KEY (`ridx`),
+  KEY `uidx` (`uidx`),
+  KEY `cnoidx` (`cnoidx`),
+  KEY `conidx` (`conidx`),
+  CONSTRAINT `reviewtable_ibfk_1` FOREIGN KEY (`uidx`) REFERENCES `usertable` (`uidx`) ON DELETE CASCADE,
+  CONSTRAINT `reviewtable_ibfk_2` FOREIGN KEY (`cnoidx`) REFERENCES `centertable` (`cnoidx`) ON DELETE CASCADE,
+  CONSTRAINT `reviewtable_ibfk_3` FOREIGN KEY (`conidx`) REFERENCES `counselortable` (`conidx`) ON DELETE CASCADE
+)
+
+CREATE TABLE `customerservicetable` (
+  `csidx` int NOT NULL AUTO_INCREMENT,
+  `cstype` varchar(2) NOT NULL,
+  `cstitle` varchar(100) NOT NULL,
+  `cswdate` datetime NOT NULL,
+  `cscontent` varchar(1000) NOT NULL,
+  `csmdate` date DEFAULT NULL,
+  `csdelyn` varchar(2) NOT NULL DEFAULT 'N',
+  `cswriter` varchar(30) NOT NULL,
+  `uidx` int NOT NULL,
+  PRIMARY KEY (`csidx`),
+  KEY `uidx` (`uidx`),
+  CONSTRAINT `customerservicetable_ibfk_1` FOREIGN KEY (`uidx`) REFERENCES `usertable` (`uidx`) ON DELETE CASCADE
+)
+
+CREATE TABLE `counselortable` (
+  `conidx` int NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(20) NOT NULL,
+  `grade` varchar(50) DEFAULT NULL,
+  `certi1` varchar(50) DEFAULT NULL,
+  `certi2` varchar(50) DEFAULT NULL,
+  `certi3` varchar(50) DEFAULT NULL,
+  `certi4` varchar(50) DEFAULT NULL,
+  `article1` varchar(50) DEFAULT NULL,
+  `article2` varchar(50) DEFAULT NULL,
+  `article3` varchar(50) DEFAULT NULL,
+  `article4` varchar(50) DEFAULT NULL,
+  `uidx` int NOT NULL,
+  PRIMARY KEY (`conidx`),
+  KEY `uidx` (`uidx`),
+  CONSTRAINT `counselortable_ibfk_1` FOREIGN KEY (`uidx`) REFERENCES `usertable` (`uidx`) ON DELETE CASCADE
+)
+
+CREATE TABLE `centertable` (
+  `cnoidx` int NOT NULL AUTO_INCREMENT,
+  `centername` varchar(50) NOT NULL,
+  `centeraddr` varchar(100) NOT NULL,
+  `centercall` varchar(30) NOT NULL,
+  PRIMARY KEY (`cnoidx`)
+)
+
+CREATE TABLE `centerintrotable` (
+  `cintidx` int NOT NULL AUTO_INCREMENT,
+  `conidx` int NOT NULL,
+  `cnoidx` int NOT NULL,
+  `con1` varchar(30) DEFAULT NULL,
+  `con2` varchar(30) DEFAULT NULL,
+  `con3` varchar(30) DEFAULT NULL,
+  `price1` int DEFAULT NULL,
+  `price3` int DEFAULT NULL,
+  `price2` int DEFAULT NULL,
+  PRIMARY KEY (`cintidx`),
+  KEY `conidx` (`conidx`),
+  KEY `cnoidx` (`cnoidx`),
+  CONSTRAINT `centerintrotable_ibfk_1` FOREIGN KEY (`conidx`) REFERENCES `counselortable` (`conidx`) ON DELETE CASCADE,
+  CONSTRAINT `centerintrotable_ibfk_2` FOREIGN KEY (`cnoidx`) REFERENCES `centertable` (`cnoidx`) ON DELETE CASCADE
+)
